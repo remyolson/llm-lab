@@ -1,0 +1,129 @@
+{
+  "total_datasets": 9,
+  "benchmarking_datasets": 5,
+  "finetuning_datasets": 4,
+  "datasets": [
+    {
+      "name": "mmlu",
+      "category": "benchmarking",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "question",
+        "subject",
+        "choices",
+        "answer"
+      ],
+      "description": "Sample of mmlu dataset from Hugging Face"
+    },
+    {
+      "name": "hellaswag",
+      "category": "benchmarking",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "ind",
+        "activity_label",
+        "ctx_a",
+        "ctx_b",
+        "ctx",
+        "endings",
+        "source_id",
+        "split",
+        "split_type",
+        "label"
+      ],
+      "description": "Sample of hellaswag dataset from Hugging Face"
+    },
+    {
+      "name": "arc",
+      "category": "benchmarking",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "id",
+        "question",
+        "choices",
+        "answerKey"
+      ],
+      "description": "Sample of arc dataset from Hugging Face"
+    },
+    {
+      "name": "truthfulqa",
+      "category": "benchmarking",
+      "total_size": 500,
+      "sample_size": 500,
+      "columns": [
+        "type",
+        "category",
+        "question",
+        "best_answer",
+        "correct_answers",
+        "incorrect_answers",
+        "source"
+      ],
+      "description": "Sample of truthfulqa dataset from Hugging Face"
+    },
+    {
+      "name": "gsm8k",
+      "category": "benchmarking",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "question",
+        "answer"
+      ],
+      "description": "Sample of gsm8k dataset from Hugging Face"
+    },
+    {
+      "name": "alpaca",
+      "category": "fine-tuning",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "instruction",
+        "input",
+        "output",
+        "text"
+      ],
+      "description": "Sample of alpaca dataset from Hugging Face"
+    },
+    {
+      "name": "openorca",
+      "category": "fine-tuning",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "id",
+        "system_prompt",
+        "question",
+        "response"
+      ],
+      "description": "Sample of openorca dataset from Hugging Face"
+    },
+    {
+      "name": "dolly-15k",
+      "category": "fine-tuning",
+      "total_size": 15011,
+      "sample_size": 2000,
+      "columns": [
+        "instruction",
+        "context",
+        "response",
+        "category"
+      ],
+      "description": "Sample of dolly-15k dataset from Hugging Face"
+    },
+    {
+      "name": "wizardlm",
+      "category": "fine-tuning",
+      "total_size": 1000,
+      "sample_size": 1000,
+      "columns": [
+        "idx",
+        "conversations"
+      ],
+      "description": "Sample of wizardlm dataset from Hugging Face"
+    }
+  ]
+}

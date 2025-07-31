@@ -1,0 +1,11 @@
+{
+  "name": "wizardlm",
+  "category": "fine-tuning",
+  "total_size": 1000,
+  "sample_size": 1000,
+  "columns": [
+    "idx",
+    "conversations"
+  ],
+  "description": "Sample of wizardlm dataset from Hugging Face"
+}

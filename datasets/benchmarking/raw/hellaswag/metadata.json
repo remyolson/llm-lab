@@ -1,0 +1,19 @@
+{
+  "name": "hellaswag",
+  "category": "benchmarking",
+  "total_size": 1000,
+  "sample_size": 1000,
+  "columns": [
+    "ind",
+    "activity_label",
+    "ctx_a",
+    "ctx_b",
+    "ctx",
+    "endings",
+    "source_id",
+    "split",
+    "split_type",
+    "label"
+  ],
+  "description": "Sample of hellaswag dataset from Hugging Face"
+}
