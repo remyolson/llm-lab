@@ -1,0 +1,202 @@
+name: Coverage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  coverage:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch full history for better coverage analysis
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-coverage-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-coverage-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install pytest-cov coverage[toml] pytest-html
+    
+    - name: Install package
+      run: pip install -e .
+    
+    - name: Run comprehensive test suite with coverage
+      run: |
+        # Run all unit and provider tests with coverage
+        coverage run -m pytest \
+          tests/unit* \
+          tests/providers/ \
+          tests/parameterized/ \
+          -v \
+          --tb=short \
+          --maxfail=10 \
+          --html=coverage-report.html \
+          --self-contained-html
+        
+        # Generate coverage reports
+        coverage report --show-missing
+        coverage html
+        coverage xml
+        coverage json
+    
+    - name: Generate coverage badge data
+      run: |
+        # Extract coverage percentage for badge
+        COVERAGE=$(python -c "
+        import json
+        with open('coverage.json') as f:
+            data = json.load(f)
+            print(f'{data[\"totals\"][\"percent_covered\"]:.1f}')
+        ")
+        echo "COVERAGE_PERCENTAGE=${COVERAGE}" >> $GITHUB_ENV
+        echo "Coverage: ${COVERAGE}%"
+    
+    - name: Coverage comment on PR
+      if: github.event_name == 'pull_request'
+      uses: py-cov-action/python-coverage-comment-action@v3
+      with:
+        GITHUB_TOKEN: ${{ github.token }}
+        MINIMUM_GREEN: 80
+        MINIMUM_ORANGE: 70
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        file: ./coverage.xml
+        flags: comprehensive
+        name: codecov-comprehensive
+        fail_ci_if_error: false
+        verbose: true
+    
+    - name: Upload coverage reports as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-reports
+        path: |
+          htmlcov/
+          coverage.xml
+          coverage.json
+          coverage-report.html
+        retention-days: 30
+    
+    - name: Check coverage threshold
+      run: |
+        COVERAGE_THRESHOLD=70
+        CURRENT_COVERAGE=$(python -c "
+        import json
+        with open('coverage.json') as f:
+            data = json.load(f)
+            print(int(data['totals']['percent_covered']))
+        ")
+        
+        echo "Current coverage: ${CURRENT_COVERAGE}%"
+        echo "Required threshold: ${COVERAGE_THRESHOLD}%"
+        
+        if [ "$CURRENT_COVERAGE" -lt "$COVERAGE_THRESHOLD" ]; then
+          echo "❌ Coverage ${CURRENT_COVERAGE}% is below threshold ${COVERAGE_THRESHOLD}%"
+          exit 1
+        else
+          echo "✅ Coverage ${CURRENT_COVERAGE}% meets threshold ${COVERAGE_THRESHOLD}%"
+        fi
+    
+    - name: Generate coverage summary
+      if: always()
+      run: |
+        echo "## Coverage Report" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "**Overall Coverage:** ${{ env.COVERAGE_PERCENTAGE }}%" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        # Add detailed coverage breakdown
+        python -c "
+        import json
+        with open('coverage.json') as f:
+            data = json.load(f)
+            files = data['files']
+            
+            print('| File | Coverage |')
+            print('|------|----------|')
+            
+            # Sort files by coverage percentage
+            sorted_files = sorted(files.items(), key=lambda x: x[1]['summary']['percent_covered'])
+            
+            for file_path, file_data in sorted_files:
+                if not file_path.endswith('__init__.py'):  # Skip __init__.py files
+                    coverage = file_data['summary']['percent_covered']
+                    emoji = '🟢' if coverage >= 90 else '🟡' if coverage >= 70 else '🔴'
+                    print(f'| {file_path} | {emoji} {coverage:.1f}% |')
+        " >> $GITHUB_STEP_SUMMARY
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "📊 Detailed coverage report available in artifacts." >> $GITHUB_STEP_SUMMARY
+
+  coverage-diff:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install -r requirements-dev.txt
+        pip install pytest-cov coverage[toml] diff-cover
+    
+    - name: Install package
+      run: pip install -e .
+    
+    - name: Run coverage on current branch
+      run: |
+        coverage run -m pytest tests/unit* tests/providers/ -v --tb=short
+        coverage xml -o coverage-current.xml
+    
+    - name: Switch to base branch and run coverage
+      run: |
+        git fetch origin ${{ github.base_ref }}
+        git checkout origin/${{ github.base_ref }}
+        pip install -e .
+        coverage run -m pytest tests/unit* tests/providers/ -v --tb=short
+        coverage xml -o coverage-base.xml
+    
+    - name: Generate coverage diff
+      run: |
+        git checkout ${{ github.head_ref }}
+        diff-cover coverage-current.xml --compare-branch=origin/${{ github.base_ref }} --html-report=diff-cover.html
+        diff-cover coverage-current.xml --compare-branch=origin/${{ github.base_ref }} --json-report=diff-cover.json
+    
+    - name: Upload diff coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: diff-coverage-report
+        path: |
+          diff-cover.html
+          diff-cover.json
+        retention-days: 14
