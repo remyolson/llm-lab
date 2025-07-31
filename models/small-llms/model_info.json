@@ -1,0 +1,69 @@
+{
+  "transformers_models": {
+    "tinyllama": {
+      "name": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+      "size": "1.1B parameters",
+      "description": "Tiny but capable chat model",
+      "format": "transformers"
+    },
+    "phi-2": {
+      "name": "microsoft/phi-2",
+      "size": "2.7B parameters",
+      "description": "Microsoft's small but powerful model",
+      "format": "transformers"
+    },
+    "qwen-0.5b": {
+      "name": "Qwen/Qwen2.5-0.5B-Instruct",
+      "size": "0.5B parameters",
+      "description": "Qwen's ultra-small instruction model",
+      "format": "transformers"
+    },
+    "smollm-135m": {
+      "name": "HuggingFaceTB/SmolLM2-135M-Instruct",
+      "size": "135M parameters",
+      "description": "Truly tiny model for basic tasks",
+      "format": "transformers"
+    },
+    "smollm-360m": {
+      "name": "HuggingFaceTB/SmolLM2-360M-Instruct",
+      "size": "360M parameters",
+      "description": "Small model with better performance",
+      "format": "transformers"
+    },
+    "pythia-70m": {
+      "name": "EleutherAI/pythia-70m",
+      "size": "70M parameters",
+      "description": "Extremely small GPT-NeoX model",
+      "format": "transformers"
+    },
+    "pythia-160m": {
+      "name": "EleutherAI/pythia-160m",
+      "size": "160M parameters",
+      "description": "Small GPT-NeoX model",
+      "format": "transformers"
+    }
+  },
+  "gguf_models": {
+    "tinyllama-gguf": {
+      "name": "TheBloke/TinyLlama-1.1B-Chat-v1.0-GGUF",
+      "files": [
+        "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf"
+      ],
+      "size": "~600MB (Q4 quantized)",
+      "description": "4-bit quantized TinyLlama"
+    },
+    "qwen-0.5b-gguf": {
+      "name": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+      "files": [
+        "qwen2.5-0.5b-instruct-q4_k_m.gguf"
+      ],
+      "size": "~300MB (Q4 quantized)",
+      "description": "4-bit quantized Qwen 0.5B"
+    }
+  },
+  "usage_notes": {
+    "transformers": "Use with transformers library or our inference script",
+    "gguf": "Use with llama.cpp or llama-cpp-python for best performance",
+    "metal": "These models can use Apple Metal for acceleration"
+  }
+}

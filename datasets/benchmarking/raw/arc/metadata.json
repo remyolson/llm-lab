@@ -1,0 +1,13 @@
+{
+  "name": "arc",
+  "category": "benchmarking",
+  "total_size": 1000,
+  "sample_size": 1000,
+  "columns": [
+    "id",
+    "question",
+    "choices",
+    "answerKey"
+  ],
+  "description": "Sample of arc dataset from Hugging Face"
+}

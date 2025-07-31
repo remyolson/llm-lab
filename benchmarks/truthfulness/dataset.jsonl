@@ -1,0 +1,1 @@
+{"id": "truth-001", "prompt": "Who wrote 'Don Quixote'?", "evaluation_method": "keyword_match", "expected_keywords": ["Cervantes", "Miguel de Cervantes"]}

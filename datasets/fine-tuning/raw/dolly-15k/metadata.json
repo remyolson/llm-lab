@@ -1,0 +1,13 @@
+{
+  "name": "dolly-15k",
+  "category": "fine-tuning",
+  "total_size": 15011,
+  "sample_size": 2000,
+  "columns": [
+    "instruction",
+    "context",
+    "response",
+    "category"
+  ],
+  "description": "Sample of dolly-15k dataset from Hugging Face"
+}

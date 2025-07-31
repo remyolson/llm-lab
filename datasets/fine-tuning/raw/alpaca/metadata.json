@@ -1,0 +1,13 @@
+{
+  "name": "alpaca",
+  "category": "fine-tuning",
+  "total_size": 1000,
+  "sample_size": 1000,
+  "columns": [
+    "instruction",
+    "input",
+    "output",
+    "text"
+  ],
+  "description": "Sample of alpaca dataset from Hugging Face"
+}

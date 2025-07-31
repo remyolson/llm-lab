@@ -1,0 +1,111 @@
+# Product Requirements Document (PRD)
+
+## Project: LLM Lab – MVP "Steel Thread"
+
+### 1. Objectives
+
+1. Demonstrate an end-to-end benchmarking loop against a single Large Language Model (LLM).
+2. Provide a **minimal CLI** that triggers the benchmark run with sensible defaults.
+3. Support **one provider only** – Google Gemini 1.5 Flash – implemented through a simple, non-abstracted wrapper.
+4. Run a **single truthfulness benchmark** using a hard-coded dataset (one prompt) and a **keyword-match evaluator**.
+5. Output results to a **CSV file** that captures all relevant metadata for later analysis.
+6. Lay a clean, extensible foundation for subsequent phases (multi-model comparisons, advanced evaluators, fine-tuning workflows).
+
+### 2. Scope & Non-Goals
+
+| In-Scope (MVP) | Out-of-Scope (Future Phases) |
+| --- | --- |
+| • One benchmark (`truthfulness`) | Multiple benchmarks (e.g., Safety) |
+| • One provider (Gemini 1.5 Flash) | OpenAI, Anthropic providers |
+| • Keyword-match evaluation | LLM-as-Judge evaluation |
+| • CLI with a **single** required flag `--model gemini-1.5-flash` | Parameterised CLI, multi-model runs |
+| • CSV logging | Advanced JSON logging, database storage |
+
+### 3. Implementation Plan
+
+The MVP is intentionally simple yet represents a *complete* vertical slice.
+
+#### Phase 0 – Repository Bootstrapping
+1. Create Python project skeleton & virtual environment
+2. Add `.gitignore`, `requirements.txt`, `README.md`, `config.py`
+
+#### Phase 1 – Core Execution Path («Steel Thread»)
+1. **CLI Entrypoint** – `run_benchmarks.py`
+   - Parse CLI args (only `--model` for now)
+   - Load configuration & dataset
+2. **Provider Layer**
+   - Create `llm_providers/google.py` that wraps the Gemini 1.5 Flash REST endpoint
+3. **Benchmark Dataset**
+   - Add `benchmarks/truthfulness/dataset.jsonl` with one prompt:
+     ```jsonl
+     {"id": "truth-001", "prompt": "Who wrote 'Don Quixote'?", "evaluation_method": "keyword_match"}
+     ```
+4. **Evaluation Layer**
+   - Add `evaluation/evaluators.py` with function `keyword_match(model_response: str, keywords: list[str]) -> dict`
+5. **Orchestration Logic**
+   - `run_benchmarks.py` coordinates provider call, evaluation, and result logging
+6. **Result Logging**
+   - Append results to `results/results.csv` with columns:
+     `timestamp,model_name,benchmark_name,prompt_id,prompt_text,model_response,score,evaluation_notes`
+7. **Smoke Test & Validation**
+   - Run benchmark locally, verify CSV output contains expected “Cervantes” pass
+8. **Documentation & Clean-Up**
+   - Update `README.md` with usage instructions
+   - Tag release `v0.1` on Git
+
+#### Phase 2 – (NEXT release) – Multi-Model Comparison *(out of scope for MVP but influenced by architecture)*
+
+### 4. Technical Specification
+
+#### 4.1 Target File/Directory Structure (post-MVP)
+```
+llm-lab/
+├── .env.example
+├── .gitignore
+├── README.md
+├── requirements.txt
+│
+├── config.py                # Central configuration & API keys loader
+│
+├── llm_providers/
+│   ├── __init__.py
+│   └── google.py            # Gemini 1.5 Flash wrapper
+│
+├── benchmarks/
+│   └── truthfulness/
+│       ├── dataset.jsonl
+│       └── test_truthfulness.py   # (placeholder for future per-benchmark logic)
+│
+├── evaluation/
+│   ├── __init__.py
+│   └── evaluators.py        # keyword_match implementation
+│
+├── results/
+│   └── .gitkeep             # CSV outputs saved here
+│
+├── run_benchmarks.py        # CLI entrypoint/orchestrator
+│
+└── experiments/
+    └── .gitkeep             # Future fine-tuning scripts
+```
+
+#### 4.2 Key Modules & Interfaces
+
+| Area | Module / File | Responsibility |
+| --- | --- | --- |
+| Configuration | `config.py` | Loads env vars / constants, exposes `get_provider_config()` |
+| Provider | `llm_providers.google.GeminiProvider` | `.generate(prompt: str) -> str` |
+| Dataset loader | `benchmarks.*` | Yields prompts & metadata |
+| Evaluator | `evaluation.evaluators.keyword_match` | Scores response, returns `{score, result, notes}` |
+| Orchestrator | `run_benchmarks.py` | CLI parsing, provider call, evaluator dispatch, result logging |
+
+### 5. Success Metrics / Acceptance Criteria
+
+1. **CLI completes without errors** on a clean checkout with `pip install -r requirements.txt`.
+2. `results/results.csv` is created with at least one row and a `score` of `1` for the prompt containing “Cervantes”.
+3. Code passes `flake8` (or `ruff`) linting and basic unit test `pytest` suite (`pytest -q`).
+4. Project layout exactly matches the file tree above.
+5. README contains clear instructions (< 5 mins to reproduce).
+
+---
+*End of PRD – last updated {{DATE}}*

@@ -1,0 +1,16 @@
+{
+  "name": "truthfulqa",
+  "category": "benchmarking",
+  "total_size": 500,
+  "sample_size": 500,
+  "columns": [
+    "type",
+    "category",
+    "question",
+    "best_answer",
+    "correct_answers",
+    "incorrect_answers",
+    "source"
+  ],
+  "description": "Sample of truthfulqa dataset from Hugging Face"
+}

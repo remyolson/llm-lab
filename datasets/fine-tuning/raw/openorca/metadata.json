@@ -1,0 +1,13 @@
+{
+  "name": "openorca",
+  "category": "fine-tuning",
+  "total_size": 1000,
+  "sample_size": 1000,
+  "columns": [
+    "id",
+    "system_prompt",
+    "question",
+    "response"
+  ],
+  "description": "Sample of openorca dataset from Hugging Face"
+}
