@@ -1,0 +1,46 @@
+# Development and testing dependencies
+
+# Testing framework
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.0.0
+pytest-mock>=3.10.0
+pytest-xdist>=3.0.0  # Parallel test execution
+pytest-html>=3.1.0   # HTML test reports
+pytest-json-report>=1.5.0  # JSON test reports
+pytest-timeout>=2.1.0  # Test timeouts
+
+# Code coverage
+coverage[toml]>=7.0.0
+diff-cover>=7.0.0  # Coverage diff reporting
+
+# Code quality
+black>=23.0.0       # Code formatting
+isort>=5.12.0       # Import sorting
+flake8>=6.0.0       # Linting
+mypy>=1.0.0         # Type checking
+bandit>=1.7.0       # Security linting
+safety>=2.3.0       # Dependency vulnerability checking
+
+# Performance testing
+matplotlib>=3.6.0   # For benchmark charts
+seaborn>=0.12.0     # Statistical plots
+pandas>=1.5.0       # Data analysis
+psutil>=5.9.0       # System monitoring
+memory-profiler>=0.60.0  # Memory profiling
+
+# Documentation
+sphinx>=5.0.0       # Documentation generation
+sphinx-rtd-theme>=1.2.0  # ReadTheDocs theme
+sphinxcontrib-napoleon>=0.7  # Google/NumPy docstring support
+
+# Utilities
+tqdm>=4.64.0        # Progress bars
+tabulate>=0.9.0     # Pretty tables
+colorama>=0.4.6     # Cross-platform colored terminal text
+click>=8.1.0        # Command line interface
+
+# Development tools
+pre-commit>=3.0.0   # Git hooks
+ipython>=8.0.0      # Enhanced REPL
+jupyter>=1.0.0      # Jupyter notebooks for analysis
