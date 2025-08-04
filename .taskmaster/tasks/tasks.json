@@ -1439,7 +1439,7 @@
           16,
           17
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -1447,7 +1447,7 @@
             "description": "Revise the main README.md to include comprehensive setup instructions for all supported providers and demonstrate multi-model usage patterns",
             "dependencies": [],
             "details": "Update README.md sections: 1) Add 'Supported Providers' table listing all providers with required API keys and model examples, 2) Expand 'Installation' section with provider-specific dependencies (e.g., anthropic, openai packages), 3) Update 'Configuration' with multi-provider .env setup showing all API key variables, 4) Replace single-model usage examples with multi-model comparisons, 5) Add 'Advanced Usage' section showing batch processing, custom evaluators, and result analysis, 6) Include output examples showing comparative results across providers",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1458,7 +1458,7 @@
               "20.1"
             ],
             "details": "Create docs/providers/ directory structure with files: anthropic.md, openai.md, google.md, mistral.md, xai.md, openrouter.md, ollama.md, azure.md. Each file should include: 1) Provider overview and supported models table, 2) API key acquisition guide with screenshots/links, 3) Model-specific parameters and defaults (temperature ranges, token limits), 4) Rate limiting information and quotas, 5) Known limitations or quirks, 6) Code examples for provider-specific features, 7) Troubleshooting common errors (auth failures, rate limits)",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1470,7 +1470,7 @@
               "20.2"
             ],
             "details": "Create docs/migration-guide.md covering: 1) Breaking changes from v0.1 to current version, 2) Step-by-step upgrade instructions including dependency updates, 3) Configuration file format changes (old vs new .env structure), 4) Code migration examples showing how to update existing scripts, 5) New features overview with before/after comparisons, 6) Backward compatibility considerations, 7) Data format changes in results.csv, 8) How to preserve existing benchmark results during migration",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1483,7 +1483,7 @@
               "20.3"
             ],
             "details": "Create examples/ directory with notebooks: 1) 'getting_started.ipynb' - basic setup and first benchmark, 2) 'model_comparison.ipynb' - comparing 5+ models on various datasets, 3) 'custom_evaluators.ipynb' - creating domain-specific evaluation metrics, 4) 'performance_analysis.ipynb' - visualizing results with plots and statistical analysis, 5) 'batch_processing.ipynb' - running large-scale benchmarks efficiently, 6) 'provider_specific_features.ipynb' - leveraging unique provider capabilities. Include markdown explanations, executable code cells, and result visualizations",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           },
           {
@@ -1497,7 +1497,7 @@
               "20.4"
             ],
             "details": "Create docs/troubleshooting.md covering: 1) Common error messages with solutions (API auth, network, rate limits), 2) Debugging tips with logging configuration, 3) Performance optimization strategies, 4) FAQ section addressing typical user questions. Create docs/interpreting-results.md explaining: 1) Understanding evaluation metrics and scores, 2) Statistical significance in model comparisons, 3) Factors affecting benchmark reliability, 4) Best practices for fair model comparison, 5) Visualization techniques for results, 6) How to identify and handle outliers or anomalies",
-            "status": "pending",
+            "status": "done",
             "testStrategy": ""
           }
         ]
@@ -1505,7 +1505,7 @@
     ],
     "metadata": {
       "created": "2025-07-31T01:11:27.582Z",
-      "updated": "2025-07-31T19:27:08.380Z",
+      "updated": "2025-07-31T19:50:21.895Z",
       "description": "Tasks for master context"
     }
   }

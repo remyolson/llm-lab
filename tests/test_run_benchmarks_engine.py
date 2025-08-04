@@ -13,8 +13,8 @@ import os
 # Add parent directory to path to ensure correct imports
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from run_benchmarks import main
-from benchmark import ModelBenchmarkResult, BenchmarkResult, ExecutionMode
+from scripts.run_benchmarks import main
+from benchmarks import ModelBenchmarkResult, BenchmarkResult, ExecutionMode
 
 
 class TestRunBenchmarksWithEngine:
@@ -51,11 +51,11 @@ class TestRunBenchmarksWithEngine:
         
         return str(dataset_path)
     
-    @patch('run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
-    @patch('run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
+    @patch('scripts.run_benchmarks.load_dataset')
     @patch('benchmark.multi_runner.get_provider_for_model')
-    @patch('run_benchmarks.get_provider_for_model')
-    @patch('run_benchmarks.MultiModelBenchmarkRunner')
+    @patch('scripts.run_benchmarks.get_provider_for_model')
+    @patch('scripts.run_benchmarks.MultiModelBenchmarkRunner')
     def test_use_engine_flag_single_model(self, mock_runner_class, mock_get_provider_cli, 
                                           mock_get_provider_engine, mock_load_dataset, runner):
         """Test --use-engine flag with a single model."""
@@ -122,11 +122,11 @@ class TestRunBenchmarksWithEngine:
         # Verify run was called
         mock_runner.run.assert_called_once_with(["test-model"], "test")
     
-    @patch('run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
-    @patch('run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
+    @patch('scripts.run_benchmarks.load_dataset')
     @patch('benchmark.multi_runner.get_provider_for_model')
-    @patch('run_benchmarks.get_provider_for_model')
-    @patch('run_benchmarks.MultiModelBenchmarkRunner')
+    @patch('scripts.run_benchmarks.get_provider_for_model')
+    @patch('scripts.run_benchmarks.MultiModelBenchmarkRunner')
     def test_use_engine_with_parallel(self, mock_runner_class, mock_get_provider_cli, 
                                       mock_get_provider_engine, mock_load_dataset, runner):
         """Test --use-engine with --parallel flag."""
@@ -179,11 +179,11 @@ class TestRunBenchmarksWithEngine:
         call_kwargs = mock_runner_class.call_args[1]
         assert call_kwargs['execution_mode'] == ExecutionMode.PARALLEL
     
-    @patch('run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
-    @patch('run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
+    @patch('scripts.run_benchmarks.load_dataset')
     @patch('benchmark.multi_runner.get_provider_for_model')
-    @patch('run_benchmarks.get_provider_for_model')
-    @patch('run_benchmarks.MultiModelBenchmarkRunner')
+    @patch('scripts.run_benchmarks.get_provider_for_model')
+    @patch('scripts.run_benchmarks.MultiModelBenchmarkRunner')
     def test_use_engine_with_timeout(self, mock_runner_class, mock_get_provider_cli, 
                                      mock_get_provider_engine, mock_load_dataset, runner):
         """Test --use-engine with --timeout flag."""
@@ -228,11 +228,11 @@ class TestRunBenchmarksWithEngine:
         call_kwargs = mock_runner_class.call_args[1]
         assert call_kwargs['timeout_per_model'] == 30
     
-    @patch('run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
-    @patch('run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
+    @patch('scripts.run_benchmarks.load_dataset')
     @patch('benchmark.multi_runner.get_provider_for_model')
-    @patch('run_benchmarks.get_provider_for_model')
-    @patch('run_benchmarks.MultiModelBenchmarkRunner')
+    @patch('scripts.run_benchmarks.get_provider_for_model')
+    @patch('scripts.run_benchmarks.MultiModelBenchmarkRunner')
     def test_use_engine_progress_callback(self, mock_runner_class, mock_get_provider_cli, 
                                           mock_get_provider_engine, mock_load_dataset, runner):
         """Test that progress callback is properly connected."""
@@ -272,11 +272,11 @@ class TestRunBenchmarksWithEngine:
         # but we can verify it doesn't crash
         captured_callback("model1", 1, 3)  # Should print [1/3] Processing: model1
     
-    @patch('run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
-    @patch('run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.DATASETS', {'test': 'test_dataset.jsonl'})
+    @patch('scripts.run_benchmarks.load_dataset')
     @patch('benchmark.multi_runner.get_provider_for_model')
-    @patch('run_benchmarks.get_provider_for_model')
-    @patch('run_benchmarks.MultiModelBenchmarkRunner')
+    @patch('scripts.run_benchmarks.get_provider_for_model')
+    @patch('scripts.run_benchmarks.MultiModelBenchmarkRunner')
     def test_use_engine_with_failed_models(self, mock_runner_class, mock_get_provider_cli, 
                                            mock_get_provider_engine, mock_load_dataset, runner):
         """Test --use-engine with some models failing."""

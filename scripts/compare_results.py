@@ -6,6 +6,12 @@ This tool provides command-line access to compare benchmark results across
 multiple LLM models and generate comprehensive reports.
 """
 
+import os
+import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import click
 import json
 from pathlib import Path

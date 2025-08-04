@@ -189,7 +189,7 @@ def get_provider_for_model(model_name: str) -> Type[LLMProvider]:
     """
     # Try to resolve alias through configuration manager
     try:
-        from config.provider_config import get_config_manager
+        from src.config.provider_config import get_config_manager
         config_manager = get_config_manager()
         
         # Resolve any aliases
@@ -214,7 +214,7 @@ def get_provider_for_model(model_name: str) -> Type[LLMProvider]:
         
         # Also list available aliases from config
         try:
-            from config.provider_config import get_config_manager
+            from src.config.provider_config import get_config_manager
             config_manager = get_config_manager()
             all_models = config_manager.get_available_models(include_aliases=True)
             

@@ -9,7 +9,7 @@ from pathlib import Path
 
 import pytest
 
-from results_logger import (
+from src.logging.results_logger import (
     CSVResultLogger,
     ResultRecord,
     clean_multiline_text,

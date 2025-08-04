@@ -8,7 +8,7 @@ from datetime import datetime
 from unittest.mock import patch, mock_open
 import json
 
-from results_logger import CSVResultLogger, ResultRecord
+from src.logging.results_logger import CSVResultLogger, ResultRecord
 import tempfile
 import shutil
 import os

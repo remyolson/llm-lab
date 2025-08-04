@@ -217,7 +217,7 @@ class LLMProvider(ABC):
             Configuration dictionary
         """
         try:
-            from config.provider_config import get_config_manager
+            from src.config.provider_config import get_config_manager
             config_manager = get_config_manager()
             
             # Get model configuration

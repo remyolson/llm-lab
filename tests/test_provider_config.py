@@ -9,14 +9,14 @@ from unittest.mock import patch, MagicMock
 import tempfile
 import shutil
 
-from config.provider_config import (
+from src.config.provider_config import (
     ProviderConfigManager,
     ModelConfig,
     ProviderDefaults,
     get_config_manager,
     reset_config_manager
 )
-from llm_providers.exceptions import ProviderConfigurationError
+from src.providers.exceptions import ProviderConfigurationError
 
 
 class TestProviderConfigManager:

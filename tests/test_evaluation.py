@@ -1,6 +1,6 @@
 """Tests for evaluation module."""
 
-from evaluation import keyword_match
+from src.evaluation import keyword_match
 
 
 class TestKeywordMatch:
