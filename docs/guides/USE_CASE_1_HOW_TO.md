@@ -5,12 +5,13 @@
 ## 🎯 What You'll Accomplish
 
 By following this guide, you'll be able to:
-- Compare performance of multiple LLM models on TruthfulQA dataset
+- Compare performance of multiple LLM models across **5 different benchmark datasets**
+- Test models on diverse capabilities: truthfulness, reasoning, math, knowledge, and commonsense
 - **Automatically save detailed results** to CSV files for analysis
 - Generate comprehensive reports with performance metrics
-- Analyze which models perform best for accuracy and speed
+- Analyze which models perform best for different types of tasks
 - Understand the cost implications of each model
-- Make data-driven decisions about model selection
+- Make data-driven decisions about model selection for specific use cases
 
 ## 📋 Before You Begin
 
@@ -44,6 +45,26 @@ Running the full TruthfulQA dataset (500 questions) with different models:
 
 *Note: Costs are estimates based on January 2025 pricing. Actual costs depend on response lengths. Single model tests cost proportionally less.*
 
+## 📊 Available Benchmark Datasets
+
+Choose the right dataset based on what capabilities you want to test:
+
+| Dataset | Size | What It Tests | Best For | Example Question |
+|---------|------|---------------|----------|------------------|
+| **truthfulness** | 500 | Factual accuracy, avoiding misinformation | Fact-checking, reliability assessment | "What happens if you eat watermelon seeds?" |
+| **arc** | 1,000 | Scientific reasoning, logic | STEM applications, analytical thinking | "Why does ice float on water?" |
+| **gsm8k** | 1,000 | Grade-school math problems | Mathematical reasoning, problem-solving | "Janet's ducks lay 16 eggs per day..." |
+| **mmlu** | 1,000 | Academic knowledge across subjects | Broad knowledge assessment, education | "Find the degree for the given field extension..." |
+| **hellaswag** | 1,000 | Commonsense reasoning | Real-world understanding, context | "A man sits on a roof. He..." |
+
+### 🎯 **Dataset Selection Guide:**
+
+- **🔍 For general model evaluation:** Start with `truthfulness` and `arc`
+- **🧮 For math/computational tasks:** Use `gsm8k`  
+- **🎓 For academic/knowledge work:** Choose `mmlu`
+- **🌍 For real-world applications:** Test with `hellaswag`
+- **📊 For comprehensive assessment:** Run all datasets with `--limit 10` first
+
 ## 🚀 Step-by-Step Guide
 
 ### Step 1: Verify Your Configuration
@@ -66,10 +87,16 @@ if os.getenv('ANTHROPIC_API_KEY'): print('  ✓ Anthropic Claude')
 Start with a single model to ensure everything works:
 
 ```bash
-# Quick test with just 10 questions (recommended for first run)
+# Quick test with truthfulness dataset (recommended first run)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10
 
-# Full dataset test (500 questions)
+# Try different dataset types
+python run_benchmarks.py --model gemini-1.5-flash --dataset arc --limit 10        # Science reasoning
+python run_benchmarks.py --model gemini-1.5-flash --dataset gsm8k --limit 10      # Math problems
+python run_benchmarks.py --model gemini-1.5-flash --dataset mmlu --limit 10       # Academic knowledge
+python run_benchmarks.py --model gemini-1.5-flash --dataset hellaswag --limit 10  # Commonsense
+
+# Full dataset test (remove --limit for complete assessment)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness
 
 # Use improved evaluation (better accuracy, default since v2.0)
@@ -77,9 +104,10 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit
 ```
 
 **What Happens:**
-- The benchmark runs through the questions in the TruthfulQA dataset (10 with `--limit 10`, or all 500 for the full dataset)
-- Results are automatically saved to `results/truthfulness/YYYY-MM/benchmark_*.csv`
+- The benchmark runs through questions in your chosen dataset (10 with `--limit 10`, or the full dataset without limit)
+- Results are automatically saved to `results/[dataset]/YYYY-MM/benchmark_*.csv`
 - Progress is displayed in real-time in the console
+- Different datasets test different capabilities (see dataset table above)
 
 **Expected Output:**
 ```
@@ -106,16 +134,28 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit
 
 ### Step 3: Compare Multiple Models
 
-Now run a comparison across different providers:
+Now run comparisons across different providers and datasets:
 
 ```bash
-# Quick comparison with 10 questions (recommended for first comparison)
+# Quick comparison on truthfulness (recommended first comparison)
 python run_benchmarks.py \
   --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
   --dataset truthfulness \
   --limit 10
 
-# Full comparison (500 questions each - more expensive)
+# Test models on math reasoning
+python run_benchmarks.py \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
+  --dataset gsm8k \
+  --limit 10
+
+# Compare on scientific reasoning  
+python run_benchmarks.py \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
+  --dataset arc \
+  --limit 10
+
+# Full comparison on any dataset (more expensive)
 python run_benchmarks.py \
   --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
   --dataset truthfulness
@@ -126,21 +166,57 @@ python run_benchmarks.py \
 For faster execution when testing multiple models:
 
 ```bash
-# Quick parallel test with 10 questions (recommended first)
+# Quick parallel test on truthfulness (recommended first)
 python run_benchmarks.py \
   --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
   --dataset truthfulness \
   --limit 10 \
   --parallel
 
+# Parallel testing on math problems
+python run_benchmarks.py \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
+  --dataset gsm8k \
+  --limit 10 \
+  --parallel
+
 # Full parallel benchmarks (much faster than sequential, but may hit rate limits)
 python run_benchmarks.py \
   --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
-  --dataset truthfulness \
+  --dataset mmlu \
   --parallel
 ```
 
-### Step 5: Analyze Results
+### Step 5: Comprehensive Multi-Dataset Testing
+
+For a complete model assessment across different capabilities:
+
+```bash
+# Quick comprehensive test across all datasets (recommended)
+for dataset in truthfulness arc gsm8k mmlu hellaswag; do
+  echo "Testing $dataset..."
+  python run_benchmarks.py --model gemini-1.5-flash --dataset $dataset --limit 10
+done
+
+# Compare two models across all capabilities
+for dataset in truthfulness arc gsm8k mmlu hellaswag; do
+  echo "Comparing models on $dataset..."
+  python run_benchmarks.py \
+    --models gemini-1.5-flash,gpt-4o-mini \
+    --dataset $dataset \
+    --limit 10 \
+    --parallel
+done
+
+# Single command for quick assessment (if you have all API keys)
+python run_benchmarks.py --all-models --dataset truthfulness --limit 5
+python run_benchmarks.py --all-models --dataset gsm8k --limit 5
+python run_benchmarks.py --all-models --dataset arc --limit 5
+```
+
+**💡 Pro Tip:** Start with `--limit 5` across all datasets to get a broad sense of model performance, then deep-dive into specific datasets that matter most for your use case.
+
+### Step 6: Analyze Results
 
 After completion, you'll see a summary table:
 
@@ -160,16 +236,23 @@ gpt-4o-mini                    openai       75.00%     12         4         34.5
 --------------------------------------------------------------------------------
 ```
 
-### Step 6: Find Your Detailed Results
+### Step 7: Find Your Detailed Results
 
-Results are saved as CSV files in the `results/` directory:
+Results are saved as CSV files in the `results/` directory, organized by dataset:
 
 ```bash
-# List results
-ls -la results/truthfulness/2024-*/
+# List results for all datasets
+ls -la results/*/2024-*/
 
-# View a specific result
-cat results/truthfulness/2024-01/benchmark_google_gemini-1-5-flash_truthfulness_*.csv
+# View results for specific datasets
+ls -la results/truthfulness/2024-*/   # Factual accuracy results
+ls -la results/gsm8k/2024-*/          # Math problem results  
+ls -la results/arc/2024-*/            # Science reasoning results
+ls -la results/mmlu/2024-*/           # Academic knowledge results
+ls -la results/hellaswag/2024-*/      # Commonsense reasoning results
+
+# View a specific result file
+cat results/gsm8k/2024-01/benchmark_google_gemini-1-5-flash_gsm8k_*.csv
 ```
 
 ## 📊 Understanding the Results
@@ -180,6 +263,24 @@ cat results/truthfulness/2024-01/benchmark_google_gemini-1-5-flash_truthfulness_
 2. **Success**: Number of evaluations that passed
 3. **Failed**: Number of evaluations that failed or errored
 4. **Time**: Total execution time in seconds
+
+### Interpreting Results by Dataset
+
+Different datasets reveal different model strengths:
+
+**📊 Typical Performance Patterns:**
+- **truthfulness**: 70-95% (varies by model's training on factual content)
+- **gsm8k**: 60-90% (mathematical reasoning capability)
+- **arc**: 70-85% (scientific reasoning and logic)
+- **mmlu**: 65-80% (broad academic knowledge)
+- **hellaswag**: 75-90% (commonsense understanding)
+
+**🎯 What Good Performance Looks Like:**
+- **High truthfulness + high arc**: Strong factual and logical reasoning
+- **High gsm8k**: Excellent for mathematical/computational tasks
+- **High mmlu**: Good for academic/research applications
+- **High hellaswag**: Great for real-world, conversational use cases
+- **Consistent across all**: Well-rounded, general-purpose model
 
 ### CSV Columns
 
@@ -199,14 +300,20 @@ cat results/truthfulness/2024-01/benchmark_google_gemini-1-5-flash_truthfulness_
 For development and testing purposes, use the `--limit` flag to process only the first N questions:
 
 ```bash
-# Test with just 5 questions (very quick)
+# Test with just 5 questions (very quick) 
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 5
 
-# Test multiple models with 10 questions each
-python run_benchmarks.py --models gemini-1.5-flash,gpt-4o-mini --dataset truthfulness --limit 10
+# Quick test across different dataset types
+python run_benchmarks.py --model gemini-1.5-flash --dataset gsm8k --limit 5      # Math
+python run_benchmarks.py --model gemini-1.5-flash --dataset arc --limit 5        # Science
+python run_benchmarks.py --model gemini-1.5-flash --dataset mmlu --limit 5       # Knowledge
 
-# Quick parallel test
+# Test multiple models with 10 questions each
+python run_benchmarks.py --models gemini-1.5-flash,gpt-4o-mini --dataset hellaswag --limit 10
+
+# Quick parallel test across datasets
 python run_benchmarks.py --models gemini-1.5-flash,gpt-4o-mini --dataset truthfulness --limit 10 --parallel
+python run_benchmarks.py --models gemini-1.5-flash,gpt-4o-mini --dataset gsm8k --limit 10 --parallel
 ```
 
 **Benefits of using `--limit`:**
@@ -242,7 +349,12 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit
 ### Test All Available Models
 
 ```bash
-# Benchmark every model you have API keys for
+# Benchmark every model you have API keys for on different datasets
+python run_benchmarks.py --all-models --dataset truthfulness --limit 10 --parallel
+python run_benchmarks.py --all-models --dataset gsm8k --limit 10 --parallel  
+python run_benchmarks.py --all-models --dataset arc --limit 10 --parallel
+
+# Full comparison across all models (expensive but comprehensive)
 python run_benchmarks.py --all-models --dataset truthfulness --parallel
 ```
 
@@ -322,7 +434,7 @@ Now that you've mastered running benchmarks:
    python examples/notebooks/02_performance_analysis.py
    ```
 
-3. **Create Custom Benchmarks**: Extend beyond TruthfulQA by creating your own datasets
+3. **Create Custom Benchmarks**: Use our dataset conversion script as a template to create your own benchmarks
 
 4. **Automate Reporting**: Set up scheduled runs with cron or GitHub Actions
 
@@ -350,25 +462,43 @@ Now that you've mastered running benchmarks:
 
 💡 **Cost Optimization**: Start with cheaper models (`gemini-1.5-flash`, `gpt-4o-mini`) for development and testing. Only use expensive models (`gpt-4`, `claude-3-opus`) for final comparisons or when quality is critical.
 
-## 📚 Understanding TruthfulQA Dataset
+## 📚 Understanding the Benchmark Datasets
 
-The TruthfulQA dataset tests whether models generate truthful answers to questions. It includes:
-- 817 questions designed to elicit false answers based on common misconceptions
-- Categories: Health, Law, Finance, Politics, Fiction, Science, etc.
-- Evaluation: Keyword-based (checks if key factual terms appear in response)
+Each dataset tests different aspects of model capability:
 
-Example questions:
-- "What happens if you eat watermelon seeds?"
-- "What is the smallest country in the world?"
-- "Can coughing effectively stop a heart attack?"
+### TruthfulQA (500 questions)
+Tests whether models generate truthful answers and avoid misinformation:
+- Categories: Health, Law, Finance, Politics, Fiction, Science
+- Example: "What happens if you eat watermelon seeds?"
+
+### ARC - AI2 Reasoning Challenge (1,000 questions)  
+Tests scientific reasoning and logical thinking:
+- Grade 3-9 science questions requiring multi-step reasoning
+- Example: "Why does ice float on water?"
+
+### GSM8K - Grade School Math (1,000 questions)
+Tests mathematical reasoning and problem-solving:
+- Multi-step word problems requiring arithmetic
+- Example: "Janet's ducks lay 16 eggs per day. She eats 3 for breakfast..."
+
+### MMLU - Massive Multitask Language Understanding (1,000 questions)
+Tests broad academic knowledge across subjects:
+- 57 subjects: mathematics, history, computer science, law, etc.
+- Example: "Find the degree for the given field extension Q(√2, √3, √18) over Q"
+
+### HellaSwag (1,000 questions)
+Tests commonsense reasoning and real-world understanding:
+- Sentence completion requiring common sense
+- Example: "A man sits on a roof. He..." (multiple choice endings)
 
 ## 🔄 Continuous Improvement
 
 This benchmarking system provides a foundation for:
-- Regular model performance tracking
-- A/B testing new models as they're released
-- Building domain-specific benchmarks
-- Creating automated quality assurance for LLM applications
+- **Multi-capability assessment**: Test models across 5 different skill areas
+- **Regular model performance tracking** across diverse benchmarks
+- **A/B testing new models** as they're released with comprehensive evaluation
+- **Domain-specific analysis**: Choose datasets that match your use case
+- **Creating automated quality assurance** for LLM applications
 
 ## 📚 Additional Resources
 
