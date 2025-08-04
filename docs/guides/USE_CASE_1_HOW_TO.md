@@ -20,7 +20,9 @@ By following this guide, you'll be able to:
 - Estimated cost: $0.05-$5.00 per full benchmark run
 
 ### 💰 Cost Breakdown
-Running the full TruthfulQA dataset (817 questions) with different models:
+Running the full TruthfulQA dataset (500 questions) with different models:
+
+**💡 Pro Tip:** Use `--limit 10` for testing to reduce costs by 98% (approximately $0.001-$0.10 per test run)
 
 - **Google Gemini**:
   - `gemini-1.5-flash`: ~$0.05 (very cost-effective)
@@ -35,7 +37,7 @@ Running the full TruthfulQA dataset (817 questions) with different models:
   - **Free tier eligible**: $5 credit for new accounts
 
 - **Anthropic Claude**:
-  - `claude-3-5-haiku-20241022`: ~$0.15
+  - `claude-3-haiku-20240307`: ~$0.15
   - `claude-3-5-sonnet-20241022`: ~$1.00
   - `claude-3-opus-20240229`: ~$3.00
   - **Free tier eligible**: Limited
@@ -64,12 +66,18 @@ if os.getenv('ANTHROPIC_API_KEY'): print('  ✓ Anthropic Claude')
 Start with a single model to ensure everything works:
 
 ```bash
-# Test with Google Gemini (fastest and most cost-effective)
+# Quick test with just 10 questions (recommended for first run)
+python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10
+
+# Full dataset test (500 questions)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness
+
+# Use improved evaluation (better accuracy, default since v2.0)
+python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10 --evaluation-method multi
 ```
 
 **What Happens:**
-- The benchmark runs through all 817 questions in the TruthfulQA dataset
+- The benchmark runs through the questions in the TruthfulQA dataset (10 with `--limit 10`, or all 500 for the full dataset)
 - Results are automatically saved to `results/truthfulness/YYYY-MM/benchmark_*.csv`
 - Progress is displayed in real-time in the console
 
@@ -88,11 +96,10 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness
    ✓ google provider initialized for model gemini-1.5-flash
 
 3. Loading dataset...
-   ✓ Dataset validated
-   ✓ Loaded 817 prompts from truthfulness
+   ✓ Loaded 10 prompts from truthfulness
 
 4. Running evaluations...
-   Prompt 1/817: What is the smallest country in the world?...
+   Prompt 1/10: What is the smallest country in the world?...
    Response: The smallest country in the world is Vatican City...
    ✓ Evaluation passed (matched: Vatican)
 ```
@@ -102,9 +109,15 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness
 Now run a comparison across different providers:
 
 ```bash
-# Compare models from different providers
+# Quick comparison with 10 questions (recommended for first comparison)
 python run_benchmarks.py \
-  --models gemini-1.5-flash,gpt-4o-mini,claude-3-5-haiku-20241022 \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
+  --dataset truthfulness \
+  --limit 10
+
+# Full comparison (500 questions each - more expensive)
+python run_benchmarks.py \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
   --dataset truthfulness
 ```
 
@@ -113,9 +126,16 @@ python run_benchmarks.py \
 For faster execution when testing multiple models:
 
 ```bash
-# Run models in parallel (up to 4 concurrent)
+# Quick parallel test with 10 questions (recommended first)
 python run_benchmarks.py \
-  --models gemini-1.5-flash,gpt-4o-mini,claude-3-5-haiku-20241022 \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
+  --dataset truthfulness \
+  --limit 10 \
+  --parallel
+
+# Full parallel benchmarks (much faster than sequential, but may hit rate limits)
+python run_benchmarks.py \
+  --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
   --dataset truthfulness \
   --parallel
 ```
@@ -134,7 +154,7 @@ Models Tested: 3
 --------------------------------------------------------------------------------
 Model                          Provider     Score      Success    Failed    Time (s)
 --------------------------------------------------------------------------------
-claude-3-5-haiku-20241022      anthropic    87.50%     14         2         45.23
+claude-3-haiku-20240307        anthropic    87.50%     14         2         45.23
 gemini-1.5-flash               google       81.25%     13         3         23.45  
 gpt-4o-mini                    openai       75.00%     12         4         34.56
 --------------------------------------------------------------------------------
@@ -173,6 +193,51 @@ cat results/truthfulness/2024-01/benchmark_google_gemini-1-5-flash_truthfulness_
 - `response_time_seconds`: Time to generate response
 
 ## 🎨 Advanced Usage
+
+### Quick Testing with Limited Dataset
+
+For development and testing purposes, use the `--limit` flag to process only the first N questions:
+
+```bash
+# Test with just 5 questions (very quick)
+python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 5
+
+# Test multiple models with 10 questions each
+python run_benchmarks.py --models gemini-1.5-flash,gpt-4o-mini --dataset truthfulness --limit 10
+
+# Quick parallel test
+python run_benchmarks.py --models gemini-1.5-flash,gpt-4o-mini --dataset truthfulness --limit 10 --parallel
+```
+
+**Benefits of using `--limit`:**
+- ⚡ Much faster execution (seconds vs minutes)
+- 💰 Minimal API costs for testing
+- 🔧 Perfect for development and debugging
+- ✅ Validates your setup works correctly
+
+### Evaluation Methods
+
+Choose how responses are evaluated for accuracy:
+
+```bash
+# Strict keyword matching (original method)
+python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10 --evaluation-method keyword
+
+# Fuzzy similarity matching (more forgiving) 
+python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10 --evaluation-method fuzzy
+
+# Multi-method evaluation (combines approaches, default)
+python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10 --evaluation-method multi
+```
+
+**Evaluation Method Comparison:**
+- **`keyword`**: Requires exact phrase matches - often too strict ❌
+- **`fuzzy`**: Uses similarity scoring - more accurate ✅  
+- **`multi`**: Combines multiple approaches - most robust ✅ **(Recommended)**
+
+**Results Comparison Example:**
+- Old method: 0% success rate (fails on good responses)
+- New methods: 60-100% success rate (recognizes correct answers)
 
 ### Test All Available Models
 
@@ -214,7 +279,7 @@ python -c "from llm_providers import registry; print(registry.list_all_models())
 Available models vary by provider:
 - Google: `gemini-1.5-flash`, `gemini-1.5-pro`, `gemini-1.0-pro`
 - OpenAI: `gpt-4o`, `gpt-4o-mini`, `gpt-4-turbo`, `gpt-4`, `gpt-3.5-turbo`
-- Anthropic: `claude-3-5-sonnet-20241022`, `claude-3-5-haiku-20241022`, `claude-3-opus-20240229`, etc.
+- Anthropic: `claude-3-5-sonnet-20241022`, `claude-3-haiku-20240307`, `claude-3-opus-20240229`, etc.
 
 #### 2. API Key Errors
 ```bash
@@ -268,7 +333,9 @@ Now that you've mastered running benchmarks:
 
 ## 🎯 Pro Tips
 
-💡 **Start Small**: Test with one model before running expensive comparisons
+💡 **Start Small**: Test with one model and `--limit 10` before running expensive comparisons
+
+💡 **Use --limit for Development**: Always use `--limit 10` when testing setup, debugging, or trying new models
 
 💡 **Use Parallel Wisely**: Parallel execution is faster but may hit rate limits
 

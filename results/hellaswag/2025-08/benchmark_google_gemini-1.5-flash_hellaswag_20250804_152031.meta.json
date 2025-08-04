@@ -1,0 +1,25 @@
+{
+  "csv_file": "benchmark_google_gemini-1.5-flash_hellaswag_20250804_152031.csv",
+  "provider": "google",
+  "model": "gemini-1.5-flash",
+  "dataset": "hellaswag",
+  "start_time": "2025-08-04T15:20:30.273116",
+  "end_time": "2025-08-04T15:20:31.697317",
+  "total_duration_seconds": 1.424201,
+  "total_prompts": 2,
+  "successful_evaluations": 2,
+  "failed_evaluations": 0,
+  "overall_score": 1.0,
+  "average_response_time_seconds": 0.590075,
+  "model_config": {
+    "temperature": 0.7,
+    "max_tokens": 1000,
+    "top_p": 1.0,
+    "top_k": 40,
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "retry_delay": 1.0
+  },
+  "error": null,
+  "created_at": "2025-08-04T15:20:31.699486"
+}

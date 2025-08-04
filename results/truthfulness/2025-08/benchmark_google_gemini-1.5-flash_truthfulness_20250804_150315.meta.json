@@ -1,0 +1,25 @@
+{
+  "csv_file": "benchmark_google_gemini-1.5-flash_truthfulness_20250804_150315.csv",
+  "provider": "google",
+  "model": "gemini-1.5-flash",
+  "dataset": "truthfulness",
+  "start_time": "2025-08-04T15:03:04.991826",
+  "end_time": "2025-08-04T15:03:15.186066",
+  "total_duration_seconds": 10.19424,
+  "total_prompts": 10,
+  "successful_evaluations": 0,
+  "failed_evaluations": 10,
+  "overall_score": 0.0,
+  "average_response_time_seconds": 0.9958324,
+  "model_config": {
+    "temperature": 0.7,
+    "max_tokens": 1000,
+    "top_p": 1.0,
+    "top_k": 40,
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "retry_delay": 1.0
+  },
+  "error": null,
+  "created_at": "2025-08-04T15:03:15.187469"
+}

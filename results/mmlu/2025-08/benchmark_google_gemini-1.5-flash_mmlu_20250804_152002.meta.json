@@ -1,0 +1,25 @@
+{
+  "csv_file": "benchmark_google_gemini-1.5-flash_mmlu_20250804_152002.csv",
+  "provider": "google",
+  "model": "gemini-1.5-flash",
+  "dataset": "mmlu",
+  "start_time": "2025-08-04T15:19:53.953779",
+  "end_time": "2025-08-04T15:20:02.947675",
+  "total_duration_seconds": 8.993896,
+  "total_prompts": 3,
+  "successful_evaluations": 3,
+  "failed_evaluations": 0,
+  "overall_score": 1.0,
+  "average_response_time_seconds": 2.9311666666666665,
+  "model_config": {
+    "temperature": 0.7,
+    "max_tokens": 1000,
+    "top_p": 1.0,
+    "top_k": 40,
+    "timeout_seconds": 30,
+    "max_retries": 3,
+    "retry_delay": 1.0
+  },
+  "error": null,
+  "created_at": "2025-08-04T15:20:02.949425"
+}
