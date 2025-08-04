@@ -9,9 +9,9 @@ import concurrent.futures
 import threading
 import time
 
-from benchmark import MultiModelBenchmarkRunner, BenchmarkResult, ModelBenchmarkResult, ExecutionMode
-from benchmark.multi_runner import ProgressTracker
-from llm_providers.exceptions import ProviderError, RateLimitError
+from benchmarks import MultiModelBenchmarkRunner, BenchmarkResult, ModelBenchmarkResult, ExecutionMode
+from benchmarks.runners.multi_runner import ProgressTracker
+from src.providers.exceptions import ProviderError, RateLimitError
 
 
 class TestModelBenchmarkResult:
@@ -270,7 +270,7 @@ class TestMultiModelBenchmarkRunner:
         
         return Mock(side_effect=benchmark)
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_sequential_execution(self, mock_get_provider, mock_benchmark_function):
         """Test sequential execution mode."""
         # Setup mock provider
@@ -303,7 +303,7 @@ class TestMultiModelBenchmarkRunner:
         assert len(successful) == 3
         assert all(r.overall_score == 0.8 for r in successful)
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_parallel_execution(self, mock_get_provider, mock_benchmark_function):
         """Test parallel execution mode."""
         mock_provider_class = Mock()
@@ -327,7 +327,7 @@ class TestMultiModelBenchmarkRunner:
         # All should be successful
         assert len(result.successful_models) == 4
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_error_handling(self, mock_get_provider, mock_benchmark_function):
         """Test error handling and isolation."""
         mock_provider_class = Mock()
@@ -355,7 +355,7 @@ class TestMultiModelBenchmarkRunner:
         assert "Simulated error" in failed[0].error
         assert failed[0].error_type == "RuntimeError"
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_timeout_handling(self, mock_get_provider):
         """Test timeout handling."""
         mock_provider_class = Mock()
@@ -381,7 +381,7 @@ class TestMultiModelBenchmarkRunner:
         assert result.model_results[0].timed_out is True
         assert "timed out after 1 seconds" in result.model_results[0].error
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_invalid_model_handling(self, mock_get_provider):
         """Test handling of invalid models."""
         # Make first model invalid
@@ -408,7 +408,7 @@ class TestMultiModelBenchmarkRunner:
         assert len(result.successful_models) == 2
         assert len(result.failed_models) == 1
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_progress_callback(self, mock_get_provider, mock_benchmark_function):
         """Test progress callback functionality."""
         mock_provider_class = Mock()
@@ -439,7 +439,7 @@ class TestMultiModelBenchmarkRunner:
         
         assert progress_calls == expected_calls
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_provider_error_handling(self, mock_get_provider):
         """Test handling of specific provider errors."""
         mock_provider_class = Mock()
@@ -474,7 +474,7 @@ class TestMultiModelBenchmarkRunner:
         assert result.model_results[2].error_type == "ProviderError"
         assert "Generic provider error" in result.model_results[2].error
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_empty_model_list(self, mock_get_provider):
         """Test handling of empty model list."""
         runner = MultiModelBenchmarkRunner(
@@ -488,7 +488,7 @@ class TestMultiModelBenchmarkRunner:
         assert result.summary_stats['total_models'] == 0
         assert result.summary_stats['successful_models'] == 0
     
-    @patch('benchmark.multi_runner.get_provider_for_model')
+    @patch('benchmarks.runners.multi_runner.get_provider_for_model')
     def test_all_models_fail(self, mock_get_provider):
         """Test when all models fail validation."""
         mock_get_provider.side_effect = ValueError("Model not found")

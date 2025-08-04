@@ -5,7 +5,7 @@ from unittest.mock import patch
 
 import pytest
 
-from config import (
+from src.config import (
     MODEL_DEFAULTS,
     ConfigurationError,
     MissingAPIKeyError,

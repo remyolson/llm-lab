@@ -13,14 +13,17 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 import concurrent.futures
 
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import click
 
-from config import MODEL_DEFAULTS, ConfigurationError, get_api_key, get_model_config
-from evaluation import keyword_match
-from llm_providers import registry, get_provider_for_model
-from llm_providers.exceptions import ProviderError, InvalidCredentialsError
-from results_logger import CSVResultLogger
-from benchmark import MultiModelBenchmarkRunner, ExecutionMode
+from src.config import MODEL_DEFAULTS, ConfigurationError, get_api_key, get_model_config
+from src.evaluation import keyword_match
+from src.providers import registry, get_provider_for_model
+from src.providers.exceptions import ProviderError, InvalidCredentialsError
+from src.logging import CSVResultLogger
+from benchmarks import MultiModelBenchmarkRunner, ExecutionMode
 
 
 def retry_with_backoff(func, max_retries: int = 3, base_delay: float = 1.0):
@@ -57,7 +60,7 @@ def retry_with_backoff(func, max_retries: int = 3, base_delay: float = 1.0):
 
 
 # Import all providers to ensure they register themselves
-from llm_providers import GoogleProvider, OpenAIProvider, AnthropicProvider
+from src.providers import GoogleProvider, OpenAIProvider, AnthropicProvider
 
 # Available benchmark datasets
 DATASETS = {

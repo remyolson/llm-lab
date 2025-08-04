@@ -145,14 +145,37 @@ Failed: 0
 Overall Score: 100.00%
 ```
 
-## 📊 Results Format
+## 📊 Results and Reporting
 
-Results are saved in CSV format with the following columns:
+### Enhanced Results Logging
+
+Results are automatically saved with organized structure and enhanced file naming:
+
+```
+results/
+├── truthfulness/                    # Dataset-based organization
+│   └── 2024-12/                    # Year-month organization
+│       ├── benchmark_google_gemini-1-5-flash_truthfulness_20241231_143022.csv
+│       ├── benchmark_openai_gpt-4o-mini_truthfulness_20241231_143022.csv
+│       ├── benchmark_anthropic_claude-3-haiku_truthfulness_20241231_143022.csv
+│       ├── results_index.json       # Metadata index
+│       └── performance_analysis_20241231_143022.html
+└── performance_benchmarks/
+    └── 2024-12/
+        ├── performance_report_20241231_143022.json
+        └── benchmark_charts_20241231_143022.png
+```
+
+### CSV Results Format
+
+Results are saved in CSV format with enhanced columns:
 
 | Column | Description |
 |--------|-------------|
 | timestamp | ISO format timestamp of the evaluation |
-| model_name | Model identifier (e.g., google/gemini-1.5-flash) |
+| provider | Provider name (google, openai, anthropic) |
+| model_name | Full model identifier (e.g., google/gemini-1.5-flash) |
+| model_version | Model version/variant |
 | benchmark_name | Name of the benchmark dataset |
 | prompt_id | Unique identifier for the prompt |
 | prompt_text | The input prompt text |
@@ -163,7 +186,21 @@ Results are saved in CSV format with the following columns:
 | success | Pass/fail status |
 | evaluation_method | Method used for evaluation |
 | response_time_seconds | Time taken to generate response |
+| tokens_used | Number of tokens consumed (if available) |
+| cost_estimate | Estimated cost in USD (if available) |
 | error | Any error message (if applicable) |
+| session_id | Unique session identifier for grouping |
+| run_metadata | Additional run configuration (JSON) |
+
+### Performance Analysis Reports
+
+When `--analyze-results` is used, additional reports are generated:
+
+- **HTML Performance Dashboard**: Interactive charts and analysis
+- **Statistical Summary**: Response time distributions, confidence intervals
+- **Comparison Matrix**: Head-to-head model comparisons
+- **Cost Analysis**: Token usage and cost estimates by provider
+- **Error Analysis**: Failure patterns and retry statistics
 
 ## 📁 Project Structure
 
@@ -194,23 +231,34 @@ lllm-lab/
 │   ├── google.py            # Google Gemini provider
 │   ├── openai.py            # OpenAI provider
 │   └── anthropic.py         # Anthropic provider
-├── tests/                   # Test suite
+├── tests/                   # Comprehensive test suite (45+ files)
+│   ├── providers/           # Base test infrastructure
+│   ├── unit_providers/      # Unit tests for all providers
+│   ├── integration/         # Real API integration tests
+│   ├── performance/         # Performance benchmarking suite
+│   ├── compatibility/       # Cross-provider compatibility tests
 │   ├── test_config.py       # Configuration tests
 │   ├── test_evaluation.py   # Evaluation tests
-│   ├── test_llm_providers.py # Provider tests
-│   └── test_results_logger.py # Logger tests
+│   └── test_results_logger_enhanced.py # Enhanced logger tests
 ├── .github/                 # GitHub configuration
 │   └── workflows/
-│       └── ci.yml           # CI/CD pipeline
+│       ├── test.yml         # Main CI/CD pipeline
+│       └── coverage.yml     # Coverage reporting workflow
 ├── download_assets.py       # 📥 Asset download script
 ├── config.py                # Configuration management
 ├── results_logger.py        # CSV result logging
 ├── run_benchmarks.py        # Main entry point
-├── requirements.txt         # Python dependencies
-├── pytest.ini              # Pytest configuration
-├── ruff.toml              # Linter configuration
-├── .env.example           # Environment template
-└── README.md              # This file
+├── requirements.txt         # Core Python dependencies
+├── requirements-dev.txt     # Development dependencies
+├── requirements-test.txt    # Testing dependencies
+├── pyproject.toml          # Project configuration and tool settings
+├── Makefile               # Development workflow automation (40+ commands)
+├── .pre-commit-config.yaml # Pre-commit hooks configuration
+├── pytest.ini            # Pytest configuration
+├── ruff.toml             # Linter configuration
+├── .env.example          # Environment template
+├── CI_CD_GUIDE.md        # Comprehensive CI/CD documentation
+└── README.md             # This file
 ```
 
 ### 🗂️ Asset Organization

@@ -5,6 +5,9 @@ import importlib
 import os
 import sys
 
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 
 def check_directories():
     """Verify all required directories exist."""
@@ -49,7 +52,7 @@ def check_config_import():
     """Test that config.py can be imported."""
     print("\nChecking config module...")
     try:
-        import config
+        from src import config
         print("✓ config.py can be imported")
 
         # Check for required constants

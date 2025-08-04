@@ -16,8 +16,8 @@ from typing import List, Dict, Any, Optional, Callable, Tuple
 from enum import Enum
 import threading
 
-from llm_providers import get_provider_for_model
-from llm_providers.exceptions import ProviderError
+from src.providers import get_provider_for_model
+from src.providers.exceptions import ProviderError
 
 
 logger = logging.getLogger(__name__)

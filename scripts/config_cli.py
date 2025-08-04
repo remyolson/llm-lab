@@ -6,16 +6,21 @@ This tool provides command-line access to manage provider configurations,
 test credentials, and view available models with their aliases.
 """
 
+import os
+import sys
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import click
 import yaml
 import json
-import os
 from pathlib import Path
 from typing import Optional
 from tabulate import tabulate
 
-from config.provider_config import get_config_manager, reset_config_manager
-from llm_providers import get_provider_for_model
+from src.config import get_config_manager, reset_config_manager
+from src.providers import get_provider_for_model
 
 
 @click.group()

@@ -1,13 +1,17 @@
 """Tests for run_benchmarks module."""
 
 import os
+import sys
 import tempfile
 from unittest.mock import Mock, patch
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pytest
 from click.testing import CliRunner
 
-from run_benchmarks import (
+from scripts.run_benchmarks import (
     load_dataset,
     main,
     retry_with_backoff,
@@ -140,10 +144,10 @@ class TestLoadDataset:
 class TestRunBenchmark:
     """Test run_benchmark function."""
 
-    @patch('run_benchmarks.get_api_key')
-    @patch('run_benchmarks.get_model_config')
-    @patch('run_benchmarks.load_dataset')
-    @patch('run_benchmarks.CSVResultLogger')
+    @patch('scripts.run_benchmarks.get_api_key')
+    @patch('scripts.run_benchmarks.get_model_config')
+    @patch('scripts.run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.CSVResultLogger')
     def test_run_benchmark_success(self, mock_logger, mock_load_dataset, mock_get_config, mock_get_key):
         """Test successful benchmark run."""
         # Setup mocks
@@ -184,10 +188,10 @@ class TestRunBenchmark:
         assert results['failed_evaluations'] == 0
         assert results['overall_score'] == 1.0
 
-    @patch('run_benchmarks.get_api_key')
+    @patch('scripts.run_benchmarks.get_api_key')
     def test_run_benchmark_missing_api_key(self, mock_get_key):
         """Test benchmark with missing API key."""
-        from config import ConfigurationError
+        from src.config import ConfigurationError
         mock_get_key.side_effect = ConfigurationError("API key not found")
 
         results = run_benchmark('google', 'truthfulness')
@@ -196,8 +200,8 @@ class TestRunBenchmark:
         assert "API key not found" in results['error']
         assert results['total_prompts'] == 0
 
-    @patch('run_benchmarks.get_api_key')
-    @patch('run_benchmarks.get_model_config')
+    @patch('scripts.run_benchmarks.get_api_key')
+    @patch('scripts.run_benchmarks.get_model_config')
     def test_run_benchmark_unknown_provider(self, mock_get_config, mock_get_key):
         """Test benchmark with unknown provider."""
         mock_get_key.return_value = 'test-key'
@@ -208,8 +212,8 @@ class TestRunBenchmark:
         assert 'error' in results
         assert "Unknown provider" in results['error']
 
-    @patch('run_benchmarks.get_api_key')
-    @patch('run_benchmarks.get_model_config')
+    @patch('scripts.run_benchmarks.get_api_key')
+    @patch('scripts.run_benchmarks.get_model_config')
     def test_run_benchmark_unknown_dataset(self, mock_get_config, mock_get_key):
         """Test benchmark with unknown dataset."""
         mock_get_key.return_value = 'test-key'
@@ -221,8 +225,8 @@ class TestRunBenchmark:
         assert 'error' in results
         assert "Unknown dataset" in results['error']
 
-    @patch('run_benchmarks.get_api_key')
-    @patch('run_benchmarks.get_model_config')
+    @patch('scripts.run_benchmarks.get_api_key')
+    @patch('scripts.run_benchmarks.get_model_config')
     def test_run_benchmark_provider_init_error(self, mock_get_config, mock_get_key):
         """Test benchmark with provider initialization error."""
         mock_get_key.return_value = 'test-key'
@@ -234,9 +238,9 @@ class TestRunBenchmark:
         assert 'error' in results
         assert "Provider initialization failed" in results['error']
 
-    @patch('run_benchmarks.get_api_key')
-    @patch('run_benchmarks.get_model_config')
-    @patch('run_benchmarks.load_dataset')
+    @patch('scripts.run_benchmarks.get_api_key')
+    @patch('scripts.run_benchmarks.get_model_config')
+    @patch('scripts.run_benchmarks.load_dataset')
     def test_run_benchmark_generation_error(self, mock_load_dataset, mock_get_config, mock_get_key):
         """Test benchmark with generation error."""
         mock_get_key.return_value = 'test-key'
@@ -278,7 +282,7 @@ class TestCLI:
         assert '--provider' in result.output
         assert '--dataset' in result.output
 
-    @patch('run_benchmarks.run_benchmark')
+    @patch('scripts.run_benchmarks.run_benchmark')
     def test_cli_basic_run(self, mock_run_benchmark):
         """Test basic CLI run."""
         mock_run_benchmark.return_value = {
@@ -300,7 +304,7 @@ class TestCLI:
         assert 'LLM Lab Benchmark Runner' in result.output
         assert 'Overall Score: 80.00%' in result.output
 
-    @patch('run_benchmarks.run_benchmark')
+    @patch('scripts.run_benchmarks.run_benchmark')
     def test_cli_with_csv_output(self, mock_run_benchmark):
         """Test CLI with CSV output."""
         mock_run_benchmark.return_value = {
@@ -324,7 +328,7 @@ class TestCLI:
             assert result.exit_code == 0
             assert 'Saving results to CSV' in result.output
 
-    @patch('run_benchmarks.run_benchmark')
+    @patch('scripts.run_benchmarks.run_benchmark')
     def test_cli_no_csv_flag(self, mock_run_benchmark):
         """Test CLI with --no-csv flag."""
         mock_run_benchmark.return_value = {
@@ -347,7 +351,7 @@ class TestCLI:
         assert result.exit_code == 0
         assert 'Saving results to CSV' not in result.output
 
-    @patch('run_benchmarks.run_benchmark')
+    @patch('scripts.run_benchmarks.run_benchmark')
     def test_cli_keyboard_interrupt(self, mock_run_benchmark):
         """Test CLI handling keyboard interrupt."""
         mock_run_benchmark.side_effect = KeyboardInterrupt()

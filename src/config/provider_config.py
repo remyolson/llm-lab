@@ -21,7 +21,7 @@ from typing import Dict, Any, Optional, List, Set
 from dataclasses import dataclass, field
 import logging
 
-from llm_providers.exceptions import ProviderConfigurationError
+from src.providers.exceptions import ProviderConfigurationError
 
 logger = logging.getLogger(__name__)
 
@@ -56,7 +56,7 @@ class ProviderConfigManager:
     1. Runtime parameters
     2. Environment variables
     3. User config file (~/.llm-lab/config.yaml)
-    4. Project config file (./config/providers.yaml)
+    4. Project config file (./providers.yaml)
     5. Default config
     """
     
@@ -74,7 +74,7 @@ class ProviderConfigManager:
         # Default config paths
         if config_paths is None:
             config_paths = [
-                Path("config/providers.yaml"),
+                Path("providers.yaml"),
                 Path.home() / ".llm-lab" / "config.yaml"
             ]
         
