@@ -1,44 +1,46 @@
-# Use Case 1: How to Run Standard LLM Benchmarks on Multiple Models
+# Use Case 1: Run Standard LLM Benchmarks on Multiple Models
 
-This guide walks you through running benchmarks to compare multiple LLM models on standardized datasets. This is the most complete use case in LLM Lab and is ready for immediate use.
+*Compare performance, accuracy, and speed across Google Gemini, OpenAI GPT, and Anthropic Claude models using standardized datasets.*
 
 ## 🎯 What You'll Accomplish
 
 By following this guide, you'll be able to:
-- Compare performance of Google Gemini, OpenAI GPT, and Anthropic Claude models
-- Run benchmarks on the TruthfulQA dataset
-- Generate detailed CSV reports with metrics
+- Compare performance of multiple LLM models on TruthfulQA dataset
+- **Automatically save detailed results** to CSV files for analysis
+- Generate comprehensive reports with performance metrics
 - Analyze which models perform best for accuracy and speed
 - Understand the cost implications of each model
+- Make data-driven decisions about model selection
 
-## 📋 Prerequisites
+## 📋 Before You Begin
 
-### 1. API Keys
-You need at least ONE of the following API keys (but having all three enables full comparison):
+- Complete all [Prerequisites](./PREREQUISITES.md)
+- Ensure you have at least one API key configured (Google, OpenAI, or Anthropic)
+- Time required: ~10-30 minutes (depending on number of models)
+- Estimated cost: $0.05-$5.00 per full benchmark run
 
-```bash
-# In your .env file:
-GOOGLE_API_KEY=your-google-key-here
-OPENAI_API_KEY=your-openai-key-here
-ANTHROPIC_API_KEY=your-anthropic-key-here
-```
+### 💰 Cost Breakdown
+Running the full TruthfulQA dataset (817 questions) with different models:
 
-### 2. Environment Setup
-```bash
-# Clone and setup (if not already done)
-git clone https://github.com/yourusername/lllm-lab.git
-cd lllm-lab
+- **Google Gemini**:
+  - `gemini-1.5-flash`: ~$0.05 (very cost-effective)
+  - `gemini-1.5-pro`: ~$0.50
+  - **Free tier eligible**: Yes (generous daily limits)
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+- **OpenAI GPT**:
+  - `gpt-4o-mini`: ~$0.10
+  - `gpt-3.5-turbo`: ~$0.15
+  - `gpt-4o`: ~$2.00
+  - `gpt-4`: ~$5.00
+  - **Free tier eligible**: $5 credit for new accounts
 
-# Install dependencies
-pip install -r requirements.txt
+- **Anthropic Claude**:
+  - `claude-3-5-haiku-20241022`: ~$0.15
+  - `claude-3-5-sonnet-20241022`: ~$1.00
+  - `claude-3-opus-20240229`: ~$3.00
+  - **Free tier eligible**: Limited
 
-# Verify setup
-python -c "from llm_providers import GoogleProvider; print('✓ Setup complete')"
-```
+*Note: Costs are estimates based on January 2025 pricing. Actual costs depend on response lengths. Single model tests cost proportionally less.*
 
 ## 🚀 Step-by-Step Guide
 
@@ -65,6 +67,11 @@ Start with a single model to ensure everything works:
 # Test with Google Gemini (fastest and most cost-effective)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness
 ```
+
+**What Happens:**
+- The benchmark runs through all 817 questions in the TruthfulQA dataset
+- Results are automatically saved to `results/truthfulness/YYYY-MM/benchmark_*.csv`
+- Progress is displayed in real-time in the console
 
 **Expected Output:**
 ```
@@ -238,6 +245,8 @@ python run_benchmarks.py \
 
 ## 📈 Next Steps
 
+Now that you've mastered running benchmarks:
+
 1. **Analyze Costs**: Run the cost analysis example to understand pricing
    ```bash
    python examples/use_cases/cost_analysis.py
@@ -252,16 +261,27 @@ python run_benchmarks.py \
 
 4. **Automate Reporting**: Set up scheduled runs with cron or GitHub Actions
 
+### Related Use Cases
+- [Use Case 2: Compare Cost vs Performance](./USE_CASE_2_HOW_TO.md) - Dive deeper into cost optimization
+- [Use Case 3: Test Custom Prompts](./USE_CASE_3_HOW_TO.md) - Benchmark your specific use cases
+- [Use Case 4: Run Tests Across LLMs](./USE_CASE_4_HOW_TO.md) - Comprehensive testing strategies
+
 ## 🎯 Pro Tips
 
-1. **Start Small**: Test with one model before running expensive comparisons
-2. **Use Parallel Wisely**: Parallel execution is faster but may hit rate limits
-3. **Monitor Costs**: GPT-4 and Claude Opus are significantly more expensive
-4. **Save Results**: Keep CSV outputs for historical comparison
-5. **Choose Models Wisely**:
+💡 **Start Small**: Test with one model before running expensive comparisons
+
+💡 **Use Parallel Wisely**: Parallel execution is faster but may hit rate limits
+
+💡 **Monitor Costs**: GPT-4 and Claude Opus are significantly more expensive
+
+💡 **Save Results**: Keep CSV outputs for historical comparison
+
+💡 **Choose Models Wisely**:
    - For speed: `gemini-1.5-flash`
    - For cost: `gpt-4o-mini` or `gemini-1.5-flash`
    - For quality: `gpt-4o` or `claude-3-5-sonnet-20241022`
+
+💡 **Cost Optimization**: Start with cheaper models (`gemini-1.5-flash`, `gpt-4o-mini`) for development and testing. Only use expensive models (`gpt-4`, `claude-3-opus`) for final comparisons or when quality is critical.
 
 ## 📚 Understanding TruthfulQA Dataset
 
@@ -283,6 +303,21 @@ This benchmarking system provides a foundation for:
 - Building domain-specific benchmarks
 - Creating automated quality assurance for LLM applications
 
+## 📚 Additional Resources
+
+- **Provider Documentation**: 
+  - [Google Gemini Guide](../providers/google.md)
+  - [OpenAI GPT Guide](../providers/openai.md)
+  - [Anthropic Claude Guide](../providers/anthropic.md)
+- **Examples**: [Benchmarking Examples](../../examples/README.md)
+- **Troubleshooting**: [Full Troubleshooting Guide](../TROUBLESHOOTING.md)
+
+## 💭 Feedback
+
+Help us improve this guide:
+- Found an error? [Open an issue](https://github.com/yourusername/lllm-lab/issues/new)
+- Have suggestions? See our [Contribution Guide](../../CONTRIBUTING.md)
+
 ---
 
-Congratulations! You're now ready to run comprehensive LLM benchmarks. This use case provides immediate value for understanding model capabilities and making informed decisions about which LLM to use for your applications.
+*Last updated: January 2025*
