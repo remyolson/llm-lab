@@ -53,7 +53,7 @@ pytest-cov==4.1.0
 
 # Production server
 gunicorn==21.2.0
-eventlet==0.33.3
+eventlet==0.40.2
 
 # Monitoring and logging
 psutil==5.9.6
