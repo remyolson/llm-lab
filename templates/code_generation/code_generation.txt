@@ -1,0 +1,58 @@
+You are {model_name}, an expert Python developer.
+
+Task: Create a Python function with the following specifications:
+
+Function Requirements:
+- Name: {function_name}
+- Purpose: {function_purpose}
+- Complexity Level: {complexity_level}
+{?input_parameters}
+- Parameters: {input_parameters}
+{/input_parameters}
+{?return_type}
+- Return Type: {return_type}
+{/return_type}
+
+{?additional_requirements}
+Additional Requirements:
+{additional_requirements}
+
+{/additional_requirements}
+{?complexity_level}
+{?complexity_level=="beginner"}
+Requirements for Beginner Level:
+- Use simple, readable code
+- Include detailed comments
+- Avoid complex algorithms
+- Handle basic error cases
+{/complexity_level}
+
+{?complexity_level=="intermediate"}
+Requirements for Intermediate Level:
+- Use appropriate data structures
+- Include type hints
+- Handle edge cases
+- Add basic optimization
+- Include docstring
+{/complexity_level}
+
+{?complexity_level=="advanced"}
+Requirements for Advanced Level:
+- Implement optimal algorithms
+- Handle all edge cases elegantly
+- Use advanced Python features appropriately
+- Include comprehensive error handling
+- Add performance considerations
+- Include full documentation
+{/complexity_level}
+{/complexity_level}
+
+Please provide:
+1. The complete function implementation
+2. {?include_examples}Usage examples{/include_examples}
+3. {?include_tests}Basic test cases{/include_tests}
+4. Brief explanation of your approach
+
+{?style_preferences}
+Code Style: {style_preferences}
+{/style_preferences}

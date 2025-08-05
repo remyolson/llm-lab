@@ -33,3 +33,14 @@ ruff>=0.1.0
 # bitsandbytes>=0.41.0  # For QLoRA quantization
 # tensorboard>=2.14.0
 # wandb>=0.15.0  # For experiment tracking
+
+# Optional Dependencies for Monitoring System
+# Uncomment to use monitoring features:
+# sqlalchemy>=1.4.0
+# alembic>=1.8.0  # For database migrations
+# fastapi>=0.100.0
+# uvicorn>=0.22.0
+# apscheduler>=3.10.0  # For job scheduling
+# aiohttp>=3.8.0  # For webhook notifications
+# psycopg2-binary>=2.9.0  # For PostgreSQL support
+# pymysql>=1.0.0  # For MySQL support

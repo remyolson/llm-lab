@@ -95,21 +95,21 @@ test-all: test-unit test-integration test-compatibility test-security
 # Code quality targets
 lint: 
 	@echo "Running linters..."
-	flake8 llm_providers/ tests/ --max-line-length=100 --extend-ignore=E203,W503
-	mypy llm_providers/ --ignore-missing-imports --no-strict-optional
-	bandit -r llm_providers/ --skip B101,B601
+	ruff check .
+	mypy src/ tests/ --ignore-missing-imports --no-strict-optional
+	bandit -r src/ --skip B101,B601
 
 format:
 	@echo "Formatting code..."
-	black llm_providers/ tests/ --line-length=100
-	isort llm_providers/ tests/ --profile=black --line-length=100
+	ruff format .
+	ruff check . --fix
 
 type-check:
-	mypy llm_providers/ --ignore-missing-imports --no-strict-optional
+	mypy src/ tests/ --ignore-missing-imports --no-strict-optional
 
 security:
 	@echo "Running security analysis..."
-	bandit -r llm_providers/ --skip B101,B601
+	bandit -r src/ --skip B101,B601
 	safety check
 
 # Coverage targets

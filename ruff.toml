@@ -1,10 +1,10 @@
 # Ruff configuration for LLM Lab
 
-# Target Python 3.8+
-target-version = "py38"
+# Target Python 3.9+
+target-version = "py39"
 
-# Line length
-line-length = 120
+# Line length (matching previous black/flake8 config)
+line-length = 100
 
 # Exclude directories
 exclude = [
@@ -48,12 +48,15 @@ ignore = [
 
 # Per-file ignores
 [lint.per-file-ignores]
-"tests/*" = ["S101", "B017"]  # Allow assert in tests
+"tests/*" = ["S101", "B017", "F401", "F811", "F403", "F405"]  # Allow assert, unused imports, etc. in tests
 "__init__.py" = ["F401"]  # Allow unused imports in __init__ files
 
 # Import configuration
 [lint.isort]
-known-first-party = ["config", "llm_providers", "evaluation", "benchmarks", "results_logger"]
+known-first-party = ["src", "config", "llm_providers", "evaluation", "benchmarks", "results_logger"]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+combine-as-imports = true
+force-wrap-aliases = true
 
 # Formatter configuration
 [format]

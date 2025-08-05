@@ -241,11 +241,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install bandit safety semgrep
-        pip install flake8 black isort mypy
+        pip install ruff mypy
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     
     - name: Run Bandit security linter
-      run: bandit -r llm_providers/ -f json -o bandit-report.json
+      run: bandit -r src/ -f json -o bandit-report.json
       continue-on-error: true
     
     - name: Run Safety check
@@ -253,23 +253,19 @@ jobs:
       continue-on-error: true
     
     - name: Run Semgrep
-      run: semgrep --config=auto --json --output=semgrep-report.json llm_providers/
+      run: semgrep --config=auto --json --output=semgrep-report.json src/
       continue-on-error: true
     
-    - name: Check code formatting with Black
-      run: black --check --diff llm_providers/ tests/
+    - name: Run Ruff linter
+      run: ruff check .
       continue-on-error: true
     
-    - name: Check import sorting with isort
-      run: isort --check-only --diff llm_providers/ tests/
-      continue-on-error: true
-    
-    - name: Run flake8 linter
-      run: flake8 llm_providers/ tests/ --max-line-length=100 --extend-ignore=E203,W503
+    - name: Run Ruff formatter check
+      run: ruff format --check .
       continue-on-error: true
     
     - name: Run mypy type checking
-      run: mypy llm_providers/ --ignore-missing-imports --no-strict-optional
+      run: mypy src/ tests/ --ignore-missing-imports --no-strict-optional
       continue-on-error: true
     
     - name: Upload security reports

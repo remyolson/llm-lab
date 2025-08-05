@@ -1,0 +1,429 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Page Header -->
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="h3 mb-0">
+                <i class="fas fa-chart-line me-2"></i>
+                LLM Monitoring Dashboard
+            </h1>
+            <div class="btn-group">
+                <button type="button" class="btn btn-outline-primary" id="refresh-btn">
+                    <i class="fas fa-sync-alt me-1"></i>Refresh
+                </button>
+                {% if dashboard_config().enable_export %}
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-download me-1"></i>Export
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#" data-export="csv">CSV</a></li>
+                    <li><a class="dropdown-item" href="#" data-export="json">JSON</a></li>
+                    <li><a class="dropdown-item" href="#" data-export="pdf">PDF Report</a></li>
+                </ul>
+                {% endif %}
+                <button type="button" class="btn btn-outline-info" id="settings-btn">
+                    <i class="fas fa-cog me-1"></i>Settings
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key Metrics Row -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card bg-primary text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title" id="total-models">-</h4>
+                        <p class="card-text">Active Models</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-robot fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card bg-success text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title" id="total-requests">-</h4>
+                        <p class="card-text">Total Requests</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-paper-plane fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card bg-warning text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title" id="avg-latency">-</h4>
+                        <p class="card-text">Avg Latency</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card bg-info text-white">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h4 class="card-title" id="total-cost">-</h4>
+                        <p class="card-text">Total Cost</p>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-dollar-sign fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive Charts Row -->
+<div class="row mb-4">
+    <!-- Performance Comparison Chart -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <iframe src="/components/chart/performance-comparison?title=Performance%20Over%20Time&height=400&refresh=30&time_range=24h" 
+                        width="100%" height="500" frameborder="0" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Cost Trends Chart -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <iframe src="/components/chart/cost-trends?title=Cost%20Analysis&height=400&refresh=60" 
+                        width="100%" height="500" frameborder="0" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Model Comparison & Alert Timeline Row -->
+<div class="row mb-4">
+    <!-- Model Comparison Radar Chart -->
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-body">
+                <iframe src="/components/chart/model-comparison?title=Model%20Performance%20Comparison&height=400&refresh=120" 
+                        width="100%" height="500" frameborder="0" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Alert Timeline -->
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <iframe src="/components/chart/alert-timeline?title=Alert%20History&height=400&refresh=60" 
+                        width="100%" height="500" frameborder="0" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Analysis Row -->
+<div class="row mb-4">
+    <!-- Latency Distribution -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <iframe src="/components/chart/latency-distribution?title=Latency%20Distribution&height=350&refresh=60" 
+                        width="100%" height="450" frameborder="0" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Rate Trend -->
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <iframe src="/components/chart/success-rate?title=Success%20Rate%20Trend&height=350&refresh=30" 
+                        width="100%" height="450" frameborder="0" style="border: none;"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- System Health Row -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-heartbeat me-2"></i>
+                    System Health
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fas fa-server fa-2x text-success"></i>
+                            </div>
+                            <h6>Database</h6>
+                            <span class="badge bg-success" id="db-status">Online</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fas fa-plug fa-2x text-success"></i>
+                            </div>
+                            <h6>API</h6>
+                            <span class="badge bg-success" id="api-status">Online</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fas fa-wifi fa-2x text-success"></i>
+                            </div>
+                            <h6>WebSocket</h6>
+                            <span class="badge bg-success" id="ws-status">Connected</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center">
+                            <div class="mb-2">
+                                <i class="fas fa-clock fa-2x text-info"></i>
+                            </div>
+                            <h6>Uptime</h6>
+                            <span class="badge bg-info" id="uptime">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Dashboard initialization
+$(document).ready(function() {
+    initializeDashboard();
+});
+
+function initializeDashboard() {
+    // Load initial data
+    loadOverviewMetrics();
+    loadPerformanceChart();
+    loadCostChart();
+    loadProviderComparison();
+    loadRecentAlerts();
+    
+    // Set up refresh timer
+    setInterval(function() {
+        refreshDashboard();
+    }, {{ dashboard_config().monitoring.refresh_interval * 1000 }});
+    
+    // Set up WebSocket connection (if enabled)
+    {% if dashboard_config().enable_websockets %}
+    initializeWebSocket();
+    {% endif %}
+    
+    // Bind event handlers
+    bindEventHandlers();
+}
+
+function loadOverviewMetrics() {
+    $.get('/api/v1/metrics/overview')
+        .done(function(data) {
+            $('#total-models').text(data.total_models || '-');
+            $('#total-requests').text(formatNumber(data.total_requests || 0));
+            $('#avg-latency').text(formatDuration(data.avg_latency || 0));
+            $('#total-cost').text(formatCurrency(data.total_cost || 0));
+            
+            updateConnectionStatus('success');
+        })
+        .fail(function() {
+            updateConnectionStatus('error');
+        });
+}
+
+function loadPerformanceChart() {
+    // Placeholder for performance chart - will be implemented in subtask 9.3
+    const ctx = document.getElementById('performance-chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: 'Sample Data',
+                data: [],
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+function loadCostChart() {
+    // Placeholder for cost chart - will be implemented in subtask 9.3
+    const ctx = document.getElementById('cost-chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: [],
+            datasets: [{
+                data: [],
+                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+}
+
+function loadProviderComparison() {
+    // Placeholder - will be implemented in subtask 9.2
+    const tbody = $('#provider-comparison-table tbody');
+    tbody.html('<tr><td colspan="7" class="text-center text-muted">No provider data available</td></tr>');
+}
+
+function loadRecentAlerts() {
+    // Placeholder - will be implemented in subtask 9.2
+    $('#alerts-list').html('<div class="text-center text-muted"><i class="fas fa-check-circle me-2"></i>No recent alerts</div>');
+    $('#alert-count').text('0').removeClass('bg-danger').addClass('bg-success');
+}
+
+function refreshDashboard() {
+    loadOverviewMetrics();
+    // Other refresh operations will be added as components are implemented
+    $('#last-updated').text(new Date().toISOString().replace('T', ' ').substr(0, 19) + ' UTC');
+}
+
+{% if dashboard_config().enable_websockets %}
+function initializeWebSocket() {
+    const socket = io();
+    
+    socket.on('connect', function() {
+        updateConnectionStatus('success');
+        socket.emit('subscribe_metrics', {metric_type: 'overview'});
+    });
+    
+    socket.on('disconnect', function() {
+        updateConnectionStatus('error');
+    });
+    
+    socket.on('metrics_update', function(data) {
+        // Handle real-time metric updates
+        if (data.type === 'overview') {
+            loadOverviewMetrics();
+        }
+    });
+}
+{% endif %}
+
+function bindEventHandlers() {
+    // Refresh button
+    $('#refresh-btn').click(function() {
+        $(this).find('i').addClass('fa-spin');
+        refreshDashboard();
+        setTimeout(() => {
+            $(this).find('i').removeClass('fa-spin');
+        }, 1000);
+    });
+    
+    // Time range buttons
+    $('[data-timerange]').click(function() {
+        $('[data-timerange]').removeClass('active');
+        $(this).addClass('active');
+        // Reload charts with new time range
+        loadPerformanceChart();
+    });
+    
+    // Export buttons
+    $('[data-export]').click(function(e) {
+        e.preventDefault();
+        const format = $(this).data('export');
+        exportData(format);
+    });
+}
+
+function updateConnectionStatus(status) {
+    const statusBadge = $('#connection-status');
+    const wsStatus = $('#ws-status');
+    
+    if (status === 'success') {
+        statusBadge.removeClass('bg-danger').addClass('bg-success').html('<i class="fas fa-circle me-1"></i>Connected');
+        wsStatus.removeClass('bg-danger').addClass('bg-success').text('Connected');
+    } else {
+        statusBadge.removeClass('bg-success').addClass('bg-danger').html('<i class="fas fa-circle me-1"></i>Disconnected');
+        wsStatus.removeClass('bg-success').addClass('bg-danger').text('Disconnected');
+    }
+}
+
+function exportData(format) {
+    // Placeholder for export functionality - will be implemented in subtask 9.4
+    showAlert('Export functionality will be available soon', 'info');
+}
+
+function showAlert(message, type = 'info') {
+    const alertHtml = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+    $('#alert-container').append(alertHtml);
+    
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        $('.alert').alert('close');
+    }, 5000);
+}
+
+// Utility functions
+function formatNumber(num) {
+    return new Intl.NumberFormat().format(num);
+}
+
+function formatDuration(seconds) {
+    if (seconds < 1) return `${(seconds * 1000).toFixed(0)}ms`;
+    if (seconds < 60) return `${seconds.toFixed(1)}s`;
+    if (seconds < 3600) return `${(seconds / 60).toFixed(1)}m`;
+    return `${(seconds / 3600).toFixed(1)}h`;
+}
+
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    }).format(amount);
+}
+</script>
+{% endblock %}

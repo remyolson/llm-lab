@@ -214,15 +214,15 @@
           1,
           3
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
             "title": "Create USE_CASE_3_HOW_TO.md with Custom Prompts Documentation Structure",
             "description": "Set up the documentation file for Use Case 3 (Custom Prompts) with comprehensive sections covering CLI interface, prompt templates, and evaluation metrics",
             "dependencies": [],
-            "details": "Create docs/guides/USE_CASE_3_HOW_TO.md following the established template from Use Case 1. Include sections: What You'll Accomplish (custom prompt testing across LLMs), Prerequisites (Python 3.8+, API keys), Cost Breakdown (per-prompt costs for different providers), Step-by-Step Guide (CLI usage, template creation, metric definition), Understanding Results (interpreting domain-specific outputs), Advanced Usage (batch processing, custom validators), Troubleshooting, Next Steps, and Pro Tips. Set up the document structure with placeholder content for each section.",
-            "status": "pending",
+            "details": "Create docs/guides/USE_CASE_3_HOW_TO.md following the established template from Use Case 1. Include sections: What You'll Accomplish (custom prompt testing across LLMs), Prerequisites (Python 3.8+, API keys), Cost Breakdown (per-prompt costs for different providers), Step-by-Step Guide (CLI usage, template creation, metric definition), Understanding Results (interpreting domain-specific outputs), Advanced Usage (batch processing, custom validators), Troubleshooting, Next Steps, and Pro Tips. Set up the document structure with placeholder content for each section.\n<info added on 2025-08-05T01:08:02.546Z>\nSuccessfully implemented comprehensive documentation structure with full content including:\n\n- All 9 required sections fully populated with detailed content\n- Complete CLI interface documentation with command examples for simple prompts, templates, variables, and parallel execution\n- Detailed cost breakdown tables for OpenAI, Anthropic, and Google providers including free tier limits\n- Step-by-step guide with 6 detailed steps from basic setup to advanced analysis\n- Three comprehensive use case examples: customer service chatbot, code generation assistant, and creative writing helper\n- Advanced usage patterns covering batch processing, A/B testing, and custom evaluation metrics\n- Complete troubleshooting guide with 8 common issues and their solutions\n- Template system documentation explaining variables, conditionals, loops, and built-in variables\n- Professional formatting with consistent markdown structure throughout\n- Updated project documentation index to reflect Use Case 3 as Ready status\n\nThe documentation provides practical, actionable guidance for users to effectively leverage the custom prompt testing capabilities across multiple LLM providers while managing costs and evaluating results.\n</info added on 2025-08-05T01:08:02.546Z>",
+            "status": "done",
             "testStrategy": "Verify the file exists with all 9 required sections. Ensure section headers match the template format. Validate that the document renders correctly in markdown preview."
           },
           {
@@ -233,7 +233,7 @@
               "4.1"
             ],
             "details": "Document the CLI interface for custom prompts including command syntax, available flags, and configuration options. Create a comprehensive guide on the template system showing how to define prompt templates with variables, constraints, and expected outputs. Develop three complete examples: 1) Customer service chatbot prompt comparing response quality and tone across models, 2) Code generation prompt for creating Python functions with different complexity levels, 3) Creative writing prompt for story generation with style parameters. Include actual CLI commands, template files, and expected output formats for each example.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Execute all CLI commands documented to ensure they work. Test each template example with at least 2 different LLM providers. Verify that template variables are properly substituted. Validate that output formats match documentation."
           },
           {
@@ -244,7 +244,7 @@
               "4.2"
             ],
             "details": "Write comprehensive documentation on creating custom evaluation metrics including: defining metric classes, implementing scoring algorithms, handling edge cases, and integrating with the benchmark framework. Provide code examples for: sentiment analysis scoring for customer service responses, code quality metrics (syntax validity, best practices adherence), creativity scoring for generated content. Show how to configure thresholds, weight multiple metrics, and generate comparative reports. Include visualization examples using matplotlib to display metric comparisons across models.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Implement and test at least one custom metric from the documentation. Verify metric calculations produce expected scores. Test metric integration with the main benchmark framework. Validate visualization code generates correct charts."
           },
           {
@@ -253,7 +253,7 @@
             "description": "Set up comprehensive documentation for Use Case 4 (Cross-LLM Testing) covering test suites, pytest integration, and CI/CD workflows",
             "dependencies": [],
             "details": "Create docs/guides/USE_CASE_4_HOW_TO.md following the template structure. Document how to create test suites for LLM outputs including: test case definition, expected behavior specification, tolerance levels for variations. Include sections on pytest integration showing how to write test fixtures for LLM calls, parameterized tests for multiple models, and assertion helpers for fuzzy matching. Add regression testing strategies for model updates, performance benchmarking approaches, and detailed CI/CD integration guide with GitHub Actions. Structure the document with clear subsections for each testing approach.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Verify file contains all required sections. Ensure code blocks are syntactically correct Python. Check that pytest examples follow best practices. Validate GitHub Actions YAML is properly formatted."
           },
           {
@@ -264,7 +264,7 @@
               "4.4"
             ],
             "details": "Develop three complete testing examples: 1) Unit tests for a chatbot using pytest with fixtures for different LLM providers, including response validation and error handling tests, 2) Regression test suite for monitoring model performance over time with baseline comparisons and drift detection, 3) Performance benchmark suite measuring latency, throughput, and cost across providers. Create a complete GitHub Actions workflow file that runs tests on PR, generates comparison reports, and posts results as PR comments. Include configuration for test parallelization, result caching, and failure notifications. Document environment setup, secrets management, and troubleshooting common CI issues.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Run all pytest examples locally to ensure they pass. Test GitHub Actions workflow in a sample repository. Verify benchmark results are reproducible. Validate that CI configuration handles API rate limits gracefully."
           }
         ]
@@ -410,7 +410,7 @@
         "testStrategy": "Test rule engine with example constitutional rules. Verify interventions modify outputs as expected. Test safety filters catch problematic content. Validate preference data is collected correctly. Ensure A/B testing produces statistically valid comparisons. Test that interventions don't break model functionality.",
         "priority": "low",
         "dependencies": [],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
@@ -429,7 +429,7 @@
               "7.1"
             ],
             "details": "Create InterventionEngine class in runtime/intervention.py that can apply multiple intervention strategies in sequence. Implement prompt modification capabilities (prefix injection, suffix addition, context wrapping). Build output filtering system supporting regex patterns, keyword blocking, and custom filter functions. Add response steering functionality using logit bias, temperature adjustment, and token probability manipulation. Create intervention pipeline configuration system.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test prompt modifications produce expected changes. Verify filters correctly block/modify problematic content. Test response steering changes output distribution. Validate intervention pipeline ordering and composition. Test edge cases like empty prompts and conflicting interventions."
           },
           {
@@ -440,7 +440,7 @@
               "7.1"
             ],
             "details": "Implement RuleEngine class in constitutional/rule_engine.py supporting YAML rule definitions. Create rule parser that validates and loads rules from YAML files. Define rule schema supporting conditions, actions, and priorities. Implement rule evaluation logic with support for complex conditions (AND/OR/NOT). Build rule application system that can modify prompts or filter outputs based on rule matches. Add rule conflict resolution based on priorities.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test YAML rule parsing with valid and invalid rule files. Verify rule conditions evaluate correctly for various inputs. Test rule application modifies behavior as specified. Validate priority-based conflict resolution. Test performance with large rule sets."
           },
           {
@@ -452,7 +452,7 @@
               "7.3"
             ],
             "details": "Implement safety filter modules in runtime/filters/: ToxicityFilter using keyword lists and pattern matching, BiasFilter detecting gender/racial/cultural biases, FactualityFilter for basic fact-checking against known patterns. Create preference learning system in alignment/preference_learning.py to collect user feedback on model outputs. Build data storage for preference pairs (chosen vs rejected responses). Implement feedback aggregation and analysis tools.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test toxicity filter catches offensive content. Verify bias filter identifies problematic patterns. Test factuality filter flags obvious falsehoods. Validate preference data collection stores feedback correctly. Test data export formats for downstream training."
           },
           {
@@ -465,7 +465,7 @@
               "7.4"
             ],
             "details": "Implement feedback interface in alignment/feedback_interface.py supporting real-time human review of model outputs. Create annotation tools for marking outputs as good/bad/needs-improvement. Build A/B testing framework in alignment/ab_testing.py for comparing different alignment strategies. Implement statistical analysis for determining significant differences between strategies. Create visualization tools for alignment metrics and A/B test results. Add experiment tracking and versioning system.",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "Test feedback interface captures and stores human input correctly. Verify A/B testing randomly assigns strategies. Test statistical significance calculations are accurate. Validate visualization tools display metrics correctly. Test experiment tracking maintains proper version history."
           }
         ]
@@ -478,8 +478,66 @@
         "testStrategy": "Test database operations (CRUD) with sample data. Verify scheduled jobs execute at specified intervals. Test regression detection with simulated performance drops. Validate alert delivery (use test endpoints). Ensure data aggregation produces correct statistics. Test API endpoints return expected JSON format.",
         "priority": "medium",
         "dependencies": [],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design Database Schema and Models",
+            "description": "Create SQLite database schema for storing benchmark results, performance metrics, and model metadata",
+            "dependencies": [],
+            "details": "Design tables for: benchmark_runs (id, timestamp, model_id, dataset_id, metrics), performance_metrics (id, run_id, metric_type, value, timestamp), model_metadata (id, name, version, provider, cost_per_token), alert_history (id, timestamp, type, severity, message, resolved), and aggregated_stats (id, period, metric_type, avg_value, min_value, max_value). Implement SQLAlchemy models in src/use_cases/monitoring/models.py with proper relationships and indexes for efficient querying.",
+            "status": "done",
+            "testStrategy": "Create unit tests for all database models ensuring proper table creation, relationship integrity, and CRUD operations. Test with sample data insertion and retrieval. Verify indexes improve query performance on large datasets."
+          },
+          {
+            "id": 2,
+            "title": "Implement Scheduled Job System",
+            "description": "Build automated benchmarking system using APScheduler for periodic performance monitoring",
+            "dependencies": [
+              "8.1"
+            ],
+            "details": "Create src/use_cases/monitoring/scheduler.py implementing job scheduling for automated benchmarks. Support cron-like scheduling patterns (hourly, daily, weekly). Implement job queue management with priority levels. Add job status tracking (running, completed, failed) with retry logic for failed jobs. Create configuration system for defining benchmark schedules per model/dataset combination. Integrate with existing benchmark runners from other use cases.",
+            "status": "done",
+            "testStrategy": "Test scheduler initialization and job registration. Verify jobs execute at correct intervals using mock time. Test job retry logic with simulated failures. Validate concurrent job execution limits. Ensure job status updates correctly in database."
+          },
+          {
+            "id": 3,
+            "title": "Build Performance Regression Detection",
+            "description": "Create system to detect performance drops and anomalies in benchmark results",
+            "dependencies": [
+              "8.1",
+              "8.2"
+            ],
+            "details": "Implement src/use_cases/monitoring/regression_detector.py with statistical analysis for detecting >5% performance drops. Use rolling averages and standard deviation for baseline establishment. Support multiple detection algorithms (threshold-based, statistical, ML-based anomaly detection). Create configurable sensitivity levels per metric type. Implement comparison logic for different time windows (day-over-day, week-over-week). Add support for excluding known outliers and maintenance windows.",
+            "status": "done",
+            "testStrategy": "Test detection algorithms with synthetic performance data including gradual degradation and sudden drops. Verify 5% threshold detection accuracy. Test false positive rates with normal variance data. Validate baseline calculation with historical data."
+          },
+          {
+            "id": 4,
+            "title": "Implement Alert System",
+            "description": "Create notification system for performance regressions with email and Slack integration",
+            "dependencies": [
+              "8.3"
+            ],
+            "details": "Build src/use_cases/monitoring/alerting.py with pluggable notification channels. Implement email alerts using SMTP with HTML templates for regression reports. Add Slack integration using webhooks for real-time notifications. Create alert severity levels (critical, warning, info) with routing rules. Implement alert suppression to prevent spam (rate limiting, deduplication). Add alert acknowledgment and resolution tracking. Support custom alert templates with performance graphs and comparison data.",
+            "status": "done",
+            "testStrategy": "Test email delivery with mock SMTP server. Verify Slack webhook integration with test channel. Test alert rate limiting prevents spam. Validate alert templates render correctly with sample data. Test alert acknowledgment updates database status."
+          },
+          {
+            "id": 5,
+            "title": "Design RESTful API for Dashboard",
+            "description": "Create API endpoints for dashboard data consumption and monitoring system control",
+            "dependencies": [
+              "8.1",
+              "8.2",
+              "8.3",
+              "8.4"
+            ],
+            "details": "Implement REST API in src/use_cases/monitoring/api.py using FastAPI. Create endpoints: GET /metrics/{model_id}/history for time-series data, GET /alerts for alert history with filtering, POST /benchmarks/schedule for job management, GET /reports/aggregate for trend analysis data, GET /models/comparison for cross-model performance. Add pagination, filtering, and sorting support. Implement API authentication using JWT tokens. Create OpenAPI documentation with example requests/responses.",
+            "status": "done",
+            "testStrategy": "Test all API endpoints with valid and invalid inputs. Verify pagination works correctly with large datasets. Test authentication and authorization for protected endpoints. Validate API response formats match OpenAPI spec. Load test API with concurrent requests."
+          }
+        ]
       },
       {
         "id": 9,
@@ -491,8 +549,62 @@
         "dependencies": [
           8
         ],
-        "status": "pending",
-        "subtasks": []
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up Dashboard Framework and Project Structure",
+            "description": "Initialize the web framework (Flask/FastAPI or Streamlit) and create the project structure for the monitoring dashboard",
+            "dependencies": [],
+            "details": "Create src/use_cases/monitoring/dashboard/ directory structure. Set up Flask/FastAPI backend with basic routing or initialize Streamlit app. Create subdirectories for: components/, templates/, static/, api/, reports/. Set up configuration management for dashboard settings (port, database connections, refresh intervals). Create requirements file with necessary dependencies (Flask/FastAPI, Vue.js CDN or Streamlit, Chart.js/Plotly, SQLAlchemy for data persistence). Implement basic health check endpoint and landing page.",
+            "status": "done",
+            "testStrategy": "Verify dashboard server starts without errors. Test health check endpoint returns 200 OK. Ensure all directory structures are created correctly. Validate that configuration loading works with test values. Check that basic routing serves the landing page."
+          },
+          {
+            "id": 2,
+            "title": "Implement Real-time Data Integration and Storage",
+            "description": "Create data models and APIs to fetch monitoring data from the existing monitoring system and store it for dashboard consumption",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "Design database schema for storing monitoring metrics (model performance, costs, timestamps, dataset info). Implement data models using SQLAlchemy or similar ORM. Create REST API endpoints to fetch monitoring data from monitoring.db or monitoring service. Implement data aggregation functions for different time ranges (hourly, daily, weekly, monthly). Add WebSocket support for real-time updates. Create background tasks for periodic data synchronization. Implement data retention policies to manage storage.",
+            "status": "done",
+            "testStrategy": "Test database connections and table creation. Verify API endpoints return correctly formatted data. Test data aggregation produces accurate results. Validate WebSocket connections can push updates. Ensure background sync tasks run on schedule. Test data retention cleanup works as expected."
+          },
+          {
+            "id": 3,
+            "title": "Build Interactive Visualization Components",
+            "description": "Create reusable chart components for displaying various monitoring metrics with real-time updates",
+            "dependencies": [
+              "9.2"
+            ],
+            "details": "Implement performance comparison charts using Chart.js or Plotly showing metrics across models. Create cost trend visualizations with time-series data and projections. Build dataset-specific performance views with filtering capabilities. Implement alert history timeline with severity indicators. Create interactive model comparison matrix. Add chart configuration options (time range, metrics selection, refresh rate). Implement chart export functionality (PNG, SVG). Ensure responsive design for mobile viewing.",
+            "status": "done",
+            "testStrategy": "Test each chart type renders with sample data. Verify real-time updates reflect in charts without page refresh. Test filtering and configuration options work correctly. Validate chart exports produce valid image files. Ensure responsive layouts work on different screen sizes. Test performance with 1000+ data points."
+          },
+          {
+            "id": 4,
+            "title": "Develop Automated Report Generation System",
+            "description": "Build the report generator that creates PDF and HTML summaries of monitoring data with customizable templates",
+            "dependencies": [
+              "9.3"
+            ],
+            "details": "Implement report generator class using ReportLab for PDF or WeasyPrint for HTML-to-PDF conversion. Create report templates for: daily summaries, weekly performance reports, monthly cost analysis, custom date ranges. Add chart embedding in reports using matplotlib or captured dashboard charts. Implement report scheduling system with cron-like functionality. Create email delivery integration for automated report distribution. Add report archive management with search capabilities. Implement custom report builder interface for ad-hoc reports.",
+            "status": "done",
+            "testStrategy": "Generate sample reports in both PDF and HTML formats. Verify charts embed correctly in reports. Test scheduled report generation triggers on time. Validate email delivery with test recipients. Ensure report archive search returns correct results. Test custom report builder with various configurations."
+          },
+          {
+            "id": 5,
+            "title": "Implement Access Control and User Management",
+            "description": "Add authentication, authorization, and role-based access control to secure the dashboard and manage multi-user access",
+            "dependencies": [
+              "9.4"
+            ],
+            "details": "Implement user authentication using Flask-Login or FastAPI security utilities. Create user roles: admin, analyst, viewer with different permission levels. Build user management interface for admins to add/remove users and assign roles. Implement API key authentication for programmatic access. Add audit logging for all user actions and data access. Create role-based view restrictions (e.g., viewers can't access cost data). Implement session management with configurable timeouts. Add OAuth integration for enterprise SSO if needed.",
+            "status": "done",
+            "testStrategy": "Test login/logout functionality with valid and invalid credentials. Verify role-based restrictions work correctly for each user type. Test API key authentication for programmatic access. Validate audit logs capture all relevant actions. Ensure session timeouts work as configured. Test that unauthorized access attempts are properly rejected."
+          }
+        ]
       },
       {
         "id": 10,
@@ -511,12 +623,66 @@
           9
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Complete Documentation for Use Cases 5-8",
+            "description": "Write comprehensive documentation for Use Cases 5-8 following the established template from Use Case 1, ensuring consistency and completeness",
+            "dependencies": [],
+            "details": "Complete USE_CASE_5_HOW_TO.md (Local Model Benchmarking), USE_CASE_6_HOW_TO.md (AI Agent Evaluation), USE_CASE_7_HOW_TO.md (Fine-Tuning), and USE_CASE_8_HOW_TO.md (Continuous Monitoring). Each document should include: What You'll Accomplish, Prerequisites, Cost Breakdown, Step-by-Step Guide, Understanding Results, Advanced Usage, Troubleshooting, Next Steps, and Pro Tips sections. Ensure all code examples are tested and working. Reference the implemented functionality from tasks 5-8.",
+            "status": "pending",
+            "testStrategy": "Verify all code blocks in documentation are executable by running them in a clean environment. Check that all links and references are valid. Ensure each document follows the same structure as USE_CASE_1_HOW_TO.md"
+          },
+          {
+            "id": 2,
+            "title": "Create Comprehensive Examples for Each Use Case",
+            "description": "Develop at least 3 working examples per use case with increasing complexity levels (basic, intermediate, advanced)",
+            "dependencies": [
+              "10.1"
+            ],
+            "details": "For each use case, create examples in examples/use_cases/ directory: Basic example showing minimal configuration, Intermediate example with custom settings and multiple models, Advanced example demonstrating full feature utilization. Examples should cover: Use Case 1 (multi-dataset benchmarking), Use Case 2 (embeddings), Use Case 3 (custom prompts), Use Case 4 (cross-LLM testing), Use Case 5 (local models), Use Case 6 (AI agents), Use Case 7 (fine-tuning), Use Case 8 (monitoring). Name files consistently like uc1_basic_benchmark.py, uc1_intermediate_custom_metrics.py, uc1_advanced_multi_dataset.py",
+            "status": "pending",
+            "testStrategy": "Execute each example script and verify it runs without errors. Validate output matches expected format. Test examples work with different model providers. Measure execution time for performance baseline"
+          },
+          {
+            "id": 3,
+            "title": "Build Cross-Use-Case Integration Examples and Jupyter Notebooks",
+            "description": "Create integration examples showing how multiple use cases work together, and develop Jupyter notebooks for interactive workflows",
+            "dependencies": [
+              "10.2"
+            ],
+            "details": "Create integration examples in examples/integration/: fine_tune_then_benchmark.py (Use Case 7 → Use Case 1), benchmark_then_monitor.py (Use Case 1 → Use Case 8), test_suite_with_monitoring.py (Use Case 4 → Use Case 8), agent_evaluation_pipeline.py (Use Case 6 → Use Case 8). Develop Jupyter notebooks in notebooks/: getting_started.ipynb (quickstart guide), model_comparison.ipynb (interactive benchmarking), monitoring_dashboard.ipynb (visualization examples), cost_analysis.ipynb (budget optimization). Include markdown cells explaining each step and visualizations of results.",
+            "status": "pending",
+            "testStrategy": "Run all integration examples end-to-end. Verify data flows correctly between use cases. Test Jupyter notebooks execute all cells without errors. Validate notebook outputs are properly displayed"
+          },
+          {
+            "id": 4,
+            "title": "Implement Comprehensive Test Suite and Update Main Documentation",
+            "description": "Create full test coverage for all new functionality and update the main README with quickstart guides",
+            "dependencies": [
+              "10.3"
+            ],
+            "details": "Implement comprehensive test suite in tests/ covering: Unit tests for each use case module (test_use_case_*.py), Integration tests for cross-use-case workflows (test_integration_*.py), Performance tests to establish baselines (test_performance.py), Mock tests for API calls to avoid costs (test_mocks.py). Update main README.md with: Quick Start section for each use case, Installation instructions for all dependencies, Feature matrix showing capabilities, Links to detailed documentation, Architecture overview diagram. Ensure 80%+ code coverage using pytest-cov.",
+            "status": "pending",
+            "testStrategy": "Run full test suite with pytest and verify all tests pass. Check code coverage report meets 80% threshold. Validate README renders correctly on GitHub. Test quickstart instructions in fresh environment"
+          },
+          {
+            "id": 5,
+            "title": "Generate Cost Estimates Table and Troubleshooting Guide",
+            "description": "Create comprehensive cost analysis documentation and troubleshooting guide based on testing feedback",
+            "dependencies": [
+              "10.4"
+            ],
+            "details": "Generate cost estimates table in docs/COST_ESTIMATES.md showing: Cost per 1000 API calls for each provider, Cost breakdown by use case with typical usage patterns, Comparison of different model tiers (GPT-3.5 vs GPT-4, Claude Instant vs Claude), Budget optimization strategies. Create docs/TROUBLESHOOTING.md covering: Common API errors and solutions, Performance optimization tips, Memory management for local models, Dashboard deployment issues, Integration problems between use cases, FAQ section based on testing feedback. Include actual cost data from running examples.",
+            "status": "pending",
+            "testStrategy": "Verify cost calculations match actual API usage from test runs. Validate all troubleshooting solutions work for listed problems. Test that following optimization strategies reduces costs by at least 30%"
+          }
+        ]
       }
     ],
     "metadata": {
       "created": "2025-07-31T01:11:27.582Z",
-      "updated": "2025-08-05T00:34:09.216Z",
+      "updated": "2025-08-05T04:20:27.316Z",
       "description": "Tasks for master context"
     }
   }

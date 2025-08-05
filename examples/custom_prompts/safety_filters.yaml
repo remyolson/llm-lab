@@ -1,0 +1,191 @@
+# Multi-Layer Safety Filter Configuration
+# Defines comprehensive safety checks at different stages of generation
+
+safety_pipeline:
+  # Pre-generation checks (before sending to model)
+  pre_generation:
+    - filter: prompt_safety_check
+      description: "Check prompt for harmful content before generation"
+      models: ["claude-3-5-haiku-20241022", "gpt-4o-mini"]
+      consensus_threshold: 0.8
+      checks:
+        - harmful_intent
+        - personal_information
+        - illegal_content
+      
+    - filter: context_validation
+      description: "Validate conversation context for safety"
+      max_context_length: 10000
+      check_history: true
+      patterns_to_flag:
+        - repeated_harmful_requests
+        - escalating_severity
+        - circumvention_attempts
+  
+  # During generation (real-time monitoring)
+  during_generation:
+    - filter: real_time_monitoring
+      description: "Monitor generation in progress"
+      check_interval: 50  # Check every 50 tokens
+      abort_threshold: 0.9  # Abort if safety score < 0.9
+      monitors:
+        - toxic_language_emergence
+        - factual_drift
+        - instruction_deviation
+      
+    - filter: token_probability_analysis
+      description: "Analyze token probabilities for safety signals"
+      suspicious_threshold: 0.3
+      check_alternatives: true
+  
+  # Post-generation checks (after completion)
+  post_generation:
+    - filter: output_validation
+      description: "Comprehensive output safety validation"
+      checks:
+        - toxicity_detection
+        - bias_detection
+        - factuality_verification
+        - harm_potential_analysis
+        - personal_info_detection
+        - copyright_detection
+  
+  # Individual filter configurations
+  filters:
+    # Toxicity detection using multiple methods
+    toxicity_detection:
+      model: "perspective-api"  # Or local classifier
+      threshold: 0.7
+      categories: 
+        - severe_toxicity
+        - threat
+        - insult
+        - profanity
+        - identity_attack
+      fallback_model: "local-toxicity-classifier"
+      combine_scores: "max"  # max, average, weighted
+      
+    # Bias detection across protected attributes
+    bias_detection:
+      model: "custom-classifier"
+      protected_attributes: 
+        - race
+        - gender
+        - religion
+        - nationality
+        - sexual_orientation
+        - age
+        - disability
+      threshold: 0.8
+      context_window: 100  # Tokens to consider for context
+      
+    # Factual accuracy verification
+    factuality_verification:
+      method: "claim_detection"
+      verify_with: 
+        - search_engine
+        - knowledge_base
+        - fact_checking_api
+      confidence_threshold: 0.7
+      flag_unverifiable: true
+      domains_requiring_verification:
+        - medical
+        - legal
+        - financial
+        - scientific
+      
+    # Harm potential analysis
+    harm_potential_analysis:
+      categories:
+        - physical_harm
+        - emotional_harm
+        - financial_harm
+        - reputational_harm
+        - societal_harm
+      severity_weights:
+        physical_harm: 1.0
+        emotional_harm: 0.8
+        financial_harm: 0.9
+        reputational_harm: 0.7
+        societal_harm: 0.8
+      threshold: 0.5
+      
+    # Personal information detection
+    personal_info_detection:
+      patterns:
+        - ssn: '\d{3}-\d{2}-\d{4}'
+        - credit_card: '\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}'
+        - email: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}'
+        - phone: '\+?\d{1,3}[\s-]?\(?\d{3}\)?[\s-]?\d{3}[\s-]?\d{4}'
+        - address: '\d+\s+[\w\s]+\s+(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd)'
+      action: "redact"
+      log_detections: true
+      
+    # Copyright and plagiarism detection
+    copyright_detection:
+      check_against:
+        - known_copyrighted_texts
+        - code_repositories
+        - academic_papers
+      similarity_threshold: 0.85
+      min_match_length: 50  # characters
+      
+# Alert configuration for safety violations
+safety_alerts:
+  channels:
+    - type: log
+      severity: ["info", "warning", "critical"]
+      
+    - type: metric
+      severity: ["warning", "critical"]
+      metric_name: "safety_violations"
+      
+    - type: webhook
+      severity: ["critical"]
+      url: "${SAFETY_WEBHOOK_URL}"
+      
+  # Aggregation rules to prevent alert spam
+  aggregation:
+    window: 300  # 5 minutes
+    threshold: 5  # Alert if > 5 violations in window
+    
+# Safety report configuration
+safety_reporting:
+  # Automatic safety reports
+  scheduled_reports:
+    daily_summary:
+      frequency: "daily at 23:00"
+      recipients: ["safety-team@example.com"]
+      include:
+        - violation_summary
+        - trend_analysis
+        - top_triggers
+        
+    weekly_analysis:
+      frequency: "weekly on sunday"
+      recipients: ["safety-team@example.com", "compliance@example.com"]
+      include:
+        - detailed_violations
+        - model_comparison
+        - recommendation_updates
+        
+# Override configurations for different environments
+environments:
+  development:
+    # More lenient thresholds for development
+    toxicity_threshold: 0.8
+    enable_logging: true
+    enable_alerts: false
+    
+  staging:
+    # Production-like but with additional logging
+    toxicity_threshold: 0.7
+    enable_logging: true
+    enable_alerts: true
+    
+  production:
+    # Strictest settings
+    toxicity_threshold: 0.6
+    enable_logging: true
+    enable_alerts: true
+    require_consensus: true

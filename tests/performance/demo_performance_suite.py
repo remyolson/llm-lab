@@ -13,6 +13,7 @@ Example:
     python demo_performance_suite.py --mode standard --providers openai,anthropic
 """
 
+# Import paths fixed - sys.path manipulation removed
 import os
 import sys
 import argparse
@@ -21,7 +22,7 @@ from typing import List, Dict, Any
 from datetime import datetime
 
 # Add the project root to the path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
+, '../../..')))
 
 from tests.performance import (
     BenchmarkSuite, BenchmarkReporter, PerformanceAnalyzer,

@@ -142,21 +142,35 @@ class OpenAIProvider(LLMProvider):
         Raises:
             ProviderError: If generation fails
         """
+        # Input validation
+        from ..utils.validation import validate_prompt, validate_range, ValidationError
+        
+        try:
+            prompt = validate_prompt(prompt, max_length=50000)
+        except ValidationError as e:
+            raise ProviderError(self.provider_name, f"Invalid prompt: {e}")
+        
+        # Validate generation parameters
+        temperature = kwargs.get('temperature', self.config.temperature)
+        max_tokens = kwargs.get('max_tokens', self.config.max_tokens)
+        
+        try:
+            if temperature is not None:
+                temperature = validate_range(temperature, 0.0, 2.0, "temperature")
+            if max_tokens is not None:
+                max_tokens = validate_range(max_tokens, 1, 4096, "max_tokens")
+        except ValidationError as e:
+            raise ProviderError(self.provider_name, f"Invalid parameter: {e}")
+        
         # Ensure client is initialized
         if not self._initialized:
             self.initialize()
 
         self._initialize_client()
 
-        # Validate prompt
-        if not prompt or not prompt.strip():
-            raise ProviderResponseError(
-                provider_name=self.provider_name, details="Empty prompt provided"
-            )
-
-        # Prepare parameters
-        temperature = kwargs.get("temperature", self.config.temperature)
-        max_tokens = kwargs.get("max_tokens", self.config.max_tokens)
+        # Use validated parameters
+        kwargs['temperature'] = temperature
+        kwargs['max_tokens'] = max_tokens
         top_p = kwargs.get("top_p", self.config.top_p)
 
         # Implement retry logic with exponential backoff

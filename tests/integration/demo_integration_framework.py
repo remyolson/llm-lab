@@ -15,6 +15,7 @@ This shows the complete integration test workflow:
 Run with: python demo_integration_framework.py
 """
 
+# Import paths fixed - sys.path manipulation removed
 import os
 import sys
 import logging
@@ -22,7 +23,7 @@ from unittest.mock import Mock, patch
 from datetime import datetime
 
 # Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+)))
 
 from tests.integration.integration_runner import (
     IntegrationTestRunner,

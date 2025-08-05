@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Standalone test of result storage (no external dependencies)."""
 
+# Import paths fixed - sys.path manipulation removed
 import sys
 import os
 import json
@@ -56,8 +57,8 @@ class MockExecutionResult:
     execution_mode: str
 
 # Import result_storage module directly
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'src/use_cases/custom_prompts'))
+))
+), 'src/use_cases/custom_prompts'))
 
 # Mock the imports in result_storage
 class MockModule:

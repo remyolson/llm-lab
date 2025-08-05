@@ -54,9 +54,7 @@ security = [
     "semgrep>=1.0.0",
 ]
 dev = [
-    "black>=23.0.0",
-    "isort>=5.12.0",
-    "flake8>=6.0.0",
+    "ruff>=0.1.0",
     "mypy>=1.0.0",
     "pre-commit>=3.0.0",
 ]
@@ -152,37 +150,7 @@ log_cli_level = "INFO"
 log_cli_format = "%(asctime)s [%(levelname)8s] %(name)s: %(message)s"
 log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 
-[tool.black]
-line-length = 100
-target-version = ['py39', 'py310', 'py311']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | _build
-  | buck-out
-  | build
-  | dist
-)/
-'''
-
-[tool.isort]
-profile = "black"
-multi_line_output = 3
-line_length = 100
-known_first_party = ["llm_providers", "tests"]
-known_third_party = ["pytest", "openai", "anthropic", "google"]
-sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
-combine_as_imports = true
-force_grid_wrap = 0
-include_trailing_comma = true
-use_parentheses = true
+# Formatting and linting now handled by Ruff - see ruff.toml
 
 [tool.mypy]
 python_version = "3.9"
@@ -213,19 +181,4 @@ ignore_errors = true
 exclude_dirs = ["tests", "test_*"]
 skips = ["B101", "B601"]  # Skip assert_used and shell injection in tests
 
-[tool.flake8]
-max-line-length = 100
-extend-ignore = ["E203", "W503", "E501"]
-exclude = [
-    ".git",
-    "__pycache__",
-    "build",
-    "dist",
-    "*.egg-info",
-    ".venv",
-    "venv",
-]
-per-file-ignores = [
-    "__init__.py:F401",
-    "tests/*:F401,F811,F403,F405",
-]
+# Flake8 configuration removed - now handled by Ruff

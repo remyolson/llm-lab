@@ -1,0 +1,213 @@
+<!-- Alert Timeline Chart Component -->
+<div class="chart-container" 
+     data-chart-type="alert-timeline"
+     data-refresh-interval="{{ config.refresh_interval }}">
+    
+    <div class="chart-header d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="mb-0">{{ config.title or 'Alert Timeline' }}</h5>
+            <small class="text-muted">Alert history by severity</small>
+        </div>
+        <div class="chart-controls">
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-outline-secondary active" data-period="7d">7D</button>
+                <button type="button" class="btn btn-outline-secondary" data-period="30d">30D</button>
+                <button type="button" class="btn btn-outline-secondary" data-period="90d">90D</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary ms-2" id="export-alert-chart">
+                <i class="bi bi-download"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="alert-summary mb-3">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number text-danger" id="critical-count">-</div>
+                    <div class="stat-label">Critical</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number text-warning" id="warning-count">-</div>
+                    <div class="stat-label">Warning</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number text-info" id="info-count">-</div>
+                    <div class="stat-label">Info</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number" id="total-count">-</div>
+                    <div class="stat-label">Total</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chart-wrapper" style="height: {{ config.height }}px; width: {{ config.width }};">
+        <canvas id="alert-timeline-chart-{{ range(1000) | random }}"></canvas>
+    </div>
+    
+    <div class="chart-loading d-none">
+        <div class="text-center p-4">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chart-error d-none">
+        <div class="alert alert-warning" role="alert">
+            Failed to load alert timeline. <a href="#" class="retry-chart">Retry</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.stat-card {
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateY(-2px);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 4px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('[data-chart-type="alert-timeline"]');
+    const canvas = container.querySelector('canvas');
+    
+    let chart = null;
+    let refreshInterval = null;
+    let currentPeriod = '7d';
+    
+    function loadChart() {
+        showLoading(true);
+        
+        fetch('/components/chart-data/alert-timeline')
+            .then(response => response.json())
+            .then(data => {
+                if (chart) chart.destroy();
+                
+                const ctx = canvas.getContext('2d');
+                chart = new Chart(ctx, data);
+                
+                updateSummaryStats(data);
+                
+                showLoading(false);
+                showError(false);
+            })
+            .catch(error => {
+                console.error('Error loading alert timeline:', error);
+                showLoading(false);
+                showError(true);
+            });
+    }
+    
+    function updateSummaryStats(chartData) {
+        if (!chartData.data || !chartData.data.datasets) return;
+        
+        const datasets = chartData.data.datasets;
+        let criticalTotal = 0;
+        let warningTotal = 0;
+        let infoTotal = 0;
+        
+        datasets.forEach(dataset => {
+            const total = dataset.data.reduce((sum, val) => sum + val, 0);
+            switch (dataset.label.toLowerCase()) {
+                case 'critical':
+                    criticalTotal = total;
+                    break;
+                case 'warning':
+                    warningTotal = total;
+                    break;
+                case 'info':
+                    infoTotal = total;
+                    break;
+            }
+        });
+        
+        const totalAlerts = criticalTotal + warningTotal + infoTotal;
+        
+        document.getElementById('critical-count').textContent = criticalTotal;
+        document.getElementById('warning-count').textContent = warningTotal;
+        document.getElementById('info-count').textContent = infoTotal;
+        document.getElementById('total-count').textContent = totalAlerts;
+    }
+    
+    function showLoading(show) {
+        container.querySelector('.chart-loading').classList.toggle('d-none', !show);
+        container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
+        container.querySelector('.alert-summary').classList.toggle('d-none', show);
+    }
+    
+    function showError(show) {
+        container.querySelector('.chart-error').classList.toggle('d-none', !show);
+        container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
+        container.querySelector('.alert-summary').classList.toggle('d-none', show);
+    }
+    
+    // Period selection
+    container.querySelectorAll('[data-period]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            container.querySelectorAll('[data-period]').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentPeriod = this.dataset.period;
+            loadChart();
+        });
+    });
+    
+    // Export button
+    container.querySelector('#export-alert-chart').addEventListener('click', function() {
+        if (chart) {
+            const url = chart.toBase64Image();
+            const link = document.createElement('a');
+            link.download = 'alert-timeline.png';
+            link.href = url;
+            link.click();
+        }
+    });
+    
+    // Retry button
+    container.querySelector('.retry-chart').addEventListener('click', function(e) {
+        e.preventDefault();
+        loadChart();
+    });
+    
+    // Auto-refresh
+    function startRefresh() {
+        const interval = parseInt(container.dataset.refreshInterval) * 1000;
+        refreshInterval = setInterval(loadChart, interval);
+    }
+    
+    // Initial load
+    loadChart();
+    startRefresh();
+    
+    // Cleanup
+    window.addEventListener('beforeunload', function() {
+        if (refreshInterval) clearInterval(refreshInterval);
+        if (chart) chart.destroy();
+    });
+});
+</script>

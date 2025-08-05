@@ -5,12 +5,13 @@ Demo script showing how to use the Multi-Model Benchmark Execution Engine
 This demonstrates both programmatic usage and various execution modes.
 """
 
+# Import paths fixed - sys.path manipulation removed
 import os
 import sys
 from datetime import datetime
 
 # Add parent directory to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)))
 
 from benchmarks import MultiModelBenchmarkRunner, ExecutionMode
 

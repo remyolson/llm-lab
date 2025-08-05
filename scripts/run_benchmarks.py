@@ -5,6 +5,7 @@ This module provides a command-line interface for running LLM benchmarks
 using various providers and datasets.
 """
 
+# Import paths fixed - sys.path manipulation removed
 import json
 import os
 import sys
@@ -13,8 +14,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 import concurrent.futures
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Standard imports with fixed paths
 
 import click
 
