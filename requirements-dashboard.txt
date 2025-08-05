@@ -14,7 +14,7 @@ bcrypt==4.1.2
 PyJWT==2.8.0
 
 # Real-time communication
-python-socketio==5.10.0
+python-socketio==5.13.0
 
 # HTTP client for API calls
 requests==2.31.0
