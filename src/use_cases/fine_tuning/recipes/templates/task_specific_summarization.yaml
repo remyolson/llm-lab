@@ -1,7 +1,7 @@
 name: task_specific_summarization
 description: Recipe for fine-tuning models on text summarization tasks
 version: 1.0.0
-author: lllm-lab
+author: llm-lab
 tags:
   - summarization
   - text-generation

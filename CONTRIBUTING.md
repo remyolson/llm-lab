@@ -30,8 +30,8 @@ This project and everyone participating in it is governed by our Code of Conduct
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/lllm-lab.git
-   cd lllm-lab
+   git clone https://github.com/YOUR_USERNAME/llm-lab.git
+cd llm-lab
    ```
 3. **Set up the development environment**:
    ```bash
@@ -42,7 +42,7 @@ This project and everyone participating in it is governed by our Code of Conduct
    ```
 4. **Add the upstream remote**:
    ```bash
-   git remote add upstream https://github.com/ORIGINAL_OWNER/lllm-lab.git
+   git remote add upstream https://github.com/ORIGINAL_OWNER/llm-lab.git
    ```
 
 ## How to Contribute

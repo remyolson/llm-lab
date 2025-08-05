@@ -189,7 +189,7 @@ graph LR
 ## Directory Structure
 
 ```
-lllm-lab/
+llm-lab/
 ├── src/                        # Source code
 │   ├── providers/              # Provider implementations
 │   │   ├── base.py            # Abstract base provider

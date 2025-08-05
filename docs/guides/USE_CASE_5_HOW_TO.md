@@ -562,12 +562,12 @@ python models/small-llms/warmup.py --model qwen-0.5b-gguf
 **Solution**: Ensure you're in the correct directory
 ```bash
 # Run from repository root
-cd /path/to/lllm-lab
+cd /path/to/llm-lab
 python models/small-llms/inference.py --model smollm-135m
 
 # Or use absolute paths
 python /full/path/to/inference.py \
-  --model-path /Users/ro/Documents/GitHub/lllm-lab/models/small-llms/smollm-135m
+  --model-path /Users/ro/Documents/GitHub/llm-lab/models/small-llms/smollm-135m
 ```
 
 #### Issue: High memory usage warning
@@ -705,7 +705,7 @@ Small models are perfect for MacBook Pro users because:
 ## 💭 Feedback
 
 Help us improve this guide:
-- Found an error? [Open an issue](https://github.com/remyolson/lllm-lab/issues/new)
+- Found an error? [Open an issue](https://github.com/remyolson/llm-lab/issues/new)
 - Have suggestions? See our [Contribution Guide](../../CONTRIBUTING.md)
 
 ---

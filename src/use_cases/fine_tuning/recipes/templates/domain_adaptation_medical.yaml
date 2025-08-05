@@ -1,7 +1,7 @@
 name: domain_adaptation_medical
 description: Recipe for adapting models to medical/healthcare domain
 version: 1.0.0
-author: lllm-lab
+author: llm-lab
 tags:
   - domain-adaptation
   - medical

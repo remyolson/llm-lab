@@ -1,7 +1,7 @@
 name: code_generation
 description: Recipe for fine-tuning models on code generation tasks
 version: 1.0.0
-author: lllm-lab
+author: llm-lab
 tags:
   - code-generation
   - programming

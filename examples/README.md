@@ -138,7 +138,7 @@ pip install -r requirements.txt
 ### Running Examples
 ```bash
 # Always run from project root
-cd /path/to/lllm-lab
+cd /path/to/llm-lab
 
 # Run with Python
 python examples/quick_start.py
@@ -269,7 +269,7 @@ Usage:
 
 1. **Read the guides**: Start with use case guides in [`docs/guides/`](../docs/guides/)
 2. **Explore the API**: Check [`docs/api/`](../docs/api/) for detailed API docs
-3. **Join discussions**: Participate in [GitHub Discussions](https://github.com/remyolson/lllm-lab/discussions)
+3. **Join discussions**: Participate in [GitHub Discussions](https://github.com/remyolson/llm-lab/discussions)
 4. **Contribute**: Share your examples and improvements!
 
 ---

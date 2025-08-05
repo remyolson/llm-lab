@@ -1,7 +1,7 @@
 name: instruction_tuning_alpaca
 description: Recipe for instruction tuning using Alpaca-style dataset format
 version: 1.0.0
-author: lllm-lab
+author: llm-lab
 tags:
   - instruction-tuning
   - alpaca

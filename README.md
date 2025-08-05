@@ -31,8 +31,8 @@ LLM Lab is a comprehensive platform designed for organizations and researchers w
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/remyolson/lllm-lab.git
-   cd lllm-lab
+   git clone https://github.com/remyolson/llm-lab.git
+cd llm-lab
    ```
 
 2. **Create and activate a virtual environment**
@@ -317,7 +317,7 @@ When `--analyze-results` is used, additional reports are generated:
 ## 📁 Project Structure
 
 ```
-lllm-lab/
+llm-lab/
 ├── src/                     # Source code
 │   ├── llm_providers/       # LLM provider implementations
 │   │   ├── base.py          # Base provider interface
@@ -597,8 +597,8 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ### Support
 
-- [Issue Tracker](https://github.com/remyolson/lllm-lab/issues)
-- [GitHub Discussions](https://github.com/remyolson/lllm-lab/discussions)
+- [Issue Tracker](https://github.com/remyolson/llm-lab/issues)
+- [GitHub Discussions](https://github.com/remyolson/llm-lab/discussions)
 
 ### Related Projects
 
@@ -619,9 +619,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Project Status
 
-![GitHub Stars](https://img.shields.io/github/stars/remyolson/lllm-lab)
-![GitHub Forks](https://img.shields.io/github/forks/remyolson/lllm-lab)
-![License](https://img.shields.io/github/license/remyolson/lllm-lab)
+![GitHub Stars](https://img.shields.io/github/stars/remyolson/llm-lab)
+![GitHub Forks](https://img.shields.io/github/forks/remyolson/llm-lab)
+![License](https://img.shields.io/github/license/remyolson/llm-lab)
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
 

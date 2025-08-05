@@ -2,7 +2,7 @@
 # Quick script to run models with the correct virtual environment
 
 # Base directory
-BASE_DIR="/Users/ro/Documents/GitHub/lllm-lab"
+BASE_DIR="/Users/ro/Documents/GitHub/llm-lab"
 VENV_PYTHON="$BASE_DIR/venv/bin/python"
 SCRIPT_DIR="$BASE_DIR/models/small-llms"
 

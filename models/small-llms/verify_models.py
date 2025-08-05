@@ -15,7 +15,7 @@ def check_model_consistency():
     default_models = default_transformers + default_gguf
     
     # Check what's actually downloaded
-    model_dir = "/Users/ro/Documents/GitHub/lllm-lab/models/small-llms"
+    model_dir = "/Users/ro/Documents/GitHub/llm-lab/models/small-llms"
     downloaded_models = []
     
     for item in os.listdir(model_dir):

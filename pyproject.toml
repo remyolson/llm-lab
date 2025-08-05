@@ -3,12 +3,12 @@ requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "lllm-lab"
+name = "llm-lab"
 description = "Comprehensive LLM Provider Testing and Benchmarking Suite"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "LLM Lab", email = "contact@lllm-lab.dev"}
+    {name = "LLM Lab", email = "contact@llm-lab.dev"}
 ]
 classifiers = [
     "Development Status :: 4 - Beta",
@@ -59,14 +59,14 @@ dev = [
     "pre-commit>=3.0.0",
 ]
 all = [
-    "lllm-lab[test,benchmarks,security,dev]"
+    "llm-lab[test,benchmarks,security,dev]"
 ]
 
 [project.urls]
-Homepage = "https://github.com/remyolson/lllm-lab"
-Repository = "https://github.com/remyolson/lllm-lab"
-Documentation = "https://github.com/remyolson/lllm-lab/tree/main/docs"
-"Bug Tracker" = "https://github.com/remyolson/lllm-lab/issues"
+Homepage = "https://github.com/remyolson/llm-lab"
+Repository = "https://github.com/remyolson/llm-lab"
+Documentation = "https://github.com/remyolson/llm-lab/tree/main/docs"
+"Bug Tracker" = "https://github.com/remyolson/llm-lab/issues"
 
 [project.scripts]
 lllm-benchmark = "tests.performance.demo_performance_suite:main"
