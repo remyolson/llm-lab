@@ -678,11 +678,674 @@
             "testStrategy": "Verify cost calculations match actual API usage from test runs. Validate all troubleshooting solutions work for listed problems. Test that following optimization strategies reduces costs by at least 30%"
           }
         ]
+      },
+      {
+        "id": 11,
+        "title": "Implement Enhanced Fine-Tuning Pipeline",
+        "description": "Create a comprehensive fine-tuning pipeline with pre-configured recipes, automatic dataset preparation, real-time progress visualization, checkpoint management, and hyperparameter optimization",
+        "details": "Build an enhanced fine-tuning system extending the existing framework from Task 6. Create src/use_cases/fine_tuning/pipelines/ directory for pipeline implementations. Implement recipe system in recipes/recipe_manager.py supporting YAML/JSON recipe definitions for common tasks (instruction tuning, chat format, code generation, domain adaptation). Create automatic dataset preparation pipeline in pipelines/data_preprocessor.py supporting format detection, quality validation, automatic train/val/test splitting, and data augmentation techniques. Implement real-time progress visualization using Gradio or Streamlit in visualization/training_dashboard.py with live loss curves, gradient statistics, learning rate schedules, and memory usage monitoring. Build checkpoint management system in checkpoints/checkpoint_manager.py with automatic best model selection, checkpoint merging for continued training, model pruning, and quantization post-training. Implement hyperparameter optimization using Optuna or Ray Tune in optimization/hyperparam_tuner.py with Bayesian optimization, population-based training support, and automatic early stopping. Create pre-configured recipes for: ChatML format fine-tuning, instruction following (Alpaca/Vicuna style), code generation (with syntax validation), domain-specific adaptation (medical, legal, finance), and multi-task learning. Add distributed training support using Accelerate or DeepSpeed for multi-GPU setups. Implement evaluation suite specifically for fine-tuned models comparing against base models. Create CLI interface in cli/finetune.py with commands like 'finetune --recipe chat --model llama2-7b --data custom.jsonl'. Add integration with existing monitoring system (Task 8) for tracking fine-tuning experiments. Implement cost estimation for fine-tuning jobs based on compute time and resources.",
+        "testStrategy": "Test recipe loading and validation with example recipes. Verify dataset preprocessing handles various formats (JSONL, CSV, HuggingFace datasets). Run minimal fine-tuning job (50 steps) with smallest model to test pipeline end-to-end. Validate real-time dashboard updates correctly during training. Test checkpoint saving/loading and model merging functionality. Verify hyperparameter optimization finds better parameters than baseline. Test distributed training with at least 2 GPUs if available. Ensure pre-configured recipes produce expected model behavior. Validate CLI interface handles all parameter combinations. Test integration with monitoring system records experiments correctly. Verify cost estimation is within 10% of actual costs. Run A/B comparison between base and fine-tuned model on benchmark tasks.",
+        "status": "done",
+        "dependencies": [
+          6,
+          8
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Recipe System Foundation",
+            "description": "Create the core recipe management system for defining and loading fine-tuning configurations",
+            "dependencies": [],
+            "details": "Build RecipeManager class in recipes/recipe_manager.py supporting YAML/JSON recipe definitions. Implement recipe validation schema, loading mechanism, and registry for pre-configured recipes (instruction tuning, chat format, code generation, domain adaptation). Create base recipe templates with configurable parameters for model selection, training hyperparameters, and dataset specifications.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Build Dataset Preparation Pipeline",
+            "description": "Create automatic dataset preprocessing system with format detection and validation",
+            "dependencies": [],
+            "details": "Implement DataPreprocessor in pipelines/data_preprocessor.py supporting multiple input formats (JSONL, CSV, HuggingFace datasets, raw text). Add automatic format detection, quality validation checks, train/val/test splitting, tokenization pipeline, and data augmentation options. Include support for custom preprocessing functions defined in recipes.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create Real-time Visualization Dashboard",
+            "description": "Develop interactive dashboard for monitoring training progress and metrics",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Build real-time dashboard using Plotly Dash or Streamlit in visualization/training_dashboard.py. Display loss curves, learning rate schedules, gradient norms, validation metrics, and estimated time remaining. Implement WebSocket or SSE for live updates, metric export functionality, and customizable chart layouts based on recipe configurations.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Checkpoint Management System",
+            "description": "Build comprehensive checkpoint saving, loading, and version control system",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Create CheckpointManager in checkpoint/manager.py with automatic checkpoint saving based on validation metrics, checkpoint pruning strategies (keep best N, keep recent M), model state versioning with metadata, resume training capability, and checkpoint comparison tools. Support both local and cloud storage backends (S3, GCS).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Develop Hyperparameter Optimization Engine",
+            "description": "Create automated hyperparameter search and optimization system",
+            "dependencies": [
+              "11.1",
+              "11.2"
+            ],
+            "details": "Implement HyperparameterOptimizer in optimization/hyperparam_optimizer.py using Optuna or Ray Tune. Support grid search, random search, and Bayesian optimization strategies. Include early stopping criteria, parallel trial execution, result visualization, and integration with recipe system for search space definition.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create Pre-configured Recipe Templates",
+            "description": "Develop library of tested recipe templates for common fine-tuning scenarios",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Build recipe templates in recipes/templates/ for instruction tuning (Alpaca, Dolly formats), chat fine-tuning (ChatML, Llama format), code generation (Fill-in-the-middle, completion), domain adaptation (medical, legal, scientific), and task-specific tuning (summarization, QA, classification). Include recommended hyperparameters and dataset formats for each.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Implement Distributed Training Setup",
+            "description": "Add multi-GPU and distributed training capabilities to the pipeline",
+            "dependencies": [
+              "11.1",
+              "11.2"
+            ],
+            "details": "Create DistributedTrainer in training/distributed_trainer.py supporting DDP (Distributed Data Parallel), FSDP (Fully Sharded Data Parallel), and DeepSpeed integration. Implement automatic batch size scaling, gradient accumulation strategies, mixed precision training (fp16/bf16), and efficient checkpointing for large models.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Build Comprehensive Evaluation Suite",
+            "description": "Create evaluation framework for assessing fine-tuned model performance",
+            "dependencies": [
+              "11.2",
+              "11.4"
+            ],
+            "details": "Implement EvaluationSuite in evaluation/suite.py with automatic benchmark running on standard datasets, task-specific metric calculation, performance comparison with base models, regression detection between checkpoints, and detailed evaluation reports. Support custom evaluation functions defined in recipes.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Develop CLI Interface",
+            "description": "Create command-line interface for managing fine-tuning jobs",
+            "dependencies": [
+              "11.1",
+              "11.3",
+              "11.4"
+            ],
+            "details": "Build CLI in cli/fine_tuning_cli.py using Click or Typer with commands for starting/stopping/resuming training jobs, listing and managing checkpoints, monitoring job progress, running evaluations, and managing recipes. Include interactive mode for recipe creation and job configuration.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Integrate Monitoring and Logging",
+            "description": "Add comprehensive monitoring, logging, and alerting capabilities",
+            "dependencies": [
+              "11.3",
+              "11.7"
+            ],
+            "details": "Implement monitoring integration in monitoring/integrations.py supporting Weights & Biases, TensorBoard, MLflow, and custom logging backends. Add structured logging for all pipeline components, metric export in standard formats, alerting for training anomalies, and resource usage tracking (GPU, memory, disk).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 11,
+            "title": "Create Cost Estimation Features",
+            "description": "Build system for estimating and tracking fine-tuning costs",
+            "dependencies": [
+              "11.1",
+              "11.5"
+            ],
+            "details": "Develop CostEstimator in cost/estimator.py calculating estimated training time and compute costs based on model size, dataset size, and hardware configuration. Track actual resource usage during training, provide cost optimization recommendations, and generate cost reports. Support multiple cloud provider pricing models.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 12,
+            "title": "Implement Integration Tests and Documentation",
+            "description": "Create comprehensive tests and documentation for the enhanced pipeline",
+            "dependencies": [
+              "11.1",
+              "11.2",
+              "11.3",
+              "11.4",
+              "11.5",
+              "11.6",
+              "11.7",
+              "11.8",
+              "11.9",
+              "11.10",
+              "11.11"
+            ],
+            "details": "Write integration tests covering end-to-end pipeline workflows, recipe validation and loading, checkpoint recovery scenarios, and distributed training setups. Create detailed documentation including architecture overview, recipe creation guide, optimization strategies, troubleshooting guide, and example notebooks demonstrating common use cases.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Build Comprehensive Before/After Evaluation Framework",
+        "description": "Develop an automated benchmark suite that runs comprehensive evaluations before and after fine-tuning, featuring side-by-side comparison interface, performance metrics dashboard, cost/benefit analysis, and exportable reports",
+        "details": "Create src/use_cases/evaluation_framework/ directory structure with components for automated benchmarking, comparison analysis, and reporting. Implement AutoBenchmarkRunner class in benchmark_runner.py that orchestrates before/after evaluation workflows, automatically detecting model changes and triggering benchmark runs. Build side-by-side comparison interface in comparison/comparison_view.py using Streamlit or Gradio, displaying metrics like accuracy, latency, token usage, and cost per request with visual diff highlighting. Create performance metrics dashboard extending the monitoring system from Task 8, adding specific views for fine-tuning impact analysis including: performance delta charts, regression analysis, statistical significance testing, and confidence intervals. Implement cost/benefit analyzer in analysis/cost_benefit.py calculating ROI metrics including: training cost amortization, performance gain per dollar spent, break-even analysis based on usage patterns, and TCO projections. Build comprehensive report generator in reporting/report_generator.py producing PDF/HTML reports with executive summaries, detailed metric comparisons, visualization exports, and actionable recommendations. Integrate with existing fine-tuning pipeline from Task 11 to automatically trigger evaluation runs. Create evaluation templates for common scenarios (accuracy-focused, latency-optimized, cost-optimized). Implement A/B testing framework for production comparison with traffic splitting and statistical analysis. Add support for custom evaluation metrics via plugin system. Create data export functionality supporting formats: CSV, JSON, Excel, with configurable aggregation levels.",
+        "testStrategy": "Test AutoBenchmarkRunner with mock model versions to verify automatic detection and execution. Run end-to-end evaluation with a small fine-tuned model comparing base vs tuned performance. Validate side-by-side interface correctly displays all metrics with proper formatting and diff highlighting. Test statistical significance calculations with known datasets to ensure accuracy. Verify cost/benefit calculations match manual calculations for sample scenarios. Test report generation produces valid PDF/HTML with all sections populated correctly. Validate A/B testing framework properly splits traffic and collects unbiased metrics. Test export functionality generates valid files in all supported formats. Ensure integration with monitoring dashboard displays real-time updates during evaluation runs. Load test with 100+ model comparisons to verify performance. Test custom metric plugins can be registered and executed. Validate that evaluation templates produce consistent results across runs.",
+        "status": "pending",
+        "dependencies": [
+          6,
+          8,
+          9,
+          11
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement AutoBenchmarkRunner Core Infrastructure",
+            "description": "Create the main AutoBenchmarkRunner class in src/use_cases/evaluation_framework/benchmark_runner.py that orchestrates automated before/after evaluations",
+            "dependencies": [],
+            "details": "Design AutoBenchmarkRunner with methods for: detecting model version changes, scheduling automatic benchmark runs, managing benchmark state and history, coordinating with existing monitoring infrastructure from Task 8, implementing hooks for pre/post fine-tuning events. Include configuration for benchmark frequency, model detection strategies, and integration with the monitoring database schema. Create interfaces for extensible benchmark suite registration.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Build Side-by-Side Comparison Interface",
+            "description": "Develop an interactive comparison interface in src/use_cases/evaluation_framework/comparison/comparison_view.py using Streamlit or Gradio",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Create split-screen view showing base model vs fine-tuned model performance. Implement metric visualization including: accuracy scores, latency measurements, token usage statistics, cost per request calculations. Add diff highlighting for metric changes, percentage improvement indicators, and interactive filtering by dataset/task type. Include visual regression indicators and confidence intervals for statistical significance.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Extend Performance Metrics Dashboard",
+            "description": "Enhance the existing monitoring dashboard from Task 9 with specialized before/after evaluation views and metrics",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Add new dashboard sections for: fine-tuning timeline view showing model evolution, performance delta charts, regression analysis visualizations, multi-model comparison matrices. Integrate with existing Chart.js/Plotly implementations. Create drill-down capabilities from summary to detailed metrics. Add support for custom metric definitions and real-time metric streaming during evaluation runs.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement Cost/Benefit Analyzer",
+            "description": "Create comprehensive cost/benefit analysis module in src/use_cases/evaluation_framework/analysis/cost_benefit_analyzer.py",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Leverage existing cost_analysis.py from Task 2 to calculate: fine-tuning costs (compute time, data preparation), operational cost differences, ROI calculations, break-even analysis. Implement predictive modeling for cost projections based on usage patterns. Create decision matrices comparing performance gains vs cost increases. Include multi-provider cost comparison for hybrid deployment scenarios.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Build Automated Report Generator",
+            "description": "Develop report generation system in src/use_cases/evaluation_framework/reporting/report_generator.py for creating comprehensive evaluation reports",
+            "dependencies": [
+              "12.3",
+              "12.4"
+            ],
+            "details": "Create templated report system generating PDF/HTML documents with: executive summary of before/after results, detailed performance metrics with visualizations, cost analysis and recommendations, statistical significance testing results. Implement scheduling for periodic reports, customizable report templates, and integration with existing report generation from Task 9. Add markdown export for documentation purposes.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Integrate Fine-Tuning Pipeline Hooks",
+            "description": "Create integration layer connecting the evaluation framework with fine-tuning workflows",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Implement webhook/callback system in src/use_cases/evaluation_framework/integrations/pipeline_hooks.py for: pre-training baseline capture, post-training automatic evaluation trigger, continuous evaluation during training epochs, early stopping based on evaluation metrics. Create adapters for popular fine-tuning frameworks (Hugging Face, OpenAI, custom training loops). Include rollback mechanisms for performance regressions.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create Evaluation Template Library",
+            "description": "Build a library of reusable evaluation templates in src/use_cases/evaluation_framework/templates/",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Develop template system for common evaluation scenarios: classification tasks, generation quality, reasoning benchmarks, domain-specific evaluations. Create YAML/JSON template format for defining: test datasets, evaluation metrics, success criteria, comparison thresholds. Include templates for regulatory compliance testing, bias detection, and safety evaluations. Implement template inheritance and composition features.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement A/B Testing Framework",
+            "description": "Create statistical A/B testing framework in src/use_cases/evaluation_framework/ab_testing/ab_test_runner.py",
+            "dependencies": [
+              "12.2",
+              "12.7"
+            ],
+            "details": "Build framework for running controlled experiments between model versions including: traffic splitting logic, statistical significance testing (t-tests, chi-square), sample size calculators, experiment tracking and versioning. Implement online A/B testing with real user traffic, offline A/B testing with held-out datasets, multi-variant testing support. Include Bayesian inference options and sequential testing for early stopping.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Build Custom Metric Plugin System",
+            "description": "Create extensible plugin architecture in src/use_cases/evaluation_framework/plugins/ for custom evaluation metrics",
+            "dependencies": [
+              "12.7"
+            ],
+            "details": "Design plugin interface for custom metrics with: base metric class defining compute(), aggregate(), and visualize() methods, plugin discovery and registration system, sandboxed execution environment for security. Include example plugins for: domain-specific accuracy metrics, business KPI calculations, custom cost functions. Implement metric composition for complex evaluations and metric versioning for reproducibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 10,
+            "title": "Implement Multi-Format Data Export System",
+            "description": "Create comprehensive data export functionality in src/use_cases/evaluation_framework/export/data_exporter.py",
+            "dependencies": [
+              "12.5",
+              "12.8"
+            ],
+            "details": "Build export system supporting: CSV/Excel for spreadsheet analysis, JSON/Parquet for data pipelines, SQL dumps for database imports, API endpoints for programmatic access. Include features for: selective data export with filtering, data anonymization options, compressed archives for large datasets, incremental/delta exports. Create integration with BI tools (Tableau, PowerBI) and ML experiment tracking (MLflow, W&B).",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Create Interactive Fine-Tuning Studio",
+        "description": "Build a comprehensive web-based interface for managing fine-tuning experiments with live preview capabilities, A/B testing functionality, integrated dataset explorer, quality analysis tools, and streamlined one-click deployment",
+        "details": "Create src/use_cases/fine_tuning_studio/ directory structure with frontend/, backend/, and deployment/ subdirectories. Implement React-based frontend in frontend/ using Next.js 14+ with TypeScript for type safety and performance. Create main dashboard component in frontend/components/Dashboard.tsx showing active experiments, recent deployments, and performance metrics. Build experiment management interface in frontend/components/ExperimentManager.tsx with drag-and-drop recipe creation, visual hyperparameter tuning sliders, and real-time validation. Implement live preview system in frontend/components/LivePreview.tsx using WebSocket connections to stream model outputs during training, showing before/after comparisons with the base model. Create A/B testing framework in frontend/components/ABTesting.tsx allowing side-by-side comparison of multiple fine-tuned variants with statistical significance testing. Build dataset explorer in frontend/components/DatasetExplorer.tsx with pagination, filtering, search functionality, and data quality visualization (token distribution, length statistics, format validation). Implement quality analysis dashboard in frontend/components/QualityAnalysis.tsx showing perplexity trends, loss curves, overfitting detection, and automated quality scores. Create backend API using FastAPI in backend/api.py with endpoints for experiment CRUD operations, training job management, model deployment, and metrics retrieval. Implement WebSocket server in backend/websocket_server.py for real-time training updates and live preview streaming. Build deployment pipeline in deployment/deployer.py supporting one-click deployment to HuggingFace Hub, local serving with vLLM/TGI, and cloud providers (AWS SageMaker, Azure ML). Create deployment configuration templates in deployment/configs/ for common scenarios. Implement authentication and authorization using JWT tokens with role-based access control (admin, developer, viewer roles). Add experiment versioning system storing configurations, datasets, and checkpoints in organized structure. Create automated testing suite for deployed models including latency benchmarks, quality regression tests, and API compatibility checks. Implement experiment collaboration features with comments, sharing, and team workspaces. Build notification system for training completion, deployment status, and quality alerts. Create comprehensive logging and audit trail for compliance and debugging. Add export functionality for experiments as reproducible scripts or notebooks. Implement model card generation with training details, performance metrics, and usage guidelines.",
+        "testStrategy": "Test frontend components render correctly with mock data using React Testing Library. Verify WebSocket connections handle disconnections gracefully and reconnect automatically. Test live preview updates in real-time during actual fine-tuning job. Validate A/B testing statistical calculations with known test cases. Test dataset explorer handles large datasets (10k+ samples) without performance degradation. Verify quality analysis metrics match those calculated by the fine-tuning framework. Test all API endpoints with various payloads and authentication scenarios. Validate one-click deployment works for at least HuggingFace Hub and local serving. Test experiment versioning preserves all artifacts correctly. Verify authentication and authorization restrict access appropriately. Load test with 10 concurrent users running experiments. Test notification delivery for all event types. Validate export produces runnable scripts. Ensure deployment monitoring correctly tracks model performance post-deployment. Test rollback functionality for failed deployments.",
+        "status": "in-progress",
+        "dependencies": [
+          11,
+          6,
+          9
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "React frontend setup with TypeScript and Next.js",
+            "description": "Set up Next.js 14+ project with TypeScript configuration, ESLint, Prettier, and necessary dependencies for the fine-tuning studio frontend",
+            "details": "",
+            "status": "done",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 2,
+            "title": "Main dashboard component development",
+            "description": "Create the main dashboard component showing active experiments, recent deployments, and performance metrics with responsive design and real-time updates",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 3,
+            "title": "Experiment manager interface",
+            "description": "Build experiment management interface with drag-and-drop recipe creation, visual hyperparameter tuning sliders, and real-time validation",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 4,
+            "title": "Live preview WebSocket system",
+            "description": "Implement live preview system using WebSocket connections to stream model outputs during training, showing before/after comparisons with the base model",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 5,
+            "title": "A/B testing UI components",
+            "description": "Create A/B testing framework allowing side-by-side comparison of multiple fine-tuned variants with statistical significance testing and evaluation metrics",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 6,
+            "title": "Dataset explorer implementation",
+            "description": "Build dataset explorer with pagination, filtering, search functionality, and data quality visualization including token distribution, length statistics, and format validation",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 7,
+            "title": "Quality analysis dashboard",
+            "description": "Implement quality analysis dashboard showing perplexity trends, loss curves, overfitting detection, and automated quality scores with visual analytics",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 8,
+            "title": "FastAPI backend setup",
+            "description": "Create backend API using FastAPI with endpoints for experiment CRUD operations, training job management, model deployment, and metrics retrieval",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 9,
+            "title": "WebSocket server for real-time updates",
+            "description": "Implement WebSocket server for real-time training updates and live preview streaming with connection management and error handling",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 10,
+            "title": "Deployment pipeline creation",
+            "description": "Build deployment pipeline supporting one-click deployment to HuggingFace Hub, local serving with vLLM/TGI, and cloud providers with configuration templates",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 11,
+            "title": "Authentication and authorization system",
+            "description": "Implement authentication and authorization using JWT tokens with role-based access control supporting admin, developer, and viewer roles",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 12,
+            "title": "Experiment versioning system",
+            "description": "Add experiment versioning system storing configurations, datasets, and checkpoints in organized structure with version control and rollback capabilities",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 13,
+            "title": "Automated testing suite",
+            "description": "Create automated testing suite for deployed models including latency benchmarks, quality regression tests, and API compatibility checks",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 14,
+            "title": "Collaboration features",
+            "description": "Implement experiment collaboration features with comments, sharing, team workspaces, and notification system for training completion and deployment status",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          },
+          {
+            "id": 15,
+            "title": "Model card generation",
+            "description": "Build model card generation with training details, performance metrics, usage guidelines, comprehensive logging, audit trail for compliance, and export functionality for reproducible scripts",
+            "details": "",
+            "status": "pending",
+            "dependencies": [],
+            "parentTaskId": 13
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Implement Visual Performance Analytics",
+        "description": "Create real-time dashboards showing training metrics, response comparisons, task-specific evaluations, model behavior analysis, and performance regression detection",
+        "details": "Create src/use_cases/visual_analytics/ directory structure with components for real-time monitoring, comparative analysis, and interactive visualizations. Implement MetricsDashboard class in dashboard/metrics_dashboard.py using Plotly Dash or Streamlit for real-time training metric visualization including loss curves, learning rate schedules, gradient norms, and validation metrics. Build ResponseComparisonView in comparison/response_analyzer.py that displays side-by-side model outputs with diff highlighting, token-level attention visualization, and semantic similarity scores. Create TaskEvaluationPanel in evaluation/task_evaluator.py supporting domain-specific metrics (BLEU for translation, F1 for classification, perplexity for generation) with customizable evaluation sets. Implement ModelBehaviorAnalyzer in analysis/behavior_analyzer.py featuring embedding space visualization using t-SNE/UMAP, attention pattern analysis, neuron activation heatmaps, and prompt sensitivity testing. Build RegressionDetector in monitoring/regression_detector.py that integrates with the existing monitoring system to automatically flag performance drops >5%, visualize historical trends, and generate alerts with root cause analysis. Create unified dashboard interface in app.py supporting multiple concurrent model monitoring, customizable metric panels, export functionality for reports/presentations, and real-time WebSocket updates for live training sessions. Implement caching layer using Redis for performance optimization and historical data storage.",
+        "testStrategy": "Test MetricsDashboard with simulated training data to verify real-time updates and chart rendering performance. Validate ResponseComparisonView correctly highlights differences between model outputs and calculates similarity scores accurately. Run TaskEvaluationPanel with known benchmark datasets to ensure metrics match expected values for each task type. Test ModelBehaviorAnalyzer visualization components with small models to verify embedding projections and attention patterns render correctly. Simulate performance regressions in test data to validate RegressionDetector triggers alerts at correct thresholds and identifies trend changes. Load test the unified dashboard with multiple concurrent model streams to ensure WebSocket connections remain stable. Verify export functionality generates valid PDF/PNG reports with all visualizations intact. Test caching layer reduces database queries by at least 80% for repeated requests. Validate that all visualizations are responsive and render correctly on different screen sizes.",
+        "status": "pending",
+        "dependencies": [
+          8,
+          11,
+          12
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create MetricsDashboard with real-time charts",
+            "description": "Build a real-time dashboard component using Plotly Dash or Streamlit to visualize training metrics including loss curves, learning rate schedules, gradient norms, and validation metrics",
+            "dependencies": [],
+            "details": "Implement MetricsDashboard class in src/use_cases/visual_analytics/dashboard/metrics_dashboard.py. Create chart components for loss curves (training/validation), learning rate visualization, gradient norm tracking, and custom metric plots. Support auto-refreshing with configurable intervals. Implement data buffering to handle high-frequency updates without UI lag. Add export functionality for charts as PNG/SVG.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement ResponseComparisonView with diff highlighting",
+            "description": "Create a visual component that displays side-by-side model outputs with intelligent diff highlighting and similarity scoring",
+            "dependencies": [],
+            "details": "Build ResponseComparisonView in src/use_cases/visual_analytics/comparison/response_analyzer.py. Implement text diff algorithms (character-level, word-level, semantic) with color-coded highlighting. Calculate similarity metrics (BLEU, ROUGE, semantic similarity). Support multiple model comparison (3+ models). Add filtering options for viewing only differences or similarities. Include token-level probability visualization.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Build TaskEvaluationPanel for domain metrics",
+            "description": "Develop a specialized panel for visualizing task-specific evaluation metrics across different domains",
+            "dependencies": [],
+            "details": "Create TaskEvaluationPanel in src/use_cases/visual_analytics/evaluation/task_panel.py. Support domain-specific visualizations: code tasks (syntax validity, test pass rates), math tasks (accuracy by difficulty), reasoning tasks (step-by-step correctness). Implement radar charts for multi-dimensional metrics. Add benchmark comparison overlays. Include statistical significance testing for metric differences.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create ModelBehaviorAnalyzer with embedding visualization",
+            "description": "Implement advanced model behavior analysis tools including embedding space visualization and attention pattern analysis",
+            "dependencies": [
+              "14.1",
+              "14.2"
+            ],
+            "details": "Build ModelBehaviorAnalyzer in src/use_cases/visual_analytics/analysis/behavior_analyzer.py. Implement t-SNE/UMAP visualization for embedding spaces. Create attention heatmaps for transformer models. Add activation pattern analysis across layers. Support interactive exploration with zoom/pan/filter. Include clustering visualization for similar responses. Implement probe tasks for specific capabilities.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement RegressionDetector with alerting",
+            "description": "Build an automated performance regression detection system with configurable alerts and notifications",
+            "dependencies": [
+              "14.1",
+              "14.3"
+            ],
+            "details": "Create RegressionDetector in src/use_cases/visual_analytics/monitoring/regression_detector.py. Implement statistical tests for performance changes (t-tests, Mann-Whitney U). Support multiple regression types: accuracy drops, latency increases, memory spikes. Create configurable thresholds and sensitivity levels. Add email/Slack/webhook notifications. Include root cause analysis suggestions based on correlated metrics.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Design unified dashboard interface",
+            "description": "Create a cohesive dashboard interface that integrates all visualization components with intuitive navigation and customization",
+            "dependencies": [
+              "14.1",
+              "14.2",
+              "14.3",
+              "14.4",
+              "14.5"
+            ],
+            "details": "Build main dashboard application in src/use_cases/visual_analytics/app.py. Design responsive layout with draggable/resizable panels. Implement dashboard templates for common workflows. Add user preference persistence (layout, filters, settings). Create role-based access control for sensitive metrics. Include dark/light theme support. Add export functionality for entire dashboard states.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Integrate WebSocket for live updates",
+            "description": "Implement WebSocket communication layer for real-time metric streaming and dashboard updates",
+            "dependencies": [
+              "14.6"
+            ],
+            "details": "Create WebSocket server in src/use_cases/visual_analytics/realtime/websocket_server.py. Implement client-side JavaScript for dashboard updates. Support multiple concurrent connections with authentication. Add message queuing for reliability. Implement data compression for bandwidth efficiency. Create fallback to polling for firewall-restricted environments. Add connection health monitoring.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Implement Redis caching layer",
+            "description": "Add Redis-based caching system to optimize dashboard performance and reduce computational load",
+            "dependencies": [
+              "14.7"
+            ],
+            "details": "Create caching layer in src/use_cases/visual_analytics/cache/redis_cache.py. Implement intelligent cache invalidation strategies. Cache computed metrics, aggregations, and visualizations. Add TTL configuration per metric type. Support cache warming for frequently accessed data. Include cache hit/miss monitoring. Implement graceful degradation when Redis is unavailable.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Optimize for MacBook Pro Hardware",
+        "description": "Implement automatic hardware detection and optimization for Apple Silicon Macs, including Metal acceleration, memory-efficient training strategies, background training mode, and quick iteration cycles designed for local development on MacBook Pro hardware",
+        "details": "Create src/use_cases/hardware_optimization/ directory structure with detection/, acceleration/, memory/, and background/ subdirectories. Implement HardwareDetector class in detection/hardware_detector.py using platform, psutil, and py-sysinfo to automatically detect Apple Silicon (M1/M2/M3), available RAM, unified memory architecture, and Metal GPU capabilities. Create MetalAccelerator in acceleration/metal_accelerator.py leveraging mlx (Apple's ML framework) for optimized operations, with fallback to MPS (Metal Performance Shaders) backend for PyTorch when available. Implement MemoryOptimizer in memory/memory_optimizer.py with strategies including gradient checkpointing, mixed precision training (fp16/bf16), dynamic batch sizing based on available memory, model sharding for large models, and efficient data loading with memory mapping. Build BackgroundTrainer in background/background_trainer.py supporting low-priority process execution, automatic throttling based on system load, checkpoint-resume capabilities for interrupted training, and power/thermal management awareness. Create QuickIterationPipeline in pipelines/quick_iteration.py with hot-reload for configuration changes, incremental fine-tuning from checkpoints, minimal evaluation subsets for rapid feedback, and optimized data loading with persistent cache. Implement unified configuration in config/hardware_config.py with profiles for different MacBook Pro models (13\", 14\", 16\"), automatic profile selection, and manual override options. Add monitoring dashboard showing real-time memory usage, GPU utilization, thermal throttling status, and estimated time remaining. Integrate with existing fine-tuning framework to automatically apply optimizations when Apple hardware is detected.",
+        "testStrategy": "Test hardware detection correctly identifies Apple Silicon model and capabilities on actual MacBook Pro hardware. Verify Metal acceleration provides measurable speedup (>20%) compared to CPU-only execution for compatible operations. Validate memory optimizer keeps peak memory usage within 80% of available RAM during training. Test background trainer correctly yields resources when user launches other applications. Measure quick iteration pipeline reduces time-to-first-result by >50% compared to standard pipeline. Run thermal stress test to ensure sustained performance without overheating. Verify checkpoint-resume works correctly after simulated interruptions. Test fallback paths work on non-Apple hardware without errors. Validate that all optimizations integrate seamlessly with existing fine-tuning workflows from Task 11.",
+        "status": "pending",
+        "dependencies": [
+          11,
+          6,
+          14
+        ],
+        "priority": "medium",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Hardware Detection System",
+            "description": "Create comprehensive hardware detection for Apple Silicon Macs, identifying processor type, memory configuration, and available acceleration capabilities",
+            "dependencies": [],
+            "details": "Build HardwareDetector class in src/use_cases/hardware_optimization/detection/hardware_detector.py. Use platform, psutil, subprocess, and py-sysinfo to detect Apple Silicon model (M1/M2/M3/M4), number of performance/efficiency cores, available RAM, unified memory details, Neural Engine availability, and Metal GPU capabilities. Create HardwareProfile dataclass to store detected configuration. Implement caching mechanism to avoid repeated detection calls. Add fallback detection for non-Apple hardware to ensure cross-platform compatibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Build Metal/MLX Acceleration Implementation",
+            "description": "Implement Metal GPU acceleration using Apple's MLX framework for optimized neural network operations on Apple Silicon",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Create MetalAccelerator in src/use_cases/hardware_optimization/acceleration/metal_accelerator.py. Integrate mlx library for Metal-optimized operations including matrix multiplication, attention mechanisms, and activation functions. Build acceleration wrapper that automatically converts PyTorch/TensorFlow operations to MLX equivalents where possible. Implement dynamic batching optimized for unified memory architecture. Create performance benchmarking suite to measure speedup vs CPU operations. Add automatic fallback to CPU when Metal operations fail.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Develop Memory Optimization Strategies",
+            "description": "Create memory-efficient training and inference strategies optimized for Apple Silicon's unified memory architecture",
+            "dependencies": [
+              "15.1",
+              "15.2"
+            ],
+            "details": "Implement MemoryOptimizer in src/use_cases/hardware_optimization/memory/memory_optimizer.py. Build gradient checkpointing system that leverages unified memory for efficient storage. Create dynamic batch size adjustment based on available memory and model size. Implement model sharding strategies for large models on limited RAM. Develop memory pressure monitoring using psutil to prevent system slowdowns. Create efficient data loading pipeline that minimizes memory copies. Build automatic mixed-precision training configuration for memory savings.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create Background Training Mode",
+            "description": "Implement system for running training jobs in background with resource throttling to maintain system responsiveness",
+            "dependencies": [
+              "15.1",
+              "15.3"
+            ],
+            "details": "Build BackgroundTrainer in src/use_cases/hardware_optimization/background/background_trainer.py. Implement process priority management using nice/renice for training processes. Create CPU/GPU throttling mechanism that limits resource usage to configurable percentage. Build pause/resume functionality for training jobs when system load increases. Implement notification system for training milestones using macOS native notifications. Create persistent state management for resuming interrupted training. Add integration with macOS Activity Monitor for visibility.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Build Quick Iteration Pipeline",
+            "description": "Design rapid experimentation pipeline optimized for local development cycles on MacBook Pro",
+            "dependencies": [
+              "15.2",
+              "15.3"
+            ],
+            "details": "Create QuickIterationPipeline in src/use_cases/hardware_optimization/quick_iteration.py. Implement fast model loading with memory-mapped weights for instant startup. Build incremental training system that saves/loads optimizer state efficiently. Create lightweight evaluation mode that runs subset of benchmarks for quick feedback. Implement hot-reload functionality for configuration changes without restarting training. Design efficient checkpoint system using Apple's APFS copy-on-write features. Add profiling integration to identify bottlenecks quickly.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement Hardware-Specific Configurations",
+            "description": "Create optimized configuration presets for different Apple Silicon variants and memory configurations",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Build ConfigurationManager in src/use_cases/hardware_optimization/configs/config_manager.py. Create hardware-specific presets for M1/M2/M3 Base/Pro/Max/Ultra variants. Implement automatic hyperparameter adjustment based on available resources (batch size, learning rate, gradient accumulation). Design memory-aware model selection that recommends appropriate model sizes. Create performance profiles for different use cases (inference-only, fine-tuning, full training). Build configuration validation system to prevent invalid hardware/software combinations.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Create Monitoring Dashboard for Mac Metrics",
+            "description": "Build comprehensive monitoring dashboard displaying hardware-specific metrics and performance indicators",
+            "dependencies": [
+              "15.1",
+              "15.4"
+            ],
+            "details": "Implement MacMetricsDashboard in src/use_cases/hardware_optimization/monitoring/dashboard.py using Streamlit or Dash. Display real-time CPU usage split by performance/efficiency cores. Show unified memory usage and pressure indicators. Monitor Metal GPU utilization and compute unit activity. Track thermal state and fan speed for throttling detection. Display power consumption and battery impact during training. Create historical performance graphs for trend analysis. Add export functionality for performance reports.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 8,
+            "title": "Develop Thermal Management Integration",
+            "description": "Implement intelligent thermal management to prevent throttling and maintain sustained performance",
+            "dependencies": [
+              "15.1",
+              "15.7"
+            ],
+            "details": "Create ThermalManager in src/use_cases/hardware_optimization/thermal/thermal_manager.py. Implement temperature monitoring using Apple's SMC (System Management Controller) interface. Build predictive throttling detection based on temperature trends. Create adaptive training rate adjustment to maintain thermal headroom. Implement automatic pause/cooldown cycles during extended training. Design fan curve optimization for quieter operation during light loads. Add integration with macOS thermal pressure API for system-wide coordination.",
+            "status": "pending",
+            "testStrategy": ""
+          },
+          {
+            "id": 9,
+            "title": "Build Seamless Framework Integration",
+            "description": "Create unified interface that transparently applies hardware optimizations across different ML frameworks",
+            "dependencies": [
+              "15.2",
+              "15.3",
+              "15.5"
+            ],
+            "details": "Implement FrameworkIntegrator in src/use_cases/hardware_optimization/integration/framework_integrator.py. Create automatic optimization injection for PyTorch, TensorFlow, and JAX models. Build transparent Metal acceleration layer that requires no code changes. Implement model conversion utilities for framework interoperability. Design plugin system for extending optimization to new frameworks. Create compatibility layer for models not fully supported by MLX. Add performance comparison tools showing optimization impact across frameworks.",
+            "status": "pending",
+            "testStrategy": ""
+          }
+        ]
       }
     ],
     "metadata": {
       "created": "2025-07-31T01:11:27.582Z",
-      "updated": "2025-08-05T05:20:59.764Z",
+      "updated": "2025-08-05T19:33:27.543Z",
       "description": "Tasks for master context"
     }
   }

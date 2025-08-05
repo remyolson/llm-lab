@@ -1,0 +1,125 @@
+name: macbook_pro_optimized
+description: Recipe optimized for fine-tuning on MacBook Pro with Apple Silicon
+version: 1.0.0
+author: lllm-lab
+tags:
+  - macbook-pro
+  - apple-silicon
+  - memory-efficient
+  - local-training
+
+model:
+  name: smollm-360m-instruct
+  base_model: HuggingFaceTB/SmolLM-360M  # Small model for MacBook
+  model_type: causal_lm
+  quantization: int8  # Quantization for memory efficiency
+  device_map: mps  # Metal Performance Shaders
+  torch_dtype: float16
+  load_in_8bit: true  # 8-bit for memory efficiency
+  load_in_4bit: false
+  use_flash_attention: false  # Not yet supported on MPS
+
+dataset:
+  name: local_dataset
+  path: path/to/small_dataset.jsonl
+  format: jsonl
+  data_format: alpaca
+  split_ratios:
+    train: 0.8
+    validation: 0.1
+    test: 0.1
+  max_samples: 5000  # Limit samples for local training
+  preprocessing:
+    lowercase: false
+    remove_html: true
+    normalize_whitespace: true
+    add_prompt_template: true
+  tokenizer_config:
+    max_length: 256  # Shorter sequences for memory
+    padding: max_length
+    truncation: true
+
+training:
+  num_epochs: 5  # More epochs with smaller dataset
+  per_device_train_batch_size: 1  # Very small batch for memory
+  per_device_eval_batch_size: 2
+  gradient_accumulation_steps: 16  # Simulate larger batch
+  learning_rate: 5.0e-5
+  warmup_steps: 100
+  weight_decay: 0.01
+  logging_steps: 10
+  eval_steps: 100
+  save_steps: 200
+  save_total_limit: 2  # Save disk space
+  fp16: true  # Mixed precision on Apple Silicon
+  bf16: false
+  gradient_checkpointing: true  # Critical for memory
+  deepspeed_config: null  # Not needed for single GPU
+  fsdp_config: null
+  
+  # LoRA configuration - essential for MacBook
+  use_lora: true
+  lora_rank: 8  # Very low rank for memory
+  lora_alpha: 16
+  lora_dropout: 0.1
+  lora_target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+
+evaluation:
+  metrics:
+    - perplexity
+    - accuracy
+  benchmarks: []  # Skip heavy benchmarks
+  custom_metrics: {}
+  eval_batch_size: 2
+  num_beams: 1  # Greedy decoding for speed
+  temperature: 0.7
+  top_k: 50
+  top_p: 0.95
+
+# MacBook-specific optimizations
+optimization:
+  memory_efficient_attention: true
+  cpu_offload: true  # Offload optimizer to CPU
+  gradient_clipping: 1.0
+  use_pytorch_mps: true
+  enable_unified_memory: true
+  background_training: true  # Allow other tasks
+  
+  # Power/thermal management
+  power_mode: balanced  # balanced, low_power, performance
+  thermal_throttle_threshold: 80  # Celsius
+  pause_on_thermal_throttle: true
+
+metadata:
+  recommended_hardware: "MacBook Pro M1/M2/M3 with 16GB+ RAM"
+  estimated_training_time: "1-2 hours for 5000 samples"
+  use_case: "Local experimentation and learning on MacBook Pro"
+  optimization_notes:
+    - "Uses 8-bit quantization to reduce memory usage"
+    - "Small batch size with gradient accumulation"
+    - "LoRA with very low rank for efficiency"
+    - "Shorter sequences to fit in memory"
+    - "Metal acceleration automatically enabled"
+  notes: |
+    This recipe is specifically optimized for MacBook Pro:
+    
+    Memory Management:
+    - 8-bit model loading reduces memory by ~50%
+    - Gradient checkpointing trades compute for memory
+    - Small batch size with accumulation
+    - CPU offloading for optimizer states
+    
+    Performance:
+    - Automatically uses Metal Performance Shaders
+    - Mixed precision (fp16) for faster training
+    - Thermal management to prevent throttling
+    
+    Best Practices:
+    - Close other applications during training
+    - Use Activity Monitor to track memory usage
+    - Ensure good ventilation for thermal management
+    - Consider using external SSD for checkpoints

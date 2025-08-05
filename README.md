@@ -31,7 +31,7 @@ LLM Lab is a comprehensive platform designed for organizations and researchers w
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/lllm-lab.git
+   git clone https://github.com/remyolson/lllm-lab.git
    cd lllm-lab
    ```
 
@@ -590,16 +590,15 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ### Documentation
 
-- [Full Documentation](https://llm-lab.readthedocs.io)
-- [API Reference](docs/api/README.md)
-- [Architecture Guide](docs/architecture/README.md)
+- [Full Documentation](docs/README.md)
+- [API Reference](docs/api/README.md) *(coming soon)*
+- [Architecture Guide](docs/architecture/README.md) *(coming soon)*
 - [Use Case Guides](docs/guides/README.md)
 
-### Community
+### Support
 
-- [Discord Server](https://discord.gg/llm-lab)
-- [GitHub Discussions](https://github.com/yourusername/llm-lab/discussions)
-- [Twitter Updates](https://twitter.com/llm_lab)
+- [Issue Tracker](https://github.com/remyolson/lllm-lab/issues)
+- [GitHub Discussions](https://github.com/remyolson/lllm-lab/discussions)
 
 ### Related Projects
 
@@ -620,9 +619,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📊 Project Status
 
-![GitHub Stars](https://img.shields.io/github/stars/yourusername/llm-lab)
-![GitHub Forks](https://img.shields.io/github/forks/yourusername/llm-lab)
-![License](https://img.shields.io/github/license/yourusername/llm-lab)
+![GitHub Stars](https://img.shields.io/github/stars/remyolson/lllm-lab)
+![GitHub Forks](https://img.shields.io/github/forks/remyolson/lllm-lab)
+![License](https://img.shields.io/github/license/remyolson/lllm-lab)
 ![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
 ![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
 

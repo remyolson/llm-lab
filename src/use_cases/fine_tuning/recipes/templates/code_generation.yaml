@@ -1,0 +1,110 @@
+name: code_generation
+description: Recipe for fine-tuning models on code generation tasks
+version: 1.0.0
+author: lllm-lab
+tags:
+  - code-generation
+  - programming
+  - fill-in-the-middle
+  - completion
+
+model:
+  name: codellama-7b
+  base_model: codellama/CodeLlama-7b-hf
+  model_type: causal_lm
+  quantization: null
+  device_map: auto
+  torch_dtype: float16
+  load_in_8bit: false
+  load_in_4bit: false
+  use_flash_attention: true
+
+dataset:
+  name: code_dataset
+  path: path/to/code_data.jsonl  # or bigcode/the-stack
+  format: jsonl
+  data_format: code
+  split_ratios:
+    train: 0.9
+    validation: 0.05
+    test: 0.05
+  max_samples: null
+  preprocessing:
+    lowercase: false
+    remove_html: false
+    normalize_whitespace: false  # Preserve code formatting
+    add_prompt_template: true
+    code_specific:
+      remove_comments: false  # Keep comments for learning
+      normalize_indentation: true
+      add_language_tags: true
+      mask_strategy: fim  # fill-in-the-middle
+  tokenizer_config:
+    max_length: 2048
+    padding: max_length
+    truncation: true
+
+training:
+  num_epochs: 3
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 1.0e-4  # Higher LR for code
+  warmup_steps: 500
+  weight_decay: 0.01
+  logging_steps: 10
+  eval_steps: 500
+  save_steps: 1000
+  save_total_limit: 3
+  fp16: true
+  bf16: false
+  gradient_checkpointing: true
+  deepspeed_config: null
+  fsdp_config: null
+  
+  # LoRA configuration
+  use_lora: true
+  lora_rank: 64  # Higher rank for code complexity
+  lora_alpha: 128
+  lora_dropout: 0.05
+  lora_target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+evaluation:
+  metrics:
+    - code_bleu
+    - exact_match
+    - syntax_validity
+    - execution_success
+  benchmarks:
+    - humaneval
+    - mbpp
+  custom_metrics:
+    ast_accuracy: true
+    style_consistency: true
+  eval_batch_size: 4
+  num_beams: 5  # Beam search for code
+  temperature: 0.2  # Lower temperature for code
+  top_k: 50
+  top_p: 0.95
+
+metadata:
+  recommended_hardware: "16GB+ VRAM GPU"
+  estimated_training_time: "4-6 hours on A100"
+  use_case: "Code completion, generation, and fill-in-the-middle tasks"
+  notes: |
+    This recipe supports multiple code formats:
+    
+    1. Simple completion:
+    {"prompt": "def fibonacci(n):", "completion": "\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)"}
+    
+    2. Fill-in-the-middle:
+    {"prefix": "def sort_list(arr):\n    # Use quicksort algorithm\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    ", "suffix": "\n    return sort_list(left) + [pivot] + sort_list(right)", "middle": "left = [x for x in arr[1:] if x < pivot]\n    right = [x for x in arr[1:] if x >= pivot]"}
+    
+    The model learns to generate syntactically correct and functional code.

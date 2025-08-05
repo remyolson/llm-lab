@@ -732,7 +732,7 @@ If you're still experiencing issues:
 
 3. **Join our community:**
    - Discord: [discord.gg/llm-lab](https://discord.gg/llm-lab)
-   - GitHub Issues: [github.com/yourusername/llm-lab/issues](https://github.com/yourusername/llm-lab/issues)
+   - GitHub Issues: [github.com/remyolson/llm-lab/issues](https://github.com/remyolson/llm-lab/issues)
 
 4. **Contact support:**
    - Email: support@llm-lab.io

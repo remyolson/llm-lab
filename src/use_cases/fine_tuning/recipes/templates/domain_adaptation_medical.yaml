@@ -1,0 +1,122 @@
+name: domain_adaptation_medical
+description: Recipe for adapting models to medical/healthcare domain
+version: 1.0.0
+author: lllm-lab
+tags:
+  - domain-adaptation
+  - medical
+  - healthcare
+  - specialized
+
+model:
+  name: biomed-llama-7b
+  base_model: meta-llama/Llama-2-7b-hf  # Or BioMedLM/BioMedLM
+  model_type: causal_lm
+  quantization: null
+  device_map: auto
+  torch_dtype: float16
+  load_in_8bit: false
+  load_in_4bit: false
+  use_flash_attention: true
+
+dataset:
+  name: medical_qa_dataset
+  path: path/to/medical_data.jsonl  # Or medmcqa, pubmedqa
+  format: jsonl
+  data_format: qa
+  split_ratios:
+    train: 0.8
+    validation: 0.1
+    test: 0.1
+  max_samples: null
+  preprocessing:
+    lowercase: false
+    remove_html: true
+    normalize_whitespace: true
+    add_prompt_template: true
+    domain_specific:
+      expand_abbreviations: true
+      normalize_medical_terms: true
+      add_context_prompts: true
+  tokenizer_config:
+    max_length: 1024
+    padding: max_length
+    truncation: true
+    add_special_tokens: true
+
+training:
+  num_epochs: 5  # More epochs for domain adaptation
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 4
+  learning_rate: 5.0e-6  # Lower LR for fine-tuning
+  warmup_steps: 500
+  weight_decay: 0.01
+  logging_steps: 10
+  eval_steps: 250
+  save_steps: 500
+  save_total_limit: 5  # Keep more checkpoints
+  fp16: true
+  bf16: false
+  gradient_checkpointing: true
+  deepspeed_config: null
+  fsdp_config: null
+  
+  # LoRA configuration
+  use_lora: true
+  lora_rank: 32
+  lora_alpha: 64
+  lora_dropout: 0.1
+  lora_target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+    - gate_proj
+    - up_proj
+    - down_proj
+
+evaluation:
+  metrics:
+    - accuracy
+    - f1_score
+    - exact_match
+    - medical_entity_recognition
+  benchmarks:
+    - medqa
+    - pubmedqa
+    - bioasq
+  custom_metrics:
+    clinical_accuracy: true
+    terminology_precision: true
+    safety_score: true  # Critical for medical
+  eval_batch_size: 8
+  num_beams: 3
+  temperature: 0.3  # Lower temperature for accuracy
+  top_k: 40
+  top_p: 0.9
+
+metadata:
+  recommended_hardware: "24GB+ VRAM GPU with ECC memory"
+  estimated_training_time: "6-8 hours on A100"
+  use_case: "Medical question answering, clinical decision support, medical information extraction"
+  important_notes:
+    - "This is for research/educational purposes only"
+    - "Not intended for clinical use without proper validation"
+    - "Requires careful evaluation on safety and accuracy"
+  notes: |
+    This recipe expects medical QA format:
+    {
+      "question": "What are the symptoms of diabetes mellitus type 2?",
+      "context": "Diabetes mellitus type 2 is a metabolic disorder...",
+      "answer": "Common symptoms include increased thirst, frequent urination...",
+      "metadata": {
+        "source": "medical_textbook",
+        "difficulty": "medium",
+        "topic": "endocrinology"
+      }
+    }
+    
+    The model learns medical terminology, clinical reasoning, and
+    evidence-based responses. Extensive validation required before
+    any clinical application.

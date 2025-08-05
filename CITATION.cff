@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+title: LLM Lab
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Olson"
+    given-names: "Remy"
+repository-code: "https://github.com/remyolson/lllm-lab"
+url: "https://github.com/remyolson/lllm-lab"
+abstract: "A comprehensive platform for benchmarking, fine-tuning, monitoring, and aligning Large Language Models"
+keywords:
+  - llm
+  - benchmarking
+  - machine-learning
+  - ai
+  - evaluation
+license: MIT
