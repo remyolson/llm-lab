@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Simple test of prompt runner core functionality."""
 
+# Import paths fixed - sys.path manipulation removed
 import sys
 import os
 import json
 from datetime import datetime
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+))
 
 # Test just the data structures
 from src.use_cases.custom_prompts.template_engine import PromptTemplate

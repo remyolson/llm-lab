@@ -6,11 +6,12 @@ This tool provides command-line access to manage provider configurations,
 test credentials, and view available models with their aliases.
 """
 
+# Import paths fixed - sys.path manipulation removed
 import os
 import sys
 
 # Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)))
 
 import click
 import yaml

@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+
+{% block title %}API Documentation - {{ super() }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1 class="h3 mb-4">
+            <i class="fas fa-code me-2"></i>
+            API Documentation
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <!-- API Navigation -->
+        <div class="card">
+            <div class="card-header">
+                <h6 class="mb-0">API Endpoints</h6>
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="#status" class="list-group-item list-group-item-action">Status</a>
+                <a href="#config" class="list-group-item list-group-item-action">Configuration</a>
+                <a href="#metrics" class="list-group-item list-group-item-action">Metrics</a>
+                <a href="#alerts" class="list-group-item list-group-item-action">Alerts</a>
+                {% if dashboard_config().enable_reports %}
+                <a href="#reports" class="list-group-item list-group-item-action">Reports</a>
+                {% endif %}
+                {% if dashboard_config().enable_export %}
+                <a href="#export" class="list-group-item list-group-item-action">Export</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-9">
+        <!-- API Base Info -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5>Base URL</h5>
+                <code>{{ request.url_root }}api/v1</code>
+                
+                <h5 class="mt-3">Authentication</h5>
+                {% if dashboard_config().enable_auth %}
+                <p>API endpoints require authentication via session cookies or API keys.</p>
+                {% else %}
+                <p>No authentication required (authentication disabled).</p>
+                {% endif %}
+                
+                <h5 class="mt-3">Response Format</h5>
+                <p>All responses are in JSON format with appropriate HTTP status codes.</p>
+            </div>
+        </div>
+        
+        <!-- Status Endpoint -->
+        <div class="card mb-4" id="status">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <span class="badge bg-success me-2">GET</span>
+                    /api/v1/status
+                </h5>
+            </div>
+            <div class="card-body">
+                <p>Get API status and feature availability.</p>
+                
+                <h6>Response Example:</h6>
+                <pre><code>{
+  "status": "online",
+  "version": "1.0.0",
+  "features": {
+    "auth": true,
+    "reports": true,
+    "alerts": true,
+    "export": true,
+    "websockets": true
+  },
+  "environment": "development"
+}</code></pre>
+                
+                <button class="btn btn-primary btn-sm" onclick="testAPI('/api/v1/status')">
+                    <i class="fas fa-play me-1"></i>Test
+                </button>
+            </div>
+        </div>
+        
+        <!-- Configuration Endpoint -->
+        <div class="card mb-4" id="config">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <span class="badge bg-success me-2">GET</span>
+                    /api/v1/config
+                </h5>
+            </div>
+            <div class="card-body">
+                <p>Get dashboard configuration (public settings only).</p>
+                
+                <h6>Response Example:</h6>
+                <pre><code>{
+  "api": {
+    "host": "0.0.0.0",
+    "port": 8050,
+    "debug": false
+  },
+  "monitoring": {
+    "refresh_interval": 30,
+    "data_retention_days": 90
+  },
+  "enable_auth": true,
+  "environment": "development"
+}</code></pre>
+                
+                <button class="btn btn-primary btn-sm" onclick="testAPI('/api/v1/config')">
+                    <i class="fas fa-play me-1"></i>Test
+                </button>
+            </div>
+        </div>
+        
+        <!-- Metrics Endpoints -->
+        <div class="card mb-4" id="metrics">
+            <div class="card-header">
+                <h5 class="mb-0">Metrics Endpoints</h5>
+            </div>
+            <div class="card-body">
+                <!-- Overview Metrics -->
+                <div class="mb-4">
+                    <h6>
+                        <span class="badge bg-success me-2">GET</span>
+                        /api/v1/metrics/overview
+                    </h6>
+                    <p>Get overview metrics for dashboard.</p>
+                    
+                    <h6>Response Example:</h6>
+                    <pre><code>{
+  "total_models": 3,
+  "total_requests": 1524,
+  "avg_latency": 0.45,
+  "total_cost": 12.34,
+  "uptime": 86400,
+  "last_updated": "2024-01-01T12:00:00Z"
+}</code></pre>
+                    
+                    <button class="btn btn-primary btn-sm" onclick="testAPI('/api/v1/metrics/overview')">
+                        <i class="fas fa-play me-1"></i>Test
+                    </button>
+                </div>
+                
+                <!-- Performance Metrics -->
+                <div class="mb-4">
+                    <h6>
+                        <span class="badge bg-success me-2">GET</span>
+                        /api/v1/metrics/performance
+                    </h6>
+                    <p>Get performance metrics data.</p>
+                    
+                    <h6>Query Parameters:</h6>
+                    <ul>
+                        <li><code>timerange</code> - Time range (1h, 6h, 24h, 7d)</li>
+                        <li><code>provider</code> - Filter by provider</li>
+                        <li><code>model</code> - Filter by model</li>
+                    </ul>
+                    
+                    <button class="btn btn-primary btn-sm" onclick="testAPI('/api/v1/metrics/performance')">
+                        <i class="fas fa-play me-1"></i>Test
+                    </button>
+                </div>
+                
+                <!-- Cost Metrics -->
+                <div class="mb-4">
+                    <h6>
+                        <span class="badge bg-success me-2">GET</span>
+                        /api/v1/metrics/costs
+                    </h6>
+                    <p>Get cost analysis data.</p>
+                    
+                    <button class="btn btn-primary btn-sm" onclick="testAPI('/api/v1/metrics/costs')">
+                        <i class="fas fa-play me-1"></i>Test
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alerts Endpoint -->
+        <div class="card mb-4" id="alerts">
+            <div class="card-header">
+                <h5 class="mb-0">
+                    <span class="badge bg-success me-2">GET</span>
+                    /api/v1/alerts
+                </h5>
+            </div>
+            <div class="card-body">
+                <p>Get current alerts and alert history.</p>
+                
+                <h6>Response Example:</h6>
+                <pre><code>{
+  "active_alerts": [],
+  "alert_history": [],
+  "alert_stats": {
+    "total": 0,
+    "critical": 0,
+    "warning": 0,
+    "resolved": 0
+  }
+}</code></pre>
+                
+                <button class="btn btn-primary btn-sm" onclick="testAPI('/api/v1/alerts')">
+                    <i class="fas fa-play me-1"></i>Test
+                </button>
+            </div>
+        </div>
+        
+        <!-- API Test Results -->
+        <div class="card" id="test-results" style="display: none;">
+            <div class="card-header">
+                <h5 class="mb-0">Test Results</h5>
+            </div>
+            <div class="card-body">
+                <div id="test-output"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function testAPI(endpoint) {
+    const resultsCard = $('#test-results');
+    const output = $('#test-output');
+    
+    resultsCard.show();
+    output.html('<div class="text-muted"><i class="fas fa-spinner fa-spin me-2"></i>Testing endpoint...</div>');
+    
+    $.get(endpoint)
+        .done(function(data, textStatus, xhr) {
+            output.html(`
+                <h6 class="text-success">
+                    <i class="fas fa-check me-2"></i>
+                    Success (${xhr.status})
+                </h6>
+                <pre><code class="language-json">${JSON.stringify(data, null, 2)}</code></pre>
+            `);
+        })
+        .fail(function(xhr) {
+            let errorData = {};
+            try {
+                errorData = JSON.parse(xhr.responseText);
+            } catch (e) {
+                errorData = { error: xhr.responseText || 'Unknown error' };
+            }
+            
+            output.html(`
+                <h6 class="text-danger">
+                    <i class="fas fa-times me-2"></i>
+                    Error (${xhr.status})
+                </h6>
+                <pre><code class="language-json">${JSON.stringify(errorData, null, 2)}</code></pre>
+            `);
+        });
+    
+    // Scroll to results
+    resultsCard[0].scrollIntoView({ behavior: 'smooth' });
+}
+
+// Smooth scrolling for navigation links
+$(document).ready(function() {
+    $('a[href^="#"]').click(function(e) {
+        e.preventDefault();
+        const target = $($(this).attr('href'));
+        if (target.length) {
+            $('html, body').animate({
+                scrollTop: target.offset().top - 80
+            }, 500);
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -37,6 +37,7 @@ Required API Keys:
     GOOGLE_API_KEY - For Google tests
 """
 
+# Import paths fixed - sys.path manipulation removed
 import argparse
 import os
 import sys
@@ -45,7 +46,7 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional
 
 # Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+)))
 
 from llm_providers import OpenAIProvider, AnthropicProvider, GoogleProvider
 from tests.integration.integration_runner import (

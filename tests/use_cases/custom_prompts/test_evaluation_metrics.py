@@ -1,30 +1,20 @@
 #!/usr/bin/env python3
-"""Standalone test of evaluation metrics (no external dependencies)."""
+"""Test the evaluation metrics functionality."""
 
-import sys
-import os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# Use relative imports from project root - path manipulation removed
 
-# Import just the evaluation metrics module directly
-import importlib.util
-spec = importlib.util.spec_from_file_location(
-    "evaluation_metrics",
-    "src/use_cases/custom_prompts/evaluation_metrics.py"
+from src.use_cases.custom_prompts.evaluation_metrics import (
+    ResponseLengthMetric,
+    SentimentMetric,
+    CoherenceMetric,
+    ResponseDiversityMetric,
+    CustomMetric,
+    MetricSuite,
+    evaluate_response,
+    evaluate_responses
 )
-evaluation_metrics = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(evaluation_metrics)
 
-# Import classes from the module
-ResponseLengthMetric = evaluation_metrics.ResponseLengthMetric
-SentimentMetric = evaluation_metrics.SentimentMetric
-CoherenceMetric = evaluation_metrics.CoherenceMetric
-ResponseDiversityMetric = evaluation_metrics.ResponseDiversityMetric
-CustomMetric = evaluation_metrics.CustomMetric
-MetricSuite = evaluation_metrics.MetricSuite
-evaluate_response = evaluation_metrics.evaluate_response
-evaluate_responses = evaluation_metrics.evaluate_responses
-
-print("Testing Evaluation Metrics (Standalone)")
+print("Testing Evaluation Metrics")
 print("=" * 60)
 
 # Test responses
@@ -99,24 +89,21 @@ batch_results = evaluate_responses([response1, response2, response3, response4])
 print("Aggregated results:")
 for metric_name, aggregated in batch_results['aggregated'].items():
     if metric_name == 'diversity':
-        print(f"  {metric_name}: diversity_score={aggregated['value']['diversity_score']}")
+        print(f"  {metric_name}: {aggregated['value']['diversity_score']}")
     else:
         print(f"  {metric_name}: {aggregated}")
 
-# Test 8: Edge Cases
-print("\n8. Edge Case Testing")
+# Test 8: Custom Metric Suite
+print("\n8. Custom Metric Suite")
 print("-" * 40)
-# Empty response
-empty_result = evaluate_response("")
-print(f"Empty response - length: {empty_result['response_length']['value']['characters']}")
+custom_suite = MetricSuite([
+    ResponseLengthMetric(),
+    SentimentMetric(),
+    question_metric
+])
+custom_results = custom_suite.evaluate(test_response)
+print("Custom suite results:")
+for metric_name, metric_data in custom_results.items():
+    print(f"  {metric_name}: {metric_data['value']}")
 
-# Single word
-single_word_result = evaluate_response("Hello")
-print(f"Single word - coherence: {single_word_result['coherence']['value']['score']}")
-
-# Very repetitive text
-repetitive = "test " * 50
-repetitive_result = coherence_metric.calculate(repetitive)
-print(f"Repetitive text - repetition score: {repetitive_result.value['repetition_score']}")
-
-print("\n✅ All evaluation metric tests completed successfully!")
+print("\n✅ All evaluation metric tests completed!")

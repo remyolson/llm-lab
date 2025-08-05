@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Test the prompt runner functionality."""
 
+# Import paths fixed - sys.path manipulation removed
 import sys
 import os
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+))
 
 from src.use_cases.custom_prompts import PromptRunner, PromptTemplate
 

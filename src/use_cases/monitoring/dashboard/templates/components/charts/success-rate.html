@@ -1,0 +1,267 @@
+<!-- Success Rate Chart Component -->
+<div class="chart-container" 
+     data-chart-type="success-rate"
+     data-refresh-interval="{{ config.refresh_interval }}"
+     data-time-range="{{ config.time_range }}">
+    
+    <div class="chart-header d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h5 class="mb-0">{{ config.title or 'Success Rate Trend' }}</h5>
+            <small class="text-muted">Request success rate over time</small>
+        </div>
+        <div class="chart-controls">
+            <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-outline-secondary active" data-period="1h">1H</button>
+                <button type="button" class="btn btn-outline-secondary" data-period="6h">6H</button>
+                <button type="button" class="btn btn-outline-secondary" data-period="24h">24H</button>
+                <button type="button" class="btn btn-outline-secondary" data-period="7d">7D</button>
+            </div>
+            <button class="btn btn-sm btn-outline-secondary ms-2" id="export-success-chart">
+                <i class="bi bi-download"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div class="success-summary mb-3">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number text-success" id="current-success-rate">-</div>
+                    <div class="stat-label">Current Rate</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number" id="avg-success-rate">-</div>
+                    <div class="stat-label">Average</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card text-center p-2 border rounded">
+                    <div class="stat-number text-danger" id="failures-count">-</div>
+                    <div class="stat-label">Failures</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chart-wrapper" style="height: {{ config.height }}px; width: {{ config.width }};">
+        <canvas id="success-rate-chart-{{ range(1000) | random }}"></canvas>
+    </div>
+    
+    <div class="chart-loading d-none">
+        <div class="text-center p-4">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="chart-error d-none">
+        <div class="alert alert-warning" role="alert">
+            Failed to load success rate data. <a href="#" class="retry-chart">Retry</a>
+        </div>
+    </div>
+</div>
+
+<style>
+.stat-card {
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    margin-top: 4px;
+}
+
+.success-trend-up {
+    color: #28a745 !important;
+}
+
+.success-trend-down {
+    color: #dc3545 !important;
+}
+
+.success-trend-stable {
+    color: #6c757d !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('[data-chart-type="success-rate"]');
+    const canvas = container.querySelector('canvas');
+    
+    let chart = null;
+    let refreshInterval = null;
+    let currentPeriod = '1h';
+    
+    function loadChart() {
+        showLoading(true);
+        
+        const params = new URLSearchParams({
+            hours: currentPeriod === '1h' ? 1 : 
+                   currentPeriod === '6h' ? 6 : 
+                   currentPeriod === '24h' ? 24 : 168
+        });
+        
+        fetch(`/components/chart-data/success-rate?${params}`)
+            .then(response => response.json())
+            .then(data => {
+                if (chart) chart.destroy();
+                
+                const ctx = canvas.getContext('2d');
+                
+                // Enhance chart options for better visualization
+                const enhancedData = {
+                    ...data,
+                    options: {
+                        ...data.options,
+                        elements: {
+                            point: {
+                                radius: 3,
+                                hoverRadius: 6
+                            }
+                        },
+                        plugins: {
+                            ...data.options.plugins,
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Success Rate: ${context.parsed.y.toFixed(2)}%`;
+                                    },
+                                    afterLabel: function(context) {
+                                        const failureRate = 100 - context.parsed.y;
+                                        return `Failure Rate: ${failureRate.toFixed(2)}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
+                
+                chart = new Chart(ctx, enhancedData);
+                
+                updateSuccessStats(data);
+                
+                showLoading(false);
+                showError(false);
+            })
+            .catch(error => {
+                console.error('Error loading success rate chart:', error);
+                showLoading(false);
+                showError(true);
+            });
+    }
+    
+    function updateSuccessStats(chartData) {
+        if (chartData.data && chartData.data.datasets[0] && chartData.data.datasets[0].data.length > 0) {
+            const successRates = chartData.data.datasets[0].data;
+            
+            // Current success rate (latest data point)
+            const currentRate = successRates[successRates.length - 1];
+            
+            // Average success rate
+            const avgRate = successRates.reduce((sum, rate) => sum + rate, 0) / successRates.length;
+            
+            // Count failures (assuming 100 requests per data point for estimation)
+            const totalRequests = successRates.length * 100;
+            const successfulRequests = successRates.reduce((sum, rate) => sum + (rate * 100 / 100), 0);
+            const failuresCount = Math.round(totalRequests - successfulRequests);
+            
+            // Update display
+            const currentElement = document.getElementById('current-success-rate');
+            currentElement.textContent = `${currentRate.toFixed(1)}%`;
+            
+            // Add trend indicator
+            if (successRates.length > 1) {
+                const previousRate = successRates[successRates.length - 2];
+                const trend = currentRate - previousRate;
+                
+                currentElement.className = 'stat-number ' + 
+                    (trend > 0.5 ? 'success-trend-up' : 
+                     trend < -0.5 ? 'success-trend-down' : 'success-trend-stable');
+                
+                // Add trend arrow
+                const trendIcon = trend > 0.5 ? ' ↗' : trend < -0.5 ? ' ↘' : ' →';
+                currentElement.textContent += trendIcon;
+            }
+            
+            document.getElementById('avg-success-rate').textContent = `${avgRate.toFixed(1)}%`;
+            document.getElementById('failures-count').textContent = failuresCount.toLocaleString();
+        } else {
+            document.getElementById('current-success-rate').textContent = '-';
+            document.getElementById('avg-success-rate').textContent = '-';
+            document.getElementById('failures-count').textContent = '-';
+        }
+    }
+    
+    function showLoading(show) {
+        container.querySelector('.chart-loading').classList.toggle('d-none', !show);
+        container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
+        container.querySelector('.success-summary').classList.toggle('d-none', show);
+    }
+    
+    function showError(show) {
+        container.querySelector('.chart-error').classList.toggle('d-none', !show);
+        container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
+        container.querySelector('.success-summary').classList.toggle('d-none', show);
+    }
+    
+    // Period selection
+    container.querySelectorAll('[data-period]').forEach(btn => {
+        btn.addEventListener('click', function() {
+            container.querySelectorAll('[data-period]').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentPeriod = this.dataset.period;
+            loadChart();
+        });
+    });
+    
+    // Export button
+    container.querySelector('#export-success-chart').addEventListener('click', function() {
+        if (chart) {
+            const url = chart.toBase64Image();
+            const link = document.createElement('a');
+            link.download = 'success-rate-trend.png';
+            link.href = url;
+            link.click();
+        }
+    });
+    
+    // Retry button
+    container.querySelector('.retry-chart').addEventListener('click', function(e) {
+        e.preventDefault();
+        loadChart();
+    });
+    
+    // Auto-refresh
+    function startRefresh() {
+        const interval = parseInt(container.dataset.refreshInterval) * 1000;
+        refreshInterval = setInterval(loadChart, interval);
+    }
+    
+    // Initial load
+    loadChart();
+    startRefresh();
+    
+    // Cleanup
+    window.addEventListener('beforeunload', function() {
+        if (refreshInterval) clearInterval(refreshInterval);
+        if (chart) chart.destroy();
+    });
+});
+</script>

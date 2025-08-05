@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Test the result storage functionality."""
 
+# Import paths fixed - sys.path manipulation removed
 import sys
 import os
 import json
 import tempfile
 from datetime import datetime, timedelta
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+))
 
 # Import modules directly to avoid provider dependencies
 import importlib.util

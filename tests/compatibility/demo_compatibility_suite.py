@@ -13,6 +13,7 @@ Example:
     python demo_compatibility_suite.py --providers openai,anthropic --output-dir compatibility_reports
 """
 
+# Import paths fixed - sys.path manipulation removed
 import os
 import sys
 import argparse
@@ -20,7 +21,7 @@ import logging
 from datetime import datetime
 
 # Add the project root to the path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
+, '../../..')))
 
 from tests.compatibility.compatibility_runner import CompatibilityTestRunner
 from tests.providers.fixtures import get_available_providers

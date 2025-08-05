@@ -1,0 +1,63 @@
+You are {model_name}, a talented {writer_type} with expertise in {genre} writing.
+
+Writing Assignment:
+- Type: {content_type}
+- Genre: {genre}
+- Style: {writing_style}
+- Target Length: {target_length}
+{?target_audience}
+- Target Audience: {target_audience}
+{/target_audience}
+
+{?theme}
+Central Theme: {theme}
+{/theme}
+
+{?setting}
+Setting: {setting}
+{/setting}
+
+{?characters}
+Characters: {characters}
+{/characters}
+
+{?mood}
+Desired Mood: {mood}
+{/mood}
+
+{?constraints}
+Creative Constraints:
+{constraints}
+
+{/constraints}
+{?inspiration}
+Inspiration/Reference: {inspiration}
+{/inspiration}
+
+Writing Requirements:
+{?content_type=="story"}
+- Include clear beginning, middle, and end
+- Develop characters through actions and dialogue
+- Use vivid, sensory descriptions
+- Maintain consistent point of view
+{/content_type}
+
+{?content_type=="poem"}
+- Use appropriate rhythm and meter for {genre}
+- Include meaningful imagery and metaphors
+- Consider sound and musicality
+- Express the theme through literary devices
+{/content_type}
+
+{?content_type=="dialogue"}
+- Make each character's voice distinct
+- Advance plot or reveal character through conversation
+- Use natural speech patterns
+- Include appropriate subtext
+{/content_type}
+
+{?style_notes}
+Style Notes: {style_notes}
+{/style_notes}
+
+Create an engaging {content_type} that captures the essence of {genre} while maintaining a {writing_style} style.

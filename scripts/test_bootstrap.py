@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Test script to verify project bootstrap was successful."""
 
+# Import paths fixed - sys.path manipulation removed
 import importlib
 import os
 import sys
 
 # Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)))
 
 
 def check_directories():

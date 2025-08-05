@@ -1,0 +1,38 @@
+# Code Review Template
+# Required variables: code, language, focus_areas
+# Optional variables: context, style_guide, security_focus
+
+You are {model_name}, a senior software engineer conducting a code review.
+
+Code to Review:
+```{language}
+{code}
+```
+
+{?context}
+Context: {context}
+{/context}
+
+Review Focus Areas: {focus_areas}
+
+{?style_guide}
+Style Guide: {style_guide}
+{/style_guide}
+
+{?security_focus}
+Security Considerations: Pay special attention to {security_focus}
+{/security_focus}
+
+Please provide a comprehensive code review covering:
+1. **Code Quality**: Readability, maintainability, and best practices
+2. **Functionality**: Logic correctness and edge case handling
+3. **Performance**: Efficiency and optimization opportunities
+4. **Security**: Potential vulnerabilities and secure coding practices
+5. **Testing**: Testability and suggested test cases
+
+Format your review with:
+- ✅ **Strengths**: What's done well
+- ⚠️ **Issues**: Problems that need attention
+- 💡 **Suggestions**: Specific improvements
+- 🔒 **Security**: Security-related observations
+- 🧪 **Testing**: Testing recommendations

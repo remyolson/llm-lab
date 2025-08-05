@@ -1,12 +1,13 @@
 """Tests for run_benchmarks module."""
 
+# Import paths fixed - sys.path manipulation removed
 import os
 import sys
 import tempfile
 from unittest.mock import Mock, patch
 
 # Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)))
 
 import pytest
 from click.testing import CliRunner

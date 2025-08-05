@@ -2,6 +2,7 @@
 Tests for run_benchmarks.py with the new execution engine
 """
 
+# Import paths fixed - sys.path manipulation removed
 import pytest
 import json
 from unittest.mock import Mock, patch, MagicMock, call
@@ -11,7 +12,7 @@ from datetime import datetime
 import sys
 import os
 # Add parent directory to path to ensure correct imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)))
 
 from scripts.run_benchmarks import main
 from benchmarks import ModelBenchmarkResult, BenchmarkResult, ExecutionMode
