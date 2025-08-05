@@ -1,0 +1,47 @@
+{
+  "timestamp": 1754429071.32703,
+  "system_info": {
+    "platform": "macOS-15.5-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "architecture": [
+      "64bit",
+      "Mach-O"
+    ],
+    "python_version": "3.13.3",
+    "cpu_count": 12,
+    "cpu_count_logical": 12,
+    "total_ram_gb": 16.0,
+    "available_ram_gb": 6.37,
+    "used_ram_gb": 7.89,
+    "ram_percent": 60.2,
+    "total_swap_gb": 2.0,
+    "used_swap_gb": 1.08,
+    "swap_percent": 53.9,
+    "total_disk_gb": 926.35,
+    "free_disk_gb": 463.97,
+    "used_disk_gb": 13.74,
+    "disk_percent": 1.48,
+    "gpu_info": {
+      "has_gpu": false,
+      "details": [],
+      "apple_silicon": {
+        "type": "Apple Silicon",
+        "metal_support": true
+      }
+    }
+  },
+  "assessment": {
+    "can_run": false,
+    "confidence": "low",
+    "issues": [
+      "Insufficient RAM: 16.0GB available, 24GB minimum required. Short by 8.0GB."
+    ],
+    "warnings": [
+      "Low available RAM: 6.37GB free. Consider closing other applications.",
+      "No dedicated GPU detected. Model will run on CPU only (slower)."
+    ],
+    "recommendations": [
+      "Increase swap space to 24.0GB to compensate for limited RAM."
+    ]
+  }
+}
