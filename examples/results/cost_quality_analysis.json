@@ -1,0 +1,170 @@
+{
+  "Balanced": [
+    {
+      "model": "google/gemini-1.5-flash",
+      "cost_per_request": 0.375,
+      "cost_per_accuracy_point": 0.0043,
+      "cost_per_satisfaction_point": 0.0893,
+      "cost_per_successful_completion": 0.4076,
+      "latency_adjusted_cost": 0.33,
+      "roi_score": 0,
+      "weighted_efficiency_score": 2.43
+    },
+    {
+      "model": "anthropic/claude-3-5-haiku-20241022",
+      "cost_per_request": 0.75,
+      "cost_per_accuracy_point": 0.0083,
+      "cost_per_satisfaction_point": 0.1705,
+      "cost_per_successful_completion": 0.7979,
+      "latency_adjusted_cost": 0.69,
+      "roi_score": 0,
+      "weighted_efficiency_score": 1.24
+    },
+    {
+      "model": "google/gemini-1.5-pro",
+      "cost_per_request": 3.125,
+      "cost_per_accuracy_point": 0.034,
+      "cost_per_satisfaction_point": 0.6944,
+      "cost_per_successful_completion": 3.2895,
+      "latency_adjusted_cost": 3.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.3
+    },
+    {
+      "model": "openai/gpt-4o",
+      "cost_per_request": 10.0,
+      "cost_per_accuracy_point": 0.1047,
+      "cost_per_satisfaction_point": 2.0833,
+      "cost_per_successful_completion": 10.2041,
+      "latency_adjusted_cost": 11.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.09
+    }
+  ],
+  "Quality-Focused": [
+    {
+      "model": "google/gemini-1.5-flash",
+      "cost_per_request": 0.375,
+      "cost_per_accuracy_point": 0.0043,
+      "cost_per_satisfaction_point": 0.0893,
+      "cost_per_successful_completion": 0.4076,
+      "latency_adjusted_cost": 0.33,
+      "roi_score": 0,
+      "weighted_efficiency_score": 2.36
+    },
+    {
+      "model": "anthropic/claude-3-5-haiku-20241022",
+      "cost_per_request": 0.75,
+      "cost_per_accuracy_point": 0.0083,
+      "cost_per_satisfaction_point": 0.1705,
+      "cost_per_successful_completion": 0.7979,
+      "latency_adjusted_cost": 0.69,
+      "roi_score": 0,
+      "weighted_efficiency_score": 1.21
+    },
+    {
+      "model": "google/gemini-1.5-pro",
+      "cost_per_request": 3.125,
+      "cost_per_accuracy_point": 0.034,
+      "cost_per_satisfaction_point": 0.6944,
+      "cost_per_successful_completion": 3.2895,
+      "latency_adjusted_cost": 3.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.3
+    },
+    {
+      "model": "openai/gpt-4o",
+      "cost_per_request": 10.0,
+      "cost_per_accuracy_point": 0.1047,
+      "cost_per_satisfaction_point": 2.0833,
+      "cost_per_successful_completion": 10.2041,
+      "latency_adjusted_cost": 11.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.09
+    }
+  ],
+  "Speed-Focused": [
+    {
+      "model": "google/gemini-1.5-flash",
+      "cost_per_request": 0.375,
+      "cost_per_accuracy_point": 0.0043,
+      "cost_per_satisfaction_point": 0.0893,
+      "cost_per_successful_completion": 0.4076,
+      "latency_adjusted_cost": 0.33,
+      "roi_score": 0,
+      "weighted_efficiency_score": 2.51
+    },
+    {
+      "model": "anthropic/claude-3-5-haiku-20241022",
+      "cost_per_request": 0.75,
+      "cost_per_accuracy_point": 0.0083,
+      "cost_per_satisfaction_point": 0.1705,
+      "cost_per_successful_completion": 0.7979,
+      "latency_adjusted_cost": 0.69,
+      "roi_score": 0,
+      "weighted_efficiency_score": 1.27
+    },
+    {
+      "model": "google/gemini-1.5-pro",
+      "cost_per_request": 3.125,
+      "cost_per_accuracy_point": 0.034,
+      "cost_per_satisfaction_point": 0.6944,
+      "cost_per_successful_completion": 3.2895,
+      "latency_adjusted_cost": 3.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.31
+    },
+    {
+      "model": "openai/gpt-4o",
+      "cost_per_request": 10.0,
+      "cost_per_accuracy_point": 0.1047,
+      "cost_per_satisfaction_point": 2.0833,
+      "cost_per_successful_completion": 10.2041,
+      "latency_adjusted_cost": 11.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.09
+    }
+  ],
+  "Cost-Focused": [
+    {
+      "model": "google/gemini-1.5-flash",
+      "cost_per_request": 0.375,
+      "cost_per_accuracy_point": 0.0043,
+      "cost_per_satisfaction_point": 0.0893,
+      "cost_per_successful_completion": 0.4076,
+      "latency_adjusted_cost": 0.33,
+      "roi_score": 0,
+      "weighted_efficiency_score": 2.41
+    },
+    {
+      "model": "anthropic/claude-3-5-haiku-20241022",
+      "cost_per_request": 0.75,
+      "cost_per_accuracy_point": 0.0083,
+      "cost_per_satisfaction_point": 0.1705,
+      "cost_per_successful_completion": 0.7979,
+      "latency_adjusted_cost": 0.69,
+      "roi_score": 0,
+      "weighted_efficiency_score": 1.23
+    },
+    {
+      "model": "google/gemini-1.5-pro",
+      "cost_per_request": 3.125,
+      "cost_per_accuracy_point": 0.034,
+      "cost_per_satisfaction_point": 0.6944,
+      "cost_per_successful_completion": 3.2895,
+      "latency_adjusted_cost": 3.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.3
+    },
+    {
+      "model": "openai/gpt-4o",
+      "cost_per_request": 10.0,
+      "cost_per_accuracy_point": 0.1047,
+      "cost_per_satisfaction_point": 2.0833,
+      "cost_per_successful_completion": 10.2041,
+      "latency_adjusted_cost": 11.0,
+      "roi_score": 0,
+      "weighted_efficiency_score": 0.09
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+# Safety-focused Constitutional AI Rules
+id: safety_rules
+name: Core Safety Rules
+description: Essential safety rules to prevent harmful content generation
+version: "1.0"
+author: AI Safety Team
+organization: LLLM Lab
+
+# Configuration
+strict_mode: true
+priority_threshold: medium
+
+rules:
+  - id: prevent_physical_harm
+    name: Prevent Physical Harm
+    description: Block requests that could lead to physical harm
+    type: constraint
+    priority: critical
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "how to hurt"
+          - "how to harm"
+          - "how to injure"
+          - "how to kill"
+          - "weapon"
+          - "explosive"
+          - "poison"
+    actions:
+      - type: block
+        message: "I cannot provide information that could be used to cause physical harm."
+      - type: suggest_alternative
+        suggestion: "If you're interested in safety or security topics, I'd be happy to discuss prevention and protection instead."
+      - type: log
+        level: warning
+        message: "Physical harm content blocked"
+    category: safety
+    tags: ["harm_prevention", "safety", "critical"]
+    examples:
+      - input: "How to make a weapon"
+        expected_action: "block"
+        explanation: "Direct requests for weapon creation must be blocked"
+
+  - id: prevent_self_harm
+    name: Prevent Self-Harm Content
+    description: Block content that could encourage self-harm
+    type: constraint
+    priority: critical
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "self harm"
+          - "self-harm"
+          - "suicide"
+          - "hurt myself"
+          - "end my life"
+    actions:
+      - type: block
+        message: "I'm concerned about your wellbeing. If you're going through a difficult time, please reach out to a mental health professional or crisis helpline."
+      - type: log
+        level: critical
+        message: "Self-harm content detected"
+    category: safety
+    tags: ["mental_health", "crisis_prevention", "critical"]
+
+  - id: illegal_activity_prevention
+    name: Prevent Illegal Activity Guidance
+    description: Block requests for guidance on illegal activities
+    type: prohibition
+    priority: high
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "illegal"
+          - "break the law"
+          - "without getting caught"
+          - "evade police"
+          - "launder money"
+          - "hack into"
+          - "steal"
+    actions:
+      - type: block
+        message: "I cannot provide guidance on illegal activities."
+      - type: modify
+        operation: replace
+        replacement: "I can help you understand legal alternatives or discuss the importance of following laws and regulations."
+    category: legal
+    tags: ["legal_compliance", "ethics"]
+
+  - id: child_safety
+    name: Protect Child Safety
+    description: Ensure content is safe when children are involved
+    type: constraint
+    priority: critical
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "child"
+          - "minor"
+          - "kid"
+          - "teenager"
+      - type: contains
+        field: prompt
+        values:
+          - "inappropriate"
+          - "sexual"
+          - "exploit"
+          - "abuse"
+    actions:
+      - type: block
+        message: "I cannot provide content that could endanger child safety."
+      - type: log
+        level: critical
+        message: "Child safety rule triggered"
+    category: safety
+    tags: ["child_protection", "critical"]
+
+  - id: medical_safety
+    name: Medical Safety Disclaimer
+    description: Add disclaimers to medical advice
+    type: principle
+    priority: high
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "medical"
+          - "health"
+          - "diagnosis"
+          - "treatment"
+          - "symptom"
+          - "disease"
+          - "medication"
+    actions:
+      - type: modify
+        operation: add_prefix
+        prefix: "I'm not a medical professional, and this is not medical advice. Please consult with a qualified healthcare provider for medical concerns. That said, "
+      - type: modify
+        operation: add_suffix
+        suffix: "\n\nPlease remember to consult with a healthcare professional for personalized medical advice."
+    category: medical
+    tags: ["health", "disclaimer", "safety"]

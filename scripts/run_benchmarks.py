@@ -24,6 +24,7 @@ from src.evaluation.improved_evaluation import multi_method_evaluation
 from src.providers import registry, get_provider_for_model
 from src.providers.exceptions import ProviderError, InvalidCredentialsError
 from src.logging import CSVResultLogger
+from src.use_cases.custom_prompts import PromptTemplate
 from benchmarks import MultiModelBenchmarkRunner, ExecutionMode
 
 
@@ -372,6 +373,102 @@ def run_benchmark(
     return results
 
 
+def run_custom_prompt(
+    model_name: str,
+    prompt_content: str,
+    template_variables: dict = None,
+) -> dict:
+    """
+    Run a custom prompt on a single model.
+    
+    Args:
+        model_name: Name of the LLM model to use
+        prompt_content: The prompt text (may contain template variables)
+        template_variables: Optional dict of variables to substitute in the prompt
+        
+    Returns:
+        dict: Results including the model response
+    """
+    start_time = datetime.now()
+    
+    results = {
+        "model": model_name,
+        "prompt": prompt_content,
+        "template_variables": template_variables or {},
+        "start_time": start_time.isoformat(),
+    }
+    
+    try:
+        # Apply template variables using the template engine
+        template = PromptTemplate(prompt_content, name="custom_prompt")
+        
+        # Add model_name to the context
+        render_context = {"model_name": model_name}
+        if template_variables:
+            render_context.update(template_variables)
+        
+        # Check for missing variables before rendering
+        missing_vars = template.validate_context(render_context)
+        if missing_vars:
+            click.echo(f"⚠️  Missing template variables: {', '.join(missing_vars)}", err=True)
+            click.echo(f"   Available variables: {', '.join(template.get_all_variables())}")
+        
+        # Render the prompt (non-strict mode to allow missing variables)
+        rendered_prompt = template.render(render_context, strict=False)
+        results["rendered_prompt"] = rendered_prompt
+        results["template_info"] = {
+            "required_variables": list(template.get_required_variables()),
+            "all_variables": list(template.get_all_variables()),
+            "missing_variables": missing_vars
+        }
+            
+        # Get provider and initialize
+        provider_class = get_provider_for_model(model_name)
+        provider_name = provider_class.__name__.replace("Provider", "").lower()
+        results["provider"] = provider_name
+        
+        provider = provider_class(model_name)
+        provider.initialize()
+        
+        # Get model configuration
+        model_config = get_model_config()
+        
+        # Generate response
+        prompt_start_time = datetime.now()
+        response = retry_with_backoff(
+            lambda: provider.generate(
+                rendered_prompt,
+                temperature=model_config.get("temperature", 0.7),
+                max_tokens=model_config.get("max_tokens", 1000),
+            ),
+            max_retries=model_config.get("max_retries", 3),
+            base_delay=model_config.get("retry_delay", 1.0),
+        )
+        prompt_end_time = datetime.now()
+        
+        results["response"] = response
+        results["response_time_seconds"] = (prompt_end_time - prompt_start_time).total_seconds()
+        results["success"] = True
+        
+        # Basic metrics (will be expanded in task 3.4)
+        results["metrics"] = {
+            "response_length": len(response),
+            "response_words": len(response.split()),
+            "response_lines": len(response.splitlines()),
+        }
+        
+    except Exception as e:
+        results["success"] = False
+        results["error"] = str(e)
+        results["error_type"] = type(e).__name__
+        
+    end_time = datetime.now()
+    results["end_time"] = end_time.isoformat()
+    results["total_duration_seconds"] = (end_time - start_time).total_seconds()
+    
+    return results
+
+
 @click.command()
 @click.option(
     "--model",
@@ -426,6 +523,25 @@ def run_benchmark(
     default=None,
     help="Timeout in seconds per model (only with --use-engine)",
 )
+# Custom Prompt Options
+@click.option(
+    "--custom-prompt",
+    type=str,
+    default=None,
+    help="Run a custom prompt instead of a dataset (e.g., 'What is 2+2?')",
+)
+@click.option(
+    "--prompt-file",
+    type=click.Path(exists=True),
+    default=None,
+    help="Load custom prompt from a file",
+)
+@click.option(
+    "--prompt-variables",
+    type=str,
+    default=None,
+    help='JSON string of template variables (e.g., \'{"context": "math", "difficulty": "easy"}\')',
+)
 def main(
     model: Optional[str],
     models: Optional[str],
@@ -439,6 +555,9 @@ def main(
     output_dir: str,
     use_engine: bool,
     timeout: Optional[int],
+    custom_prompt: Optional[str],
+    prompt_file: Optional[str],
+    prompt_variables: Optional[str],
 ):
     """
     Run LLM benchmarks with specified models and dataset.
@@ -458,6 +577,18 @@ def main(
 
         # Parallel execution
         python run_benchmarks.py --models gpt-4,claude-3-opus-20240229 --dataset truthfulness --parallel
+        
+        # Custom prompt (inline)
+        python run_benchmarks.py --model gpt-4 --custom-prompt "What is 2+2?"
+        
+        # Custom prompt from file
+        python run_benchmarks.py --model claude-3-opus-20240229 --prompt-file ./prompts/test.txt
+        
+        # Custom prompt with template variables
+        python run_benchmarks.py --models gemini-1.5-flash,gpt-4 --custom-prompt "Solve this {difficulty} math problem: {problem}" --prompt-variables '{"difficulty": "easy", "problem": "2+2"}'
+        
+        # Compare multiple models on custom prompt
+        python run_benchmarks.py --models gpt-4,claude-3-opus-20240229,gemini-1.5-flash --custom-prompt "Write a haiku about programming" --parallel
     """
     click.echo("🔬 LLM Lab Benchmark Runner")
     click.echo(f"{'=' * 50}")
@@ -518,11 +649,91 @@ def main(
         click.echo(f"Available models: {', '.join(available)}", err=True)
         sys.exit(1)
 
+    # Handle custom prompt options
+    is_custom_prompt_mode = False
+    prompt_content = None
+    template_variables = {}
+    
+    # Validate mutually exclusive options
+    if custom_prompt and prompt_file:
+        click.echo("❌ Cannot use both --custom-prompt and --prompt-file", err=True)
+        sys.exit(1)
+    
+    if (custom_prompt or prompt_file) and dataset != "truthfulness":
+        click.echo("⚠️  Warning: --dataset is ignored when using custom prompts", err=True)
+    
+    # Process custom prompt
+    if custom_prompt or prompt_file:
+        is_custom_prompt_mode = True
+        
+        if custom_prompt:
+            prompt_content = custom_prompt
+            click.echo(f"\n📝 Using custom prompt: {custom_prompt[:50]}...")
+        else:
+            with open(prompt_file, 'r', encoding='utf-8') as f:
+                prompt_content = f.read().strip()
+            click.echo(f"\n📝 Loaded custom prompt from: {prompt_file}")
+        
+        # Parse template variables if provided
+        if prompt_variables:
+            try:
+                template_variables = json.loads(prompt_variables)
+                click.echo(f"   ✓ Template variables: {template_variables}")
+            except json.JSONDecodeError as e:
+                click.echo(f"❌ Invalid JSON in --prompt-variables: {e}", err=True)
+                sys.exit(1)
+
     try:
-        # Run benchmarks
+        # Run benchmarks or custom prompts
         all_results = []
 
-        if use_engine:
+        if is_custom_prompt_mode:
+            # Custom prompt mode
+            click.echo(f"\n🚀 Running custom prompt on {len(models_to_benchmark)} model(s)...")
+            
+            if parallel and len(models_to_benchmark) > 1:
+                # Parallel execution for custom prompts
+                with concurrent.futures.ThreadPoolExecutor(
+                    max_workers=min(len(models_to_benchmark), 4)
+                ) as executor:
+                    future_to_model = {
+                        executor.submit(
+                            run_custom_prompt, model_name, prompt_content, template_variables
+                        ): model_name
+                        for model_name in models_to_benchmark
+                    }
+                    
+                    for future in concurrent.futures.as_completed(future_to_model):
+                        model_name = future_to_model[future]
+                        try:
+                            result = future.result()
+                            all_results.append(result)
+                            if result.get("success"):
+                                click.echo(f"✓ {model_name}: Response received ({result['metrics']['response_words']} words)")
+                            else:
+                                click.echo(f"✗ {model_name}: {result.get('error', 'Unknown error')}", err=True)
+                        except Exception as e:
+                            click.echo(f"✗ Exception for {model_name}: {e!s}", err=True)
+                            all_results.append({
+                                "model": model_name,
+                                "success": False,
+                                "error": str(e),
+                                "error_type": type(e).__name__
+                            })
+            else:
+                # Sequential execution for custom prompts
+                for model_name in models_to_benchmark:
+                    click.echo(f"\n📤 Sending prompt to {model_name}...")
+                    result = run_custom_prompt(model_name, prompt_content, template_variables)
+                    all_results.append(result)
+                    
+                    if result.get("success"):
+                        click.echo(f"✓ Response received ({result['metrics']['response_words']} words)")
+                        click.echo(f"\n📝 Response:\n{result['response']}")
+                    else:
+                        click.echo(f"✗ Error: {result.get('error', 'Unknown error')}", err=True)
+        
+        elif use_engine:
             # Use the new multi-model execution engine
             click.echo(f"\n🔧 Using multi-model execution engine...")
 
@@ -618,10 +829,60 @@ def main(
 
         # Display summary
         click.echo(f"\n{'=' * 50}")
-        click.echo("📊 Benchmark Results Summary")
+        if is_custom_prompt_mode:
+            click.echo("📊 Custom Prompt Results Summary")
+        else:
+            click.echo("📊 Benchmark Results Summary")
         click.echo(f"{'=' * 50}")
 
-        if len(all_results) == 1:
+        if is_custom_prompt_mode:
+            # Custom prompt results display
+            if len(all_results) == 1:
+                # Single model custom prompt result
+                result = all_results[0]
+                click.echo(f"\nModel: {result['model']}")
+                click.echo(f"Provider: {result.get('provider', 'unknown')}")
+                click.echo(f"Success: {'✓' if result.get('success') else '✗'}")
+                
+                if result.get('success'):
+                    click.echo(f"\n📊 Response Metrics:")
+                    metrics = result.get('metrics', {})
+                    click.echo(f"  Length: {metrics.get('response_length', 0)} characters")
+                    click.echo(f"  Words: {metrics.get('response_words', 0)}")
+                    click.echo(f"  Lines: {metrics.get('response_lines', 0)}")
+                    click.echo(f"  Response Time: {result.get('response_time_seconds', 0):.2f}s")
+                else:
+                    click.echo(f"Error: {result.get('error', 'Unknown error')}")
+            else:
+                # Multiple model custom prompt results
+                click.echo(f"\nPrompt: {prompt_content[:100]}{'...' if len(prompt_content) > 100 else ''}")
+                click.echo(f"Models Tested: {len(all_results)}")
+                click.echo("\n📈 Model Comparison:")
+                click.echo("-" * 80)
+                click.echo(
+                    f"{'Model':<30} {'Provider':<12} {'Status':<10} {'Words':<10} {'Time (s)':<10}"
+                )
+                click.echo("-" * 80)
+                
+                for result in all_results:
+                    if result.get('success'):
+                        click.echo(
+                            f"{result['model']:<30} "
+                            f"{result.get('provider', 'unknown'):<12} "
+                            f"{'Success':<10} "
+                            f"{result.get('metrics', {}).get('response_words', 0):<10} "
+                            f"{result.get('response_time_seconds', 0):<10.2f}"
+                        )
+                    else:
+                        click.echo(
+                            f"{result['model']:<30} "
+                            f"{result.get('provider', 'unknown'):<12} "
+                            f"{'Failed':<10} "
+                            f"{'N/A':<10} "
+                            f"{'N/A':<10}"
+                        )
+                click.echo("-" * 80)
+        elif len(all_results) == 1:
             # Single model results
             results = all_results[0]
             click.echo(f"Model: {results['model']}")

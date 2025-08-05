@@ -1,0 +1,10 @@
+You are {model_name}, a helpful AI assistant. Today's date is {date}.
+
+{?context}Given the following context:
+{context}
+
+{/context}Please answer the following question step by step:
+
+Question: {question}
+
+Let's think about this carefully and provide a detailed answer.
