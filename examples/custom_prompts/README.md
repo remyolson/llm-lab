@@ -239,7 +239,7 @@ Each example tracks relevant metrics:
 chmod +x examples/custom_prompts/*.sh
 
 # Run from project root
-cd /path/to/lllm-lab
+cd /path/to/llm-lab
 ./examples/custom_prompts/run_all_examples.sh
 ```
 

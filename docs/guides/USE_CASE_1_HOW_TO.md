@@ -512,7 +512,7 @@ This benchmarking system provides a foundation for:
 ## 💭 Feedback
 
 Help us improve this guide:
-- Found an error? [Open an issue](https://github.com/remyolson/lllm-lab/issues/new)
+- Found an error? [Open an issue](https://github.com/remyolson/llm-lab/issues/new)
 - Have suggestions? See our [Contribution Guide](../../CONTRIBUTING.md)
 
 ---

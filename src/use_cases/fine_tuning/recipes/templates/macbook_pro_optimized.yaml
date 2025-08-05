@@ -1,7 +1,7 @@
 name: macbook_pro_optimized
 description: Recipe optimized for fine-tuning on MacBook Pro with Apple Silicon
 version: 1.0.0
-author: lllm-lab
+author: llm-lab
 tags:
   - macbook-pro
   - apple-silicon

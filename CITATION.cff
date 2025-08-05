@@ -5,8 +5,8 @@ type: software
 authors:
   - family-names: "Olson"
     given-names: "Remy"
-repository-code: "https://github.com/remyolson/lllm-lab"
-url: "https://github.com/remyolson/lllm-lab"
+repository-code: "https://github.com/remyolson/llm-lab"
+url: "https://github.com/remyolson/llm-lab"
 abstract: "A comprehensive platform for benchmarking, fine-tuning, monitoring, and aligning Large Language Models"
 keywords:
   - llm

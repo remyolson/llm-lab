@@ -136,7 +136,7 @@ GOOGLE_API_KEY: your-google-api-key-here
 
 ```bash
 git clone <repository-url>
-cd lllm-lab
+cd llm-lab
 
 # Create virtual environment
 python -m venv venv

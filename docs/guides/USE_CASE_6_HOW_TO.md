@@ -131,7 +131,7 @@ Set up efficient fine-tuning with LoRA (Low-Rank Adaptation):
 cat > lora_config.yaml << 'EOF'
 # LoRA Configuration for 7B Model Fine-tuning
 model_name: "mistral-7b"  # or "llama-2-7b", "phi-2"
-base_model_path: "~/.cache/lllm-lab/models/mistral-7b.gguf"
+base_model_path: "~/.cache/llm-lab/models/mistral-7b.gguf"
 
 # LoRA Parameters
 lora_config:
@@ -648,7 +648,7 @@ This fine-tuning framework enables:
 ## 💭 Feedback
 
 Help us improve this guide:
-- Found an error? [Open an issue](https://github.com/remyolson/lllm-lab/issues/new)
+- Found an error? [Open an issue](https://github.com/remyolson/llm-lab/issues/new)
 - Have suggestions? See our [Contribution Guide](../../CONTRIBUTING.md)
 
 ---

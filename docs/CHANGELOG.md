@@ -35,4 +35,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic keyword matching evaluation only
 - Limited benchmark datasets included
 
-[0.1.0]: https://github.com/username/lllm-lab/releases/tag/v0.1
+[0.1.0]: https://github.com/username/llm-lab/releases/tag/v0.1

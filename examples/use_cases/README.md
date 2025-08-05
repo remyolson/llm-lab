@@ -296,4 +296,4 @@ We welcome new examples! Please:
 - Read the [Use Cases Overview](../../docs/guides/USE_CASES_OVERVIEW.md)
 - Try the [Quick Start Tutorial](../../docs/guides/PREREQUISITES.md)
 - Explore [API Documentation](../../docs/api/README.md)
-- Join [Discussions](https://github.com/remyolson/lllm-lab/discussions)
+- Join [Discussions](https://github.com/remyolson/llm-lab/discussions)

@@ -68,12 +68,12 @@ HUGGINGFACE_TOKEN=your-hf-token-here
 
 ```bash
 # Using HTTPS
-git clone https://github.com/remyolson/lllm-lab.git
+git clone https://github.com/remyolson/llm-lab.git
 
 # Using SSH
-git clone git@github.com:remyolson/lllm-lab.git
+git clone git@github.com:remyolson/llm-lab.git
 
-cd lllm-lab
+cd llm-lab
 ```
 
 ### 2. Create Virtual Environment
@@ -155,7 +155,7 @@ Running evaluations...
 #### 1. "No module named 'src'" Error
 ```bash
 # Make sure you're in the project root
-pwd  # Should show /path/to/lllm-lab
+pwd  # Should show /path/to/llm-lab
 
 # Add project root to Python path
 export PYTHONPATH="${PYTHONPATH}:$(pwd)"
@@ -223,8 +223,8 @@ Once you've completed these prerequisites, you're ready to:
 
 If you encounter issues:
 1. Check the [Troubleshooting Guide](../TROUBLESHOOTING.md)
-2. Review [closed issues](https://github.com/remyolson/lllm-lab/issues?q=is%3Aissue+is%3Aclosed)
-3. Open a [new issue](https://github.com/remyolson/lllm-lab/issues/new) with:
+2. Review [closed issues](https://github.com/remyolson/llm-lab/issues?q=is%3Aissue+is%3Aclosed)
+3. Open a [new issue](https://github.com/remyolson/llm-lab/issues/new) with:
    - Your OS and Python version
    - Complete error message
    - Steps to reproduce

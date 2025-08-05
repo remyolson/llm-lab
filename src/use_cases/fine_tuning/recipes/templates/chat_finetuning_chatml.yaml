@@ -1,7 +1,7 @@
 name: chat_finetuning_chatml
 description: Recipe for chat fine-tuning using ChatML conversation format
 version: 1.0.0
-author: lllm-lab
+author: llm-lab
 tags:
   - chat
   - conversational

@@ -98,9 +98,9 @@ Welcome to the comprehensive documentation for LLM Lab - a professional-grade fr
 ## 🤝 Need Help?
 
 - Check the [Troubleshooting Guide](guides/TROUBLESHOOTING.md)
-- Search [existing issues](https://github.com/remyolson/lllm-lab/issues)
-- Ask in [GitHub Discussions](https://github.com/remyolson/lllm-lab/discussions)
-- Open a [new issue](https://github.com/remyolson/lllm-lab/issues/new)
+- Search [existing issues](https://github.com/remyolson/llm-lab/issues)
+- Ask in [GitHub Discussions](https://github.com/remyolson/llm-lab/discussions)
+- Open a [new issue](https://github.com/remyolson/llm-lab/issues/new)
 
 ---
 
