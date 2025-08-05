@@ -43,7 +43,7 @@ jinja2==3.1.2
 flask-mail==0.9.1
 
 # File handling and utilities
-pathlib2==2.3.7
+pathlib2==2.3.7.post1
 Pillow==10.1.0
 
 # Development and testing
