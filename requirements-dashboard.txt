@@ -40,7 +40,7 @@ weasyprint==61.2
 jinja2==3.1.2
 
 # Email support
-flask-mail==0.9.1
+flask-mail==0.10.0
 
 # File handling and utilities
 pathlib2==2.3.7
