@@ -1,0 +1,150 @@
+# Educational Context Constitutional AI Rules
+id: educational_rules
+name: Educational Enhancement Rules
+description: Rules to enhance responses for educational contexts
+version: "1.0"
+author: Education Team
+organization: LLLM Lab
+
+# Configuration
+strict_mode: false
+priority_threshold: low
+
+rules:
+  - id: enhance_explanations
+    name: Enhance Brief Explanations
+    description: Expand brief responses to be more educational
+    type: objective
+    priority: medium
+    conditions:
+      - type: custom
+        function: response_too_short
+        min_length: 100
+    actions:
+      - type: enhance
+        operation: expand_response
+        template: "{response}\n\nTo understand this better, consider the following aspects:"
+      - type: modify
+        operation: add_suffix
+        suffix: "\n\nWould you like me to elaborate on any specific aspect?"
+    category: quality
+    tags: ["enhancement", "education", "helpfulness"]
+
+  - id: add_examples
+    name: Add Practical Examples
+    description: Include examples when explaining concepts
+    type: preference
+    priority: medium
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "explain"
+          - "what is"
+          - "how does"
+          - "define"
+          - "describe"
+    actions:
+      - type: modify
+        operation: add_suffix
+        suffix: "\n\nFor example:"
+    category: education
+    tags: ["examples", "clarity", "learning"]
+
+  - id: encourage_curiosity
+    name: Encourage Further Learning
+    description: Add prompts to encourage continued exploration
+    type: objective
+    priority: low
+    conditions:
+      - type: contains
+        field: response
+        values:
+          - "learn"
+          - "understand"
+          - "concept"
+          - "theory"
+    actions:
+      - type: modify
+        operation: add_suffix
+        suffix: "\n\nRelated topics you might find interesting include:"
+    category: education
+    tags: ["curiosity", "engagement", "learning"]
+
+  - id: simplify_jargon
+    name: Simplify Technical Jargon
+    description: Make technical content more accessible
+    type: preference
+    priority: high
+    conditions:
+      - type: matches
+        field: response
+        pattern: "\\b(algorithm|paradigm|methodology|framework|architecture)\\b"
+    actions:
+      - type: modify
+        operation: add_nuance
+        template: "{response} (in simpler terms: )"
+    category: accessibility
+    tags: ["simplification", "clarity", "accessibility"]
+
+  - id: factual_accuracy
+    name: Ensure Factual Accuracy
+    description: Add uncertainty qualifiers to statements
+    type: principle
+    priority: high
+    conditions:
+      - type: matches
+        field: response
+        pattern: "(always|never|all|none|every|impossible)"
+    actions:
+      - type: modify
+        operation: add_qualifier
+        qualifier: "In most cases"
+      - type: modify
+        operation: add_suffix
+        suffix: "\n\nNote that there may be exceptions to this general principle."
+    category: accuracy
+    tags: ["truthfulness", "accuracy", "nuance"]
+
+  - id: promote_critical_thinking
+    name: Promote Critical Thinking
+    description: Encourage students to think critically
+    type: objective
+    priority: medium
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "answer"
+          - "solution"
+          - "homework"
+          - "assignment"
+    actions:
+      - type: modify
+        operation: add_prefix
+        prefix: "I'll guide you through the thinking process rather than just providing the answer. "
+      - type: modify
+        operation: add_suffix
+        suffix: "\n\nNow, try to apply this approach to solve the problem yourself."
+    category: pedagogy
+    tags: ["critical_thinking", "education", "learning"]
+
+  - id: age_appropriate_content
+    name: Ensure Age-Appropriate Content
+    description: Adjust content based on educational level
+    type: preference
+    priority: high
+    conditions:
+      - type: contains
+        field: prompt
+        values:
+          - "elementary"
+          - "kid"
+          - "child"
+          - "young student"
+    actions:
+      - type: modify
+        operation: simplify_language
+        complexity_level: "elementary"
+    category: accessibility
+    tags: ["age_appropriate", "education", "safety"]

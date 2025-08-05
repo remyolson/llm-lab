@@ -13,13 +13,13 @@ Welcome to the LLM Lab documentation guides! This directory contains step-by-ste
 | Use Case | Status | Guide | Est. Cost | Description |
 |----------|--------|-------|-----------|-------------|
 | **1. Run Standard Benchmarks** | ✅ Ready | [Guide](./USE_CASE_1_HOW_TO.md) | $0.05-$5 | Compare multiple LLMs on standardized datasets |
-| **2. Compare Cost vs Performance** | ✅ Ready | *(Coming soon)* | $0 | Analyze existing results for cost optimization |
-| **3. Test Custom Prompts** | ⚠️ Partial | *(Coming soon)* | $0.01-$1 | Benchmark domain-specific use cases |
-| **4. Run Tests Across LLMs** | ✅ Ready | *(Coming soon)* | $0.05-$5 | Execute comprehensive test suites |
-| **5. Local LLM Testing** | ⚠️ Partial | *(Coming soon)* | $0 | Work with locally-hosted models |
-| **6. Fine-tune Local LLMs** | ❌ Future | - | $0 | Learn fine-tuning techniques |
-| **7. Alignment Research** | ❌ Future | - | Varies | Explore runtime alignment paradigms |
-| **8. Continuous Monitoring** | ❌ Future | - | Varies | Automated performance tracking |
+| **2. Compare Cost vs Performance** | ✅ Ready | [Guide](./USE_CASE_2_HOW_TO.md) | $0.50-$2 | Analyze trade-offs between model performance and API costs |
+| **3. Test Custom Prompts** | ⚠️ Partial | [Guide](./USE_CASE_3_HOW_TO.md) | $1-$5 | Evaluate models on your specific use cases and prompts |
+| **4. Run Tests Across LLMs** | ✅ Ready | [Guide](./USE_CASE_4_HOW_TO.md) | $2-$10 | Execute comprehensive test suites for validation |
+| **5. Local LLM Testing** | ⚠️ Partial | [Guide](./USE_CASE_5_HOW_TO.md) | $0 | Work with locally-hosted models offline |
+| **6. Fine-tune Local LLMs** | ❌ Future | [Guide](./USE_CASE_6_HOW_TO.md) | $0 | Customize models with LoRA/QLoRA techniques |
+| **7. Alignment Research** | ❌ Future | [Guide](./USE_CASE_7_HOW_TO.md) | $5-$20 | Implement runtime alignment and safety filters |
+| **8. Continuous Monitoring** | ❌ Future | [Guide](./USE_CASE_8_HOW_TO.md) | $50-$200/mo | Automated performance tracking and alerts |
 
 *💡 Cost estimates are per full run using LLM APIs. Many use cases support free tiers or local execution.*
 

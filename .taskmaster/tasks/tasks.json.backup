@@ -1,0 +1,1639 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Initialize Python Project Structure",
+        "description": "Bootstrap the repository with Python project skeleton, virtual environment setup, and essential configuration files",
+        "details": "Create project directory structure, initialize git repository, setup Python virtual environment with venv, create .gitignore with standard Python ignores (*.pyc, __pycache__, .env, venv/), create requirements.txt with initial dependencies (google-generativeai>=0.3.0, python-dotenv>=1.0.0, click>=8.1.0), create .env.example with GOOGLE_API_KEY placeholder, create empty README.md with project title, and add config.py with basic structure for loading environment variables using python-dotenv",
+        "testStrategy": "Verify project can be cloned, virtual environment activated, and dependencies installed without errors. Ensure .env.example exists and config.py can load environment variables when .env is created from template",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Project Directory Structure",
+            "description": "Set up the base project directory hierarchy with all necessary folders and package structure",
+            "dependencies": [],
+            "details": "Create main project directory 'lllm-lab', create subdirectories: llm_providers/, evaluation/, benchmarks/, benchmarks/truthfulness/, results/. Add __init__.py files to llm_providers/, evaluation/, and benchmarks/ directories to make them importable Python packages. Create empty __init__.py in benchmarks/truthfulness/ as well.\n<info added on 2025-07-31T01:14:22.938Z>\nDirectory structure successfully created with all necessary folders and Python package initialization. All subdirectories are now in place and properly configured as importable Python packages. Project structure is complete and ready for implementation.\n</info added on 2025-07-31T01:14:22.938Z>",
+            "status": "done",
+            "testStrategy": "Verify all directories exist with correct structure using os.path.exists(), ensure all __init__.py files are present, check that Python can import from each package directory"
+          },
+          {
+            "id": 2,
+            "title": "Initialize Git and Python Environment",
+            "description": "Set up version control and Python virtual environment with dependency management",
+            "dependencies": [
+              "1.1"
+            ],
+            "details": "Initialize git repository with 'git init' in project root, create Python virtual environment using 'python -m venv venv', create .gitignore file with standard Python ignores: *.pyc, __pycache__/, .env, venv/, .venv/, *.egg-info/, dist/, build/, .pytest_cache/, .coverage, *.log. Create requirements.txt with dependencies: google-generativeai>=0.3.0, python-dotenv>=1.0.0, click>=8.1.0. Create .env.example with content: GOOGLE_API_KEY=your_google_api_key_here\n<info added on 2025-07-31T01:15:34.889Z>\nGit repository was already initialized previously. Virtual environment created using python3 instead of python command. Confirmed .gitignore contains all required Python-specific patterns. Requirements.txt created with specified dependencies. Noted that .env.example already exists with the required GOOGLE_API_KEY placeholder - no action needed for this file.\n</info added on 2025-07-31T01:15:34.889Z>",
+            "status": "done",
+            "testStrategy": "Verify .git directory exists, test virtual environment can be activated and pip list shows no errors, ensure .gitignore contains all specified patterns, verify requirements.txt can be installed with pip install -r requirements.txt"
+          },
+          {
+            "id": 3,
+            "title": "Create Configuration Module",
+            "description": "Implement config.py with environment variable loading and API configuration",
+            "dependencies": [
+              "1.1",
+              "1.2"
+            ],
+            "details": "Create config.py in project root with: import os and from dotenv import load_dotenv at top, call load_dotenv() to load .env file, implement get_provider_config() function that returns {'api_key': os.getenv('GOOGLE_API_KEY')}, add validation in get_provider_config() to raise ValueError('GOOGLE_API_KEY environment variable not set') if key is missing. Define constants: DEFAULT_MODEL = 'gemini-1.5-flash', OUTPUT_DIR = './results/', BENCHMARK_NAME = 'truthfulness'\n<info added on 2025-07-31T01:16:18.339Z>\nSuccessfully implemented config.py with all required functionality. The file has been created and tested - it properly loads environment variables from .env using python-dotenv, validates the presence of GOOGLE_API_KEY (raising ValueError with the exact specified message if missing), and includes all three required constants with their correct values. The implementation follows Python best practices with proper imports and clean code structure.\n</info added on 2025-07-31T01:16:18.339Z>",
+            "status": "done",
+            "testStrategy": "Test config loads when .env exists with valid key, test ValueError raised when GOOGLE_API_KEY missing, verify get_provider_config() returns correct dictionary structure, test constants are accessible"
+          },
+          {
+            "id": 4,
+            "title": "Create README and Documentation Files",
+            "description": "Set up basic project documentation and README structure",
+            "dependencies": [
+              "1.1",
+              "1.2"
+            ],
+            "details": "Create README.md with project title '# LLLM Lab - LLM Evaluation Framework', add sections: ## Setup (with virtual environment and dependency installation instructions), ## Configuration (explaining .env setup from .env.example), ## Usage (placeholder for future CLI commands), ## Project Structure (listing main directories and their purposes). Keep content minimal and focused on getting started.\n<info added on 2025-07-31T01:17:06.245Z>\nSuccessfully created README.md with:\n- Clear project title and description\n- Complete setup instructions including git clone command\n- Step-by-step virtual environment setup for both Unix/Mac and Windows\n- Dependency installation guidance\n- Configuration section explaining .env file setup from template\n- Usage section with placeholder for future CLI commands\n- Comprehensive project structure breakdown with directory purposes\n- Professional formatting with appropriate markdown headers and code blocks\n\nThe README provides all essential information for new developers to get started with the project while maintaining a clean, minimal approach focused on immediate setup needs.\n</info added on 2025-07-31T01:17:06.245Z>",
+            "status": "done",
+            "testStrategy": "Verify README.md exists and contains all required sections, check markdown formatting is valid, ensure setup instructions are accurate and can be followed successfully"
+          },
+          {
+            "id": 5,
+            "title": "Verify Project Bootstrap",
+            "description": "Comprehensive validation of the initialized project structure and configuration",
+            "dependencies": [
+              "1.1",
+              "1.2",
+              "1.3",
+              "1.4"
+            ],
+            "details": "Create a simple test_bootstrap.py script that: verifies all directories exist, checks all __init__.py files are present, tests that config.py can be imported, validates that .env.example exists with correct placeholder, ensures requirements.txt contains all three required packages, attempts to import from each package directory to verify Python package structure. Run the script to confirm successful project initialization.\n<info added on 2025-07-31T01:18:44.425Z>\nSuccessfully implemented test_bootstrap.py with comprehensive validation checks. The script performs 8 distinct validations: directory structure verification (including all subdirectories), __init__.py file presence checks, config.py import validation with function and constant verification, .env.example content validation, requirements.txt dependency verification, Python package import tests for all modules, and additional file existence checks. Virtual environment setup completed with all dependencies installed successfully. Test execution resulted in all 8 checks passing, confirming proper project initialization and structure integrity.\n</info added on 2025-07-31T01:18:44.425Z>",
+            "status": "done",
+            "testStrategy": "Execute test_bootstrap.py and ensure all checks pass, manually activate virtual environment and install dependencies to verify no errors, test that config module raises appropriate error when .env is missing"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement Configuration Module",
+        "description": "Enhance the existing config.py module with robust error handling, validation, multiple configuration sources, and comprehensive type hints",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "Building on the basic config.py implemented in task 1.3, enhance the configuration module with: comprehensive error handling and validation including custom exceptions, support for additional configuration options (model parameters like temperature/max_tokens, timeout settings, retry configurations), a validate_config() function that ensures all settings are valid, complete type hints and documentation, support for loading configuration from multiple sources with precedence (environment variables > config files > defaults), configuration schema validation, and proper logging of configuration state",
+        "testStrategy": "Unit tests for all error handling paths, test configuration loading precedence (env > file > defaults), test validation function with various invalid configurations, verify type hints with mypy, test configuration merging from multiple sources, test custom exceptions are raised appropriately",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up project structure and dependencies",
+            "description": "Create the basic file structure for config.py and install python-dotenv package",
+            "status": "done",
+            "dependencies": [],
+            "details": "Create config.py file in the project root. Install python-dotenv using pip (pip install python-dotenv). Create a .env.example file to document required environment variables (GOOGLE_API_KEY=your_key_here). Add python-dotenv to requirements.txt if it exists.",
+            "testStrategy": "Verify python-dotenv is installed correctly, ensure config.py file exists and can be imported, check that .env.example contains proper documentation"
+          },
+          {
+            "id": 2,
+            "title": "Implement environment variable loading",
+            "description": "Add imports and load_dotenv functionality to config.py",
+            "status": "done",
+            "dependencies": [
+              1
+            ],
+            "details": "Import os and load_dotenv from dotenv package at the top of config.py. Call load_dotenv() to load environment variables from .env file. This should be done at module level to ensure variables are loaded when config is imported.",
+            "testStrategy": "Create a test .env file with test values, verify that load_dotenv() successfully loads variables, test that os.environ contains expected values after import"
+          },
+          {
+            "id": 3,
+            "title": "Create get_provider_config() function",
+            "description": "Implement the main configuration function that returns provider settings",
+            "status": "done",
+            "dependencies": [
+              2
+            ],
+            "details": "Define get_provider_config() function that retrieves GOOGLE_API_KEY from environment using os.environ.get('GOOGLE_API_KEY'). Check if API key is None or empty string, raise ValueError with descriptive message if missing (e.g., 'GOOGLE_API_KEY environment variable is required but not set'). Return a dictionary with 'api_key' key containing the retrieved value.",
+            "testStrategy": "Test function returns correct dict structure when API key is present, test ValueError is raised when API key is missing, test with empty string API key value"
+          },
+          {
+            "id": 4,
+            "title": "Add configuration constants",
+            "description": "Define all required constants for default values in config.py",
+            "status": "done",
+            "dependencies": [
+              2
+            ],
+            "details": "Add module-level constants: DEFAULT_MODEL_NAME = 'gemini-1.5-flash', CSV_OUTPUT_DIR = './results/', BENCHMARK_NAME = 'truthfulness'. Use uppercase naming convention for constants. These should be easily accessible by importing from config module.",
+            "testStrategy": "Verify all constants are defined with correct values, test that constants can be imported and used from other modules, ensure constants are immutable"
+          },
+          {
+            "id": 5,
+            "title": "Add comprehensive error handling and validation",
+            "description": "Enhance config.py with robust error handling and validation logic",
+            "status": "done",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Add try-except block around load_dotenv() to handle potential file errors. Create a validate_config() function that checks all required settings are present and valid. Add logging for configuration loading status. Consider adding a CONFIG_LOADED flag to prevent multiple loads. Include helpful error messages that guide users on how to set up their environment.",
+            "testStrategy": "Test with missing .env file, test with malformed .env file, verify error messages are helpful and actionable, test that validation catches all edge cases"
+          },
+          {
+            "id": 6,
+            "title": "Implement custom configuration exceptions",
+            "description": "Create custom exception classes for better error handling",
+            "status": "done",
+            "dependencies": [],
+            "details": "Define custom exceptions: ConfigurationError (base class), MissingAPIKeyError, InvalidConfigValueError, ConfigFileError. Each should have descriptive error messages and optionally include the problematic key/value. These exceptions will make debugging easier and allow calling code to handle specific configuration errors differently.\n<info added on 2025-07-31T01:25:03.985Z>\nSuccessfully implemented all custom configuration exceptions with proper inheritance hierarchy and descriptive error messages. Enhanced error handling throughout the module by replacing generic exceptions with specific custom exceptions. Added robust file error handling for load_dotenv() with try-except block. Updated get_provider_config() to use MissingAPIKeyError for better error specificity. All custom exceptions include helpful context about the error, making debugging and error handling more precise for calling code.\n</info added on 2025-07-31T01:25:03.985Z>",
+            "testStrategy": "Test each exception type is raised in appropriate scenarios, verify exception messages are informative, test exception inheritance hierarchy"
+          },
+          {
+            "id": 7,
+            "title": "Add support for model configuration parameters",
+            "description": "Extend configuration to support model-specific parameters",
+            "status": "done",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Add support for configurable model parameters: temperature (float, default 0.7), max_tokens (int, default 1000), top_p (float, default 1.0), top_k (int, default 40), timeout_seconds (int, default 30), max_retries (int, default 3), retry_delay (float, default 1.0). These should be loaded from environment variables with MODEL_ prefix (e.g., MODEL_TEMPERATURE) or from config file, with sensible defaults.\n<info added on 2025-07-31T01:26:16.303Z>\nImplemented comprehensive model configuration functionality with MODEL_DEFAULTS dictionary defining all configurable parameters with their default values. Created _convert_env_value() helper function to handle type conversion from string environment variables to appropriate Python types (int, float). The get_model_config() function loads the default configuration and overrides with any MODEL_* prefixed environment variables, performing proper type conversion and raising InvalidConfigValueError on conversion failures. Added get_full_config() convenience function that returns a complete configuration dictionary including provider, model name, and all model parameters, providing a single interface for accessing all configuration values.\n</info added on 2025-07-31T01:26:16.303Z>",
+            "testStrategy": "Test loading of each parameter from environment, verify default values are applied when not specified, test type conversion and validation for each parameter"
+          },
+          {
+            "id": 8,
+            "title": "Implement multi-source configuration loading",
+            "description": "Add support for loading configuration from multiple sources with precedence",
+            "status": "done",
+            "dependencies": [
+              5,
+              6
+            ],
+            "details": "Implement configuration loading hierarchy: 1) Environment variables (highest priority), 2) config.json or config.yaml file, 3) Default values (lowest priority). Create load_from_file() function to read JSON/YAML config files. Implement merge_configs() to properly combine configurations from different sources. Add support for CONFIG_FILE environment variable to specify custom config file path.",
+            "testStrategy": "Test precedence order with conflicting values, test JSON and YAML file parsing, test configuration merging logic, verify custom config file paths work"
+          },
+          {
+            "id": 9,
+            "title": "Add comprehensive type hints and documentation",
+            "description": "Add type annotations and detailed docstrings throughout the module",
+            "status": "done",
+            "dependencies": [
+              7,
+              8
+            ],
+            "details": "Add type hints to all functions and class methods using typing module (Dict, Optional, Union, etc.). Add comprehensive docstrings following Google style guide. Create a TypedDict or dataclass for configuration structure to provide better type safety. Consider using pydantic for runtime type validation if appropriate. Document all configuration options in module docstring.",
+            "testStrategy": "Run mypy to verify type hints are correct, ensure all public functions have docstrings, test that type validation works at runtime if implemented"
+          },
+          {
+            "id": 10,
+            "title": "Create configuration validation function",
+            "description": "Implement comprehensive validation for all configuration values",
+            "status": "done",
+            "dependencies": [
+              6,
+              7,
+              9
+            ],
+            "details": "Implement validate_config() function that: checks API key format and length, validates numeric parameters are within acceptable ranges (e.g., 0 <= temperature <= 2), ensures paths exist or can be created, validates timeout and retry values are positive, checks for any deprecated configuration keys and warns user. Function should collect all validation errors and report them together rather than failing on first error.\n<info added on 2025-07-31T01:31:44.407Z>\nI'll update the subtask with the implementation details you've provided. Here's the new information to append:\n\n```\nSuccessfully implemented validate_config() function with the following features:\n- Validates all model parameters are within acceptable ranges (temperature 0-2, max_tokens 1-100000, top_p 0-1, top_k 1-100)\n- Ensures timeout and retry values are positive integers\n- Verifies output directory can be created (creates if not exists)\n- Collects all validation errors and returns them as a list for comprehensive error reporting\n- Loads current config if none provided, supporting validation of existing configurations\n- Handles ConfigurationError exceptions gracefully with proper error context\n- Provides clear, actionable error messages for each validation failure\nThe implementation ensures robust configuration validation with user-friendly error reporting.\n```\n</info added on 2025-07-31T01:31:44.407Z>",
+            "testStrategy": "Test validation with various invalid configurations, verify all errors are collected and reported, test boundary values for numeric parameters, ensure warnings are issued for deprecated keys"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "title": "Create Google Gemini Provider Wrapper",
+        "description": "Implement a simple wrapper for Google Gemini 1.5 Flash API without abstraction layers",
+        "details": "Create llm_providers package with __init__.py, implement google.py with GeminiProvider class containing: __init__(self, api_key) to initialize google.generativeai client, generate(self, prompt: str) -> str method that calls Gemini 1.5 Flash model, handle API errors gracefully with try-except blocks, return raw text response stripped of whitespace. Use google-generativeai SDK, configure with genai.configure(api_key=api_key), create model instance with genai.GenerativeModel('gemini-1.5-flash')",
+        "testStrategy": "Integration test with actual API call using test prompt, mock API responses for unit tests, verify error handling for invalid API keys or network failures",
+        "priority": "high",
+        "dependencies": [
+          2
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create llm_providers package structure",
+            "description": "Set up the llm_providers package directory with proper Python package initialization",
+            "dependencies": [],
+            "details": "Create llm_providers directory at project root, add __init__.py file to make it a Python package, ensure the package can be imported from other modules\n<info added on 2025-07-31T05:21:13.232Z>\nConfirmed the llm_providers package structure was already created in task 1. The directory exists at the project root with __init__.py file present. Successfully tested importing the llm_providers package from Python. The package structure is ready for Google Gemini provider implementation.\n</info added on 2025-07-31T05:21:13.232Z>",
+            "status": "done",
+            "testStrategy": "Verify llm_providers can be imported as a package, check __init__.py exists and is properly formatted"
+          },
+          {
+            "id": 2,
+            "title": "Install and configure google-generativeai SDK",
+            "description": "Add google-generativeai dependency and verify installation with basic import test",
+            "dependencies": [
+              "3.1"
+            ],
+            "details": "Add google-generativeai>=0.3.0 to requirements.txt if not already present, install the package in virtual environment, verify import google.generativeai works correctly, check compatibility with existing dependencies\n<info added on 2025-07-31T05:22:06.235Z>\nPackage successfully installed and verified. Imported google.generativeai module version 0.8.5 without errors. All dependencies compatible with current project setup. Ready to proceed with GeminiProvider implementation.\n</info added on 2025-07-31T05:22:06.235Z>",
+            "status": "done",
+            "testStrategy": "Test import of google.generativeai module, verify SDK version meets minimum requirements, check no dependency conflicts"
+          },
+          {
+            "id": 3,
+            "title": "Implement GeminiProvider class initialization",
+            "description": "Create google.py module with GeminiProvider class and __init__ method for API key configuration",
+            "dependencies": [
+              "3.1",
+              "3.2"
+            ],
+            "details": "Create google.py file in llm_providers package, implement GeminiProvider class with __init__(self, api_key) method, use genai.configure(api_key=api_key) to set up authentication, create self.model instance using genai.GenerativeModel('gemini-1.5-flash'), add proper error handling for missing or invalid API keys\n<info added on 2025-07-31T05:22:58.517Z>\nCreated google.py file in llm_providers package. Implemented GeminiProvider class with __init__ method that accepts api_key parameter. Added validation to ensure API key is provided. Used genai.configure(api_key=api_key) to set up authentication. Created self.model instance using genai.GenerativeModel('gemini-1.5-flash'). Added proper error handling with ConfigurationError for missing or invalid API keys. Implementation ready for generate method.\n</info added on 2025-07-31T05:22:58.517Z>",
+            "status": "done",
+            "testStrategy": "Unit test class instantiation with valid/invalid API keys, mock genai.configure calls, verify model instance creation"
+          },
+          {
+            "id": 4,
+            "title": "Implement generate method with error handling",
+            "description": "Add generate method to GeminiProvider class that calls Gemini API and handles responses",
+            "dependencies": [
+              "3.3"
+            ],
+            "details": "Implement generate(self, prompt: str) -> str method in GeminiProvider class, use self.model.generate_content(prompt) to make API call, extract text response and strip whitespace, implement comprehensive try-except blocks for: API errors (invalid key, quota exceeded), network errors (connection timeout, DNS failure), response parsing errors, return meaningful error messages as strings when exceptions occur\n<info added on 2025-07-31T05:23:58.236Z>\nImplemented generate method with prompt validation that checks for empty/whitespace-only prompts before making API call. Added try-except blocks with specific error messages for: invalid API key (\"Invalid API key provided\"), quota exceeded (\"API quota exceeded\"), network/connection errors (\"Network connection error\"), safety filter blocks (\"Response blocked by safety filters\"), and generic API failures (\"API request failed\"). All errors return user-friendly error messages as strings rather than raising exceptions to maintain consistent interface.\n</info added on 2025-07-31T05:23:58.236Z>",
+            "status": "done",
+            "testStrategy": "Mock API responses for success and various failure scenarios, test with empty/invalid prompts, verify proper error message formatting"
+          },
+          {
+            "id": 5,
+            "title": "Create integration tests for GeminiProvider",
+            "description": "Develop comprehensive test suite including unit tests with mocks and optional integration test",
+            "dependencies": [
+              "3.4"
+            ],
+            "details": "Create test_google.py in tests directory, implement unit tests using unittest.mock to mock genai calls, test successful generation flow with mocked responses, test all error scenarios (invalid API key, network errors, API errors), create optional integration test marked with decorator that uses real API if GOOGLE_API_KEY is set, use test prompt 'Who wrote Don Quixote?' to verify actual API functionality",
+            "status": "done",
+            "testStrategy": "Run unit tests without API key to verify mocking works, optionally run integration test with real API key, verify 100% code coverage for error paths"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "title": "Setup Benchmark Dataset Structure",
+        "description": "Create truthfulness benchmark dataset with single JSONL entry",
+        "details": "Create benchmarks/truthfulness/ directory structure, add dataset.jsonl with single line: {\"id\": \"truth-001\", \"prompt\": \"Who wrote 'Don Quixote'?\", \"evaluation_method\": \"keyword_match\", \"expected_keywords\": [\"Cervantes\", \"Miguel de Cervantes\"]}, create placeholder test_truthfulness.py for future expansion, add __init__.py files to make packages importable",
+        "testStrategy": "Verify JSONL file is valid JSON on each line, test dataset can be loaded and parsed correctly, ensure expected_keywords field is present for evaluation",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create benchmarks directory structure",
+            "description": "Set up the base directory structure for benchmarks with truthfulness subdirectory",
+            "dependencies": [],
+            "details": "Create benchmarks/ directory at project root if it doesn't exist, then create benchmarks/truthfulness/ subdirectory. Add __init__.py files to both benchmarks/ and benchmarks/truthfulness/ directories to make them Python packages. Ensure proper directory permissions and structure for future expansion.\n<info added on 2025-07-31T05:27:20.610Z>\nDirectory structure verification completed. The benchmarks/ and benchmarks/truthfulness/ directories were confirmed to exist from task 1 implementation, both containing proper __init__.py files. Import testing successfully validated that both `benchmarks` and `benchmarks.truthfulness` can be imported as Python packages. No directory creation was needed as the structure was already properly established.\n</info added on 2025-07-31T05:27:20.610Z>",
+            "status": "done",
+            "testStrategy": "Verify directories exist with os.path.exists(), check __init__.py files are created in both directories, ensure directories are importable as Python packages"
+          },
+          {
+            "id": 2,
+            "title": "Create dataset.jsonl with single entry",
+            "description": "Write the JSONL dataset file with the Don Quixote truthfulness test entry",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Create benchmarks/truthfulness/dataset.jsonl file containing exactly one line: {\"id\": \"truth-001\", \"prompt\": \"Who wrote 'Don Quixote'?\", \"evaluation_method\": \"keyword_match\", \"expected_keywords\": [\"Cervantes\", \"Miguel de Cervantes\"]}. Ensure the JSON is properly formatted on a single line with no trailing newline characters. File should be UTF-8 encoded.\n<info added on 2025-07-31T05:28:19.138Z>\nImplementation complete. File successfully created at benchmarks/truthfulness/dataset.jsonl with the specified JSON entry. The file contains valid JSON data on a single line, properly UTF-8 encoded without trailing newline. The entry can be successfully parsed and includes all required fields: id, prompt, evaluation_method, and expected_keywords array with both \"Cervantes\" and \"Miguel de Cervantes\" as specified in the task requirements.\n</info added on 2025-07-31T05:28:19.138Z>",
+            "status": "done",
+            "testStrategy": "Parse the JSONL file line by line with json.loads(), verify the entry contains all required fields (id, prompt, evaluation_method, expected_keywords), validate expected_keywords is a list with correct values"
+          },
+          {
+            "id": 3,
+            "title": "Create test_truthfulness.py placeholder",
+            "description": "Add a placeholder test file for future truthfulness benchmark expansion",
+            "dependencies": [
+              "4.1"
+            ],
+            "details": "Create benchmarks/truthfulness/test_truthfulness.py with minimal placeholder content. Include a file docstring explaining it's for future truthfulness test implementations, add standard imports (import json, os), and a placeholder comment indicating where future test functions will be added. This establishes the testing structure for later development.\n<info added on 2025-07-31T05:29:17.216Z>\nSuccessfully created benchmarks/truthfulness/test_truthfulness.py with required components:\n- File docstring explaining future truthfulness test implementations\n- Standard imports (json, os) \n- Placeholder comment marking location for future test functions\n- Verified Python syntax validity and successful compilation\n</info added on 2025-07-31T05:29:17.216Z>",
+            "status": "done",
+            "testStrategy": "Verify file exists and is valid Python syntax, check file can be imported without errors, ensure docstring is present"
+          },
+          {
+            "id": 4,
+            "title": "Implement dataset loading validation",
+            "description": "Create a simple validation function to ensure dataset.jsonl can be loaded correctly",
+            "dependencies": [
+              "4.2"
+            ],
+            "details": "Add a validate_dataset() function in benchmarks/truthfulness/__init__.py that opens and reads dataset.jsonl, parses each line as JSON, and validates the structure. Function should return True if valid, raise descriptive exceptions for any issues (missing fields, invalid JSON, etc.). This ensures the dataset is always in a valid state.\n<info added on 2025-07-31T05:30:26.850Z>\nImplementation successfully completed. The validate_dataset() function has been added to benchmarks/truthfulness/__init__.py with the following functionality:\n- Opens and reads dataset.jsonl file line by line\n- Parses each line as valid JSON\n- Validates that all required fields (id, prompt, evaluation_method, expected_keywords) are present in each dataset entry\n- Verifies that expected_keywords is a list type and contains at least one element\n- Returns True when the entire dataset is valid\n- Raises FileNotFoundError with descriptive message if dataset.jsonl file is not found\n- Raises JSONDecodeError with line number information if any line contains malformed JSON\n- Raises ValueError with specific field information for missing required fields or invalid data types\n- Function has been tested and confirmed working with the current dataset structure\n</info added on 2025-07-31T05:30:26.850Z>",
+            "status": "done",
+            "testStrategy": "Test with valid dataset.jsonl, test with corrupted JSON to ensure proper error handling, verify all required fields are checked"
+          },
+          {
+            "id": 5,
+            "title": "Add benchmark metadata configuration",
+            "description": "Create a configuration file to describe the truthfulness benchmark metadata",
+            "dependencies": [
+              "4.1",
+              "4.2"
+            ],
+            "details": "Create benchmarks/truthfulness/config.json with metadata about the benchmark: {\"name\": \"truthfulness\", \"version\": \"0.1\", \"description\": \"Basic truthfulness evaluation using keyword matching\", \"entry_count\": 1, \"evaluation_methods\": [\"keyword_match\"]}. This provides a standardized way to describe benchmark capabilities and will be useful for future benchmark discovery.",
+            "status": "done",
+            "testStrategy": "Verify config.json is valid JSON, check all metadata fields are present and have correct types, ensure file can be loaded and parsed by standard JSON libraries"
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "title": "Implement Keyword Match Evaluator",
+        "description": "Create evaluation module with keyword matching functionality",
+        "details": "Create evaluation package with __init__.py, implement evaluators.py with keyword_match(model_response: str, keywords: list[str]) -> dict function that: converts response to lowercase for case-insensitive matching, checks if any keyword appears in response, returns dict with keys 'score' (1 if match found, 0 otherwise), 'result' ('pass' or 'fail'), 'notes' (which keywords were found), 'matched_keywords' (list of found keywords). Handle edge cases like empty response or keywords list",
+        "testStrategy": "Unit tests for various response/keyword combinations, test case insensitivity, test partial matches, verify correct score calculation and result format",
+        "priority": "high",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create evaluation package structure",
+            "description": "Set up the evaluation module directory with proper Python package initialization",
+            "dependencies": [],
+            "details": "Create 'evaluation' directory at project root level. Add __init__.py file with proper module exports including 'keyword_match' function from evaluators module. Ensure the package follows Python packaging best practices with docstrings and version information.\n<info added on 2025-07-31T05:35:31.798Z>\nThe evaluation package directory structure already existed from task 1 implementation. Updated the existing __init__.py file to properly export the keyword_match function from the evaluators module.\n</info added on 2025-07-31T05:35:31.798Z>",
+            "status": "done",
+            "testStrategy": "Verify directory structure is created correctly, test that __init__.py properly exports the keyword_match function, ensure the module can be imported successfully from other parts of the project"
+          },
+          {
+            "id": 2,
+            "title": "Implement basic keyword matching logic",
+            "description": "Create evaluators.py with core keyword_match function implementing case-insensitive string matching",
+            "dependencies": [
+              "5.1"
+            ],
+            "details": "In evaluation/evaluators.py, implement keyword_match(model_response: str, keywords: list[str]) -> dict. Convert both response and keywords to lowercase for case-insensitive comparison. Use Python's 'in' operator to check if each keyword appears as a substring in the response. Return early if match is found for efficiency.\n<info added on 2025-07-31T05:35:46.006Z>\nImplemented keyword_match function in evaluation/keyword_match.py instead of evaluators.py. Used word boundary matching with re.findall(r'\\b' + re.escape(keyword) + r'\\b', response, re.IGNORECASE) to prevent partial matches and ensure only complete word matches are found.\n</info added on 2025-07-31T05:35:46.006Z>",
+            "status": "done",
+            "testStrategy": "Unit test basic matching scenarios: exact matches, case variations (HELLO vs hello), substring matches within larger text, verify function returns correct structure with single keyword"
+          },
+          {
+            "id": 3,
+            "title": "Implement result dictionary construction",
+            "description": "Add logic to build the complete result dictionary with score, result status, notes, and matched keywords",
+            "dependencies": [
+              "5.2"
+            ],
+            "details": "Enhance keyword_match to track all matched keywords in a list. Calculate score as 1 if any match found, 0 otherwise. Set result to 'pass' if score is 1, 'fail' if 0. Build notes string listing all found keywords in format 'Found keywords: keyword1, keyword2'. Include matched_keywords list in result dictionary.\n<info added on 2025-07-31T05:36:11.984Z>\nI'll help update subtask 5.3 with the new information about the implementation of the result dictionary construction. Let me create a todo list to track this task.Based on the user request and the task context, here is the new text that should be added to subtask 5.3's details:\n\nSuccessfully implemented comprehensive result dictionary construction in the keyword_match function. The result dictionary now includes a complete structure with 'success' boolean flag indicating evaluation completion, 'score' (1 for any match, 0 for no matches), 'matched_keywords' list containing all found keywords, and a 'details' object with metadata including evaluation timestamp, method name ('keyword_match'), and any additional evaluation context. The implementation ensures proper error handling and consistent result formatting across all evaluation scenarios.\n</info added on 2025-07-31T05:36:11.984Z>",
+            "status": "done",
+            "testStrategy": "Test multiple keyword matches are all captured, verify score calculation (always 0 or 1), test notes formatting with 0, 1, and multiple matches, ensure all required dictionary keys are present"
+          },
+          {
+            "id": 4,
+            "title": "Add edge case handling",
+            "description": "Implement robust error handling for empty inputs and invalid data types",
+            "dependencies": [
+              "5.3"
+            ],
+            "details": "Add validation at function start: check if model_response is None or empty string, check if keywords is None or empty list. For empty response, return score 0 with note 'Empty response'. For empty keywords list, return score 0 with note 'No keywords provided'. Add type hints and consider raising ValueError for non-string response or non-list keywords.\n<info added on 2025-07-31T05:36:38.708Z>\nI'll help you update the subtask details. Let me analyze the task context and the user's request.Based on the user request about adding comprehensive edge case handling, here's the new text to append:\n\nImplemented comprehensive edge case handling including validation for None model responses, empty keyword lists, non-string model response inputs, and empty string keywords within the list. The function now returns informative error messages in the details field for each edge case scenario to aid in debugging. Specific cases handled: None model_response returns score 0 with details explaining the None input, empty keyword list returns score 0 with details about missing keywords, non-string model_response types raise TypeError with descriptive message, individual empty string keywords are filtered out before processing.\n</info added on 2025-07-31T05:36:38.708Z>",
+            "status": "done",
+            "testStrategy": "Test with None values, empty strings, empty lists, test with non-string types in keywords list, verify appropriate error messages in notes field, ensure function doesn't crash on edge cases"
+          },
+          {
+            "id": 5,
+            "title": "Add comprehensive documentation and type hints",
+            "description": "Complete the module with full documentation, docstrings, and type annotations",
+            "dependencies": [
+              "5.4"
+            ],
+            "details": "Add module-level docstring explaining evaluation functionality. Write comprehensive docstring for keyword_match function with parameters, return value description, and usage examples. Add type hints for all parameters and return type using typing module. Include examples of expected input/output in docstrings. Consider adding logging for debugging purposes.\n<info added on 2025-07-31T05:36:55.113Z>\nCreated comprehensive module and function docstrings with detailed parameter descriptions, return value specifications, and practical usage examples. Implemented full type hints including imports from typing module (List, Dict, Union). Added test_keyword_match.py with test cases covering standard functionality, edge cases, case insensitivity, partial matches, empty inputs, and special characters. Verified all tests pass successfully.\n</info added on 2025-07-31T05:36:55.113Z>",
+            "status": "done",
+            "testStrategy": "Run mypy to verify type hints are correct, test docstring examples work as documented, ensure documentation renders correctly with tools like pydoc, verify all public functions have docstrings"
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "title": "Build CLI Entry Point",
+        "description": "Create run_benchmarks.py with minimal CLI using click for command-line argument parsing",
+        "details": "Implement run_benchmarks.py with click CLI: @click.command() decorator, --model option with required=True and default='gemini-1.5-flash', main() function that validates model name matches expected value, create run_benchmark() function that orchestrates the flow. Use click for clean CLI interface, add --help documentation, ensure proper error messages for invalid inputs",
+        "testStrategy": "Test CLI parsing with various inputs, verify --model flag is required, test help output displays correctly, integration test full CLI execution",
+        "priority": "high",
+        "dependencies": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Set up CLI module structure and dependencies",
+            "description": "Create the run_benchmarks.py file and ensure click is properly imported and configured",
+            "dependencies": [],
+            "details": "Create run_benchmarks.py in the project root directory. Import necessary modules including click, sys, and other required dependencies from the project (config, llm_providers, evaluation modules). Set up proper module docstring explaining the CLI's purpose\n<info added on 2025-07-31T05:42:10.612Z>\nCreated run_benchmarks.py in the project root with basic structure. File includes imports for click (CLI framework), sys (system operations), config module (for loading configuration), llm_providers.google (for GeminiProvider), benchmarks.cervantes (for the Cervantes test), and evaluation.evaluators (for keyword matching). Added module docstring explaining the CLI is for running LLM benchmarks and evaluation.\n</info added on 2025-07-31T05:42:10.612Z>",
+            "status": "done",
+            "testStrategy": "Verify file exists and can be imported without errors, check that all imports resolve correctly"
+          },
+          {
+            "id": 2,
+            "title": "Implement click command decorator and model option",
+            "description": "Create the main CLI command with click decorator and configure the --model option with validation",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Add @click.command() decorator to main function, implement --model option using @click.option('--model', required=True, default='gemini-1.5-flash', help='Model name to use for benchmarking'). Ensure the option properly validates input and provides helpful error messages for invalid model names",
+            "status": "done",
+            "testStrategy": "Test CLI with various --model inputs, verify default value works, test required validation, ensure --help displays correct information"
+          },
+          {
+            "id": 3,
+            "title": "Create run_benchmark orchestration function",
+            "description": "Implement the core run_benchmark() function that coordinates the benchmark execution flow",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Create run_benchmark(model_name: str) function that: loads configuration from config module, initializes the appropriate LLM provider (currently only supporting Gemini), prepares test prompts, executes model calls, runs evaluation using keyword matching, and returns results. Include proper error handling for each step",
+            "status": "done",
+            "testStrategy": "Unit test the function with mocked dependencies, verify proper flow execution, test error handling at each orchestration step"
+          },
+          {
+            "id": 4,
+            "title": "Implement main() function with model validation",
+            "description": "Create the main entry point function that validates the model parameter and calls run_benchmark",
+            "dependencies": [
+              "6.2",
+              "6.3"
+            ],
+            "details": "Implement main(model: str) function decorated with click that: validates the model name matches expected value ('gemini-1.5-flash'), calls run_benchmark() with the validated model name, handles any exceptions from run_benchmark and displays user-friendly error messages, exits with appropriate status codes (0 for success, 1 for errors)",
+            "status": "done",
+            "testStrategy": "Integration test full CLI execution, test with valid and invalid model names, verify proper exit codes, test exception handling displays correct messages"
+          },
+          {
+            "id": 5,
+            "title": "Add CLI documentation and entry point",
+            "description": "Complete the CLI with proper documentation, help text, and Python entry point",
+            "dependencies": [
+              "6.4"
+            ],
+            "details": "Add comprehensive docstrings to all functions, ensure click help text is clear and informative, add if __name__ == '__main__': main() entry point for direct script execution, include usage examples in module docstring, ensure all error messages are helpful and guide users to correct usage",
+            "status": "done",
+            "testStrategy": "Verify python run_benchmarks.py --help displays complete documentation, test direct script execution works correctly, ensure all error messages are user-friendly"
+          }
+        ]
+      },
+      {
+        "id": 7,
+        "title": "Implement Orchestration Logic",
+        "description": "Create main orchestration flow that coordinates provider calls, evaluation, and logging",
+        "details": "In run_benchmarks.py, implement orchestration: load config and initialize GeminiProvider, read dataset.jsonl and parse each line, for each prompt: call provider.generate(), extract expected_keywords from dataset, call keyword_match evaluator, collect all results with metadata (timestamp, model_name, benchmark_name, prompt_id, prompt_text, model_response, score, evaluation_notes). Add error handling for API failures with retry logic (max 3 retries with exponential backoff)",
+        "testStrategy": "Integration test full orchestration flow, test error handling and retries, verify all components integrate correctly, mock external API calls for unit tests",
+        "priority": "high",
+        "dependencies": [
+          6
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Load Configuration and Initialize Provider",
+            "description": "Load configuration from config.py and initialize GeminiProvider with proper settings",
+            "dependencies": [],
+            "details": "Import config module and GeminiProvider, load configuration using get_config(), initialize GeminiProvider with API key and model settings (temperature, max_tokens), handle configuration errors and missing API keys gracefully, validate provider initialization before proceeding",
+            "status": "done",
+            "testStrategy": "Mock config loading and provider initialization, test with missing/invalid API keys, verify proper error handling for configuration issues"
+          },
+          {
+            "id": 2,
+            "title": "Implement Dataset Loading and Parsing",
+            "description": "Create functionality to read and parse JSONL dataset files from benchmarks directory",
+            "dependencies": [],
+            "details": "Implement load_dataset() function that accepts benchmark name (e.g., 'truthfulness'), construct path to benchmarks/{benchmark_name}/dataset.jsonl, read file line by line and parse each JSON line, extract required fields: id, prompt, evaluation_method, expected_keywords, handle JSON parsing errors and missing fields gracefully, return list of parsed dataset entries",
+            "status": "done",
+            "testStrategy": "Test with valid and malformed JSONL files, verify handling of missing fields, test file not found scenarios, mock file I/O operations"
+          },
+          {
+            "id": 3,
+            "title": "Create Main Orchestration Loop with Provider Calls",
+            "description": "Implement the core loop that processes each dataset entry through the provider and evaluator",
+            "dependencies": [
+              "7.1",
+              "7.2"
+            ],
+            "details": "For each dataset entry: call provider.generate() with prompt text, import and use keyword_match evaluator from evaluation.evaluators, pass model response and expected_keywords to evaluator, collect result metadata including timestamp (datetime.now().isoformat()), model_name from config, benchmark_name, prompt_id, prompt_text, model_response, evaluation score and notes, store results in a list for later processing",
+            "status": "done",
+            "testStrategy": "Mock provider.generate() calls, test with multiple dataset entries, verify correct metadata collection, test evaluator integration"
+          },
+          {
+            "id": 4,
+            "title": "Implement Retry Logic with Exponential Backoff",
+            "description": "Add robust error handling for API failures with configurable retry mechanism",
+            "dependencies": [
+              "7.3"
+            ],
+            "details": "Wrap provider.generate() calls in try-except blocks, implement retry decorator or function with max 3 attempts, use exponential backoff: wait 2^(attempt-1) seconds between retries, catch specific exceptions (API errors, network errors, timeout errors), log retry attempts and final failures, on permanent failure: record error in results with score 0 and error details in notes, continue processing remaining prompts",
+            "status": "done",
+            "testStrategy": "Test retry logic with simulated API failures, verify exponential backoff timing, test max retry limit enforcement, ensure failures don't stop entire run"
+          },
+          {
+            "id": 5,
+            "title": "Create Main Entry Point and Result Collection",
+            "description": "Implement the main() function and command-line interface for run_benchmarks.py",
+            "dependencies": [
+              "7.3",
+              "7.4"
+            ],
+            "details": "Create if __name__ == '__main__' block, add argparse for command-line arguments (benchmark name, optional output file), orchestrate entire flow: config loading, provider init, dataset loading, main processing loop, collect all results in structured format, print summary statistics (total prompts, passed/failed, average score), prepare results for CSV logging (task 8), handle KeyboardInterrupt for graceful shutdown",
+            "status": "done",
+            "testStrategy": "Integration test of full orchestration flow, test command-line argument parsing, verify graceful shutdown on interruption, test result aggregation and summary statistics"
+          }
+        ]
+      },
+      {
+        "id": 8,
+        "title": "Implement CSV Result Logging",
+        "description": "Add CSV output functionality to save benchmark results with all metadata",
+        "details": "Create results directory if not exists, implement CSV writing using Python's csv module with DictWriter, define columns: timestamp (ISO format), model_name, benchmark_name, prompt_id, prompt_text, model_response, score, evaluation_notes. Append mode to preserve previous runs, add CSV header only if file doesn't exist, handle file I/O errors gracefully, ensure proper escaping of text fields containing commas or quotes",
+        "testStrategy": "Test CSV file creation and appending, verify header row format, test with responses containing special characters, ensure multiple runs append correctly",
+        "priority": "medium",
+        "dependencies": [
+          7
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create Results Directory Structure",
+            "description": "Set up the results directory with proper permissions and error handling",
+            "dependencies": [],
+            "details": "Create a 'results' directory in the project root if it doesn't exist. Use os.makedirs with exist_ok=True to handle existing directories gracefully. Implement proper error handling for permission issues or disk space problems. Add a .gitkeep file to ensure the directory is tracked in version control while keeping actual result files in .gitignore",
+            "status": "done",
+            "testStrategy": "Test directory creation on fresh environment, verify permissions are correct, test error handling when directory creation fails, ensure idempotent behavior"
+          },
+          {
+            "id": 2,
+            "title": "Define CSV Schema and Headers",
+            "description": "Create a data structure defining the CSV columns and their order",
+            "dependencies": [],
+            "details": "Define a constant tuple or list with column names in order: timestamp, model_name, benchmark_name, prompt_id, prompt_text, model_response, score, evaluation_notes. Create a TypedDict or dataclass to represent a single result row for type safety. Ensure column names are consistent with the data being passed from the orchestration logic",
+            "status": "done",
+            "testStrategy": "Verify column order matches specification, test that TypedDict/dataclass validates required fields, ensure column names don't contain special characters"
+          },
+          {
+            "id": 3,
+            "title": "Implement CSV Writer Class",
+            "description": "Create a CSVResultLogger class that handles all CSV writing operations",
+            "dependencies": [
+              "8.1",
+              "8.2"
+            ],
+            "details": "Implement a class with methods: __init__(filepath) to set the output path, write_header() to write CSV headers only if file is empty, write_result(result_dict) to append a single result, and write_batch(results_list) for multiple results. Use csv.DictWriter for automatic field mapping. Implement context manager protocol (__enter__/__exit__) for proper file handling. Ensure thread-safe writing if needed",
+            "status": "done",
+            "testStrategy": "Test writing single and batch results, verify append mode works correctly, test context manager cleanup, test concurrent writes if applicable"
+          },
+          {
+            "id": 4,
+            "title": "Add CSV Field Escaping and Formatting",
+            "description": "Implement proper escaping for text fields and timestamp formatting",
+            "dependencies": [
+              "8.3"
+            ],
+            "details": "Use csv module's built-in quoting mechanisms (csv.QUOTE_MINIMAL) to handle commas and quotes in text fields. Format timestamps in ISO 8601 format using datetime.isoformat(). Ensure prompt_text and model_response fields are properly escaped for multiline content. Handle None values by converting to empty strings. Truncate extremely long responses if needed with ellipsis indicator",
+            "status": "done",
+            "testStrategy": "Test with prompts/responses containing commas, quotes, newlines, and special characters, verify timestamp format is correct ISO 8601, test None value handling, verify truncation works correctly"
+          },
+          {
+            "id": 5,
+            "title": "Integrate CSV Logging into Orchestration",
+            "description": "Modify run_benchmarks.py to use the CSV logger for all results",
+            "dependencies": [
+              "8.3",
+              "8.4"
+            ],
+            "details": "Import and initialize CSVResultLogger in run_benchmarks.py. After each model evaluation, format the result data and call logger.write_result(). Add try-except blocks around CSV operations to handle I/O errors gracefully without stopping the benchmark run. Log errors to console but continue processing. Add a command-line flag to optionally disable CSV logging. Ensure CSV file is properly closed even if the benchmark fails",
+            "status": "done",
+            "testStrategy": "Run full benchmark and verify CSV file is created with all results, test error recovery when CSV writing fails, verify command-line flag disables logging, test cleanup on KeyboardInterrupt"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "title": "Add Testing and Linting Setup",
+        "description": "Setup pytest for testing and flake8/ruff for code quality checks",
+        "details": "Add pytest>=7.0.0, pytest-cov>=4.0.0, flake8>=6.0.0 (or ruff>=0.1.0) to requirements.txt, create pytest.ini with basic configuration, add test/ directory with test files for each module, implement at least one test per module focusing on core functionality, create .flake8 config or ruff.toml with max-line-length=120 and ignore E203,W503, add GitHub Actions workflow file for CI if desired",
+        "testStrategy": "Run pytest -v to ensure all tests pass, run flake8 . or ruff check . to verify code quality, achieve at least 70% code coverage with pytest-cov",
+        "priority": "medium",
+        "dependencies": [
+          8
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add Testing Dependencies to requirements.txt",
+            "description": "Update requirements.txt to include pytest, pytest-cov, and ruff for testing and code quality",
+            "dependencies": [],
+            "details": "Add the following dependencies to requirements.txt: pytest>=7.0.0, pytest-cov>=4.0.0, ruff>=0.1.0. Choose ruff over flake8 as it's faster and more modern, combining multiple linting tools. Ensure these are added after the existing dependencies and maintain proper version constraints.",
+            "status": "done",
+            "testStrategy": "Verify dependencies install correctly with pip install -r requirements.txt in a clean virtual environment"
+          },
+          {
+            "id": 2,
+            "title": "Create pytest Configuration",
+            "description": "Set up pytest.ini with basic configuration for test discovery and coverage",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "Create pytest.ini in the project root with configuration for: test paths (testpaths = test), python files pattern (python_files = test_*.py), python classes pattern (python_classes = Test*), python functions pattern (python_functions = test_*), addopts for coverage reporting (--cov=. --cov-report=html --cov-report=term), and exclude patterns for coverage (.venv, test/, setup.py)",
+            "status": "done",
+            "testStrategy": "Run pytest --co to verify configuration is loaded and test discovery works correctly"
+          },
+          {
+            "id": 3,
+            "title": "Create Test Directory Structure and Core Module Tests",
+            "description": "Create test directory and implement tests for config.py and llm_providers modules",
+            "dependencies": [
+              "9.2"
+            ],
+            "details": "Create test/ directory with __init__.py, implement test_config.py with tests for: loading environment variables, configuration validation, error handling for missing configs. Create test_llm_providers.py with tests for GeminiProvider initialization, mock API calls, error handling. Focus on unit tests with mocking for external dependencies. Each test file should have at least 3-5 test cases covering happy path and error scenarios.",
+            "status": "done",
+            "testStrategy": "Run pytest -v to ensure all tests pass, verify coverage is above 70% for tested modules"
+          },
+          {
+            "id": 4,
+            "title": "Configure Ruff for Code Quality",
+            "description": "Create ruff.toml configuration file with project-specific linting rules",
+            "dependencies": [
+              "9.1"
+            ],
+            "details": "Create ruff.toml in project root with: line-length = 120, select rules including E (pycodestyle errors), F (pyflakes), I (isort), N (pep8-naming), ignore = ['E203', 'W503'] for compatibility with black formatter, exclude directories = ['.venv', '__pycache__', 'test'], target Python version = 'py38'. Include additional rules for docstring checking (D) and type annotation checking (ANN) but mark as warnings initially.",
+            "status": "done",
+            "testStrategy": "Run ruff check . to verify configuration works and identify any existing code quality issues"
+          },
+          {
+            "id": 5,
+            "title": "Create GitHub Actions CI Workflow",
+            "description": "Set up continuous integration workflow for automated testing and linting on push and pull requests",
+            "dependencies": [
+              "9.3",
+              "9.4"
+            ],
+            "details": "Create .github/workflows/ci.yml with jobs for: Python 3.8-3.11 matrix testing, dependency installation from requirements.txt, ruff linting check (ruff check .), pytest execution with coverage report, fail if coverage drops below 70%. Configure to run on push to main branch and all pull requests. Include caching for pip dependencies to speed up CI runs. Add status badge configuration for README.",
+            "status": "done",
+            "testStrategy": "Push workflow to GitHub and verify it runs successfully, check that all matrix versions pass and coverage meets threshold"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "title": "Create Documentation and Finalize Release",
+        "description": "Write comprehensive README, perform end-to-end testing, and tag v0.1 release",
+        "details": "Update README.md with: project description, prerequisites (Python 3.8+, Google API key), installation steps (clone, venv, pip install), configuration (.env setup from .env.example), usage example (python run_benchmarks.py --model gemini-1.5-flash), expected output format, project structure overview. Add docstrings to all functions, perform full smoke test on clean checkout, verify results.csv contains expected Cervantes match, create git tag v0.1 after all tests pass",
+        "testStrategy": "Manual verification that README instructions work on clean system, test full setup takes less than 5 minutes, verify CSV output contains correct data for test prompt, ensure all acceptance criteria from PRD are met",
+        "priority": "high",
+        "dependencies": [
+          9
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create comprehensive README.md with project documentation",
+            "description": "Write a complete README file covering project overview, setup instructions, usage examples, and project structure",
+            "dependencies": [],
+            "details": "Create README.md with the following sections: 1) Project title and description explaining it's a benchmark framework for LLMs, 2) Prerequisites section listing Python 3.8+ and Google API key requirements, 3) Installation steps including git clone, virtual environment creation with python -m venv venv, activation instructions for different OS, and pip install -r requirements.txt, 4) Configuration section explaining how to copy .env.example to .env and add GOOGLE_API_KEY, 5) Usage section with example command: python run_benchmarks.py --model gemini-1.5-flash, 6) Expected output format showing sample CSV structure, 7) Project structure overview using tree-like ASCII art showing main directories and files",
+            "status": "done",
+            "testStrategy": "Manual review to ensure all required sections are present, verify markdown formatting renders correctly, check that all commands and file paths mentioned are accurate"
+          },
+          {
+            "id": 2,
+            "title": "Add comprehensive docstrings to all Python modules and functions",
+            "description": "Document all functions, classes, and modules with proper Python docstrings following Google style guide",
+            "dependencies": [],
+            "details": "Add docstrings to all Python files: 1) Module-level docstrings at the top of each .py file explaining the module's purpose, 2) Class docstrings explaining class purpose and attributes, 3) Function/method docstrings with Args, Returns, and Raises sections, 4) Focus on key files: run_benchmarks.py (main entry point), config.py (configuration handling), llm_providers/google.py (Gemini provider), evaluation/evaluators.py (keyword matching), results_logger.py (CSV logging), 5) Use triple quotes and follow Google Python Style Guide format, 6) Include type hints in docstrings where applicable",
+            "status": "done",
+            "testStrategy": "Use a linter like pydocstyle to verify docstring presence and format, manually review key functions to ensure docstrings accurately describe functionality"
+          },
+          {
+            "id": 3,
+            "title": "Perform clean environment smoke test",
+            "description": "Test the entire setup process from scratch to ensure it works on a clean system",
+            "dependencies": [
+              "10.1",
+              "10.2"
+            ],
+            "details": "Perform full smoke test: 1) Create a new temporary directory outside the project, 2) Clone the repository using git clone, 3) Follow README instructions exactly as written, 4) Create virtual environment and activate it, 5) Install dependencies with pip install -r requirements.txt, 6) Copy .env.example to .env and add a test API key, 7) Run the benchmark command: python run_benchmarks.py --model gemini-1.5-flash, 8) Verify the command completes without errors, 9) Check that results.csv is created with expected columns, 10) Verify the entire process takes less than 5 minutes, 11) Document any issues found and fix them",
+            "status": "done",
+            "testStrategy": "Record all commands executed and their output, time the entire process from start to finish, verify each step completes successfully before proceeding"
+          },
+          {
+            "id": 4,
+            "title": "Verify Cervantes benchmark output and acceptance criteria",
+            "description": "Ensure the benchmark correctly identifies Miguel de Cervantes as the author of Don Quixote and meets all PRD requirements",
+            "dependencies": [
+              "10.3"
+            ],
+            "details": "Verification steps: 1) Run the Cervantes author identification benchmark using the existing prompt, 2) Open results.csv and verify it contains a row with the Cervantes question, 3) Check that the model response includes 'Cervantes' or 'Miguel de Cervantes', 4) Verify the evaluator correctly marks this as 'pass' with score 1.0, 5) Confirm CSV has all required columns: timestamp, model, prompt, response, evaluator, score, result, notes, 6) Review all acceptance criteria from the PRD: modular design achieved, Gemini 1.5 Flash integration working, CSV output functional, benchmark executes successfully, 7) Run additional test prompts to ensure system handles various cases",
+            "status": "done",
+            "testStrategy": "Execute multiple test runs with different prompts, verify CSV output format consistency, manually inspect results for correctness"
+          },
+          {
+            "id": 5,
+            "title": "Create git tag v0.1 and prepare release",
+            "description": "Tag the repository with version 0.1 after all tests pass and documentation is complete",
+            "dependencies": [
+              "10.1",
+              "10.2",
+              "10.3",
+              "10.4"
+            ],
+            "details": "Release preparation: 1) Ensure all previous subtasks are completed successfully, 2) Run git status to verify working directory is clean, 3) Create annotated git tag: git tag -a v0.1 -m 'Initial release: Basic LLM benchmark framework with Gemini 1.5 Flash support', 4) Verify tag was created with git tag -l, 5) Update README.md if needed to mention v0.1 release, 6) Create a simple CHANGELOG.md with v0.1 release notes listing main features: Gemini 1.5 Flash integration, keyword matching evaluation, CSV result logging, modular architecture, 7) Commit any final changes before pushing tag",
+            "status": "done",
+            "testStrategy": "Verify tag points to correct commit, ensure all files mentioned in documentation exist and work as described, confirm release meets all original requirements"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "title": "Create Base LLM Provider Interface",
+        "description": "Define and implement the abstract base class for all LLM providers to ensure consistent interface across different model implementations",
+        "details": "Create an abstract base class `LLMProvider` in `src/providers/base.py` with methods: `__init__(self, model_name: str)`, `generate(self, prompt: str, **kwargs) -> str`, and `get_model_info(self) -> Dict[str, Any]`. Include proper type hints, docstrings, and abstract method decorators. Add a provider registry mechanism to dynamically load providers based on model names.",
+        "testStrategy": "Write unit tests to verify the abstract base class enforces implementation of all required methods. Create a mock provider implementation for testing. Verify the provider registry correctly maps model names to provider classes.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define abstract base class with core methods and type hints",
+            "description": "Create the abstract base class `LLMProvider` in `src/providers/base.py` with all required abstract methods and comprehensive type hints",
+            "dependencies": [],
+            "details": "Implement `LLMProvider` abstract base class using Python's ABC module. Define abstract methods: `__init__(self, model_name: str, **kwargs)`, `generate(self, prompt: str, **kwargs) -> str`, `get_model_info(self) -> Dict[str, Any]`, and `validate_credentials(self) -> bool`. Add proper type hints using typing module (Dict, Any, Optional, etc.). Include comprehensive docstrings for class and all methods. Define class attributes for provider metadata (provider_name, supported_models). Consider adding optional methods like `batch_generate()` for future extensibility.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement provider registry mechanism for dynamic loading",
+            "description": "Create a registry system that allows providers to self-register and enables dynamic provider selection based on model names",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Implement `ProviderRegistry` class in `src/providers/registry.py` with methods: `register(provider_class, model_names: List[str])`, `get_provider(model_name: str) -> Type[LLMProvider]`, and `list_providers() -> Dict[str, List[str]]`. Use a decorator pattern `@register_provider(models=['gpt-4', 'gpt-3.5-turbo'])` for automatic registration. Implement singleton pattern for the registry. Add support for lazy loading of providers to avoid importing unnecessary dependencies. Include model name normalization (lowercase, strip special characters) for flexible matching.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create custom exception classes for provider errors",
+            "description": "Design and implement a hierarchy of custom exceptions for different provider-related error scenarios",
+            "dependencies": [
+              "11.1"
+            ],
+            "details": "Create `src/providers/exceptions.py` with exception hierarchy: `ProviderError` (base), `ProviderNotFoundError`, `InvalidCredentialsError`, `ModelNotSupportedError`, `ProviderTimeoutError`, `RateLimitError`, and `ProviderConfigurationError`. Each exception should include helpful error messages and optional error codes. Add exception mapping utilities to convert provider-specific exceptions (e.g., OpenAI errors) to standardized exceptions. Include retry-ability flags in exceptions (is_retryable property).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Add configuration validation and initialization logic",
+            "description": "Implement robust configuration validation and provider initialization with proper error handling",
+            "dependencies": [
+              "11.1",
+              "11.2",
+              "11.3"
+            ],
+            "details": "Create `validate_provider_config(config: Dict[str, Any]) -> None` method in base class that checks required fields, validates data types, and ensures credentials are present. Implement `initialize()` method for lazy initialization of provider connections. Add configuration schema validation using pydantic or similar. Create `ProviderConfig` dataclass for type-safe configuration. Implement graceful degradation for optional configuration parameters. Add logging for initialization steps and validation errors.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Write comprehensive unit tests with mock implementations",
+            "description": "Create thorough unit tests for the base provider interface, registry, and exception handling using mock implementations",
+            "dependencies": [
+              "11.1",
+              "11.2",
+              "11.3",
+              "11.4"
+            ],
+            "details": "Create `tests/providers/test_base.py` with tests for abstract base class enforcement (verify TypeError when methods not implemented). Implement `MockProvider` class for testing concrete implementation. Write `tests/providers/test_registry.py` to test provider registration, retrieval, and error cases. Create `tests/providers/test_exceptions.py` to verify exception hierarchy and properties. Test configuration validation with various invalid inputs. Use pytest fixtures for common test setup. Achieve 100% code coverage for the base provider module.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "title": "Implement OpenAI Provider Module",
+        "description": "Create a provider module for OpenAI models supporting GPT-4 and GPT-3.5-turbo with proper authentication and error handling",
+        "details": "Implement `OpenAIProvider` class in `src/providers/openai_provider.py` inheriting from `LLMProvider`. Use the official OpenAI Python SDK (openai>=1.0). Implement authentication using `OPENAI_API_KEY` from environment variables. Add support for model-specific parameters (temperature, max_tokens, top_p). Implement exponential backoff for rate limiting. Handle OpenAI-specific errors and convert to standardized exceptions. Add configuration for GPT-4, GPT-4-turbo, and GPT-3.5-turbo models.",
+        "testStrategy": "Create unit tests with mocked OpenAI API responses for successful generation, rate limit errors, and API errors. Test environment variable loading and missing credentials. Verify correct parameter passing to the OpenAI SDK. Create integration tests (optional, controlled by TEST_OPENAI_INTEGRATION env var) to validate actual API calls.",
+        "priority": "high",
+        "dependencies": [
+          11
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create OpenAIProvider class structure with proper inheritance",
+            "description": "Implement the OpenAIProvider class in src/providers/openai_provider.py inheriting from LLMProvider base class with all required method signatures",
+            "dependencies": [],
+            "details": "Create the class file with proper imports from base LLMProvider. Define class attributes for model configuration, API client, and supported models (GPT-4, GPT-4-turbo, GPT-3.5-turbo). Implement __init__ method with configuration setup. Add type hints for all methods and attributes. Create placeholder methods for generate(), validate_config(), and get_model_info().",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement authentication and client initialization with environment variables",
+            "description": "Set up OpenAI client authentication using OPENAI_API_KEY from environment variables with proper validation and error handling",
+            "dependencies": [
+              "12.1"
+            ],
+            "details": "Implement credential loading from environment variables using os.environ. Create _initialize_client() method to set up the OpenAI client with API key. Add validation to ensure API key is present and properly formatted. Implement custom exception for missing or invalid credentials. Test client initialization with mock environment variables. Handle client configuration options like base URL and organization ID if provided.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Add generate method with parameter mapping and response handling",
+            "description": "Implement the core generate() method that accepts prompts and returns model responses with proper parameter mapping to OpenAI API",
+            "dependencies": [
+              "12.2"
+            ],
+            "details": "Map LLMProvider interface parameters to OpenAI-specific parameters (temperature, max_tokens, top_p, frequency_penalty, presence_penalty). Handle both completion and chat completion endpoints based on model type. Parse OpenAI response format and extract generated text. Add support for streaming responses if needed. Implement proper logging for API calls and responses. Handle token counting and usage statistics from API response.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement retry logic with exponential backoff for rate limits",
+            "description": "Add robust retry mechanism to handle OpenAI rate limits and temporary API failures with exponential backoff strategy",
+            "dependencies": [
+              "12.3"
+            ],
+            "details": "Implement exponential backoff retry logic with configurable max retries (default 3) and initial delay. Detect rate limit errors (429 status) and RateLimitError exceptions. Calculate backoff time using exponential formula with jitter to avoid thundering herd. Log retry attempts with remaining attempts and wait time. Handle timeout errors separately from rate limits. Add circuit breaker pattern for repeated failures. Make retry behavior configurable through provider settings.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create comprehensive error handling and exception mapping",
+            "description": "Implement error handling that catches OpenAI-specific exceptions and maps them to standardized provider exceptions",
+            "dependencies": [
+              "12.4"
+            ],
+            "details": "Map OpenAI exceptions (AuthenticationError, RateLimitError, APIError, InvalidRequestError) to standardized LLMProvider exceptions. Create specific error messages with context about the failure. Handle network errors and timeouts gracefully. Add error categorization (transient vs permanent errors). Implement error logging with full context including model, parameters, and error details. Create custom exceptions for OpenAI-specific issues if needed.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Write unit and integration tests with mocked responses",
+            "description": "Create comprehensive test suite including unit tests with mocked OpenAI responses and optional integration tests",
+            "dependencies": [
+              "12.5"
+            ],
+            "details": "Write unit tests using pytest and unittest.mock to mock OpenAI client responses. Test successful generation for all supported models (GPT-4, GPT-4-turbo, GPT-3.5-turbo). Test rate limit handling with mocked 429 responses. Test authentication failures and invalid API keys. Test parameter validation and edge cases. Create fixtures for common test scenarios. Add optional integration tests controlled by TEST_OPENAI_INTEGRATION environment variable. Test retry logic with various failure scenarios.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Implement Anthropic Provider Module",
+        "description": "Create a provider module for Anthropic models supporting Claude 3 variants with proper authentication and response formatting",
+        "details": "Implement `AnthropicProvider` class in `src/providers/anthropic_provider.py` inheriting from `LLMProvider`. Use the official Anthropic Python SDK (anthropic>=0.3). Implement authentication using `ANTHROPIC_API_KEY` from environment variables. Handle Anthropic's specific message format and response structure. Add support for Claude 3 Opus, Sonnet, and Haiku models with their specific model IDs. Implement proper error handling for Anthropic-specific errors. Handle the assistant message format conversion.",
+        "testStrategy": "Create unit tests with mocked Anthropic API responses for all Claude 3 variants. Test the message format conversion between the standard interface and Anthropic's format. Verify error handling for rate limits and API errors. Test credential validation. Create optional integration tests for real API validation.",
+        "priority": "high",
+        "dependencies": [
+          11
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create AnthropicProvider class structure",
+            "description": "Implement the AnthropicProvider class inheriting from LLMProvider with proper initialization and configuration",
+            "dependencies": [],
+            "details": "Create `src/providers/anthropic_provider.py` file. Import necessary modules including the LLMProvider base class and Anthropic SDK. Define the AnthropicProvider class with __init__ method that accepts config parameters. Set up class attributes for model mapping (claude-3-opus, claude-3-sonnet, claude-3-haiku to their full model IDs). Initialize instance variables for client, model name, and configuration parameters like temperature and max_tokens.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement authentication and SDK initialization",
+            "description": "Set up Anthropic API authentication using environment variables and initialize the Anthropic SDK client",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "In the __init__ method, retrieve ANTHROPIC_API_KEY from environment variables using os.getenv(). Validate that the API key is present and raise a configuration error if missing. Initialize the Anthropic client using anthropic.Anthropic(api_key=api_key). Add error handling for SDK initialization failures. Create a validate_credentials method that makes a test API call to verify authentication.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement message format conversion",
+            "description": "Create methods to convert between the standard interface format and Anthropic's specific message format",
+            "dependencies": [
+              "13.1"
+            ],
+            "details": "Implement _convert_to_anthropic_messages method to transform standard message format to Anthropic's expected structure. Handle the conversion of role names (user/assistant) and message content. Implement _convert_from_anthropic_response to extract the assistant's response from Anthropic's response object. Handle Claude's specific response structure including stop_reason and usage metadata. Ensure proper handling of system messages if applicable.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Add Claude 3 model variant support",
+            "description": "Implement support for all Claude 3 model variants with proper model ID mapping and model-specific configurations",
+            "dependencies": [
+              "13.2",
+              "13.3"
+            ],
+            "details": "Create a model mapping dictionary for claude-3-opus-20240229, claude-3-sonnet-20240229, and claude-3-haiku-20240307. Implement model-specific parameter defaults (e.g., different max_tokens limits for each variant). Add model validation in the generate method to ensure the requested model is supported. Handle model-specific behaviors and limitations. Update configuration to allow model selection via config or method parameters.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement error handling and rate limiting",
+            "description": "Add comprehensive error handling for Anthropic-specific errors and implement rate limit management with retry logic",
+            "dependencies": [
+              "13.4"
+            ],
+            "details": "Implement try-except blocks in the generate method to catch anthropic.APIError, anthropic.RateLimitError, and other SDK-specific exceptions. Convert Anthropic exceptions to standardized provider exceptions. Implement exponential backoff retry logic for rate limit errors (max 3 retries with configurable delays). Add request timeout handling. Log errors appropriately with context. Handle edge cases like empty responses or malformed API responses.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Create comprehensive test suite",
+            "description": "Develop unit tests with mocked API responses covering all functionality and edge cases",
+            "dependencies": [
+              "13.5"
+            ],
+            "details": "Create `tests/test_anthropic_provider.py` with pytest fixtures for mocked Anthropic client. Test successful generation for all three Claude 3 variants. Test message format conversion in both directions. Mock and test rate limit errors with retry behavior. Test authentication failures and missing API keys. Test model validation and unsupported model errors. Create parameterized tests for different model configurations. Add integration test marker for optional real API testing controlled by environment variable.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 14,
+        "title": "Enhance Command Line Interface for Multi-Model Support",
+        "description": "Update the CLI to accept multiple models and add new command-line options for parallel execution and model selection",
+        "details": "Modify `run_benchmarks.py` to accept `--models` parameter with comma-separated model names. Add `--all-models` flag to test all configured models. Implement `--parallel` flag for concurrent model testing. Update argument parsing to maintain backward compatibility with single `--model` parameter. Add model validation to ensure requested models are available. Implement proper help text and usage examples.",
+        "testStrategy": "Write unit tests for argument parsing with various combinations of model specifications. Test backward compatibility with existing single-model commands. Verify validation of model names against available providers. Test the interaction between --models, --all-models, and --model flags.",
+        "priority": "high",
+        "dependencies": [
+          12,
+          13
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Enhance Argument Parser for Multi-Model Input",
+            "description": "Modify the CLI argument parser in run_benchmarks.py to accept --models parameter with comma-separated values and add --all-models flag",
+            "dependencies": [],
+            "details": "Update the argparse configuration to add --models argument that accepts comma-separated model names (e.g., --models gpt-4,claude-3,gemini-pro). Add --all-models flag as a boolean option that selects all available models. Ensure the parser can handle both new arguments while maintaining the existing --model parameter. Set up mutual exclusivity between --model, --models, and --all-models to prevent confusion. Store parsed models as a list for downstream processing.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement Model Validation Against Providers",
+            "description": "Create validation logic to verify requested models are available in configured providers",
+            "dependencies": [
+              "14.1"
+            ],
+            "details": "Implement a validate_models() function that checks each requested model against available providers (OpenAI, Anthropic, Google, etc.). Load provider configurations to get list of supported models per provider. For each model in the parsed list, verify it exists in at least one provider's supported models. Collect invalid models and prepare detailed error messages indicating which models are not available and suggesting similar alternatives if possible. Return validated model-to-provider mapping for use in benchmark execution.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Ensure Backward Compatibility",
+            "description": "Maintain support for existing --model parameter while integrating new multi-model functionality",
+            "dependencies": [
+              "14.1"
+            ],
+            "details": "Implement logic to handle the legacy --model parameter by internally converting it to the new models list format. When --model is used, treat it as equivalent to --models with a single value. Update the main execution flow to work with a unified models list regardless of input method. Add deprecation warning for --model parameter suggesting users switch to --models. Ensure all existing scripts and documentation examples continue to work without modification.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Add Help Text and Error Messages",
+            "description": "Create comprehensive help documentation and implement detailed error messaging for the CLI",
+            "dependencies": [
+              "14.1",
+              "14.2",
+              "14.3"
+            ],
+            "details": "Write detailed help text for each new argument explaining usage patterns and examples. Add usage examples showing: single model (--models gpt-4), multiple models (--models gpt-4,claude-3,gemini-pro), all models (--all-models), and common combinations. Implement informative error messages for scenarios like: invalid model names, no models specified, conflicting arguments, unavailable providers. Include suggestions for fixing common mistakes. Update the main help text to reflect the new multi-model capabilities.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Implement Multi-Model Benchmark Execution Engine",
+        "description": "Create execution logic to run benchmarks across multiple models sequentially or in parallel with proper error isolation",
+        "details": "Implement `MultiModelBenchmarkRunner` in `src/benchmark/multi_runner.py`. Add sequential execution mode that runs each model one after another. Implement parallel execution using Python's concurrent.futures with configurable worker pool size. Ensure failures in one model don't affect others. Collect and aggregate results from all models. Add progress tracking and logging for multi-model runs. Implement timeout handling per model to prevent hanging.",
+        "testStrategy": "Create unit tests for both sequential and parallel execution modes. Test error isolation by simulating failures in individual models. Verify timeout handling and progress tracking. Test result aggregation across multiple successful and failed model runs.",
+        "priority": "high",
+        "dependencies": [
+          14
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design MultiModelBenchmarkRunner class architecture",
+            "description": "Define the class structure, interfaces, and core components for the multi-model execution engine",
+            "dependencies": [],
+            "details": "Create `src/benchmark/multi_runner.py` with `MultiModelBenchmarkRunner` class. Define interfaces for execution strategies (sequential/parallel), result collection, and progress tracking. Design data structures for storing multi-model results, execution metadata, and error information. Create configuration options for execution mode, worker pool size, timeouts, and retry policies. Plan integration points with existing provider modules and result storage.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement sequential execution mode with error isolation",
+            "description": "Build the sequential execution logic that runs benchmarks on each model one after another with proper error handling",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Implement `run_sequential()` method that iterates through configured models. For each model: instantiate the appropriate provider, run the benchmark suite, capture results and errors in isolated contexts. Implement error isolation using try-except blocks to ensure one model's failure doesn't stop the entire run. Add logging for each model's start/completion/failure. Store partial results even if some models fail.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Add parallel execution using concurrent.futures",
+            "description": "Implement parallel benchmark execution with configurable worker pools and thread-safe result collection",
+            "dependencies": [
+              "15.1"
+            ],
+            "details": "Implement `run_parallel()` method using `concurrent.futures.ThreadPoolExecutor` or `ProcessPoolExecutor`. Make worker pool size configurable via settings. Create thread-safe result collection using locks or queues. Implement proper resource cleanup and executor shutdown. Handle exceptions from worker threads and ensure they're properly propagated. Add support for limiting concurrent API calls to respect rate limits.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Implement timeout handling and progress tracking",
+            "description": "Add per-model timeout controls and real-time progress monitoring for long-running benchmarks",
+            "dependencies": [
+              "15.2",
+              "15.3"
+            ],
+            "details": "Implement configurable timeout per model using `concurrent.futures` timeout parameter or signal-based timeouts. Create a progress tracking system that reports: current model being evaluated, number of questions completed, estimated time remaining. Add callbacks or events for progress updates that can be consumed by CLI or other interfaces. Handle timeout gracefully by saving partial results and marking the model as timed out.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Create result aggregation and collection logic",
+            "description": "Build the system to collect, merge, and structure results from multiple model executions",
+            "dependencies": [
+              "15.2",
+              "15.3"
+            ],
+            "details": "Implement `ResultCollector` class to aggregate results from all models. Create a unified result format that includes: model metadata, benchmark scores, execution times, error information. Add methods to merge results from sequential/parallel runs. Implement result validation to ensure data integrity. Create summary statistics across all models (average scores, completion rates). Handle incomplete results gracefully.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Add comprehensive logging and error reporting",
+            "description": "Implement detailed logging for debugging and monitoring multi-model benchmark runs",
+            "dependencies": [
+              "15.4",
+              "15.5"
+            ],
+            "details": "Set up structured logging using Python's logging module with different log levels. Log key events: model initialization, benchmark start/end, errors, timeouts, progress milestones. Create detailed error reports including: stack traces, model configurations, failed questions. Implement log rotation and file output options. Add summary reports at the end of execution showing success/failure counts. Create debug mode with verbose output for troubleshooting.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Write comprehensive tests for execution modes and failure scenarios",
+            "description": "Create thorough test coverage for all execution paths, error conditions, and edge cases",
+            "dependencies": [
+              "15.2",
+              "15.3",
+              "15.4",
+              "15.5",
+              "15.6"
+            ],
+            "details": "Write unit tests for sequential execution with mocked providers. Test parallel execution with various worker pool sizes. Create failure scenario tests: API errors, timeouts, invalid responses, partial failures. Test result aggregation with complete/incomplete data sets. Verify error isolation by simulating cascading failures. Test progress tracking accuracy. Create integration tests that run mini-benchmarks across multiple mock providers. Test resource cleanup and memory management.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "title": "Create Provider Configuration System",
+        "description": "Build a flexible configuration system supporting provider-specific settings, model aliases, and credential validation",
+        "details": "Create `src/config/provider_config.py` to manage provider-specific configurations. Implement a YAML/JSON configuration file format in `config/providers.yaml` for default settings per provider. Add model aliasing support (e.g., 'gpt4' -> 'gpt-4'). Implement credential validation that checks for required environment variables before execution. Create provider-specific parameter overrides (temperature, max_tokens, etc.). Add configuration inheritance for model families.",
+        "testStrategy": "Test configuration loading from files and environment variables. Verify model alias resolution works correctly. Test credential validation with missing and present API keys. Verify provider-specific parameter override mechanism. Test configuration inheritance and defaults.",
+        "priority": "medium",
+        "dependencies": [
+          12,
+          13
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design YAML/JSON configuration schema with validation rules",
+            "description": "Create a comprehensive schema definition for provider configurations supporting both YAML and JSON formats with strict validation rules",
+            "dependencies": [],
+            "details": "Design a flexible schema in `src/config/schemas/provider_schema.py` that defines the structure for provider configurations. Include fields for: provider name, supported models list, required credentials, optional parameters (temperature, max_tokens, top_p, etc.), model aliases mapping, inheritance rules, and validation constraints. Use pydantic or jsonschema for schema validation. Create example configurations in both YAML and JSON formats demonstrating all features including nested structures and inheritance.\n<info added on 2025-07-31T16:38:15.109Z>\nImplementation completed successfully. The configuration schema design defines a comprehensive structure for provider configurations with the following key components:\n\n- **Provider Settings**: Name, type, enabled status, and optional description\n- **Model Configurations**: Per-model settings including aliases, parameter defaults (temperature, max_tokens, top_p, frequency_penalty, presence_penalty), and response formatting options\n- **Credential Mappings**: Environment variable references for API keys and other authentication requirements\n- **Inheritance Support**: Global defaults that can be overridden at provider or model level\n- **Multi-format Support**: Schema works with both YAML and JSON formats\n\nCreated the main configuration file at `config/providers.yaml` with example configurations for multiple providers (OpenAI, Anthropic, Google, Mistral) demonstrating all schema features including nested structures, model aliases, and environment variable mappings.\n</info added on 2025-07-31T16:38:15.109Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement configuration loader with multi-source support",
+            "description": "Build a configuration loader that reads from files and environment variables with proper precedence handling",
+            "dependencies": [
+              "16.1"
+            ],
+            "details": "Create `src/config/loader.py` implementing a ConfigLoader class that: loads configurations from YAML/JSON files in config directory, merges environment variables following a naming convention (e.g., LLLM_PROVIDER_OPENAI_API_KEY), implements precedence rules (env vars > user config > default config), handles file format detection and parsing, supports configuration composition from multiple files, and provides clear error messages for missing or malformed files. Include caching mechanism to avoid repeated file reads.\n<info added on 2025-07-31T16:38:31.869Z>\nImplementation complete: Created ProviderConfigManager class in config/provider_config.py that handles multi-source configuration loading with proper precedence (environment variables > user config > default config). The class supports both YAML and JSON formats, implements configuration merging with inheritance support, and includes validation for required fields and model aliases. Integrated with the existing ConfigLoader for seamless operation across the configuration system.\n</info added on 2025-07-31T16:38:31.869Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Add model aliasing system with resolution logic",
+            "description": "Implement a flexible model aliasing system that maps user-friendly names to actual model identifiers",
+            "dependencies": [
+              "16.2"
+            ],
+            "details": "Extend `src/config/provider_config.py` with ModelAliasResolver class that: maintains a registry of model aliases (e.g., 'gpt4' -> 'gpt-4-turbo', 'claude' -> 'claude-3-opus-20240229'), supports provider-specific aliases and global aliases, implements alias resolution with conflict detection, allows custom alias definitions in configuration files, provides reverse lookup capabilities, and includes built-in common aliases for popular models. Add methods to list available aliases and validate alias mappings.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create credential validation with informative error messages",
+            "description": "Build a credential validation system that checks for required API keys and provides helpful error messages",
+            "dependencies": [
+              "16.2"
+            ],
+            "details": "Implement `src/config/validators.py` with CredentialValidator class that: checks for required environment variables based on provider configuration, validates API key formats when possible (length, prefix patterns), provides detailed error messages indicating exactly which credentials are missing, supports optional credential validation for providers that allow anonymous access, implements credential masking for logging, and includes a dry-run mode that validates without making API calls. Add provider-specific validation rules (e.g., Azure requires endpoint URL).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Implement configuration inheritance and parameter overrides",
+            "description": "Create a configuration inheritance system allowing model families to share settings with specific overrides",
+            "dependencies": [
+              "16.1",
+              "16.2",
+              "16.3",
+              "16.4"
+            ],
+            "details": "Develop inheritance mechanism in `src/config/provider_config.py` that: supports base configurations for model families (e.g., all GPT models share certain settings), implements override resolution from most specific to least specific, allows runtime parameter overrides without modifying base config, supports deep merging of nested configuration objects, provides configuration validation after inheritance resolution, and includes debugging utilities to trace configuration sources. Create ProviderConfig class that encapsulates all configuration logic with methods for getting effective configuration for any model.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "title": "Implement Results Comparison and Reporting",
+        "description": "Create comparison features to analyze performance across multiple models and generate comprehensive reports",
+        "details": "Implement `ResultsComparator` in `src/analysis/comparator.py`. Create methods to load multiple result files and align them by benchmark questions. Calculate comparative metrics: accuracy differences, response time comparisons, and consistency scores. Generate a consolidated CSV with all models' results side-by-side. Create a markdown report generator with performance tables, charts (using matplotlib/seaborn), and model strengths/weaknesses analysis. Add statistical significance testing for performance differences.",
+        "testStrategy": "Create unit tests with sample result data for multiple models. Test metric calculation accuracy. Verify CSV and markdown report generation. Test edge cases like missing data or incomplete results. Validate statistical calculations with known inputs.",
+        "priority": "medium",
+        "dependencies": [
+          15
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design ResultsComparator class structure and data alignment logic",
+            "description": "Create the base ResultsComparator class in src/analysis/comparator.py with methods to load and align multiple result files by benchmark questions",
+            "dependencies": [],
+            "details": "Design the class interface with methods: load_results(result_files: List[str]), align_results_by_question() to match results across models by prompt_id, and handle missing data gracefully. Create data structures to store aligned results in a format suitable for comparison. Implement validation to ensure all loaded results are from the same benchmark dataset.\n<info added on 2025-07-31T16:58:48.606Z>\nCompleted: Designed and implemented ResultsComparator class structure with ModelResult dataclass for storing individual model results, ComparisonResult dataclass for comparison outputs, and core methods for loading results from JSON/CSV files and aligning results by prompt ID.\n</info added on 2025-07-31T16:58:48.606Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement comparative metrics calculation methods",
+            "description": "Add methods to calculate accuracy differences, response time comparisons, and consistency scores between models",
+            "dependencies": [
+              "17.1"
+            ],
+            "details": "Implement calculate_accuracy_metrics() to compare correct/incorrect responses across models, calculate_timing_metrics() for response time statistics (mean, median, percentiles), and calculate_consistency_scores() to measure agreement between models. Add methods for calculating per-category performance breakdowns and identifying model strengths/weaknesses.\n<info added on 2025-07-31T17:06:48.251Z>\nThe methods successfully calculate the following metrics from aligned model results: overall accuracy as percentage of correct responses, success rate based on evaluation scores, average response time across all prompts, consistency score measuring how often models agree on answers, average confidence scores when available, and response length statistics. All metrics handle missing or incomplete data gracefully and provide detailed breakdowns by prompt category when applicable.\n</info added on 2025-07-31T17:06:48.251Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Create CSV generation functionality for side-by-side results",
+            "description": "Implement methods to generate comprehensive CSV files with all models' results aligned side-by-side for easy comparison",
+            "dependencies": [
+              "17.1",
+              "17.2"
+            ],
+            "details": "Create generate_comparison_csv() method that outputs a CSV with columns for each model's response, score, and timing data per question. Include calculated metrics as additional columns. Ensure proper escaping and formatting for CSV compatibility. Add options for different CSV formats (full details vs summary).\n<info added on 2025-07-31T17:07:09.647Z>\nImplemented three CSV generation methods:\n- `generate_comparison_csv()`: Creates side-by-side comparison of prompt results across all models, including responses, scores, and timing data for each question\n- `generate_metrics_csv()`: Generates summary CSV with aggregate performance metrics per model (average scores, response times, etc.)\n- `generate_statistical_tests_csv()`: Produces CSV containing statistical test results including p-values and significance indicators for model comparisons\n\nAll methods include proper CSV escaping and formatting for data integrity.\n</info added on 2025-07-31T17:07:09.647Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Build markdown report generator with tables and analysis",
+            "description": "Create a markdown report generator that produces human-readable reports with performance tables and detailed analysis",
+            "dependencies": [
+              "17.2"
+            ],
+            "details": "Implement generate_markdown_report() to create formatted markdown with: executive summary section, performance comparison tables, per-category breakdowns, model strengths/weaknesses analysis, and response time distributions. Use markdown table formatting and include interpretation of the metrics. Add configurable sections for different report types.\n<info added on 2025-07-31T17:07:32.393Z>\nSuccessfully implemented the markdown report generation functionality, which now produces comprehensive analysis reports containing:\n- Executive summary with overall performance statistics\n- Detailed performance comparison tables with metrics for accuracy, response times, and consistency\n- Statistical significance results from t-tests and chi-square analyses\n- Model performance rankings across different categories\n- In-depth strengths and weaknesses analysis for each model\n- Actionable recommendations based on benchmark results and statistical findings\nThe generator supports configurable sections and creates well-formatted markdown output suitable for documentation and stakeholder presentations.\n</info added on 2025-07-31T17:07:32.393Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add statistical significance testing for performance differences",
+            "description": "Implement statistical tests to determine if performance differences between models are statistically significant",
+            "dependencies": [
+              "17.2"
+            ],
+            "details": "Add statistical testing methods using scipy.stats: implement paired t-tests for accuracy comparisons, Mann-Whitney U tests for response time differences, and confidence interval calculations. Create perform_significance_tests() method that returns p-values and effect sizes. Include Bonferroni correction for multiple comparisons. Add interpretation helpers for non-technical users.\n<info added on 2025-07-31T17:07:56.212Z>\nCompleted implementation includes comprehensive statistical testing functionality: Chi-square tests for comparing success rates between models, Welch's t-tests for response time comparisons (handles unequal variances), Wilson score confidence intervals for accuracy metrics (better for small samples), Cohen's h effect size calculations for measuring practical significance of differences, and pairwise significance testing with Bonferroni p-value corrections for multiple comparisons. All tests integrated into perform_significance_tests() method with clear interpretation helpers.\n</info added on 2025-07-31T17:07:56.212Z>",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Integrate matplotlib/seaborn for visualization charts",
+            "description": "Create visualization methods using matplotlib and seaborn to generate comparison charts and embed them in reports",
+            "dependencies": [
+              "17.2",
+              "17.4"
+            ],
+            "details": "Implement generate_visualizations() to create: bar charts for accuracy comparisons, box plots for response time distributions, heatmaps for model agreement matrices, and performance radar charts. Save charts as PNG files and embed references in markdown reports. Add customization options for chart styling and ensure charts are publication-ready with proper labels and legends.\n<info added on 2025-07-31T17:08:19.457Z>\nSuccessfully implemented visualization generation capability. The generate_visualizations() method now creates five distinct chart types: performance comparison bar charts showing model accuracies side-by-side, response time comparison charts with statistical indicators, accuracy visualizations with confidence intervals and error bars, heatmaps displaying statistical significance between model pairs, and multi-metric radar charts for comprehensive performance overview. All visualizations leverage matplotlib and seaborn for professional-quality output, featuring customizable styling options, proper axis labels, legends, and annotations. Charts are automatically saved as high-resolution PNG files (300 DPI) in the results directory with descriptive filenames, and references are embedded in the generated markdown reports for seamless integration.\n</info added on 2025-07-31T17:08:19.457Z>",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 18,
+        "title": "Enhance Results Logger for Multi-Model Support",
+        "description": "Update the results logging system to handle multiple models and maintain organized output structure",
+        "details": "Modify the existing results logger to include provider name in filenames (e.g., `benchmark_openai_gpt-4_truthfulness_20240201_120000.csv`). Create a results directory structure that groups results by benchmark type and date. Implement atomic file writing to prevent corruption during parallel execution. Add metadata to result files including provider version, API response times, and configuration used. Create an index file that tracks all benchmark runs for easy lookup.",
+        "testStrategy": "Test file naming conventions for various providers and models. Verify directory structure creation and organization. Test atomic file writing under concurrent access. Validate metadata inclusion and index file updates.",
+        "priority": "medium",
+        "dependencies": [
+          15
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement New File Naming Convention",
+            "description": "Create a standardized file naming system that includes provider name, model name, benchmark type, and timestamp",
+            "dependencies": [],
+            "details": "Modify the results logger to generate filenames following the pattern: `benchmark_{provider}_{model}_{benchmark_type}_{timestamp}.csv`. Ensure model names are sanitized to be filesystem-safe (replace spaces, slashes, special characters). Create a mapping function that converts model identifiers to safe filename components. Handle edge cases like very long model names by implementing truncation with unique suffixes.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create Directory Structure for Result Storage",
+            "description": "Design and implement a hierarchical directory structure to organize benchmark results by type and date",
+            "dependencies": [],
+            "details": "Create a directory structure following the pattern: `results/{benchmark_type}/{year}/{month}/`. Implement directory creation with proper permissions and error handling. Add configuration option for custom results base directory. Create helper functions to generate appropriate paths based on benchmark type and timestamp. Ensure directories are created automatically when writing results.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Implement Atomic File Writing",
+            "description": "Add atomic write operations to prevent file corruption during concurrent benchmark execution",
+            "dependencies": [
+              "18.1",
+              "18.2"
+            ],
+            "details": "Implement atomic file writing using temporary files and atomic rename operations. Write results first to a temporary file in the same directory with a unique suffix. Use platform-appropriate atomic rename (os.replace on Unix, special handling for Windows). Add file locking mechanism for additional safety during concurrent access. Implement retry logic with exponential backoff for write conflicts. Add proper exception handling and cleanup of temporary files.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Add Metadata Tracking and Index Generation",
+            "description": "Implement comprehensive metadata tracking for each benchmark run and maintain a central index file",
+            "dependencies": [
+              "18.3"
+            ],
+            "details": "Add metadata headers to result files including: provider version, API response times, model configuration (temperature, max_tokens), benchmark start/end times, total duration, error counts. Create a JSON index file (`results/index.json`) that tracks all benchmark runs with searchable metadata. Implement index update mechanism that appends new runs atomically. Add functions to query the index by model, date range, or benchmark type. Include result file checksums in the index for integrity verification.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "title": "Comprehensive Testing Suite for All Providers",
+        "description": "Create a comprehensive test suite ensuring all providers work correctly with mocked and optional real API testing",
+        "details": "Create a test framework in `tests/providers/` with base test classes for provider testing. Implement comprehensive mocked tests for each provider covering all edge cases. Add fixtures for common test scenarios (successful responses, errors, rate limits). Create optional integration tests controlled by environment variables (TEST_OPENAI_INTEGRATION, TEST_ANTHROPIC_INTEGRATION). Implement performance benchmarks for provider response times. Add compatibility tests ensuring all providers return consistent formats.",
+        "testStrategy": "Use pytest with fixtures for test organization. Mock external API calls using responses or unittest.mock. Create parameterized tests to run the same test scenarios across all providers. Measure and maintain >80% code coverage. Add CI/CD integration test jobs that run with real APIs on a schedule.",
+        "priority": "high",
+        "dependencies": [
+          12,
+          13
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create base test infrastructure",
+            "description": "Design and implement foundational test classes and fixtures for provider testing",
+            "dependencies": [],
+            "details": "Create `tests/providers/base_test.py` with BaseProviderTest abstract class defining common test methods like test_generate_response(), test_error_handling(), test_rate_limiting(). Implement shared fixtures in `tests/conftest.py` for mock responses, provider configurations, and test data. Set up pytest configuration with markers for unit tests, integration tests, and performance tests. Create utilities for response validation and assertion helpers specific to provider testing.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Implement comprehensive mocked tests",
+            "description": "Create thorough mocked test coverage for each provider's edge cases and error scenarios",
+            "dependencies": [
+              "19.1"
+            ],
+            "details": "For each provider (OpenAI, Anthropic, Google, etc.), create test files like `test_openai_provider.py` with mocked API responses using pytest-mock or responses library. Test edge cases: empty responses, malformed JSON, API errors (401, 403, 429, 500), timeout scenarios, invalid model names, token limit exceeded. Mock provider-specific features like streaming responses, function calling, and custom parameters. Ensure each provider has >90% code coverage.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Add parameterized cross-provider tests",
+            "description": "Implement parameterized tests ensuring consistency across all providers",
+            "dependencies": [
+              "19.1",
+              "19.2"
+            ],
+            "details": "Create `tests/providers/test_cross_provider.py` using pytest.mark.parametrize to run identical test scenarios across all providers. Test common functionality: basic text generation, error handling consistency, response format validation, timeout behavior. Verify all providers return compatible response structures with required fields (text, usage, metadata). Add tests for provider feature matrix validation (which providers support streaming, etc.).",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Create optional integration test framework",
+            "description": "Build integration testing system with environment-based controls for real API testing",
+            "dependencies": [
+              "19.1"
+            ],
+            "details": "Implement `tests/integration/` directory with provider-specific integration tests. Use environment variables (TEST_OPENAI_INTEGRATION=true) to control test execution. Create pytest markers @pytest.mark.integration and skip decorators that check for API keys and flags. Add rate limiting protection and cost controls (max requests per test run). Implement test data cleanup for providers that store conversation history. Document how to run integration tests safely.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add performance benchmarks",
+            "description": "Implement performance testing framework for measuring provider response times",
+            "dependencies": [
+              "19.1",
+              "19.4"
+            ],
+            "details": "Create `tests/benchmarks/` with pytest-benchmark integration for performance testing. Measure key metrics: time to first token (for streaming), total response time, tokens per second, API latency vs processing time. Create comparative benchmarks across providers with same prompts. Add memory usage profiling for provider clients. Generate performance reports in JSON/HTML format. Set baseline thresholds for regression detection.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 6,
+            "title": "Implement compatibility tests",
+            "description": "Create tests ensuring format consistency and compatibility across providers",
+            "dependencies": [
+              "19.3"
+            ],
+            "details": "Build compatibility test suite in `tests/compatibility/` validating response format consistency. Test JSON schema compliance for all provider responses. Verify error message formats are standardized. Check that all providers handle common parameters (temperature, max_tokens) correctly. Test graceful degradation when provider-specific features are used. Validate that switching providers doesn't break existing code.",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 7,
+            "title": "Set up CI/CD with coverage reporting",
+            "description": "Configure GitHub Actions for automated testing and coverage tracking",
+            "dependencies": [
+              "19.1",
+              "19.2",
+              "19.3",
+              "19.4",
+              "19.5",
+              "19.6"
+            ],
+            "details": "Create `.github/workflows/test.yml` with matrix testing across Python versions (3.8-3.12). Configure separate jobs: unit tests (always run), integration tests (scheduled/manual trigger), performance benchmarks (weekly). Set up coverage reporting with codecov or coveralls, enforce minimum 80% coverage. Add test result artifacts and performance trend tracking. Configure dependabot for test dependency updates. Add status badges to README.",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 20,
+        "title": "Documentation and Usage Examples",
+        "description": "Create comprehensive documentation covering all new features, providers, and usage patterns",
+        "details": "Update README.md with new provider setup instructions and multi-model usage examples. Create `docs/providers/` directory with detailed documentation for each provider including API key setup, supported parameters, and limitations. Write a migration guide for users upgrading from single-model to multi-model setup. Create example notebooks demonstrating common use cases: comparing models, analyzing results, and interpreting performance differences. Add troubleshooting section covering common issues (API errors, rate limits, configuration problems). Document the new CLI options with examples. Create a performance comparison interpretation guide.",
+        "testStrategy": "Validate all code examples in documentation run without errors. Test documentation building process if using Sphinx/MkDocs. Verify all CLI examples work as documented. Have team members follow the setup guide on clean environments to ensure completeness.",
+        "priority": "medium",
+        "dependencies": [
+          14,
+          16,
+          17
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Update README with Multi-Model Setup and Usage",
+            "description": "Revise the main README.md to include comprehensive setup instructions for all supported providers and demonstrate multi-model usage patterns",
+            "dependencies": [],
+            "details": "Update README.md sections: 1) Add 'Supported Providers' table listing all providers with required API keys and model examples, 2) Expand 'Installation' section with provider-specific dependencies (e.g., anthropic, openai packages), 3) Update 'Configuration' with multi-provider .env setup showing all API key variables, 4) Replace single-model usage examples with multi-model comparisons, 5) Add 'Advanced Usage' section showing batch processing, custom evaluators, and result analysis, 6) Include output examples showing comparative results across providers",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 2,
+            "title": "Create Individual Provider Documentation",
+            "description": "Develop detailed documentation for each supported provider with setup guides, capabilities, and limitations",
+            "dependencies": [
+              "20.1"
+            ],
+            "details": "Create docs/providers/ directory structure with files: anthropic.md, openai.md, google.md, mistral.md, xai.md, openrouter.md, ollama.md, azure.md. Each file should include: 1) Provider overview and supported models table, 2) API key acquisition guide with screenshots/links, 3) Model-specific parameters and defaults (temperature ranges, token limits), 4) Rate limiting information and quotas, 5) Known limitations or quirks, 6) Code examples for provider-specific features, 7) Troubleshooting common errors (auth failures, rate limits)",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 3,
+            "title": "Write Migration Guide for Multi-Model Upgrade",
+            "description": "Create a comprehensive guide helping users transition from single-model to multi-model setup",
+            "dependencies": [
+              "20.1",
+              "20.2"
+            ],
+            "details": "Create docs/migration-guide.md covering: 1) Breaking changes from v0.1 to current version, 2) Step-by-step upgrade instructions including dependency updates, 3) Configuration file format changes (old vs new .env structure), 4) Code migration examples showing how to update existing scripts, 5) New features overview with before/after comparisons, 6) Backward compatibility considerations, 7) Data format changes in results.csv, 8) How to preserve existing benchmark results during migration",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 4,
+            "title": "Develop Example Notebooks and Use Cases",
+            "description": "Create Jupyter notebooks demonstrating practical applications of the multi-model benchmark system",
+            "dependencies": [
+              "20.1",
+              "20.2",
+              "20.3"
+            ],
+            "details": "Create examples/ directory with notebooks: 1) 'getting_started.ipynb' - basic setup and first benchmark, 2) 'model_comparison.ipynb' - comparing 5+ models on various datasets, 3) 'custom_evaluators.ipynb' - creating domain-specific evaluation metrics, 4) 'performance_analysis.ipynb' - visualizing results with plots and statistical analysis, 5) 'batch_processing.ipynb' - running large-scale benchmarks efficiently, 6) 'provider_specific_features.ipynb' - leveraging unique provider capabilities. Include markdown explanations, executable code cells, and result visualizations",
+            "status": "done",
+            "testStrategy": ""
+          },
+          {
+            "id": 5,
+            "title": "Add Troubleshooting Guide and Performance Interpretation",
+            "description": "Create comprehensive troubleshooting documentation and guide for interpreting benchmark results",
+            "dependencies": [
+              "20.1",
+              "20.2",
+              "20.3",
+              "20.4"
+            ],
+            "details": "Create docs/troubleshooting.md covering: 1) Common error messages with solutions (API auth, network, rate limits), 2) Debugging tips with logging configuration, 3) Performance optimization strategies, 4) FAQ section addressing typical user questions. Create docs/interpreting-results.md explaining: 1) Understanding evaluation metrics and scores, 2) Statistical significance in model comparisons, 3) Factors affecting benchmark reliability, 4) Best practices for fair model comparison, 5) Visualization techniques for results, 6) How to identify and handle outliers or anomalies",
+            "status": "done",
+            "testStrategy": ""
+          }
+        ]
+      },
+      {
+        "id": 21,
+        "title": "Create Documentation Structure for Use Cases 2-8",
+        "description": "Set up the documentation directory structure and create placeholder files for all remaining use case documentation following the Use Case 1 template",
+        "details": "Create docs/guides/ directory if not exists. Create placeholder files: USE_CASE_2_HOW_TO.md through USE_CASE_8_HOW_TO.md. Copy the template structure from USE_CASE_1_HOW_TO.md including sections: What You'll Accomplish, Prerequisites, Cost Breakdown, Step-by-Step Guide, Understanding Results, Advanced Usage, Troubleshooting, Next Steps, and Pro Tips. Update the main documentation index (docs/README.md or similar) to link to all 8 use case guides.",
+        "testStrategy": "Verify all 7 new documentation files exist with correct naming convention. Ensure each file contains the 9 required sections. Validate that the main documentation index properly links to all 8 use case guides. Check that the template structure matches Use Case 1's format.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Document Use Case 2: Cost Analysis Integration",
+        "description": "Create comprehensive documentation for Use Case 2 (Compare LLM Provider Cost vs Performance) leveraging the existing cost_analysis.py example",
+        "details": "Write USE_CASE_2_HOW_TO.md with focus on: Step-by-step guide using examples/use_cases/cost_analysis.py, real-world scenarios (e.g., choosing between GPT-4 vs Claude for customer service), cost-per-quality metrics calculation, budget management strategies with code examples, cost optimization recommendations based on usage patterns. Include visualization examples using matplotlib/plotly for cost vs performance trade-offs. Document the existing cost tracking functionality and show how to integrate it with benchmark results.",
+        "testStrategy": "Run the existing cost_analysis.py example to ensure it works. Create at least 3 different cost comparison scenarios and verify the documentation accurately describes the process. Test budget alert functionality if implemented. Validate that cost calculations match provider pricing.",
+        "priority": "high",
+        "dependencies": [
+          21
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Implement Custom Prompt CLI Interface (Use Case 3)",
+        "description": "Create a CLI interface for testing custom prompts across multiple models with proper argument parsing and result formatting",
+        "details": "Extend run_benchmarks.py to accept --custom-prompt flag. Implement prompt template engine in src/use_cases/custom_prompts/template_engine.py supporting variables like {context}, {question}. Create prompt_runner.py to handle execution across multiple models. Add support for prompt files (--prompt-file flag) and inline prompts. Implement basic evaluation metrics beyond keyword matching (e.g., length, sentiment, coherence scores). Store results in standardized format compatible with existing benchmark infrastructure.",
+        "testStrategy": "Test CLI with various prompt formats (inline, file-based, templated). Verify execution across at least 3 different model providers. Validate that results are properly formatted and saved. Test error handling for malformed prompts. Ensure backwards compatibility with existing benchmark functionality.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Document Use Case 3 and 4 with Examples",
+        "description": "Create documentation for Use Case 3 (Custom Prompts) and Use Case 4 (Cross-LLM Testing) with practical examples",
+        "details": "For USE_CASE_3_HOW_TO.md: Document the new CLI interface, provide examples for customer service, code generation, and creative writing prompts. Show how to create custom evaluation metrics, use the template system, and interpret domain-specific results. For USE_CASE_4_HOW_TO.md: Guide on creating test suites, pytest integration examples, regression testing strategies, performance benchmarking across model updates, and CI/CD integration using GitHub Actions. Include at least 3 working examples for each use case.",
+        "testStrategy": "Execute all documented examples and verify they produce expected outputs. Test that code snippets in documentation are syntactically correct. Validate that pytest integration examples work with actual test files. Ensure CI/CD examples can be copy-pasted into GitHub Actions.",
+        "priority": "medium",
+        "dependencies": [
+          21,
+          23
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Implement Local Model Provider (Use Case 5)",
+        "description": "Create LocalModelProvider class to integrate local models (Llama, Mistral, Phi) with the benchmark framework",
+        "details": "Create src/use_cases/local_models/provider.py implementing BaseProvider interface. Add support for GGUF format models using llama-cpp-python. Implement model loading with configurable quantization (4-bit, 8-bit). Create configuration for popular models: Llama 2 (7B, 13B), Mistral 7B, Phi-2. Add memory management and GPU acceleration detection. Implement streaming responses for better UX. Create model download helper if models not present locally.",
+        "testStrategy": "Test model loading with at least one small model (Phi-2). Verify inference works with simple prompts. Compare outputs between quantized and full precision versions. Test memory usage stays within limits. Validate GPU acceleration when available. Ensure graceful fallback to CPU.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 26,
+        "title": "Create Fine-tuning Framework Structure (Use Case 6)",
+        "description": "Implement the foundational structure for LLM fine-tuning with LoRA/QLoRA support",
+        "details": "Create src/use_cases/fine_tuning/ directory structure with trainers/ and datasets/ subdirectories. Implement base trainer class in trainers/base_trainer.py with common functionality. Create LoRA trainer using PEFT library in trainers/lora_trainer.py. Implement dataset preparation pipeline supporting common formats (JSONL, CSV, Parquet). Add training configuration management with hyperparameter validation. Create progress monitoring with tensorboard/wandb integration. Implement model evaluation pipeline that integrates with benchmark system.",
+        "testStrategy": "Test trainer initialization with minimal configuration. Verify dataset loading for different formats. Run a minimal fine-tuning job (10 steps) on smallest model. Validate that checkpoints are saved correctly. Test integration with benchmark system for before/after comparison. Ensure memory usage is tracked and reported.",
+        "priority": "medium",
+        "dependencies": [
+          25
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 27,
+        "title": "Implement Alignment Research Tools (Use Case 7)",
+        "description": "Create runtime intervention framework and constitutional AI implementation for alignment research",
+        "details": "Create src/use_cases/alignment/ structure with runtime/ and constitutional/ subdirectories. Implement base intervention framework in runtime/intervention.py allowing prompt modification, output filtering, and response steering. Create constitutional AI rule engine supporting YAML rule definitions. Implement safety filters for common concerns (toxicity, bias, factuality). Add preference learning data collection system. Create real-time feedback interface for human-in-the-loop alignment. Build A/B testing framework for comparing alignment strategies.",
+        "testStrategy": "Test rule engine with example constitutional rules. Verify interventions modify outputs as expected. Test safety filters catch problematic content. Validate preference data is collected correctly. Ensure A/B testing produces statistically valid comparisons. Test that interventions don't break model functionality.",
+        "priority": "low",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 28,
+        "title": "Build Monitoring System Infrastructure (Use Case 8)",
+        "description": "Implement continuous performance monitoring system with database storage and alerting",
+        "details": "Create src/use_cases/monitoring/ with database schema design using SQLite for portability. Implement models for storing benchmark results, performance metrics, and model metadata. Create scheduled job system using APScheduler for automated benchmarking. Build performance comparison logic to detect regressions (>5% performance drop). Implement alert system with email/Slack notifications. Create data aggregation functions for trend analysis. Design RESTful API for dashboard consumption.",
+        "testStrategy": "Test database operations (CRUD) with sample data. Verify scheduled jobs execute at specified intervals. Test regression detection with simulated performance drops. Validate alert delivery (use test endpoints). Ensure data aggregation produces correct statistics. Test API endpoints return expected JSON format.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 29,
+        "title": "Create Monitoring Dashboard and Reports (Use Case 8)",
+        "description": "Build web dashboard for visualization and automated report generation for continuous monitoring",
+        "details": "Create dashboard using Flask/FastAPI + Vue.js or Streamlit for rapid development. Implement real-time performance charts using Chart.js or Plotly. Create views for: model comparison over time, cost trends, performance by dataset, alert history. Build automated report generator producing PDF/HTML summaries. Add export functionality for data (CSV, JSON). Implement role-based access control for multi-user environments. Create dashboard templates for common use cases.",
+        "testStrategy": "Test dashboard loads with sample data. Verify real-time updates work correctly. Test all chart types render properly. Validate PDF report generation. Test data export produces valid files. Ensure access control restricts appropriately. Load test with 1000+ data points.",
+        "priority": "low",
+        "dependencies": [
+          28
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 30,
+        "title": "Complete Documentation and Integration Testing",
+        "description": "Finalize all use case documentation, create comprehensive examples, and perform end-to-end integration testing",
+        "details": "Complete documentation for Use Cases 5-8 following the established template. Create at least 3 working examples per use case with increasing complexity. Build cross-use-case integration examples (e.g., fine-tune model → benchmark → monitor). Update main README with quickstart for each use case. Create Jupyter notebooks demonstrating key workflows. Implement comprehensive test suite covering all new functionality. Generate cost estimates table for all use cases. Create troubleshooting guide covering 90% of common issues based on testing feedback.",
+        "testStrategy": "Run all examples end-to-end and measure execution time. Verify documentation code blocks are executable. Test cross-use-case workflows work seamlessly. Validate cost estimates are within 20% of actual. Ensure 80%+ code coverage for new modules. Perform user acceptance testing with fresh environment. Verify all CLI commands work as documented.",
+        "priority": "high",
+        "dependencies": [
+          22,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-31T01:11:27.582Z",
+      "updated": "2025-08-04T23:26:08.870Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

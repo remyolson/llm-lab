@@ -1,0 +1,18 @@
+Model: {model_name}
+Task: Code Review
+Timestamp: {timestamp}
+
+Please review the following {language} code and provide feedback on:
+1. Code quality and readability
+2. Potential bugs or issues
+3. Performance considerations
+4. Best practices
+
+Code to review:
+```{language}
+{code}
+```
+
+{?focus_area}Focus particularly on: {focus_area}{/focus_area}
+
+Provide a detailed analysis with specific suggestions for improvement.

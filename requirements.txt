@@ -17,3 +17,19 @@ pytest>=7.0.0
 pytest-cov>=4.0.0
 pytest-mock>=3.10.0
 ruff>=0.1.0
+
+# Optional Dependencies for Local Models
+# Uncomment to use local models:
+# llama-cpp-python>=0.2.0
+# torch>=2.0.0  # For GPU detection
+# psutil>=5.9.0  # For memory monitoring
+
+# Optional Dependencies for Fine-tuning
+# Uncomment to use fine-tuning features:
+# transformers>=4.35.0
+# peft>=0.7.0  # For LoRA/QLoRA
+# datasets>=2.14.0
+# accelerate>=0.24.0
+# bitsandbytes>=0.41.0  # For QLoRA quantization
+# tensorboard>=2.14.0
+# wandb>=0.15.0  # For experiment tracking
