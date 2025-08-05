@@ -1,23 +1,97 @@
-# Fine-tuning Framework for LLM Lab
+# Enhanced Fine-Tuning Pipeline
 
-This module provides a comprehensive framework for fine-tuning language models using parameter-efficient methods like LoRA (Low-Rank Adaptation) and QLoRA (Quantized LoRA).
+## Overview
 
-## Features
+The Enhanced Fine-Tuning Pipeline is a comprehensive system for training and managing large language models with advanced features including recipe-based configuration, real-time monitoring, cost estimation, and distributed training support.
 
-- **LoRA Fine-tuning**: Efficient training with low-rank adapters
-- **QLoRA Support**: 4-bit and 8-bit quantized training for larger models
-- **Multiple Data Formats**: Support for JSONL, CSV, and Parquet datasets
-- **Flexible Configuration**: Comprehensive config management with validation
-- **Training Monitoring**: Integration with TensorBoard and Weights & Biases
-- **Memory Efficient**: Gradient checkpointing and mixed precision training
-- **Benchmark Integration**: Automatic evaluation after training
+## Architecture
 
-## Installation
+```
+Enhanced Fine-Tuning Pipeline
+├── CLI Interface (cli/)
+│   ├── fine_tuning_cli.py - Command-line interface
+│   └── Job management, monitoring, evaluation
+├── Recipe System (recipes/)
+│   ├── recipe_manager.py - Recipe validation and management
+│   └── Pre-configured training recipes
+├── Training Pipeline (pipelines/)
+│   ├── data_preprocessor.py - Data preparation and validation
+│   └── Distributed training orchestration
+├── Monitoring & Logging (monitoring/)
+│   ├── integrations.py - W&B, TensorBoard, MLflow
+│   ├── structured_logger.py - Structured logging
+│   ├── alerts.py - Training anomaly detection
+│   └── config.py - Monitoring configuration
+├── Evaluation Suite (evaluation/)
+│   ├── suite.py - Comprehensive model evaluation
+│   ├── benchmarks.py - Standard benchmark runner
+│   ├── metrics.py - Custom metrics calculator
+│   └── custom_evaluations.py - Recipe-based evaluations
+├── Cost Management (cost/)
+│   ├── estimator.py - Training cost estimation
+│   ├── tracker.py - Real-time cost tracking
+│   └── providers.py - Multi-cloud pricing APIs
+├── Checkpointing (checkpoints/)
+│   ├── checkpoint_manager.py - Advanced checkpoint management
+│   └── Automatic best model selection
+├── Visualization (visualization/)
+│   ├── training_dashboard.py - Real-time training dashboard
+│   └── Interactive progress monitoring
+└── Training Core (training/)
+    ├── distributed_trainer.py - Multi-GPU/multi-node training
+    └── Advanced optimization techniques
+```
 
-### Required Dependencies
+## Key Features
+
+### 1. Recipe-Based Configuration
+- **YAML/JSON Recipes**: Standardized configuration format
+- **Template System**: Pre-configured recipes for common tasks
+- **Validation**: Schema validation and best practices checking
+- **Sharing**: Export and import recipes across projects
+
+### 2. Advanced CLI Interface
+- **Job Management**: Start, stop, resume, and monitor training jobs
+- **Recipe Management**: Create, validate, and manage training recipes
+- **Cost Estimation**: Estimate training costs before starting
+- **Evaluation Runner**: Run comprehensive model evaluations
+- **Monitoring Setup**: Configure monitoring platforms
+- **Batch Training**: Submit multiple training jobs
+- **Resource Monitoring**: View system resource usage
+
+### 3. Comprehensive Monitoring
+- **Platform Integration**: Weights & Biases, TensorBoard, MLflow
+- **Structured Logging**: JSON-structured logs with metadata
+- **Real-time Alerts**: Training anomaly detection and notifications
+- **Resource Tracking**: GPU, CPU, memory, and network monitoring
+- **Custom Metrics**: Extensible metric collection system
+
+### 4. Evaluation Suite
+- **Standard Benchmarks**: GLUE, SuperGLUE, MMLU, HellaSwag, etc.
+- **Custom Evaluations**: Recipe-defined evaluation functions
+- **Model Comparison**: Before/after fine-tuning comparisons
+- **Regression Detection**: Automatic performance regression alerts
+- **Report Generation**: Detailed evaluation reports
+
+### 5. Cost Management
+- **Multi-Cloud Support**: AWS, GCP, Azure pricing integration
+- **Real-time Tracking**: Live cost monitoring during training
+- **Optimization**: Automated cost optimization recommendations
+- **Budgeting**: Train within specified budget constraints
+- **Reporting**: Detailed cost breakdowns and analysis
+
+### 6. Distributed Training
+- **Multi-GPU**: Data and model parallelism
+- **Multi-Node**: Cluster training with fault tolerance
+- **Backend Support**: DDP, FSDP, DeepSpeed, Accelerate
+- **Auto-scaling**: Dynamic resource allocation
+
+## Quick Start
+
+### 1. Installation
 
 ```bash
-pip install transformers>=4.35.0 peft>=0.7.0 datasets>=2.14.0 accelerate>=0.24.0
+pip install -r requirements.txt
 ```
 
 ### Optional Dependencies

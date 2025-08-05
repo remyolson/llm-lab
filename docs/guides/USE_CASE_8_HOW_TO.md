@@ -710,7 +710,7 @@ This monitoring framework enables:
 ## 💭 Feedback
 
 Help us improve this guide:
-- Found an error? [Open an issue](https://github.com/yourusername/lllm-lab/issues/new)
+- Found an error? [Open an issue](https://github.com/remyolson/lllm-lab/issues/new)
 - Have suggestions? See our [Contribution Guide](../../CONTRIBUTING.md)
 
 ---

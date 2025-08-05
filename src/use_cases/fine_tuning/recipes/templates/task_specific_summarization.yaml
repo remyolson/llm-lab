@@ -1,0 +1,118 @@
+name: task_specific_summarization
+description: Recipe for fine-tuning models on text summarization tasks
+version: 1.0.0
+author: lllm-lab
+tags:
+  - summarization
+  - text-generation
+  - task-specific
+  - abstractive
+
+model:
+  name: llama2-7b-summarization
+  base_model: meta-llama/Llama-2-7b-hf
+  model_type: causal_lm  # Or seq2seq for T5-style models
+  quantization: null
+  device_map: auto
+  torch_dtype: float16
+  load_in_8bit: false
+  load_in_4bit: false
+  use_flash_attention: true
+
+dataset:
+  name: summarization_dataset
+  path: cnn_dailymail  # Or xsum, multi_news, billsum
+  format: huggingface
+  data_format: summarization
+  split_ratios:
+    train: 0.9
+    validation: 0.05
+    test: 0.05
+  max_samples: null
+  preprocessing:
+    lowercase: false
+    remove_html: true
+    normalize_whitespace: true
+    add_prompt_template: true
+    summarization_specific:
+      max_source_length: 1024
+      max_target_length: 256
+      prefix: "Summarize the following text:\n\n"
+      suffix: "\n\nSummary:"
+  tokenizer_config:
+    max_length: 1280  # source + target
+    padding: max_length
+    truncation: true
+
+training:
+  num_epochs: 3
+  per_device_train_batch_size: 2
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 3.0e-5
+  warmup_steps: 500
+  weight_decay: 0.01
+  logging_steps: 10
+  eval_steps: 500
+  save_steps: 1000
+  save_total_limit: 3
+  fp16: true
+  bf16: false
+  gradient_checkpointing: true
+  deepspeed_config: null
+  fsdp_config: null
+  
+  # LoRA configuration
+  use_lora: true
+  lora_rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  lora_target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+
+evaluation:
+  metrics:
+    - rouge1
+    - rouge2
+    - rougeL
+    - bertscore
+    - compression_ratio
+  benchmarks:
+    - cnn_dailymail_test
+    - xsum_test
+  custom_metrics:
+    factual_consistency: true
+    readability_score: true
+    information_coverage: true
+  eval_batch_size: 4
+  num_beams: 4
+  temperature: 0.7
+  top_k: 50
+  top_p: 0.95
+  length_penalty: 1.2  # Encourage appropriate length
+  no_repeat_ngram_size: 3  # Reduce repetition
+
+metadata:
+  recommended_hardware: "16GB+ VRAM GPU"
+  estimated_training_time: "3-5 hours on A100"
+  use_case: "News summarization, document summarization, meeting notes"
+  notes: |
+    This recipe expects summarization format:
+    {
+      "document": "Long article or document text here...",
+      "summary": "Concise summary of the main points...",
+      "metadata": {
+        "source": "news_article",
+        "word_count": 1500,
+        "summary_word_count": 150
+      }
+    }
+    
+    The model learns to:
+    - Extract key information
+    - Maintain factual accuracy
+    - Generate fluent, concise summaries
+    - Preserve important details while removing redundancy

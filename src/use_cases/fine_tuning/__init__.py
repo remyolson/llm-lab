@@ -1,17 +1,28 @@
-"""Fine-tuning framework for LLM Lab.
+"""
+Enhanced Fine-Tuning System for Local LLMs
 
-This module provides tools for fine-tuning language models using
-parameter-efficient methods like LoRA and QLoRA.
+This module provides a comprehensive fine-tuning framework with visual performance
+tracking, recipe management, and MacBook Pro optimization.
 """
 
-from .trainers.base_trainer import BaseTrainer
-from .trainers.lora_trainer import LoRATrainer
-from .datasets.dataset_processor import DatasetProcessor
-from .config.training_config import TrainingConfig
+from .recipes import Recipe, RecipeManager
+from .pipelines import DataPreprocessor, DataQualityReport
+from .visualization import TrainingDashboard
+from .checkpoints import CheckpointManager
+from .optimization import HyperparameterOptimizer
+from .training import DistributedTrainer
+from .evaluation import EvaluationSuite
+from .cli import main as cli_main
 
 __all__ = [
-    "BaseTrainer",
-    "LoRATrainer", 
-    "DatasetProcessor",
-    "TrainingConfig"
+    "Recipe",
+    "RecipeManager", 
+    "DataPreprocessor",
+    "DataQualityReport",
+    "TrainingDashboard",
+    "CheckpointManager",
+    "HyperparameterOptimizer",
+    "DistributedTrainer",
+    "EvaluationSuite",
+    "cli_main"
 ]

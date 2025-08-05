@@ -1,0 +1,103 @@
+name: chat_finetuning_chatml
+description: Recipe for chat fine-tuning using ChatML conversation format
+version: 1.0.0
+author: lllm-lab
+tags:
+  - chat
+  - conversational
+  - chatml
+  - assistant
+
+model:
+  name: llama2-7b-chat
+  base_model: meta-llama/Llama-2-7b-chat-hf
+  model_type: causal_lm
+  quantization: null
+  device_map: auto
+  torch_dtype: float16
+  load_in_8bit: false
+  load_in_4bit: false
+  use_flash_attention: true
+
+dataset:
+  name: chat_dataset
+  path: path/to/chat_data.jsonl  # Local path or HuggingFace dataset
+  format: jsonl
+  data_format: chattml
+  split_ratios:
+    train: 0.85
+    validation: 0.1
+    test: 0.05
+  max_samples: null
+  preprocessing:
+    lowercase: false
+    remove_html: true
+    normalize_whitespace: true
+    add_special_tokens: true  # Adds <|im_start|>, <|im_end|> tokens
+  tokenizer_config:
+    max_length: 2048  # Longer for conversations
+    padding: max_length
+    truncation: true
+
+training:
+  num_epochs: 2
+  per_device_train_batch_size: 2  # Smaller batch for longer sequences
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 8
+  learning_rate: 5.0e-5
+  warmup_steps: 200
+  weight_decay: 0.0
+  logging_steps: 10
+  eval_steps: 200
+  save_steps: 500
+  save_total_limit: 3
+  fp16: true
+  bf16: false
+  gradient_checkpointing: true
+  deepspeed_config: null
+  fsdp_config: null
+  
+  # LoRA configuration for efficient training
+  use_lora: true
+  lora_rank: 32  # Higher rank for chat complexity
+  lora_alpha: 64
+  lora_dropout: 0.1
+  lora_target_modules:
+    - q_proj
+    - v_proj
+    - k_proj
+    - o_proj
+
+evaluation:
+  metrics:
+    - perplexity
+    - bleu
+    - response_relevance
+    - conversation_coherence
+  benchmarks:
+    - mt_bench
+  custom_metrics:
+    engagement_score: true
+    safety_score: true
+  eval_batch_size: 4
+  num_beams: 1  # Greedy for chat
+  temperature: 0.9
+  top_k: 50
+  top_p: 0.95
+
+metadata:
+  recommended_hardware: "24GB+ VRAM GPU or Apple Silicon M2/M3 with 32GB+ RAM"
+  estimated_training_time: "3-5 hours on A100"
+  use_case: "Conversational AI assistant with multi-turn dialogue capability"
+  notes: |
+    This recipe expects ChatML format with messages array:
+    {
+      "messages": [
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Hello!"},
+        {"role": "assistant", "content": "Hi! How can I help you today?"}
+      ]
+    }
+    
+    The model learns conversational patterns and maintains context
+    across multiple turns.
