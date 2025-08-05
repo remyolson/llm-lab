@@ -9,7 +9,7 @@ The repository includes 8 models (6 small + 2 large):
 - **SmolLM-135M & SmolLM-360M**: Great balance of speed and quality
 - **Qwen-0.5B**: Best quality among tiny models
 - **Qwen-0.5B-GGUF**: Quantized version for production efficiency
-- **Llama3.2-1B** ⭐: High-quality 1B model via Ollama
+- **Llama3.2-1B**: High-quality 1B model via Ollama
 - **GPT-OSS-20B**: OpenAI's powerful 20B model via Ollama (⚠️ LARGE)
 
 ## Downloaded Models
@@ -50,7 +50,7 @@ The repository includes 8 models (6 small + 2 large):
 - **Format**: GGUF for llama.cpp
 - **Use case**: Even faster inference with slight quality trade-off
 
-### Llama3.2-1B ⭐ (Ollama)
+### Llama3.2-1B (Ollama)
 - **Size**: 1B parameters (~700MB via Ollama)
 - **Speed**: ~10-20 tokens/sec on M-series
 - **Use case**: High-quality chat, code generation, reasoning
