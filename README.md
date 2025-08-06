@@ -1,648 +1,476 @@
-# LLM Lab - Comprehensive Large Language Model Research Platform
+# 🧬 LLM Lab - Advanced Large Language Model Research & Development Platform
 
-A professional-grade framework for benchmarking, fine-tuning, monitoring, and aligning Large Language Models (LLMs) across multiple providers with enterprise features.
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)](https://codecov.io)
+[![Documentation](https://img.shields.io/badge/docs-sphinx-blue)](docs/)
+[![Code Style: Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](https://github.com/charliermarsh/ruff)
 
-## 🚀 Overview
+A comprehensive, production-grade platform for benchmarking, fine-tuning, monitoring, and deploying Large Language Models (LLMs) with enterprise features and local model support.
 
-LLM Lab is a comprehensive platform designed for organizations and researchers working with Large Language Models. It provides production-ready tools for evaluation, optimization, safety alignment, and continuous monitoring of LLM deployments.
+## 🌟 What's New (v2.0)
 
-### Key Features
+### Major Enhancements
+- **🎯 Small LLMs Hub**: Optimized support for running models from 70M to 20B parameters locally on MacBook Pro
+- **🏗️ Fine-Tuning Studio**: Complete web-based platform for model fine-tuning with real-time monitoring
+- **📊 Visual Analytics Suite**: Advanced model comparison and response analysis tools
+- **💉 Dependency Injection**: Enterprise-grade DI system for modular, testable code
+- **📚 Documentation System**: Full Sphinx documentation with CI/CD and interactive examples
+- **🎭 Type System**: Comprehensive type annotations with protocols and generics
+- **🔄 Restructured Architecture**: Flattened directory structure for better maintainability
 
-- **Multi-Provider Support**: Unified interface for OpenAI, Anthropic, Google, Azure, Cohere, Mistral, and local models
-- **Comprehensive Benchmarking**: Multi-dataset evaluation with statistical analysis and confidence intervals
-- **Fine-Tuning Pipelines**: Support for both cloud-based and local model fine-tuning (LoRA, QLoRA, full)
-- **Advanced Alignment**: Constitutional AI, multi-layer safety filters, and preference learning (RLHF)
-- **Real-Time Monitoring**: Production monitoring with dashboards, alerts, and SLA tracking
-- **Cost Management**: Detailed cost tracking, forecasting, and optimization recommendations
-- **Enterprise Features**: Multi-tenancy, custom evaluators, A/B testing, and compliance reporting
-- **Production Ready**: 95%+ test coverage, comprehensive error handling, and extensive documentation
+## 🚀 Key Features
+
+### Core Capabilities
+- **🌐 Multi-Provider Support**: Unified interface for 15+ providers including OpenAI, Anthropic, Google, Azure, Cohere, Mistral, Perplexity, and local models
+- **📈 Comprehensive Benchmarking**: Multi-dataset evaluation with statistical analysis, confidence intervals, and performance tracking
+- **🎓 Fine-Tuning Platform**: Web-based studio for cloud and local model fine-tuning (LoRA, QLoRA, full fine-tuning)
+- **🛡️ Advanced Alignment**: Constitutional AI, multi-layer safety filters, and preference learning (RLHF/DPO)
+- **📊 Real-Time Monitoring**: Production dashboards with Grafana, alerts, and SLA tracking
+- **💰 Cost Management**: Detailed tracking, forecasting, and optimization recommendations
+- **🏢 Enterprise Features**: Multi-tenancy, A/B testing, compliance reporting, and audit logging
+
+### New Features
+- **🖥️ Local Model Excellence**: Optimized for Apple Silicon with Metal acceleration
+- **🔬 Visual Analytics**: Interactive model response comparison and analysis
+- **🏗️ Modern Architecture**: Clean dependency injection and modular design
+- **📝 Rich Documentation**: Comprehensive guides, API docs, and interactive notebooks
+- **🧪 95%+ Test Coverage**: Extensive unit, integration, and end-to-end testing
 
 ## 📋 Prerequisites
 
-- Python 3.9 or higher
-- API keys for desired LLM providers (OpenAI, Anthropic, Google, etc.)
-- pip package manager
-- (Optional) CUDA-capable GPU for local model fine-tuning
-- (Optional) Docker for containerized deployments
+- **Python**: 3.9 or higher
+- **Memory**: 8GB RAM minimum (16GB+ recommended for local models)
+- **Storage**: 10GB free space for models and datasets
+- **API Keys**: For cloud providers (OpenAI, Anthropic, Google, etc.)
+- **Optional**:
+  - CUDA GPU for accelerated local training
+  - Apple Silicon Mac for Metal acceleration
+  - Docker for containerized deployments
 
 ## 🛠️ Installation
 
-### Quick Setup
+### Quick Start (Recommended)
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/remyolson/llm-lab.git
+```bash
+# Clone the repository
+git clone https://github.com/remyolson/llm-lab.git
 cd llm-lab
-   ```
 
-2. **Create and activate a virtual environment**
+# Run the automated setup script
+./scripts/setup.sh
 
-   On macOS/Linux:
+# Or use the configuration wizard
+python -m src.config.wizard
+```
+
+### Manual Installation
+
+1. **Create virtual environment**
    ```bash
    python3 -m venv venv
-   source venv/bin/activate
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
 
-   On Windows:
-   ```cmd
-   python -m venv venv
-   venv\Scripts\activate
-   ```
-
-3. **Install dependencies**
+2. **Install dependencies**
    ```bash
    pip install -r requirements.txt
+   pip install -e .  # Install as editable package
+   ```
+
+3. **Configure environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your API keys
    ```
 
 4. **Download models and datasets**
    ```bash
-   # Download everything (recommended for first-time setup)
+   # Download everything (models + datasets)
    python download_assets.py --all
 
-   # Or download selectively:
-   python download_assets.py --models      # Only models
-   python download_assets.py --datasets    # Only datasets
-   python download_assets.py --list        # See what's available
+   # Or selectively:
+   python models/small-llms/download_small_models.py  # Small local models
+   python download_assets.py --datasets               # Benchmark datasets
    ```
 
-### 📥 Asset Management
+## 🎯 Quick Start Guide
 
-This repository uses a download-based approach for large files (models and datasets) instead of Git LFS to ensure:
-- No bandwidth costs for contributors
-- Easy setup for forks and clones
-- Better performance for large files
-
-**Available download options:**
-- `--all`: Download everything (~2.5GB)
-- `--models`: Download all models (~2.4GB)
-- `--datasets`: Download all datasets (~10MB)
-- `--model <name>`: Download specific model (e.g., `qwen-0.5b`)
-- `--dataset <name>`: Download specific dataset (e.g., `truthfulqa-full`)
-- `--verify`: Check that all downloaded files are valid
-
-**Note:** The repository includes small sample files for development/testing. Large model files and complete datasets are downloaded separately.
-
-## ⚙️ Configuration
-
-### Quick Configuration with Wizard
-
-The easiest way to configure LLM Lab is using the interactive configuration wizard:
+### 1. Running Small Models Locally
 
 ```bash
-python -m src.config.wizard
+# Quick setup for local models (macOS with Ollama)
+./models/small-llms/quick_setup.sh
+
+# Run interactive demo
+python models/small-llms/run_small_model_demo.py
+
+# Benchmark local models
+python models/small-llms/system_assessment.py
 ```
 
-This will guide you through:
-- Setting up API keys
-- Configuring providers and models
-- Setting default parameters
-- Creating configuration files
-
-### Manual Configuration
-
-1. **Copy the example environment file**
-   ```bash
-   cp .env.example .env
-   ```
-
-2. **Add your API keys**
-
-   Edit `.env` and add the API keys for providers you want to use:
-   ```
-   # Core Providers
-   OPENAI_API_KEY=your-openai-key-here
-   ANTHROPIC_API_KEY=your-anthropic-key-here
-   GOOGLE_API_KEY=your-google-key-here
-
-   # Additional Providers (optional)
-   AZURE_OPENAI_ENDPOINT=your-azure-endpoint
-   AZURE_OPENAI_API_KEY=your-azure-key
-   COHERE_API_KEY=your-cohere-key
-   MISTRAL_API_KEY=your-mistral-key
-   PERPLEXITY_API_KEY=your-perplexity-key
-
-   # Monitoring (optional)
-   SLACK_WEBHOOK_URL=your-slack-webhook
-   SMTP_SERVER=smtp.gmail.com
-   SMTP_USER=your-email@gmail.com
-   SMTP_PASSWORD=your-app-password
-   ```
-
-   API Key Resources:
-   - OpenAI: [platform.openai.com](https://platform.openai.com/api-keys)
-   - Anthropic: [console.anthropic.com](https://console.anthropic.com/)
-   - Google: [makersuite.google.com](https://makersuite.google.com/app/apikey)
-   - Azure: [portal.azure.com](https://portal.azure.com/)
-   - Cohere: [dashboard.cohere.ai](https://dashboard.cohere.ai/)
-   - Mistral: [console.mistral.ai](https://console.mistral.ai/)
-
-For comprehensive configuration documentation, see [Configuration Guide](docs/CONFIGURATION.md)
-
-## 🎮 Usage
-
-### Use Case 1: Multi-Provider Benchmarking
-
-Run comprehensive benchmarks across multiple providers:
+### 2. Multi-Provider Benchmarking
 
 ```bash
-# Basic benchmark
-python src/use_cases/multi_provider_benchmarking.py
-
-# With specific providers and models
+# Compare models across providers
 python src/use_cases/multi_provider_benchmarking.py \
-    --providers openai anthropic google \
-    --models gpt-4 claude-3-5-sonnet-20241022 gemini-1.5-pro \
-    --datasets truthfulness gsm8k humaneval \
-    --output-format html pdf csv
+    --providers openai anthropic google local \
+    --models gpt-4o claude-3-5-sonnet gemini-1.5-pro llama3.2:1b \
+    --datasets truthfulness gsm8k \
+    --output results/benchmark_comparison.html
 ```
 
-### Use Case 2: Cost-Optimized Model Selection
-
-Analyze cost vs performance trade-offs:
+### 3. Fine-Tuning Studio
 
 ```bash
-python src/use_cases/cost_optimization.py \
-    --budget 1000 \
-    --min-accuracy 0.9 \
-    --workload-profile production
+# Launch the web-based fine-tuning studio
+cd src/use_cases/fine_tuning
+python -m api.main  # Start backend API
+
+# In another terminal
+cd web && npm install && npm run dev  # Start frontend
+# Open http://localhost:3000
 ```
 
-### Use Case 3: A/B Testing
-
-Compare models in production:
+### 4. Visual Analytics Dashboard
 
 ```bash
-python src/use_cases/ab_testing.py \
-    --model-a gpt-4 \
-    --model-b claude-3-5-sonnet-20241022 \
-    --traffic-split 50/50 \
-    --duration 7d
+# Launch the monitoring dashboard
+python src/use_cases/monitoring/dashboard.py --port 8080
+
+# Or use Streamlit interface
+streamlit run src/use_cases/visual_analytics/app.py
 ```
 
-### Use Case 4: Custom Evaluation Pipelines
+## 🏗️ Architecture
 
-Create domain-specific evaluations:
-
-```bash
-python src/use_cases/custom_evaluation.py \
-    --evaluator medical \
-    --test-suite clinical-notes \
-    --compliance hipaa
-```
-
-### Use Case 5: Production Monitoring
-
-Monitor deployed models:
-
-```bash
-python src/use_cases/monitoring/dashboard.py \
-    --models production-models.yaml \
-    --port 8080 \
-    --alerts slack email
-```
-
-### Use Case 6: Model Fine-Tuning
-
-Fine-tune models on custom data:
-
-```bash
-# Cloud fine-tuning
-python src/use_cases/fine_tuning.py \
-    --provider openai \
-    --base-model gpt-3.5-turbo \
-    --dataset custom-data.jsonl \
-    --epochs 3
-
-# Local fine-tuning
-python src/use_cases/fine_tuning.py \
-    --local \
-    --model llama-2-7b \
-    --method lora \
-    --dataset custom-data.json
-```
-
-### Use Case 7: Alignment Research
-
-Implement safety measures:
-
-```bash
-python src/use_cases/alignment.py \
-    --rules constitutional-ai.yaml \
-    --safety-filters strict \
-    --consensus-models 3
-```
-
-### Use Case 8: Automated Reporting
-
-Generate comprehensive reports:
-
-```bash
-python src/use_cases/reporting.py \
-    --schedule daily \
-    --recipients team@company.com \
-    --include costs performance safety compliance
-
-### Example Output
-
-```
-🔬 LLM Lab Benchmark Runner
-==================================================
-
-1. Loading configuration...
-   ✓ Model configuration loaded
-   ✓ API key loaded for google
-
-2. Initializing provider...
-   ✓ google provider initialized
-
-3. Loading dataset...
-   ✓ Dataset validated
-   ✓ Loaded 1 prompts from truthfulness
-
-4. Running evaluations...
-   Prompt 1/1: Who wrote 'Don Quixote'?...
-   Response: Miguel de Cervantes wrote Don Quixote...
-   ✓ Evaluation passed (matched: Cervantes, Miguel de Cervantes)
-
-==================================================
-📊 Benchmark Results Summary
-==================================================
-Provider: google
-Dataset: truthfulness
-Total Prompts: 1
-Successful: 1
-Failed: 0
-Overall Score: 100.00%
-```
-
-## 📊 Results and Reporting
-
-### Enhanced Results Logging
-
-Results are automatically saved with organized structure and enhanced file naming:
-
-```
-results/
-├── truthfulness/                    # Dataset-based organization
-│   └── 2024-12/                    # Year-month organization
-│       ├── benchmark_google_gemini-1-5-flash_truthfulness_20241231_143022.csv
-│       ├── benchmark_openai_gpt-4o-mini_truthfulness_20241231_143022.csv
-│       ├── benchmark_anthropic_claude-3-haiku_truthfulness_20241231_143022.csv
-│       ├── results_index.json       # Metadata index
-│       └── performance_analysis_20241231_143022.html
-└── performance_benchmarks/
-    └── 2024-12/
-        ├── performance_report_20241231_143022.json
-        └── benchmark_charts_20241231_143022.png
-```
-
-### CSV Results Format
-
-Results are saved in CSV format with enhanced columns:
-
-| Column | Description |
-|--------|-------------|
-| timestamp | ISO format timestamp of the evaluation |
-| provider | Provider name (google, openai, anthropic) |
-| model_name | Full model identifier (e.g., google/gemini-1.5-flash) |
-| model_version | Model version/variant |
-| benchmark_name | Name of the benchmark dataset |
-| prompt_id | Unique identifier for the prompt |
-| prompt_text | The input prompt text |
-| model_response | The model's generated response |
-| expected_keywords | JSON array of expected keywords |
-| matched_keywords | JSON array of matched keywords |
-| score | Evaluation score (0.0 to 1.0) |
-| success | Pass/fail status |
-| evaluation_method | Method used for evaluation |
-| response_time_seconds | Time taken to generate response |
-| tokens_used | Number of tokens consumed (if available) |
-| cost_estimate | Estimated cost in USD (if available) |
-| error | Any error message (if applicable) |
-| session_id | Unique session identifier for grouping |
-| run_metadata | Additional run configuration (JSON) |
-
-### Performance Analysis Reports
-
-When `--analyze-results` is used, additional reports are generated:
-
-- **HTML Performance Dashboard**: Interactive charts and analysis
-- **Statistical Summary**: Response time distributions, confidence intervals
-- **Comparison Matrix**: Head-to-head model comparisons
-- **Cost Analysis**: Token usage and cost estimates by provider
-- **Error Analysis**: Failure patterns and retry statistics
-
-## 📁 Project Structure
+### Project Structure
 
 ```
 llm-lab/
-├── src/                     # Source code
-│   ├── llm_providers/       # LLM provider implementations
-│   │   ├── base.py          # Base provider interface
-│   │   ├── openai.py        # OpenAI GPT models
-│   │   ├── anthropic.py     # Anthropic Claude models
-│   │   ├── google.py        # Google Gemini models
-│   │   ├── azure.py         # Azure OpenAI service
-│   │   ├── cohere.py        # Cohere models
-│   │   ├── mistral.py       # Mistral models
-│   │   └── local.py         # Local model support
-│   ├── evaluation/          # Evaluation methods
-│   │   ├── metrics.py       # Core metrics
-│   │   ├── custom_evaluators.py # Domain evaluators
-│   │   └── statistical_analysis.py # Stats tools
-│   ├── use_cases/           # Production use cases
-│   │   ├── multi_provider_benchmarking.py
-│   │   ├── cost_optimization.py
-│   │   ├── ab_testing.py
-│   │   ├── custom_evaluation.py
-│   │   ├── fine_tuning.py
-│   │   ├── alignment.py
-│   │   ├── monitoring/      # Monitoring subsystem
-│   │   │   ├── dashboard.py
-│   │   │   ├── metrics_collector.py
-│   │   │   └── alert_manager.py
-│   │   └── reporting.py
-│   └── utils/               # Shared utilities
-│       ├── cost_tracker.py
-│       ├── results_logger.py
-│       └── config_manager.py
-├── examples/                # Example implementations
-│   ├── use_cases/           # Use case examples
-│   │   ├── alignment_demo.py
-│   │   ├── fine_tuning_complete_demo.py
-│   │   ├── monitoring_complete_demo.py
-│   │   └── integrated_workflow_demo.py
-│   ├── custom_prompts/      # Prompt templates
-│   │   ├── alignment_rules.yaml
-│   │   ├── safety_filters.yaml
-│   │   └── monitoring_config.yaml
-│   └── notebooks/           # Jupyter notebooks
-│       └── integrated_workflows.ipynb
-├── benchmarks/              # Benchmark datasets
-│   ├── truthfulness/
-│   ├── gsm8k/
-│   ├── humaneval/
-│   └── custom/
-├── datasets/                # Training datasets
-│   ├── benchmarking/
-│   └── fine-tuning/
-├── models/                  # Model storage
-│   ├── cloud-configs/       # Cloud model configs
-│   └── local-models/        # Local model files
-├── tests/                   # Comprehensive test suite
-│   ├── test_alignment.py
-│   ├── test_fine_tuning.py
-│   ├── test_monitoring.py
-│   ├── test_integrated_workflows.py
-│   └── ... (40+ test files)
-├── docs/                    # Documentation
-│   ├── guides/              # How-to guides
-│   │   ├── USE_CASE_*.md   # Use case guides
-│   │   └── README.md        # Guide index
-│   ├── api/                 # API documentation
-│   └── architecture/        # System design docs
-├── templates/               # Report templates
-│   ├── email/
-│   └── pdf/
-├── .github/                 # GitHub configuration
-│   └── workflows/
-├── docker/                  # Docker configurations
-│   ├── Dockerfile
-│   └── docker-compose.yml
-├── requirements.txt         # Core dependencies
-├── requirements-dev.txt     # Development deps
-├── requirements-gpu.txt     # GPU/ML deps
-├── pyproject.toml          # Project config
-├── .env.example            # Environment template
-└── README.md               # This file
+├── src/                        # Core source code
+│   ├── providers/              # LLM provider implementations
+│   │   ├── base.py            # Base provider interface
+│   │   ├── openai.py          # OpenAI implementation
+│   │   ├── anthropic.py       # Anthropic implementation
+│   │   ├── google.py          # Google implementation
+│   │   └── local/             # Local model support
+│   │       ├── unified_provider.py
+│   │       └── backends/      # Ollama, Transformers, llama.cpp
+│   ├── benchmarks/            # Benchmarking system
+│   │   ├── integrated_runner.py
+│   │   └── local_model_runner.py
+│   ├── evaluation/            # Evaluation framework
+│   │   ├── improved_evaluation.py
+│   │   └── local_model_metrics.py
+│   ├── config/                # Configuration management
+│   │   ├── settings.py        # Pydantic settings
+│   │   ├── wizard.py          # Interactive setup
+│   │   └── manager.py         # Config management
+│   ├── di/                    # Dependency injection
+│   │   ├── container.py       # DI container
+│   │   ├── factories.py       # Object factories
+│   │   └── services.py        # Service layer
+│   ├── types/                 # Type system
+│   │   ├── protocols.py       # Protocol definitions
+│   │   ├── generics.py        # Generic types
+│   │   └── core.py            # Core types
+│   └── use_cases/             # Production use cases
+│       ├── fine_tuning/       # Fine-tuning platform
+│       │   ├── api/           # FastAPI backend
+│       │   ├── web/           # Next.js frontend
+│       │   └── deployment/    # Deployment configs
+│       ├── visual_analytics/  # Visual analysis tools
+│       ├── monitoring/        # Monitoring system
+│       └── alignment/         # Safety alignment
+├── models/                    # Model storage
+│   └── small-llms/           # Local model zoo
+│       ├── pythia-70m/       # Tiny models (70-160M)
+│       ├── smollm-135m/      # Small models (135-360M)
+│       ├── qwen-0.5b/        # Medium models (0.5-1B)
+│       └── assessments/      # Performance reports
+├── datasets/                  # Dataset storage
+│   ├── benchmarking/         # Evaluation datasets
+│   └── fine-tuning/          # Training datasets
+├── docs/                      # Documentation
+│   ├── conf.py               # Sphinx configuration
+│   ├── api/                  # API documentation
+│   ├── guides/               # User guides
+│   └── notebooks/            # Jupyter tutorials
+├── tests/                     # Test suite
+│   ├── unit/                 # Unit tests
+│   ├── integration/          # Integration tests
+│   └── e2e/                  # End-to-end tests
+└── scripts/                   # Utility scripts
+    ├── setup.sh              # Automated setup
+    └── verification/         # Verification tools
 ```
 
-### 🗂️ Asset Organization
+### Technology Stack
 
-- **Sample files**: Small example files are included in the repository for testing
-- **Large files**: Models (GB-sized) and full datasets are downloaded via `download_assets.py`
-- **Ignore patterns**: Large files are gitignored to keep the repository lightweight
+- **Backend**: FastAPI, Pydantic, SQLAlchemy
+- **Frontend**: Next.js, React, TypeScript, TailwindCSS
+- **ML/AI**: Transformers, PyTorch, Ollama, llama.cpp
+- **Testing**: Pytest, Coverage.py, Mypy
+- **Documentation**: Sphinx, MkDocs, Jupyter
+- **Monitoring**: Grafana, Prometheus, OpenTelemetry
+- **Deployment**: Docker, Kubernetes, GitHub Actions
+
+## 🎮 Use Cases
+
+### 1. Local Model Development
+
+Perfect for development and experimentation without API costs:
+
+```python
+from src.providers.local import UnifiedLocalProvider
+
+# Initialize local provider
+provider = UnifiedLocalProvider(
+    backend="ollama",  # or "transformers", "llamacpp"
+    model_name="llama3.2:1b"
+)
+
+# Generate text
+response = provider.generate("Explain quantum computing in simple terms")
+print(response)
+```
+
+### 2. Fine-Tuning Studio
+
+Web-based interface for model fine-tuning:
+
+```python
+# Use the API programmatically
+from src.use_cases.fine_tuning.api import FineTuningClient
+
+client = FineTuningClient()
+job = client.create_fine_tuning_job(
+    base_model="gpt-3.5-turbo",
+    training_data="data/training.jsonl",
+    hyperparameters={"epochs": 3, "learning_rate": 2e-5}
+)
+```
+
+### 3. Visual Model Comparison
+
+Compare responses across models visually:
+
+```python
+from src.use_cases.visual_analytics import ResponseAnalyzer
+
+analyzer = ResponseAnalyzer()
+comparison = analyzer.compare_models(
+    prompt="What is consciousness?",
+    models=["gpt-4o", "claude-3.5", "llama3.2:1b"],
+    visualize=True
+)
+```
+
+### 4. Cost-Optimized Deployment
+
+Find the best model for your budget:
+
+```python
+from src.use_cases.cost_optimization import CostOptimizer
+
+optimizer = CostOptimizer()
+recommendation = optimizer.recommend(
+    required_accuracy=0.9,
+    max_latency_ms=500,
+    monthly_budget=1000,
+    expected_requests=100000
+)
+```
+
+### 5. A/B Testing
+
+Test models in production:
+
+```python
+from src.use_cases.ab_testing import ABTestRunner
+
+runner = ABTestRunner()
+results = runner.run_test(
+    control_model="gpt-3.5-turbo",
+    treatment_model="llama3.2:1b",
+    test_duration_hours=168,  # 1 week
+    traffic_split=0.5
+)
+```
+
+### 6. Safety Alignment
+
+Implement constitutional AI and safety filters:
+
+```python
+from src.use_cases.alignment import SafetyPipeline
+
+pipeline = SafetyPipeline()
+safe_response = pipeline.generate(
+    prompt=user_input,
+    safety_level="strict",
+    constitutional_rules="rules.yaml"
+)
+```
 
 ## 🧪 Testing
-
-The project includes comprehensive test coverage for all components:
-
-### Running Tests
 
 ```bash
 # Run all tests
 pytest
 
-# Run specific test categories
-pytest tests/test_alignment.py      # Alignment tests
-pytest tests/test_fine_tuning.py    # Fine-tuning tests
-pytest tests/test_monitoring.py     # Monitoring tests
-pytest tests/test_integrated_workflows.py  # Integration tests
-
-# Run with coverage report
-pytest --cov=. --cov-report=html --cov-report=term
-
-# Run only fast tests (skip integration)
-pytest -m "not integration"
-
-# Run with specific provider
-pytest --provider=openai
-```
-
-### Test Categories
-
-- **Unit Tests**: Individual component testing
-- **Integration Tests**: Multi-component workflows
-- **Performance Tests**: Latency and throughput benchmarks
-- **Safety Tests**: Alignment and filter validation
-- **Mock Tests**: No API calls required
-
-### Coverage Report
-
-```bash
-# Generate and view coverage report
+# Run with coverage
 pytest --cov=src --cov-report=html
-open htmlcov/index.html  # macOS
-start htmlcov/index.html  # Windows
+
+# Run specific test categories
+pytest tests/unit -v           # Unit tests only
+pytest tests/integration -v    # Integration tests
+pytest tests/e2e -v            # End-to-end tests
+
+# Run with markers
+pytest -m "not slow"           # Skip slow tests
+pytest -m "local"              # Local model tests only
+
+# Type checking
+mypy src/
+
+# Code quality
+ruff check .
+ruff format .
 ```
 
-Current coverage: 95%+ across all modules
+## 📊 Benchmarking Results
 
-## 🔧 Development
+### Small Model Performance (M3 MacBook Pro)
 
-### Quick Start Development Guide
+| Model | Size | Speed (tok/s) | Quality | Memory |
+|-------|------|---------------|---------|--------|
+| Pythia-70M | 280MB | 50-70 | Basic | 0.5GB |
+| SmolLM-135M | 270MB | 30-50 | Good | 0.8GB |
+| Qwen-0.5B | 1GB | 15-30 | Better | 1.5GB |
+| Llama3.2-1B | 700MB | 10-20 | Excellent | 2GB |
 
-```bash
-# Install development dependencies
-pip install -r requirements-dev.txt
+### Provider Comparison
 
-# Set up pre-commit hooks
-pre-commit install
+| Provider | Models | Cost | Latency | Rate Limits |
+|----------|--------|------|---------|-------------|
+| OpenAI | GPT-4, GPT-3.5 | $$$ | Low | 10K RPM |
+| Anthropic | Claude 3.5 | $$$ | Low | 4K RPM |
+| Google | Gemini 1.5 | $$ | Medium | 60 RPM |
+| Local | Various | Free | Varies | Unlimited |
 
-# Run code quality checks
-make lint
-make format
-make type-check
+## 🚀 Deployment
 
-# Run all checks before committing
-make check-all
-```
-
-### Adding New Features
-
-#### New LLM Provider
-
-1. Extend `BaseProvider` in `src/llm_providers/base.py`
-2. Implement required methods:
-   - `generate()` - Text generation
-   - `get_model_info()` - Model metadata
-   - `estimate_cost()` - Cost calculation
-3. Add provider configuration to `config.yaml`
-4. Write tests in `tests/test_providers/`
-
-#### New Evaluation Method
-
-1. Create evaluator in `src/evaluation/custom_evaluators.py`
-2. Implement `evaluate()` method returning scores
-3. Register in `EVALUATOR_REGISTRY`
-4. Add example usage to documentation
-
-#### New Use Case
-
-1. Create script in `src/use_cases/`
-2. Add corresponding guide in `docs/guides/`
-3. Include example in `examples/use_cases/`
-4. Write comprehensive tests
-
-### Code Quality Standards
-
-- **Type Hints**: All functions must have type annotations
-- **Docstrings**: Google-style docstrings required
-- **Testing**: Minimum 90% coverage for new code
-- **Linting**: Pass all ruff and mypy checks
-- **Documentation**: Update relevant docs with changes
-
-## 🚀 Advanced Features
-
-### Production Deployment
-
-#### Docker Deployment
+### Docker
 
 ```bash
 # Build and run with Docker
 docker build -t llm-lab .
 docker run -p 8080:8080 --env-file .env llm-lab
 
-# Using docker-compose for full stack
+# Using docker-compose
 docker-compose up -d
 ```
 
-#### Kubernetes Deployment
+### Kubernetes
 
-```yaml
-# See kubernetes/ directory for manifests
+```bash
+# Deploy to Kubernetes
 kubectl apply -f kubernetes/
+
+# Scale deployments
+kubectl scale deployment llm-lab --replicas=3
 ```
 
-#### Monitoring Stack
+### GitHub Actions CI/CD
 
-- **Grafana Dashboards**: Pre-built dashboards for all metrics
-- **Prometheus Integration**: Metrics export in Prometheus format
-- **Custom Alerts**: Slack, Email, PagerDuty, SMS support
-- **SLA Tracking**: Automated compliance reporting
+The project includes comprehensive CI/CD pipelines:
+- Automated testing on all PRs
+- Documentation building and deployment
+- Docker image building and pushing
+- Performance regression detection
 
-### Enterprise Features
+## 📚 Documentation
 
-#### Multi-Tenancy
+- **[Quick Start Guide](docs/getting_started/README.md)** - Get up and running quickly
+- **[API Reference](docs/api/)** - Complete API documentation
+- **[Architecture Guide](docs/architecture/)** - System design and patterns
+- **[Use Case Guides](docs/guides/)** - Detailed tutorials for each use case
+- **[Configuration Reference](docs/CONFIGURATION.md)** - All configuration options
+- **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and solutions
 
-```python
-# Configure tenant isolation
-config = {
-    "tenants": {
-        "team-a": {"models": ["gpt-4"], "budget": 1000},
-        "team-b": {"models": ["claude-3-5"], "budget": 2000}
-    }
-}
+### Interactive Documentation
+
+```bash
+# Launch documentation server
+cd docs && make livehtml
+# Open http://localhost:8000
+
+# Run Jupyter tutorials
+jupyter notebook docs/notebooks/
 ```
-
-#### Compliance & Security
-
-- **Data Encryption**: At-rest and in-transit
-- **Audit Logging**: Complete activity tracking
-- **PII Detection**: Automatic redaction
-- **HIPAA/GDPR**: Compliance templates included
-
-#### High Availability
-
-- **Load Balancing**: Automatic request distribution
-- **Failover**: Multi-region support
-- **Caching**: Response caching with TTL
-- **Rate Limiting**: Per-tenant and global limits
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
-### Development Process
+### Development Setup
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes following our code standards
-4. Write/update tests (maintain 90%+ coverage)
-5. Update documentation
-6. Run `make check-all` to ensure quality
-7. Commit your changes (`git commit -m 'Add amazing feature'`)
-8. Push to the branch (`git push origin feature/amazing-feature`)
-9. Open a Pull Request with a detailed description
+```bash
+# Install dev dependencies
+pip install -r requirements-dev.txt
+
+# Setup pre-commit hooks
+pre-commit install
+
+# Run code quality checks
+make lint
+make format
+make type-check
+```
 
 ### Areas for Contribution
 
-- 🌟 New LLM provider integrations
+- 🌟 New provider integrations
 - 📊 Additional benchmark datasets
 - 🔧 Performance optimizations
 - 📚 Documentation improvements
 - 🌍 Internationalization
 - 🧪 Test coverage expansion
+- 🎨 UI/UX improvements
 
-## 📚 Resources
+## 📄 License
 
-### Documentation
-
-- [Full Documentation](docs/README.md)
-- [API Reference](docs/api/README.md) *(coming soon)*
-- [Architecture Guide](docs/architecture/README.md) *(coming soon)*
-- [Use Case Guides](docs/guides/README.md)
-
-### Support
-
-- [Issue Tracker](https://github.com/remyolson/llm-lab/issues)
-- [GitHub Discussions](https://github.com/remyolson/llm-lab/discussions)
-
-### Related Projects
-
-- [LangChain](https://github.com/hwchase17/langchain) - LLM application framework
-- [LlamaIndex](https://github.com/jerryjliu/llama_index) - Data framework for LLMs
-- [Haystack](https://github.com/deepset-ai/haystack) - NLP framework
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see [LICENSE](LICENSE) for details.
 
 ## 🙏 Acknowledgments
 
-- OpenAI, Anthropic, Google, and other LLM providers for their APIs
-- The open-source community for invaluable tools and libraries
-- Contributors and users who help improve LLM Lab
-- Research papers and benchmarks that inform our evaluations
+- OpenAI, Anthropic, Google, and all LLM providers for their APIs
+- The Ollama team for local model runtime
+- Hugging Face for model hosting and tools
+- The open-source community for invaluable contributions
 
-## 📊 Project Status
+## 📞 Support
 
-![GitHub Stars](https://img.shields.io/github/stars/remyolson/llm-lab)
-![GitHub Forks](https://img.shields.io/github/forks/remyolson/llm-lab)
-![License](https://img.shields.io/github/license/remyolson/llm-lab)
-![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
-![Coverage](https://img.shields.io/badge/coverage-95%25-brightgreen)
+- **Issues**: [GitHub Issues](https://github.com/remyolson/llm-lab/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/remyolson/llm-lab/discussions)
+- **Documentation**: [Full Docs](https://remyolson.github.io/llm-lab)
+
+## 🏆 Project Status
+
+- **Version**: 2.0.0
+- **Status**: Active Development
+- **Coverage**: 95%+
+- **Python**: 3.9+
+- **Last Updated**: December 2024
 
 ---
 
-Built with ❤️ by the LLM Lab Team
+<div align="center">
+
+**Built with ❤️ by the LLM Lab Team**
+
+[Website](https://llm-lab.dev) • [Documentation](https://docs.llm-lab.dev) • [Blog](https://blog.llm-lab.dev)
+
+</div>
