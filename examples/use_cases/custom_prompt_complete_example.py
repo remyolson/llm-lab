@@ -7,8 +7,6 @@ with all the implemented components working together.
 """
 
 import json
-from datetime import datetime
-from pathlib import Path
 
 print("=" * 70)
 print("COMPLETE CUSTOM PROMPT SYSTEM EXAMPLE")
@@ -103,12 +101,12 @@ print("""
 # Create custom metrics for technical content
 def technical_depth_metric(response: str, **kwargs) -> dict:
     # Count technical terms
-    tech_terms = ['algorithm', 'function', 'variable', 'loop', 'condition', 
+    tech_terms = ['algorithm', 'function', 'variable', 'loop', 'condition',
                   'stack', 'base case', 'recursive call']
-    
+
     term_count = sum(1 for term in tech_terms if term.lower() in response.lower())
     total_words = len(response.split())
-    
+
     return {
         "technical_terms": term_count,
         "technical_density": term_count / total_words if total_words > 0 else 0
@@ -186,7 +184,7 @@ all_results = []
 for topic in topics:
     # Check cache first
     cached = storage.check_cache(template.template_str, {"topic": topic, **base_vars})
-    
+
     if cached:
         all_results.append(cached)
     else:
@@ -196,7 +194,7 @@ for topic in topics:
             models=["gpt-4", "claude-3"],
             template_variables={"topic": topic, **base_vars}
         )
-        
+
         custom_result = CustomPromptResult.from_execution_result(result)
         storage.save(custom_result)
         all_results.append(custom_result)
@@ -212,7 +210,7 @@ summary = {
     "topics_analyzed": len(topics),
     "total_responses": sum(len(r.responses) for r in all_results),
     "average_coherence": statistics.mean([
-        m.get('coherence', {}).get('mean', 0) 
+        m.get('coherence', {}).get('mean', 0)
         for m in topic_metrics.values()
     ])
 }
@@ -236,19 +234,19 @@ results_b = []
 for i in range(5):  # Multiple runs for statistical significance
     result_a = runner.run_single(prompt_a, "gpt-4", {"topic": "recursion"})
     result_b = runner.run_single(prompt_b, "gpt-4", {"topic": "recursion"})
-    
+
     if result_a.success:
         metrics_a = metrics.evaluate(result_a.response)
         results_a.append(metrics_a)
-    
+
     if result_b.success:
         metrics_b = metrics.evaluate(result_b.response)
         results_b.append(metrics_b)
 
 # Compare results
-print("Prompt A - Average coherence:", 
+print("Prompt A - Average coherence:",
       statistics.mean([r['coherence']['value']['score'] for r in results_a]))
-print("Prompt B - Average coherence:", 
+print("Prompt B - Average coherence:",
       statistics.mean([r['coherence']['value']['score'] for r in results_b]))
 """)
 
@@ -259,10 +257,7 @@ print("-" * 40)
 example_output = {
     "execution_id": "20240804_143022_gpt-4",
     "prompt_template": "Explain {topic} in {style} terms",
-    "template_variables": {
-        "topic": "recursion",
-        "style": "simple"
-    },
+    "template_variables": {"topic": "recursion", "style": "simple"},
     "responses": [
         {
             "model": "gpt-4",
@@ -272,15 +267,15 @@ example_output = {
             "metrics": {
                 "response_length": {"words": 150, "sentences": 8},
                 "sentiment": {"score": 0.2, "label": "neutral"},
-                "coherence": {"score": 0.89}
-            }
+                "coherence": {"score": 0.89},
+            },
         }
     ],
     "aggregated_metrics": {
         "response_length": {"mean": 145, "std": 12},
         "coherence": {"mean": 0.87, "std": 0.05},
-        "diversity": {"score": 0.72}
-    }
+        "diversity": {"score": 0.72},
+    },
 }
 
 print("Example output structure:")

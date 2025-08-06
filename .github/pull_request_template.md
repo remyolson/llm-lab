@@ -16,17 +16,17 @@ Fixes #(issue number)
 
 ## Changes Made
 <!-- List the specific changes made in this PR -->
-- 
-- 
-- 
+-
+-
+-
 
 ## Testing
 <!-- Describe the tests you ran to verify your changes -->
 - [ ] All existing tests pass
 - [ ] Added new tests for the changes
 - [ ] Tested manually with the following scenarios:
-  - 
-  - 
+  -
+  -
 
 ## Performance Impact
 <!-- Describe any performance implications of your changes -->

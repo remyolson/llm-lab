@@ -32,7 +32,7 @@ Running [full operation description] with different [models/providers/settings]:
 
 - **[Provider 2]**:
   - `[model-1]`: ~$[X.XX]
-  - `[model-2]`: ~$[X.XX]  
+  - `[model-2]`: ~$[X.XX]
   - **Free tier eligible**: [Yes/details]
 
 - **[Provider 3]**:
@@ -57,7 +57,7 @@ Choose the right [option/dataset/approach] based on what [capability/outcome] yo
 ### 🎯 **[Selection] Guide:**
 
 - **🔍 For [use case A]:** Start with `[option-1]` and `[option-2]`
-- **🧮 For [use case B]:** Use `[option-3]`  
+- **🧮 For [use case B]:** Use `[option-3]`
 - **🎓 For [use case C]:** Choose `[option-4]`
 - **🌍 For [use case D]:** Test with `[option-5]`
 - **📊 For comprehensive assessment:** Run all [options] with `--limit [N]` first
@@ -122,7 +122,7 @@ command \
   --option [option-2] \
   --limit [N]
 
-# Compare on [another capability]  
+# Compare on [another capability]
 command \
   --[param] [choice-A],[choice-B],[choice-C] \
   --option [option-3] \
@@ -198,7 +198,7 @@ command --all-[param] --option [option-3] --limit [small-N]
 ### Key Metrics Explained
 
 1. **[Primary Metric]**: [Percentage/score meaning and calculation method]
-2. **[Secondary Metric]**: [Count or measure and significance]  
+2. **[Secondary Metric]**: [Count or measure and significance]
 3. **[Performance Metric]**: [Time/efficiency measure and importance]
 4. **[Quality Metric]**: [Accuracy/reliability measure]
 
@@ -230,10 +230,10 @@ Different [options/datasets/approaches] reveal different [strengths/capabilities
 
 📈 [Comparison Type]:
 --------------------------------------------------------------------------------
-[Item]                         [Category]     [Score]      [Success]    [Failed]    [Time] 
+[Item]                         [Category]     [Score]      [Success]    [Failed]    [Time]
 --------------------------------------------------------------------------------
 [item-1]                       [category]     87.50%     14         2         45.23
-[item-2]                       [category]     81.25%     13         3         23.45  
+[item-2]                       [category]     81.25%     13         3         23.45
 [item-3]                       [category]     75.00%     12         4         34.56
 --------------------------------------------------------------------------------
 ```
@@ -248,7 +248,7 @@ ls -la results/*/YYYY-*/
 
 # View results for specific [categories]
 ls -la results/[category-1]/YYYY-*/   # [Description]
-ls -la results/[category-2]/YYYY-*/   # [Description]  
+ls -la results/[category-2]/YYYY-*/   # [Description]
 ls -la results/[category-3]/YYYY-*/   # [Description]
 ls -la results/[category-4]/YYYY-*/   # [Description]
 ls -la results/[category-5]/YYYY-*/   # [Description]
@@ -264,7 +264,7 @@ cat results/[category]/YYYY-MM/[filename_pattern]
 For development and testing purposes, use the `--limit` flag to process only the first N [items/questions/entries]:
 
 ```bash
-# Test with just [small-N] [items] (very quick) 
+# Test with just [small-N] [items] (very quick)
 command --[param] [choice] --option [option-1] --limit [small-N]
 
 # Quick test across different [option] types
@@ -294,7 +294,7 @@ Choose how [results/responses] are [evaluated/processed] for [accuracy/quality]:
 # [Method 1] ([original/strict] method)
 command --[param] [choice] --option [option-1] --limit [N] --[method-flag] [method-1]
 
-# [Method 2] ([improved/flexible] method) 
+# [Method 2] ([improved/flexible] method)
 command --[param] [choice] --option [option-1] --limit [N] --[method-flag] [method-2]
 
 # [Method 3] ([combined/advanced] approach, default)
@@ -303,7 +303,7 @@ command --[param] [choice] --option [option-1] --limit [N] --[method-flag] [meth
 
 **[Method] Comparison:**
 - **`[method-1]`**: [Description of approach] - [pros/cons] [emoji]
-- **`[method-2]`**: [Description of approach] - [pros/cons] [emoji]  
+- **`[method-2]`**: [Description of approach] - [pros/cons] [emoji]
 - **`[method-3]`**: [Description of approach] - [pros/cons] [emoji] **(Recommended)**
 
 **Results Comparison Example:**
@@ -315,7 +315,7 @@ command --[param] [choice] --option [option-1] --limit [N] --[method-flag] [meth
 ```bash
 # [Operation] every [choice] you have [access to] on different [options]
 command --all-[param] --option [option-1] --limit [N] --parallel
-command --all-[param] --option [option-2] --limit [N] --parallel  
+command --all-[param] --option [option-2] --limit [N] --parallel
 command --all-[param] --option [option-3] --limit [N] --parallel
 
 # Full comparison across all [choices] (expensive but comprehensive)
@@ -366,7 +366,7 @@ command \
 ### Common Issues and Solutions
 
 #### Issue: [Common Problem 1]
-**Solution**: 
+**Solution**:
 ```bash
 # Fix command or steps
 fix_command --option
@@ -415,7 +415,7 @@ Each [component/option/dataset] tests different aspects of [capability/performan
 - [Key characteristic 1]
 - Example: "[Example]"
 
-### [Component 2] ([size/scope])  
+### [Component 2] ([size/scope])
 [Purpose description]:
 - [Key characteristic 1]
 - Example: "[Example]"
@@ -446,7 +446,7 @@ This [system/approach] provides a foundation for:
 
 ## 📚 Additional Resources
 
-- **Provider Documentation**: 
+- **Provider Documentation**:
   - [Provider 1 Guide](../providers/[provider1].md)
   - [Provider 2 Guide](../providers/[provider2].md)
   - [Provider 3 Guide](../providers/[provider3].md)

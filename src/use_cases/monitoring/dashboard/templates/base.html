@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ page_title | default('LLM Monitoring Dashboard') }}{% endblock %}</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <!-- Socket.IO (if websockets enabled) -->
     {% if dashboard_config().enable_websockets %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
     {% endif %}
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-    
+
     {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -32,11 +32,11 @@
                 <i class="fas fa-chart-line me-2"></i>
                 LLM Monitor
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
@@ -64,7 +64,7 @@
                         </a>
                     </li>
                 </ul>
-                
+
                 <ul class="navbar-nav">
                     <!-- Status indicator -->
                     <li class="nav-item">
@@ -74,7 +74,7 @@
                             </span>
                         </span>
                     </li>
-                    
+
                     {% if dashboard_config().enable_auth %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -97,7 +97,7 @@
     <main class="container-fluid mt-4">
         <!-- Alert messages -->
         <div id="alert-container"></div>
-        
+
         {% block content %}{% endblock %}
     </main>
 
@@ -105,7 +105,7 @@
     <footer class="bg-light text-center text-lg-start mt-5">
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             <small class="text-muted">
-                LLM Monitoring Dashboard v1.0.0 | 
+                LLM Monitoring Dashboard v1.0.0 |
                 Environment: {{ dashboard_config().environment }} |
                 Last Updated: <span id="last-updated">{{ current_time() | datetime }}</span>
             </small>
@@ -114,13 +114,13 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- jQuery for convenience -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
-    
+
     {% block extra_js %}{% endblock %}
 </body>
 </html>

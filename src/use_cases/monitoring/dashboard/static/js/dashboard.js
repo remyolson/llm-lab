@@ -1,6 +1,6 @@
 /**
  * Dashboard JavaScript
- * 
+ *
  * Core functionality for the LLM Monitoring Dashboard including
  * real-time updates, chart management, and user interactions.
  */
@@ -11,21 +11,21 @@ const Dashboard = {
     websocket: null,
     refreshTimer: null,
     config: {},
-    
+
     // Initialize dashboard
     init: function() {
         this.loadConfig();
         this.setupEventHandlers();
         this.initializeCharts();
         this.startRefreshTimer();
-        
+
         if (this.config.enable_websockets) {
             this.initializeWebSocket();
         }
-        
+
         console.log('Dashboard initialized');
     },
-    
+
     // Load dashboard configuration
     loadConfig: function() {
         fetch('/api/v1/config')
@@ -39,21 +39,21 @@ const Dashboard = {
                 this.showNotification('Failed to load configuration', 'error');
             });
     },
-    
+
     // Set up event handlers
     setupEventHandlers: function() {
         // Refresh button
         document.getElementById('refresh-btn')?.addEventListener('click', () => {
             this.refreshDashboard();
         });
-        
+
         // Time range buttons
         document.querySelectorAll('[data-timerange]').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 this.setTimeRange(e.target.dataset.timerange);
             });
         });
-        
+
         // Export buttons
         document.querySelectorAll('[data-export]').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -61,12 +61,12 @@ const Dashboard = {
                 this.exportData(e.target.dataset.export);
             });
         });
-        
+
         // Settings button
         document.getElementById('settings-btn')?.addEventListener('click', () => {
             this.showSettings();
         });
-        
+
         // Handle visibility change for performance
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
@@ -75,7 +75,7 @@ const Dashboard = {
                 this.resumeUpdates();
             }
         });
-        
+
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey || e.metaKey) {
@@ -92,18 +92,18 @@ const Dashboard = {
             }
         });
     },
-    
+
     // Initialize charts
     initializeCharts: function() {
         this.createPerformanceChart();
         this.createCostChart();
     },
-    
+
     // Create performance chart
     createPerformanceChart: function() {
         const ctx = document.getElementById('performance-chart');
         if (!ctx) return;
-        
+
         this.charts.performance = new Chart(ctx, {
             type: 'line',
             data: {
@@ -187,12 +187,12 @@ const Dashboard = {
             }
         });
     },
-    
+
     // Create cost chart
     createCostChart: function() {
         const ctx = document.getElementById('cost-chart');
         if (!ctx) return;
-        
+
         this.charts.cost = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -231,7 +231,7 @@ const Dashboard = {
             }
         });
     },
-    
+
     // Start refresh timer
     startRefreshTimer: function() {
         const interval = (this.config.monitoring?.refresh_interval || 30) * 1000;
@@ -241,7 +241,7 @@ const Dashboard = {
             }
         }, interval);
     },
-    
+
     // Stop refresh timer
     stopRefreshTimer: function() {
         if (this.refreshTimer) {
@@ -249,19 +249,19 @@ const Dashboard = {
             this.refreshTimer = null;
         }
     },
-    
+
     // Refresh dashboard data
     refreshDashboard: function() {
         const refreshBtn = document.getElementById('refresh-btn');
         if (refreshBtn) {
             const icon = refreshBtn.querySelector('i');
             icon?.classList.add('fa-spin');
-            
+
             setTimeout(() => {
                 icon?.classList.remove('fa-spin');
             }, 1000);
         }
-        
+
         this.loadOverviewMetrics();
         this.loadPerformanceData();
         this.loadCostData();
@@ -269,7 +269,7 @@ const Dashboard = {
         this.loadRecentAlerts();
         this.updateLastRefreshed();
     },
-    
+
     // Load overview metrics
     loadOverviewMetrics: function() {
         fetch('/api/v1/metrics/overview')
@@ -284,7 +284,7 @@ const Dashboard = {
                 this.showNotification('Failed to load metrics', 'error');
             });
     },
-    
+
     // Update overview metrics display
     updateOverviewMetrics: function(data) {
         const elements = {
@@ -293,7 +293,7 @@ const Dashboard = {
             'avg-latency': this.formatDuration(data.avg_latency),
             'total-cost': this.formatCurrency(data.total_cost)
         };
-        
+
         Object.entries(elements).forEach(([id, value]) => {
             const element = document.getElementById(id);
             if (element) {
@@ -302,18 +302,18 @@ const Dashboard = {
                 setTimeout(() => element.classList.remove('metric-update'), 1000);
             }
         });
-        
+
         // Update uptime
         const uptimeElement = document.getElementById('uptime');
         if (uptimeElement && data.uptime) {
             uptimeElement.textContent = this.formatDuration(data.uptime);
         }
     },
-    
+
     // Load performance data
     loadPerformanceData: function() {
         const timerange = document.querySelector('[data-timerange].active')?.dataset.timerange || '1h';
-        
+
         fetch(`/api/v1/metrics/performance?timerange=${timerange}`)
             .then(response => response.json())
             .then(data => {
@@ -323,37 +323,37 @@ const Dashboard = {
                 console.error('Failed to load performance data:', error);
             });
     },
-    
+
     // Update performance chart
     updatePerformanceChart: function(data) {
         if (!this.charts.performance || !data.time_series) return;
-        
+
         const chart = this.charts.performance;
-        
+
         // Sample data for demonstration
         const now = new Date();
         const labels = [];
         const latencyData = [];
         const requestData = [];
-        
+
         for (let i = 23; i >= 0; i--) {
             const time = new Date(now.getTime() - i * 60000);
-            labels.push(time.toLocaleTimeString('en-US', { 
-                hour: '2-digit', 
-                minute: '2-digit' 
+            labels.push(time.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
             }));
-            
+
             // Generate sample data
             latencyData.push(Math.random() * 500 + 200);
             requestData.push(Math.random() * 100 + 50);
         }
-        
+
         chart.data.labels = labels;
         chart.data.datasets[0].data = latencyData;
         chart.data.datasets[1].data = requestData;
         chart.update('none');
     },
-    
+
     // Load cost data
     loadCostData: function() {
         fetch('/api/v1/metrics/costs')
@@ -365,13 +365,13 @@ const Dashboard = {
                 console.error('Failed to load cost data:', error);
             });
     },
-    
+
     // Update cost chart
     updateCostChart: function(data) {
         if (!this.charts.cost) return;
-        
+
         const chart = this.charts.cost;
-        
+
         // Sample data for demonstration
         const costData = [
             Math.random() * 50 + 10,  // OpenAI
@@ -379,16 +379,16 @@ const Dashboard = {
             Math.random() * 20 + 2,   // Google
             Math.random() * 15 + 1    // Other
         ];
-        
+
         chart.data.datasets[0].data = costData;
         chart.update('none');
     },
-    
+
     // Load provider comparison
     loadProviderComparison: function() {
         const tbody = document.querySelector('#provider-comparison-table tbody');
         if (!tbody) return;
-        
+
         // Sample data for demonstration
         const providers = [
             {
@@ -419,7 +419,7 @@ const Dashboard = {
                 status: 'online'
             }
         ];
-        
+
         tbody.innerHTML = providers.map(p => `
             <tr>
                 <td><strong>${p.provider}</strong></td>
@@ -432,7 +432,7 @@ const Dashboard = {
             </tr>
         `).join('');
     },
-    
+
     // Load recent alerts
     loadRecentAlerts: function() {
         fetch('/api/v1/alerts')
@@ -444,17 +444,17 @@ const Dashboard = {
                 console.error('Failed to load alerts:', error);
             });
     },
-    
+
     // Update alerts display
     updateAlertsDisplay: function(data) {
         const alertsList = document.getElementById('alerts-list');
         const alertCount = document.getElementById('alert-count');
-        
+
         if (!alertsList || !alertCount) return;
-        
+
         const totalAlerts = (data.active_alerts?.length || 0);
         alertCount.textContent = totalAlerts;
-        
+
         if (totalAlerts === 0) {
             alertCount.className = 'badge bg-success';
             alertsList.innerHTML = `
@@ -474,80 +474,80 @@ const Dashboard = {
             `;
         }
     },
-    
+
     // Set time range
     setTimeRange: function(range) {
         document.querySelectorAll('[data-timerange]').forEach(btn => {
             btn.classList.remove('active');
         });
-        
+
         document.querySelector(`[data-timerange="${range}"]`)?.classList.add('active');
         this.loadPerformanceData();
     },
-    
+
     // Export data
     exportData: function(format) {
         this.showNotification(`Exporting data as ${format.toUpperCase()}...`, 'info');
-        
+
         // Placeholder for export functionality
         setTimeout(() => {
             this.showNotification(`Export as ${format.toUpperCase()} will be available soon`, 'warning');
         }, 1000);
     },
-    
+
     // Show settings modal
     showSettings: function() {
         this.showNotification('Settings panel will be available soon', 'info');
     },
-    
+
     // Initialize WebSocket connection
     initializeWebSocket: function() {
         if (typeof io === 'undefined') {
             console.warn('Socket.IO not available, WebSocket disabled');
             return;
         }
-        
+
         this.websocket = io();
-        
+
         this.websocket.on('connect', () => {
             console.log('WebSocket connected');
             this.updateConnectionStatus(true);
             this.websocket.emit('subscribe_metrics', { metric_type: 'overview' });
         });
-        
+
         this.websocket.on('disconnect', () => {
             console.log('WebSocket disconnected');
             this.updateConnectionStatus(false);
         });
-        
+
         this.websocket.on('metrics_update', (data) => {
             console.log('Received metrics update:', data);
             if (data.type === 'overview') {
                 this.updateOverviewMetrics(data.data);
             }
         });
-        
+
         this.websocket.on('alert_notification', (alert) => {
             this.showNotification(alert.message, alert.severity);
             this.loadRecentAlerts();
         });
     },
-    
+
     // Update connection status
     updateConnectionStatus: function(connected) {
         const statusBadge = document.getElementById('connection-status');
         const wsStatus = document.getElementById('ws-status');
         const apiStatus = document.getElementById('api-status');
-        
+
         if (connected) {
             statusBadge?.classList.remove('bg-danger');
             statusBadge?.classList.add('bg-success');
             statusBadge?.innerHTML = '<i class="fas fa-circle me-1"></i>Connected';
-            
+
             wsStatus?.classList.remove('bg-danger');
             wsStatus?.classList.add('bg-success');
             wsStatus?.textContent = 'Connected';
-            
+
             apiStatus?.classList.remove('bg-danger');
             apiStatus?.classList.add('bg-success');
             apiStatus?.textContent = 'Online';
@@ -555,17 +555,17 @@ const Dashboard = {
             statusBadge?.classList.remove('bg-success');
             statusBadge?.classList.add('bg-danger');
             statusBadge?.innerHTML = '<i class="fas fa-circle me-1"></i>Disconnected';
-            
+
             wsStatus?.classList.remove('bg-success');
             wsStatus?.classList.add('bg-danger');
             wsStatus?.textContent = 'Disconnected';
-            
+
             apiStatus?.classList.remove('bg-success');
             apiStatus?.classList.add('bg-danger');
             apiStatus?.textContent = 'Offline';
         }
     },
-    
+
     // Update last refreshed timestamp
     updateLastRefreshed: function() {
         const element = document.getElementById('last-updated');
@@ -574,7 +574,7 @@ const Dashboard = {
             element.textContent = now.toISOString().replace('T', ' ').substr(0, 19) + ' UTC';
         }
     },
-    
+
     // Pause updates when tab is hidden
     pauseUpdates: function() {
         this.stopRefreshTimer();
@@ -582,7 +582,7 @@ const Dashboard = {
             this.websocket.disconnect();
         }
     },
-    
+
     // Resume updates when tab is visible
     resumeUpdates: function() {
         this.startRefreshTimer();
@@ -590,19 +590,19 @@ const Dashboard = {
             this.initializeWebSocket();
         }
     },
-    
+
     // Show notification
     showNotification: function(message, type = 'info') {
         const container = document.getElementById('alert-container');
         if (!container) return;
-        
+
         const alertClass = {
             'success': 'alert-success',
             'error': 'alert-danger',
             'warning': 'alert-warning',
             'info': 'alert-info'
         }[type] || 'alert-info';
-        
+
         const alertId = 'alert-' + Date.now();
         const alertHtml = `
             <div id="${alertId}" class="alert ${alertClass} alert-dismissible fade show" role="alert">
@@ -610,9 +610,9 @@ const Dashboard = {
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         `;
-        
+
         container.insertAdjacentHTML('beforeend', alertHtml);
-        
+
         // Auto-dismiss after 5 seconds
         setTimeout(() => {
             const alert = document.getElementById(alertId);
@@ -622,23 +622,23 @@ const Dashboard = {
             }
         }, 5000);
     },
-    
+
     // Utility: Format number
     formatNumber: function(num) {
         if (typeof num !== 'number') return num;
         return new Intl.NumberFormat().format(num);
     },
-    
+
     // Utility: Format duration
     formatDuration: function(seconds) {
         if (typeof seconds !== 'number') return seconds;
-        
+
         if (seconds < 1) return `${(seconds * 1000).toFixed(0)}ms`;
         if (seconds < 60) return `${seconds.toFixed(1)}s`;
         if (seconds < 3600) return `${(seconds / 60).toFixed(1)}m`;
         return `${(seconds / 3600).toFixed(1)}h`;
     },
-    
+
     // Utility: Format currency
     formatCurrency: function(amount) {
         if (typeof amount !== 'number') return amount;
@@ -648,14 +648,14 @@ const Dashboard = {
             minimumFractionDigits: amount < 0.01 ? 4 : 2
         }).format(amount);
     },
-    
+
     // Cleanup on page unload
     cleanup: function() {
         this.stopRefreshTimer();
         if (this.websocket) {
             this.websocket.disconnect();
         }
-        
+
         // Cleanup charts
         Object.values(this.charts).forEach(chart => {
             if (chart && typeof chart.destroy === 'function') {

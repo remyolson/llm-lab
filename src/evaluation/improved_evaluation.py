@@ -5,10 +5,17 @@ This module provides more sophisticated evaluation methods beyond simple keyword
 including fuzzy matching, semantic similarity, and partial phrase matching.
 """
 
-import re
-from typing import Any, Dict, List, Optional
-from difflib import SequenceMatcher
+from __future__ import annotations  # Enable Python 3.9+ union syntax
+
 import logging
+import re
+from datetime import datetime
+from difflib import SequenceMatcher
+from typing import Any, Dict, List, Optional, Tuple
+
+from ..types.evaluation import EvaluationResult, FuzzyMatchResult
+from ..types.generics import GenericEvaluator
+from ..types.protocols import ResultType
 
 # Optional imports for enhanced evaluation
 try:
@@ -27,9 +34,12 @@ def fuzzy_keyword_match(
     expected_keywords: List[str],
     threshold: float = 0.75,
     partial_threshold: float = 0.60,
-) -> Dict[str, Any]:
+) -> "FuzzyMatchResult":
     """
     Enhanced keyword matching using fuzzy string similarity.
+
+    This method orchestrates the fuzzy matching process by delegating to
+    specialized helper functions following the Extract Method pattern.
 
     Args:
         response: The model's generated response text
@@ -39,18 +49,74 @@ def fuzzy_keyword_match(
 
     Returns:
         Dict containing evaluation results with similarity scores
-    """
-    if not response or not expected_keywords:
-        return {
-            "success": False,
-            "score": 0.0,
-            "matched_keywords": [],
-            "partial_matches": [],
-            "method": "fuzzy_keyword_match",
-            "details": {"error": "Empty response or keywords"},
-        }
 
+    Examples:
+        >>> # Exact match
+        >>> result = fuzzy_keyword_match(
+        ...     "Machine learning is a subset of artificial intelligence",
+        ...     ["machine learning", "artificial intelligence"]
+        ... )
+        >>> result['success']
+        True
+        >>> len(result['matched_keywords'])
+        2
+
+        >>> # Fuzzy match with typos
+        >>> result = fuzzy_keyword_match(
+        ...     "Machne learing is powerful",
+        ...     ["machine learning"],
+        ...     threshold=0.8
+        ... )
+        >>> len(result['partial_matches']) > 0
+        True
+
+        >>> # No match
+        >>> result = fuzzy_keyword_match(
+        ...     "Completely unrelated text",
+        ...     ["quantum computing"],
+        ...     threshold=0.9
+        ... )
+        >>> result['success']
+        False
+        >>> result['score']
+        0.0
+    """
+    # Input validation
+    if not response or not expected_keywords:
+        return _create_empty_fuzzy_result("Empty response or keywords")
+
+    # Process keywords and calculate similarities
     response_lower = response.lower().strip()
+    matched_keywords, partial_matches, similarity_scores = _process_keywords(
+        response_lower, expected_keywords, threshold, partial_threshold
+    )
+
+    # Calculate final results
+    return _calculate_fuzzy_results(
+        matched_keywords, partial_matches, similarity_scores, threshold, partial_threshold
+    )
+
+
+def _create_empty_fuzzy_result(error_message: str) -> Dict[str | Any]:
+    """Create an empty result for fuzzy matching when validation fails."""
+    return {
+        "success": False,
+        "score": 0.0,
+        "matched_keywords": [],
+        "partial_matches": [],
+        "method": "fuzzy_keyword_match",
+        "details": {"error": error_message},
+    }
+
+
+def _process_keywords(
+    response_lower: str, expected_keywords: List[str], threshold: float, partial_threshold: float
+) -> tuple:
+    """Process each keyword and categorize matches.
+
+    Returns:
+        Tuple of (matched_keywords, partial_matches, similarity_scores)
+    """
     matched_keywords = []
     partial_matches = []
     similarity_scores = []
@@ -60,46 +126,66 @@ def fuzzy_keyword_match(
             continue
 
         keyword_lower = keyword.lower().strip()
-        best_score = 0.0
-        best_match_text = ""
+        best_score = _calculate_keyword_similarity(keyword_lower, response_lower)
 
-        # Method 1: Check if keyword appears as substring (high weight)
-        if keyword_lower in response_lower:
-            best_score = 1.0
-            best_match_text = keyword
-        else:
-            # Method 2: Fuzzy matching with sliding window
-            if FUZZYWUZZY_AVAILABLE:
-                # Try different fuzzy matching approaches
-                scores = [
-                    fuzz.partial_ratio(keyword_lower, response_lower) / 100.0,
-                    fuzz.token_sort_ratio(keyword_lower, response_lower) / 100.0,
-                    fuzz.token_set_ratio(keyword_lower, response_lower) / 100.0,
-                ]
-                best_score = max(scores)
-            else:
-                # Fallback: Basic similarity matching
-                best_score = SequenceMatcher(None, keyword_lower, response_lower).ratio()
-
-            best_match_text = keyword
-
-        # Categorize matches
-        if best_score >= threshold:
-            matched_keywords.append(
-                {
-                    "keyword": keyword,
-                    "score": best_score,
-                    "match_type": "exact" if best_score >= 0.95 else "fuzzy",
-                }
-            )
-        elif best_score >= partial_threshold:
-            partial_matches.append(
-                {"keyword": keyword, "score": best_score, "match_type": "partial"}
-            )
+        # Categorize matches based on score
+        _categorize_match(
+            keyword, best_score, threshold, partial_threshold, matched_keywords, partial_matches
+        )
 
         similarity_scores.append(best_score)
 
-    # Calculate overall success and score
+    return matched_keywords, partial_matches, similarity_scores
+
+
+def _calculate_keyword_similarity(keyword_lower: str, response_lower: str) -> float:
+    """Calculate similarity score between keyword and response."""
+    # Method 1: Check if keyword appears as substring (high weight)
+    if keyword_lower in response_lower:
+        return 1.0
+
+    # Method 2: Fuzzy matching
+    if FUZZYWUZZY_AVAILABLE:
+        scores = [
+            fuzz.partial_ratio(keyword_lower, response_lower) / 100.0,
+            fuzz.token_sort_ratio(keyword_lower, response_lower) / 100.0,
+            fuzz.token_set_ratio(keyword_lower, response_lower) / 100.0,
+        ]
+        return max(scores)
+    else:
+        # Fallback: Basic similarity matching
+        return SequenceMatcher(None, keyword_lower, response_lower).ratio()
+
+
+def _categorize_match(
+    keyword: str,
+    score: float,
+    threshold: float,
+    partial_threshold: float,
+    matched_keywords: List[Dict],
+    partial_matches: List[Dict],
+) -> None:
+    """Categorize a keyword match based on its similarity score."""
+    if score >= threshold:
+        matched_keywords.append(
+            {
+                "keyword": keyword,
+                "score": score,
+                "match_type": "exact" if score >= 0.95 else "fuzzy",
+            }
+        )
+    elif score >= partial_threshold:
+        partial_matches.append({"keyword": keyword, "score": score, "match_type": "partial"})
+
+
+def _calculate_fuzzy_results(
+    matched_keywords: List[Dict],
+    partial_matches: List[Dict],
+    similarity_scores: List[float],
+    threshold: float,
+    partial_threshold: float,
+) -> Dict[str | Any]:
+    """Calculate final fuzzy matching results."""
     exact_matches = len(matched_keywords)
     partial_match_count = len(partial_matches)
 
@@ -108,9 +194,9 @@ def fuzzy_keyword_match(
 
     # Score calculation: weighted by match quality
     if exact_matches > 0:
-        score = max([m["score"] for m in matched_keywords])
+        score = max(m["score"] for m in matched_keywords)
     elif partial_match_count > 0:
-        score = max([m["score"] for m in partial_matches]) * 0.7  # Penalty for partial
+        score = max(m["score"] for m in partial_matches) * 0.7  # Penalty for partial
     else:
         score = 0.0
 
@@ -134,7 +220,7 @@ def fuzzy_keyword_match(
 
 def semantic_phrase_match(
     response: str, expected_keywords: List[str], similarity_threshold: float = 0.6
-) -> Dict[str, Any]:
+) -> Dict[str | Any]:
     """
     Semantic matching that breaks down phrases and looks for conceptual similarity.
 
@@ -297,10 +383,13 @@ def find_concept_in_text(concept: str, text: str) -> bool:
 
 
 def multi_method_evaluation(
-    response: str, expected_keywords: List[str], methods: Optional[List[str]] = None
-) -> Dict[str, Any]:
+    response: str, expected_keywords: List[str], methods: List[str | None] = None
+) -> Dict[str | Any]:
     """
     Combine multiple evaluation methods for more robust assessment.
+
+    This method orchestrates multi-method evaluation by delegating to
+    specialized helper functions following the Extract Method pattern.
 
     Args:
         response: The model's generated response text
@@ -313,9 +402,19 @@ def multi_method_evaluation(
     if methods is None:
         methods = ["fuzzy", "semantic"]
 
+    # Execute all evaluation methods
+    individual_results = _execute_evaluation_methods(response, expected_keywords, methods)
+
+    # Combine results using weighted voting
+    return _combine_method_results(individual_results)
+
+
+def _execute_evaluation_methods(
+    response: str, expected_keywords: List[str], methods: List[str]
+) -> Dict[str | Any]:
+    """Execute specified evaluation methods and return individual results."""
     results = {}
 
-    # Run each evaluation method
     if "fuzzy" in methods:
         results["fuzzy"] = fuzzy_keyword_match(response, expected_keywords)
 
@@ -323,20 +422,51 @@ def multi_method_evaluation(
         results["semantic"] = semantic_phrase_match(response, expected_keywords)
 
     if "original" in methods:
-        # Import and use the original keyword match
         from .keyword_match import keyword_match
 
         results["original"] = keyword_match(response, expected_keywords)
 
-    # Combine results using weighted voting
+    return results
+
+
+def _combine_method_results(individual_results: Dict[str, Any]) -> Dict[str | Any]:
+    """Combine individual method results using weighted voting."""
     method_weights = {"fuzzy": 0.4, "semantic": 0.4, "original": 0.2}
 
+    # Aggregate weighted scores and votes
+    aggregated_data = _aggregate_method_scores(individual_results, method_weights)
+
+    # Make final decision
+    final_score = aggregated_data["final_score"]
+    final_success = _determine_final_success(
+        aggregated_data["success_votes"], len(individual_results), final_score
+    )
+
+    return {
+        "success": final_success,
+        "score": final_score,
+        "matched_keywords": list(aggregated_data["all_matched"]),
+        "method": "multi_method_evaluation",
+        "details": {
+            "individual_results": individual_results,
+            "success_votes": aggregated_data["success_votes"],
+            "total_methods": len(individual_results),
+            "combined_score": final_score,
+            "methods_used": list(individual_results.keys()),
+        },
+    }
+
+
+def _aggregate_method_scores(
+    individual_results: Dict[str, Any], method_weights: Dict[str, float]
+) -> Dict[str | Any]:
+    """Aggregate scores and votes from individual method results."""
     total_score = 0.0
     total_weight = 0.0
     success_votes = 0
     all_matched = set()
 
-    for method_name, result in results.items():
+    for method_name, result in individual_results.items():
         if method_name in method_weights:
             weight = method_weights[method_name]
             total_score += result["score"] * weight
@@ -348,20 +478,162 @@ def multi_method_evaluation(
             # Collect all matched keywords
             all_matched.update(result.get("matched_keywords", []))
 
-    # Final decision: success if majority of methods agree OR score is high enough
     final_score = total_score / total_weight if total_weight > 0 else 0.0
-    final_success = success_votes >= len(results) / 2 or final_score >= 0.6
 
     return {
-        "success": final_success,
-        "score": final_score,
-        "matched_keywords": list(all_matched),
-        "method": "multi_method_evaluation",
-        "details": {
-            "individual_results": results,
-            "success_votes": success_votes,
-            "total_methods": len(results),
-            "combined_score": final_score,
-            "methods_used": list(results.keys()),
-        },
+        "final_score": final_score,
+        "success_votes": success_votes,
+        "all_matched": all_matched,
     }
+
+
+def _determine_final_success(success_votes: int, total_methods: int, final_score: float) -> bool:
+    """Determine final success based on voting and score thresholds."""
+    # Success if majority of methods agree OR score is high enough
+    return success_votes >= total_methods / 2 or final_score >= 0.6
+
+
+class FuzzyKeywordEvaluator(GenericEvaluator[Tuple[str, List[str]], EvaluationResult]):
+    """Generic fuzzy keyword evaluator with type safety.
+
+    Implements the GenericEvaluator pattern for fuzzy keyword matching
+    with proper type constraints.
+    """
+
+    def __init__(self, threshold: float = 0.75, partial_threshold: float = 0.60):
+        self.threshold = threshold
+        self.partial_threshold = partial_threshold
+
+    def evaluate(self, data: Tuple[str, List[str]], **kwargs: Any) -> EvaluationResult:
+        """Evaluate using fuzzy keyword matching.
+
+        Args:
+            data: Tuple of (response_text, expected_keywords)
+            **kwargs: Additional evaluation parameters
+
+        Returns:
+            Typed evaluation result
+        """
+        response, expected_keywords = data
+
+        # Override thresholds if provided
+        threshold = kwargs.get("threshold", self.threshold)
+        partial_threshold = kwargs.get("partial_threshold", self.partial_threshold)
+
+        # Use existing fuzzy_keyword_match function
+        result = fuzzy_keyword_match(response, expected_keywords, threshold, partial_threshold)
+
+        # Convert to EvaluationResult format
+        return EvaluationResult(
+            {
+                "score": result["score"],
+                "method": result["method"],
+                "timestamp": datetime.now().isoformat(),
+                "confidence": result.get("confidence"),
+                "details": result.get("details"),
+                "metadata": {
+                    "threshold": threshold,
+                    "partial_threshold": partial_threshold,
+                    "matched_keywords": result.get("matched_keywords", []),
+                    "partial_matches": result.get("partial_matches", []),
+                },
+            }
+        )
+
+    def get_method_name(self) -> str:
+        """Get the name of this evaluation method."""
+        return "fuzzy_keyword_match"
+
+
+class SemanticPhraseEvaluator(GenericEvaluator[Tuple[str, List[str]], EvaluationResult]):
+    """Generic semantic phrase evaluator with type safety.
+
+    Implements the GenericEvaluator pattern for semantic phrase matching.
+    """
+
+    def __init__(self, similarity_threshold: float = 0.6):
+        self.similarity_threshold = similarity_threshold
+
+    def evaluate(self, data: Tuple[str, List[str]], **kwargs: Any) -> EvaluationResult:
+        """Evaluate using semantic phrase matching.
+
+        Args:
+            data: Tuple of (response_text, expected_keywords)
+            **kwargs: Additional evaluation parameters
+
+        Returns:
+            Typed evaluation result
+        """
+        response, expected_keywords = data
+
+        # Override threshold if provided
+        similarity_threshold = kwargs.get("similarity_threshold", self.similarity_threshold)
+
+        # Use existing semantic_phrase_match function
+        result = semantic_phrase_match(response, expected_keywords, similarity_threshold)
+
+        # Convert to EvaluationResult format
+        return EvaluationResult(
+            {
+                "score": result["score"],
+                "method": result["method"],
+                "timestamp": datetime.now().isoformat(),
+                "details": result.get("details"),
+                "metadata": {
+                    "similarity_threshold": similarity_threshold,
+                    "matched_keywords": result.get("matched_keywords", []),
+                },
+            }
+        )
+
+    def get_method_name(self) -> str:
+        """Get the name of this evaluation method."""
+        return "semantic_phrase_match"
+
+
+class MultiMethodEvaluator(GenericEvaluator[Tuple[str, List[str]], EvaluationResult]):
+    """Generic multi-method evaluator with configurable evaluation methods.
+
+    Combines multiple evaluation strategies with proper type safety.
+    """
+
+    def __init__(self, methods: List[str] | None = None, weights: Dict[str, float] | None = None):
+        self.methods = methods or ["fuzzy", "semantic"]
+        self.weights = weights or {"fuzzy": 0.4, "semantic": 0.4, "original": 0.2}
+
+        # Initialize sub-evaluators
+        self._evaluators = {"fuzzy": FuzzyKeywordEvaluator(), "semantic": SemanticPhraseEvaluator()}
+
+    def evaluate(self, data: Tuple[str, List[str]], **kwargs: Any) -> EvaluationResult:
+        """Evaluate using multiple methods with weighted combination.
+
+        Args:
+            data: Tuple of (response_text, expected_keywords)
+            **kwargs: Additional evaluation parameters
+
+        Returns:
+            Combined typed evaluation result
+        """
+        response, expected_keywords = data
+
+        # Use existing multi_method_evaluation function
+        result = multi_method_evaluation(response, expected_keywords, self.methods)
+
+        # Convert to EvaluationResult format
+        return EvaluationResult(
+            {
+                "score": result["score"],
+                "method": result["method"],
+                "timestamp": datetime.now().isoformat(),
+                "details": result.get("details"),
+                "metadata": {
+                    "methods_used": self.methods,
+                    "weights": self.weights,
+                    "individual_results": result.get("details", {}).get("individual_results", {}),
+                },
+            }
+        )
+
+    def get_method_name(self) -> str:
+        """Get the name of this evaluation method."""
+        return "multi_method_evaluation"

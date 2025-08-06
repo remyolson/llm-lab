@@ -12,25 +12,25 @@ def save_dataset_sample(dataset, name, category, sample_size=1000):
     """Save a sample of the dataset in both JSON and CSV formats"""
     base_path = f"datasets/{category}/raw/{name}"
     os.makedirs(base_path, exist_ok=True)
-    
+
     # Convert to pandas for easier manipulation
     if hasattr(dataset, 'to_pandas'):
         df = dataset.to_pandas()
     else:
         df = pd.DataFrame(dataset)
-    
+
     # Take sample if dataset is large
     if len(df) > sample_size:
         df_sample = df.sample(n=sample_size, random_state=42)
     else:
         df_sample = df
-    
+
     # Save as JSON
     df_sample.to_json(f"{base_path}/sample.json", orient='records', indent=2)
-    
+
     # Save as CSV
     df_sample.to_csv(f"{base_path}/sample.csv", index=False)
-    
+
     # Save metadata
     metadata = {
         "name": name,
@@ -40,19 +40,19 @@ def save_dataset_sample(dataset, name, category, sample_size=1000):
         "columns": list(df.columns),
         "description": f"Sample of {name} dataset from Hugging Face"
     }
-    
+
     with open(f"{base_path}/metadata.json", 'w') as f:
         json.dump(metadata, f, indent=2)
-    
+
     print(f"✓ Saved {name} ({len(df_sample)} samples)")
     return metadata
 
 def download_benchmarking_datasets():
     """Download popular benchmarking datasets"""
     print("\n=== Downloading Benchmarking Datasets ===")
-    
+
     datasets_info = []
-    
+
     # MMLU (Measuring Massive Multitask Language Understanding)
     try:
         print("Downloading MMLU...")
@@ -62,7 +62,7 @@ def download_benchmarking_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading MMLU: {e}")
-    
+
     # HellaSwag
     try:
         print("Downloading HellaSwag...")
@@ -72,7 +72,7 @@ def download_benchmarking_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading HellaSwag: {e}")
-    
+
     # ARC (AI2 Reasoning Challenge)
     try:
         print("Downloading ARC...")
@@ -82,7 +82,7 @@ def download_benchmarking_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading ARC: {e}")
-    
+
     # TruthfulQA
     try:
         print("Downloading TruthfulQA...")
@@ -92,7 +92,7 @@ def download_benchmarking_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading TruthfulQA: {e}")
-    
+
     # GSM8K (Grade School Math)
     try:
         print("Downloading GSM8K...")
@@ -102,15 +102,15 @@ def download_benchmarking_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading GSM8K: {e}")
-    
+
     return datasets_info
 
 def download_finetuning_datasets():
     """Download popular fine-tuning datasets"""
     print("\n=== Downloading Fine-tuning Datasets ===")
-    
+
     datasets_info = []
-    
+
     # Alpaca
     try:
         print("Downloading Alpaca...")
@@ -120,7 +120,7 @@ def download_finetuning_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading Alpaca: {e}")
-    
+
     # ShareGPT (cleaned version)
     try:
         print("Downloading ShareGPT...")
@@ -130,7 +130,7 @@ def download_finetuning_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading ShareGPT: {e}")
-    
+
     # OpenOrca
     try:
         print("Downloading OpenOrca sample...")
@@ -140,7 +140,7 @@ def download_finetuning_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading OpenOrca: {e}")
-    
+
     # Dolly 15k
     try:
         print("Downloading Dolly-15k...")
@@ -149,7 +149,7 @@ def download_finetuning_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading Dolly-15k: {e}")
-    
+
     # WizardLM Evol Instruct
     try:
         print("Downloading WizardLM Evol Instruct...")
@@ -159,23 +159,23 @@ def download_finetuning_datasets():
         datasets_info.append(info)
     except Exception as e:
         print(f"Error downloading WizardLM: {e}")
-    
+
     return datasets_info
 
 def main():
     """Main function to download all datasets"""
     print("Starting dataset downloads...")
-    
+
     all_datasets = []
-    
+
     # Download benchmarking datasets
     benchmarking_datasets = download_benchmarking_datasets()
     all_datasets.extend(benchmarking_datasets)
-    
+
     # Download fine-tuning datasets
     finetuning_datasets = download_finetuning_datasets()
     all_datasets.extend(finetuning_datasets)
-    
+
     # Save overall manifest
     manifest = {
         "total_datasets": len(all_datasets),
@@ -183,10 +183,10 @@ def main():
         "finetuning_datasets": len(finetuning_datasets),
         "datasets": all_datasets
     }
-    
+
     with open("datasets/manifest.json", 'w') as f:
         json.dump(manifest, f, indent=2)
-    
+
     print(f"\n✅ Successfully downloaded {len(all_datasets)} datasets!")
     print("Check datasets/manifest.json for details")
 

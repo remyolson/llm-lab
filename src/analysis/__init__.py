@@ -1,5 +1,5 @@
 """Analysis module for LLM Lab."""
 
-from .comparator import ResultsComparator, ComparisonResult
+from .comparator import ComparisonResult, ResultsComparator
 
-__all__ = ['ResultsComparator', 'ComparisonResult']
+__all__ = ["ComparisonResult", "ResultsComparator"]

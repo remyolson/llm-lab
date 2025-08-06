@@ -129,7 +129,7 @@ declare -a genres=(
 for genre_info in "${genres[@]}"; do
   IFS=':' read -r genre style premise <<< "$genre_info"
   echo "   Testing genre: $genre"
-  
+
   python scripts/run_benchmarks.py \
     --prompt-file templates/creative_writing/story_generation.txt \
     --prompt-variables "{
@@ -167,7 +167,7 @@ python scripts/run_benchmarks.py \
   --prompt-file templates/creative_writing/story_generation.txt \
   --prompt-variables '{
     "genre": "contemporary fiction",
-    "word_count": "400-500", 
+    "word_count": "400-500",
     "protagonist": "Emma, a librarian discovering a hidden room",
     "writing_style": "rich and descriptive",
     "theme": "finding magic in ordinary places",

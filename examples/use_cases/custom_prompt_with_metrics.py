@@ -7,7 +7,6 @@ to get comprehensive analysis of model responses.
 """
 
 import json
-from typing import List, Dict, Any
 
 # Example of how to use the custom prompts module with evaluation metrics
 print("=" * 60)
@@ -19,7 +18,7 @@ print("\n1. Basic Integration Pattern:")
 print("-" * 40)
 print("""
 from src.use_cases.custom_prompts import (
-    PromptRunner, 
+    PromptRunner,
     PromptTemplate,
     MetricSuite,
     evaluate_response
@@ -125,22 +124,22 @@ model_comparison = {
             "response_length": {"words": 150, "sentences": 8},
             "sentiment": {"score": 0.85, "label": "positive"},
             "coherence": {"score": 0.92},
-            "readability": "Grade 5"
+            "readability": "Grade 5",
         },
         "claude-3-opus": {
             "response_length": {"words": 180, "sentences": 10},
             "sentiment": {"score": 0.90, "label": "positive"},
             "coherence": {"score": 0.95},
-            "readability": "Grade 4"
+            "readability": "Grade 4",
         },
         "gemini-pro": {
             "response_length": {"words": 120, "sentences": 7},
             "sentiment": {"score": 0.80, "label": "positive"},
             "coherence": {"score": 0.88},
-            "readability": "Grade 6"
-        }
+            "readability": "Grade 6",
+        },
     },
-    "diversity_score": 0.72
+    "diversity_score": 0.72,
 }
 
 print("Model Comparison Results:")
@@ -161,7 +160,7 @@ responses_b = []
 for i in range(5):  # Multiple runs for statistical significance
     result_a = runner.run_single(prompt_a, "gpt-4", {"topic": "recursion"})
     result_b = runner.run_single(prompt_b, "gpt-4", {"topic": "recursion"})
-    
+
     if result_a.success:
         responses_a.append(result_a.response)
     if result_b.success:

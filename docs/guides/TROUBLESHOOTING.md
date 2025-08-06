@@ -69,7 +69,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```bash
    # For CUDA 11.8
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-   
+
    # For CUDA 12.1
    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
    ```
@@ -97,7 +97,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```bash
    # Check .env file
    cat .env | grep API_KEY
-   
+
    # Test individual keys
    python -c "import os; print(os.getenv('OPENAI_API_KEY')[:10] + '...')"
    ```
@@ -131,7 +131,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 1. **Implement exponential backoff:**
    ```python
    from tenacity import retry, wait_exponential, stop_after_attempt
-   
+
    @retry(
        wait=wait_exponential(multiplier=1, min=4, max=60),
        stop=stop_after_attempt(5)
@@ -155,9 +155,9 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 3. **Use request queuing:**
    ```python
    from llm_lab.utils import RateLimiter
-   
+
    limiter = RateLimiter(requests_per_minute=60)
-   
+
    for prompt in prompts:
        with limiter:
            response = llm.generate(prompt)
@@ -185,7 +185,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 2. **Use connection pooling:**
    ```python
    import httpx
-   
+
    # Create persistent client
    client = httpx.Client(
        timeout=30.0,
@@ -214,13 +214,13 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```python
    import cProfile
    import pstats
-   
+
    profiler = cProfile.Profile()
    profiler.enable()
-   
+
    # Your code here
    result = benchmark.run()
-   
+
    profiler.disable()
    stats = pstats.Stats(profiler)
    stats.sort_stats('cumulative')
@@ -230,9 +230,9 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 2. **Optimize prompts:**
    ```python
    # Before: Long system prompt
-   system_prompt = """You are an AI assistant. You should be helpful, 
+   system_prompt = """You are an AI assistant. You should be helpful,
    harmless, and honest. You should provide accurate information..."""  # 500+ tokens
-   
+
    # After: Concise prompt
    system_prompt = "You are a helpful AI assistant."  # 7 tokens
    ```
@@ -240,7 +240,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 3. **Enable caching:**
    ```python
    from functools import lru_cache
-   
+
    @lru_cache(maxsize=1000)
    def cached_generate(prompt_hash):
        return llm.generate(prompt)
@@ -259,7 +259,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```python
    import psutil
    import os
-   
+
    process = psutil.Process(os.getpid())
    print(f"Memory usage: {process.memory_info().rss / 1024 / 1024:.2f} MB")
    ```
@@ -270,7 +270,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
        for i in range(0, len(items), batch_size):
            batch = items[i:i + batch_size]
            yield process_batch(batch)
-           
+
            # Force garbage collection
            import gc
            gc.collect()
@@ -298,10 +298,10 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 1. **Validate dataset format:**
    ```python
    from llm_lab.utils import DatasetValidator
-   
+
    validator = DatasetValidator()
    issues = validator.validate("training_data.jsonl")
-   
+
    if issues:
        print("Dataset issues found:")
        for issue in issues:
@@ -317,7 +317,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
            "max_length": 0,
            "min_length": float('inf')
        }
-       
+
        with open(filepath, 'r') as f:
            for line in f:
                data = json.loads(line)
@@ -326,7 +326,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
                stats["avg_length"] += length
                stats["max_length"] = max(stats["max_length"], length)
                stats["min_length"] = min(stats["min_length"], length)
-       
+
        stats["avg_length"] /= stats["total_examples"]
        return stats
    ```
@@ -353,11 +353,11 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 1. **Evaluate with proper metrics:**
    ```python
    evaluator = ModelEvaluator()
-   
+
    # Compare base vs fine-tuned
    base_metrics = evaluator.evaluate("gpt-3.5-turbo", test_set)
    ft_metrics = evaluator.evaluate("ft:gpt-3.5-turbo:xxx", test_set)
-   
+
    print(f"Base accuracy: {base_metrics['accuracy']:.2%}")
    print(f"Fine-tuned accuracy: {ft_metrics['accuracy']:.2%}")
    ```
@@ -369,10 +369,10 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    for example in original_data:
        # Original
        augmented_data.append(example)
-       
+
        # Paraphrased version
        augmented_data.append(paraphrase(example))
-       
+
        # Different format
        augmented_data.append(reformat(example))
    ```
@@ -380,10 +380,10 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 3. **Use validation set:**
    ```python
    from sklearn.model_selection import train_test_split
-   
+
    train_data, val_data = train_test_split(
-       dataset, 
-       test_size=0.2, 
+       dataset,
+       test_size=0.2,
        random_state=42
    )
    ```
@@ -408,7 +408,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
          condition: "avg_latency > 2.0"
          severity: "critical"
          enabled: true  # Make sure enabled
-     
+
      channels:
        - type: email
          enabled: true  # Check this too
@@ -418,9 +418,9 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 2. **Test alert channels:**
    ```python
    from llm_lab.monitoring import AlertManager
-   
+
    alert_manager = AlertManager()
-   
+
    # Send test alert
    alert_manager.send_test_alert(
        channel="email",
@@ -448,7 +448,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    # Add debug logging
    import logging
    logging.basicConfig(level=logging.DEBUG)
-   
+
    # Check raw metrics
    metrics = collector.get_raw_metrics(hours=1)
    print(f"Raw metrics count: {len(metrics)}")
@@ -458,7 +458,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```bash
    # Ensure system time is correct
    timedatectl status
-   
+
    # Sync if needed
    sudo ntpdate -s time.nist.gov
    ```
@@ -467,7 +467,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```python
    # Compare different aggregation methods
    from statistics import mean, median
-   
+
    latencies = [m['latency'] for m in metrics]
    print(f"Mean: {mean(latencies):.3f}")
    print(f"Median: {median(latencies):.3f}")
@@ -488,13 +488,13 @@ This comprehensive guide helps you diagnose and resolve common issues when using
 1. **Track object references:**
    ```python
    import objgraph
-   
+
    # Before operation
    objgraph.show_growth()
-   
+
    # Run operation
    results = run_benchmark()
-   
+
    # After operation
    objgraph.show_growth()
    objgraph.show_most_common_types(limit=10)
@@ -504,12 +504,12 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```python
    # Clear caches periodically
    import gc
-   
+
    def periodic_cleanup():
        # Clear LRU caches
        for func in [cached_func1, cached_func2]:
            func.cache_clear()
-       
+
        # Force garbage collection
        gc.collect()
    ```
@@ -521,7 +521,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
        def __enter__(self):
            self.client = create_client()
            return self.client
-       
+
        def __exit__(self, exc_type, exc_val, exc_tb):
            self.client.close()
            del self.client
@@ -542,10 +542,10 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```bash
    # Get container ID
    docker ps -a
-   
+
    # View logs
    docker logs <container_id>
-   
+
    # Interactive debug
    docker run -it --entrypoint /bin/bash llm-lab
    ```
@@ -554,7 +554,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```bash
    # Check what's passed to container
    docker run --rm llm-lab env | grep API_KEY
-   
+
    # Use env file
    docker run --env-file .env llm-lab
    ```
@@ -564,7 +564,7 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    # In Dockerfile
    RUN useradd -m -u 1000 appuser
    USER appuser
-   
+
    # Ensure writable directories
    RUN mkdir -p /app/logs /app/data && \
        chown -R appuser:appuser /app
@@ -583,10 +583,10 @@ This comprehensive guide helps you diagnose and resolve common issues when using
    ```bash
    # Get pod info
    kubectl describe pod <pod-name>
-   
+
    # View logs
    kubectl logs <pod-name> --previous
-   
+
    # Check events
    kubectl get events --sort-by='.lastTimestamp'
    ```
@@ -641,16 +641,16 @@ def chunk_text(text, max_tokens=4000):
     words = text.split()
     chunks = []
     current_chunk = []
-    
+
     for word in words:
         current_chunk.append(word)
         if len(' '.join(current_chunk)) > max_tokens * 4:  # Approximate
             chunks.append(' '.join(current_chunk[:-1]))
             current_chunk = [word]
-    
+
     if current_chunk:
         chunks.append(' '.join(current_chunk))
-    
+
     return chunks
 ```
 

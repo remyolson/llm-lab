@@ -1,0 +1,24 @@
+# Documentation requirements
+# Install with: pip install -r docs/requirements.txt
+
+# Core Sphinx
+sphinx>=6.0.0
+sphinx-rtd-theme>=1.3.0
+sphinx-autobuild>=2021.3.14
+
+# Extensions
+sphinx-copybutton>=0.5.2
+sphinx-tabs>=3.4.1
+sphinx-design>=0.5.0
+myst-parser>=2.0.0
+jupyter-sphinx>=0.4.0
+
+# For notebook execution
+nbsphinx>=0.9.3
+nbconvert>=7.0.0
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# For better search (optional)
+# elasticsearch>=7.0.0
+# sphinx-elasticsearch>=0.1.0

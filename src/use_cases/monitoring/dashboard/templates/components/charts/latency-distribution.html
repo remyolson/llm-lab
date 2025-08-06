@@ -1,9 +1,9 @@
 <!-- Latency Distribution Chart Component -->
-<div class="chart-container" 
+<div class="chart-container"
      data-chart-type="latency-distribution"
      data-refresh-interval="{{ config.refresh_interval }}"
      data-time-range="{{ config.time_range }}">
-    
+
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="mb-0">{{ config.title or 'Latency Distribution' }}</h5>
@@ -20,7 +20,7 @@
             </button>
         </div>
     </div>
-    
+
     <div class="latency-stats mb-3">
         <div class="row">
             <div class="col-md-3">
@@ -49,11 +49,11 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-wrapper" style="height: {{ config.height }}px; width: {{ config.width }};">
         <canvas id="latency-dist-chart-{{ range(1000) | random }}"></canvas>
     </div>
-    
+
     <div class="chart-loading d-none">
         <div class="text-center p-4">
             <div class="spinner-border" role="status">
@@ -61,7 +61,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-error d-none">
         <div class="alert alert-warning" role="alert">
             Failed to load latency distribution. <a href="#" class="retry-chart">Retry</a>
@@ -98,28 +98,28 @@
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('[data-chart-type="latency-distribution"]');
     const canvas = container.querySelector('canvas');
-    
+
     let chart = null;
     let refreshInterval = null;
     let currentPeriod = '1h';
-    
+
     function loadChart() {
         showLoading(true);
-        
+
         const params = new URLSearchParams({
             hours: currentPeriod === '1h' ? 1 : currentPeriod === '24h' ? 24 : 168
         });
-        
+
         fetch(`/components/chart-data/latency-distribution?${params}`)
             .then(response => response.json())
             .then(data => {
                 if (chart) chart.destroy();
-                
+
                 const ctx = canvas.getContext('2d');
                 chart = new Chart(ctx, data);
-                
+
                 updateLatencyStats(data);
-                
+
                 showLoading(false);
                 showError(false);
             })
@@ -129,20 +129,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(true);
             });
     }
-    
+
     function updateLatencyStats(chartData) {
         // Calculate stats from chart data
         if (chartData.data && chartData.data.datasets[0]) {
             const data = chartData.data.datasets[0].data;
             const labels = chartData.data.labels;
-            
+
             let totalRequests = data.reduce((sum, val) => sum + val, 0);
             let weightedSum = 0;
             let minLatency = Infinity;
             let maxLatency = 0;
             let p95Requests = 0;
             let p95Latency = 0;
-            
+
             // Calculate weighted average and find min/max
             data.forEach((count, index) => {
                 if (count > 0) {
@@ -151,13 +151,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     const binStart = parseFloat(labelParts[0]);
                     const binEnd = parseFloat(labelParts[1].replace('ms', ''));
                     const binMid = (binStart + binEnd) / 2;
-                    
+
                     weightedSum += binMid * count;
                     minLatency = Math.min(minLatency, binStart);
                     maxLatency = Math.max(maxLatency, binEnd);
                 }
             });
-            
+
             // Calculate P95
             const p95Threshold = totalRequests * 0.95;
             let cumulativeCount = 0;
@@ -169,32 +169,32 @@ document.addEventListener('DOMContentLoaded', function() {
                     break;
                 }
             }
-            
+
             const avgLatency = totalRequests > 0 ? weightedSum / totalRequests : 0;
-            
-            document.getElementById('min-latency').textContent = 
+
+            document.getElementById('min-latency').textContent =
                 minLatency === Infinity ? '-' : minLatency.toFixed(1);
-            document.getElementById('avg-latency').textContent = 
+            document.getElementById('avg-latency').textContent =
                 avgLatency.toFixed(1);
-            document.getElementById('p95-latency').textContent = 
+            document.getElementById('p95-latency').textContent =
                 p95Latency.toFixed(1);
-            document.getElementById('max-latency').textContent = 
+            document.getElementById('max-latency').textContent =
                 maxLatency.toFixed(1);
         }
     }
-    
+
     function showLoading(show) {
         container.querySelector('.chart-loading').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
         container.querySelector('.latency-stats').classList.toggle('d-none', show);
     }
-    
+
     function showError(show) {
         container.querySelector('.chart-error').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
         container.querySelector('.latency-stats').classList.toggle('d-none', show);
     }
-    
+
     // Period selection
     container.querySelectorAll('[data-period]').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadChart();
         });
     });
-    
+
     // Export button
     container.querySelector('#export-latency-chart').addEventListener('click', function() {
         if (chart) {
@@ -215,23 +215,23 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
         }
     });
-    
+
     // Retry button
     container.querySelector('.retry-chart').addEventListener('click', function(e) {
         e.preventDefault();
         loadChart();
     });
-    
+
     // Auto-refresh
     function startRefresh() {
         const interval = parseInt(container.dataset.refreshInterval) * 1000;
         refreshInterval = setInterval(loadChart, interval);
     }
-    
+
     // Initial load
     loadChart();
     startRefresh();
-    
+
     // Cleanup
     window.addEventListener('beforeunload', function() {
         if (refreshInterval) clearInterval(refreshInterval);

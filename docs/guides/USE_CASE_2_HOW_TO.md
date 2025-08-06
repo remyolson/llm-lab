@@ -286,7 +286,7 @@ class HistoricalCostTracker:
     def __init__(self, db_path="costs.db"):
         self.conn = sqlite3.connect(db_path)
         self.setup_database()
-    
+
     def setup_database(self):
         self.conn.execute('''
             CREATE TABLE IF NOT EXISTS cost_history (
@@ -297,11 +297,11 @@ class HistoricalCostTracker:
                 request_count INTEGER
             )
         ''')
-    
+
     def get_trend(self, days=30):
         """Get cost trend for last N days"""
         query = '''
-            SELECT DATE(timestamp) as date, 
+            SELECT DATE(timestamp) as date,
                    SUM(daily_cost) as total_cost
             FROM cost_history
             WHERE timestamp > datetime('now', '-{} days')
@@ -324,7 +324,7 @@ class SmartRouter:
             'gpt-4o-mini': {'speed': 4, 'cost': 4, 'quality': 4},
             'claude-3-5-sonnet': {'speed': 3, 'cost': 2, 'quality': 5}
         }
-    
+
     def select_model(self, task_type, priority='balanced'):
         """Select optimal model based on task requirements"""
         if task_type == 'simple_qa' and priority == 'cost':
@@ -333,7 +333,7 @@ class SmartRouter:
             return 'claude-3-5-sonnet'
         elif priority == 'balanced':
             return 'gpt-4o-mini'
-        
+
         # Calculate scores for complex routing
         scores = {}
         for model, caps in self.model_capabilities.items():
@@ -344,7 +344,7 @@ class SmartRouter:
             else:  # balanced
                 score = sum(caps.values()) / 3
             scores[model] = score
-        
+
         return max(scores, key=scores.get)
 ```
 
@@ -434,12 +434,12 @@ After mastering cost analysis:
    ```python
    from functools import lru_cache
    import hashlib
-   
+
    @lru_cache(maxsize=1000)
    def cached_llm_call(prompt_hash, model):
        # Cache by prompt hash to save repeated calls
        return llm.generate(prompt)
-   
+
    prompt_hash = hashlib.md5(prompt.encode()).hexdigest()
    response = cached_llm_call(prompt_hash, model)
    ```

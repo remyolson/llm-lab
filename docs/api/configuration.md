@@ -44,7 +44,7 @@ from pydantic import BaseModel
 
 class ProviderConfig(BaseModel):
     """Provider configuration schema."""
-    
+
     api_key: Optional[str] = None
     model: str
     max_tokens: int = 1000
@@ -52,7 +52,7 @@ class ProviderConfig(BaseModel):
     timeout: int = 30
     retry_count: int = 3
     retry_delay: float = 1.0
-    
+
     class Config:
         extra = "allow"  # Allow provider-specific fields
 ```
@@ -67,7 +67,7 @@ config = ProviderConfig(model="gpt-4")
 # From YAML
 with open("providers.yaml") as f:
     provider_configs = yaml.safe_load(f)
-    
+
 config = ProviderConfig(**provider_configs["openai"])
 
 # From code
@@ -90,25 +90,25 @@ from src.config import Settings
 
 class Settings(BaseModel):
     """Global application settings."""
-    
+
     # Logging
     log_level: str = "INFO"
     log_format: str = "json"
     log_file: Optional[str] = None
-    
+
     # Performance
     cache_enabled: bool = True
     cache_ttl: int = 3600
     max_concurrent_requests: int = 10
-    
+
     # Security
     encrypt_api_keys: bool = True
     mask_pii: bool = True
-    
+
     # Storage
     results_dir: str = "./results"
     cache_dir: str = "./.cache"
-    
+
     # Monitoring
     metrics_enabled: bool = True
     metrics_port: int = 9090
@@ -142,17 +142,17 @@ providers:
     temperature: 0.7
     max_tokens: 2000
     timeout: 60
-    
+
   anthropic:
     model: claude-3-5-sonnet-20241022
     temperature: 0.8
     max_tokens: 4000
-    
+
   google:
     model: gemini-1.5-pro
     temperature: 0.9
     max_tokens: 8192
-    
+
   azure:
     endpoint: https://myinstance.openai.azure.com
     deployment: gpt-4-deployment
@@ -171,7 +171,7 @@ benchmarks:
       - accuracy
       - f1_score
     sample_size: 100
-    
+
   performance:
     iterations: 10
     warmup: 2
@@ -205,7 +205,7 @@ from pydantic import validator
 
 class CustomProviderConfig(ProviderConfig):
     rate_limit: int = 100
-    
+
     @validator('rate_limit')
     def validate_rate_limit(cls, v):
         if v < 1 or v > 1000:
@@ -340,7 +340,7 @@ from cryptography.fernet import Fernet
 class SecureConfig:
     def __init__(self, key: bytes):
         self.cipher = Fernet(key)
-    
+
     def get_api_key(self, provider: str) -> str:
         encrypted = os.getenv(f"{provider.upper()}_API_KEY_ENCRYPTED")
         if encrypted:

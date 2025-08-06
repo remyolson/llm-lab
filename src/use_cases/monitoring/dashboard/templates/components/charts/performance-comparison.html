@@ -1,11 +1,11 @@
 <!-- Performance Comparison Chart Component -->
-<div class="chart-container" 
+<div class="chart-container"
      data-chart-type="performance-comparison"
      data-refresh-interval="{{ config.refresh_interval }}"
      data-time-range="{{ config.time_range }}"
      data-providers="{{ config.providers | join(',') }}"
      data-models="{{ config.models | join(',') }}">
-    
+
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="mb-0">{{ config.title or 'Performance Comparison' }}</h5>
@@ -23,11 +23,11 @@
             </button>
         </div>
     </div>
-    
+
     <div class="chart-wrapper" style="height: {{ config.height }}px; width: {{ config.width }};">
         <canvas id="performance-chart-{{ config.chart_type }}-{{ range(1000) | random }}"></canvas>
     </div>
-    
+
     <div class="chart-loading d-none">
         <div class="text-center p-4">
             <div class="spinner-border" role="status">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-error d-none">
         <div class="alert alert-warning" role="alert">
             Failed to load chart data. <a href="#" class="retry-chart">Retry</a>
@@ -48,34 +48,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('[data-chart-type="performance-comparison"]');
     const canvas = container.querySelector('canvas');
     const chartId = canvas.id;
-    
+
     let chart = null;
     let refreshInterval = null;
-    
+
     function loadChart() {
         const timeRange = container.dataset.timeRange;
         const providers = container.dataset.providers;
         const models = container.dataset.models;
-        
+
         const params = new URLSearchParams({
             hours: timeRange === '1h' ? 1 : timeRange === '24h' ? 24 : timeRange === '7d' ? 168 : 720
         });
-        
+
         if (providers) params.append('provider', providers);
         if (models) params.append('model', models);
-        
+
         showLoading(true);
-        
+
         fetch(`/components/chart-data/performance-comparison?${params}`)
             .then(response => response.json())
             .then(data => {
                 if (chart) {
                     chart.destroy();
                 }
-                
+
                 const ctx = canvas.getContext('2d');
                 chart = new Chart(ctx, data);
-                
+
                 showLoading(false);
                 showError(false);
             })
@@ -85,17 +85,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(true);
             });
     }
-    
+
     function showLoading(show) {
         container.querySelector('.chart-loading').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
     }
-    
+
     function showError(show) {
         container.querySelector('.chart-error').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
     }
-    
+
     // Time range buttons
     container.querySelectorAll('[data-time-range]').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -105,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadChart();
         });
     });
-    
+
     // Export button
     container.querySelector('#export-chart').addEventListener('click', function() {
         if (chart) {
@@ -116,23 +116,23 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
         }
     });
-    
+
     // Retry button
     container.querySelector('.retry-chart').addEventListener('click', function(e) {
         e.preventDefault();
         loadChart();
     });
-    
+
     // Auto-refresh
     function startRefresh() {
         const interval = parseInt(container.dataset.refreshInterval) * 1000;
         refreshInterval = setInterval(loadChart, interval);
     }
-    
+
     // Initial load
     loadChart();
     startRefresh();
-    
+
     // Cleanup on page unload
     window.addEventListener('beforeunload', function() {
         if (refreshInterval) {

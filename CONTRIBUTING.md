@@ -143,12 +143,12 @@ make check-all
 4. **Write a clear commit message**:
    ```
    feat: Add support for Cohere API integration
-   
+
    - Implement CohereProvider class
    - Add configuration options
    - Include comprehensive tests
    - Update documentation
-   
+
    Closes #123
    ```
 
@@ -193,25 +193,25 @@ from typing import List, Dict, Optional
 
 class ExampleProvider(BaseProvider):
     """Example LLM provider implementation.
-    
+
     This provider demonstrates the expected code style and documentation
     standards for the project.
-    
+
     Args:
         api_key: The API key for authentication
         timeout: Request timeout in seconds
-        
+
     Attributes:
         model_name: The name of the model being used
         max_tokens: Maximum tokens for generation
     """
-    
+
     def __init__(self, api_key: str, timeout: int = 30) -> None:
         """Initialize the provider with configuration."""
         super().__init__()
         self.api_key = api_key
         self.timeout = timeout
-        
+
     def generate(
         self,
         prompt: str,
@@ -219,15 +219,15 @@ class ExampleProvider(BaseProvider):
         temperature: float = 0.7
     ) -> Dict[str, Any]:
         """Generate text from the model.
-        
+
         Args:
             prompt: The input prompt
             max_tokens: Maximum tokens to generate
             temperature: Sampling temperature
-            
+
         Returns:
             Dictionary containing the generated text and metadata
-            
+
         Raises:
             ProviderError: If the API request fails
         """
@@ -271,23 +271,23 @@ from unittest.mock import Mock, patch
 
 class TestExampleProvider:
     """Test suite for ExampleProvider."""
-    
+
     @pytest.fixture
     def provider(self):
         """Create a provider instance for testing."""
         return ExampleProvider(api_key="test-key")
-    
+
     def test_generate_success(self, provider):
         """Test successful text generation."""
         # Arrange
         prompt = "Test prompt"
         expected = {"text": "Generated text"}
-        
+
         # Act
         with patch('requests.post') as mock_post:
             mock_post.return_value.json.return_value = expected
             result = provider.generate(prompt)
-        
+
         # Assert
         assert result == expected
         mock_post.assert_called_once()

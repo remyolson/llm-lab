@@ -1,6 +1,6 @@
 #!/bin/bash
 # LLM Lab Git Cleanup Script
-# 
+#
 # This script removes large model files and datasets from Git tracking
 # after implementing the download-based asset management system.
 #
@@ -13,7 +13,7 @@ echo "=============================="
 echo ""
 echo "This script will:"
 echo "  1. Remove large model files from Git tracking"
-echo "  2. Remove large dataset files from Git tracking"  
+echo "  2. Remove large dataset files from Git tracking"
 echo "  3. Clean up Git LFS artifacts"
 echo "  4. Keep files locally for continued use"
 echo ""

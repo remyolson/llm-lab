@@ -11,21 +11,21 @@ monitoring:
       sla_target: 2.0  # seconds
       cost_threshold: 0.05  # $ per request
       quality_baseline: 0.92
-      
+
     - provider: openai
       model: gpt-4o
       priority: high
       sla_target: 1.5
       cost_threshold: 0.03
       quality_baseline: 0.90
-      
+
     - provider: anthropic
       model: claude-3-5-sonnet-20241022
       priority: high
       sla_target: 3.0
       cost_threshold: 0.04
       quality_baseline: 0.94
-      
+
     # Medium priority models (standard operations)
     - provider: google
       model: gemini-1.5-pro
@@ -33,14 +33,14 @@ monitoring:
       sla_target: 2.5
       cost_threshold: 0.03
       quality_baseline: 0.91
-      
+
     - provider: openai
       model: gpt-4o-mini
       priority: medium
       sla_target: 1.0
       cost_threshold: 0.01
       quality_baseline: 0.85
-      
+
     # Low priority models (development/testing)
     - provider: anthropic
       model: claude-3-5-haiku-20241022
@@ -48,7 +48,7 @@ monitoring:
       sla_target: 1.5
       cost_threshold: 0.02
       quality_baseline: 0.83
-  
+
   # Monitoring schedules
   schedule:
     # Performance monitoring
@@ -63,7 +63,7 @@ monitoring:
         - "What is the capital of France?"
         - "Explain quantum computing in one sentence."
         - "Write a haiku about technology."
-    
+
     # Cost analysis
     cost_analysis:
       frequency: "daily at 2:00"
@@ -74,7 +74,7 @@ monitoring:
         - by_provider
         - by_hour
         - by_department  # If using department tags
-    
+
     # Full benchmark suite
     full_benchmark:
       frequency: "weekly on sunday at 3:00"
@@ -85,7 +85,7 @@ monitoring:
         - cost_efficiency
         - reliability
       comparison_window: 7  # Compare to last 7 days
-    
+
     # Quality assessments
     quality_checks:
       frequency: "daily at 6:00"
@@ -96,7 +96,7 @@ monitoring:
         - coherence
         - helpfulness
         - safety
-    
+
     # Capacity planning
     capacity_analysis:
       frequency: "weekly on monday at 9:00"
@@ -106,42 +106,42 @@ monitoring:
         - conservative: 1.1  # 10% growth
         - moderate: 1.25     # 25% growth
         - aggressive: 1.5    # 50% growth
-  
+
   # Alert configuration
   alerts:
     # Notification channels
     channels:
       # Email for all severities
       - type: email
-        recipients: 
+        recipients:
           - "llm-team@example.com"
           - "ops@example.com"
         severity: ["critical", "warning", "info"]
         rate_limit: 10  # Max 10 emails per hour
-        
+
       # Slack for critical and warnings
       - type: slack
         webhook_url: "${SLACK_WEBHOOK_URL}"
         channel: "#llm-monitoring"
         severity: ["critical", "warning"]
         include_graphs: true
-        
+
       # PagerDuty for critical only
       - type: pagerduty
         api_key: "${PAGERDUTY_API_KEY}"
         service_id: "${PAGERDUTY_SERVICE_ID}"
         severity: ["critical"]
-        
+
       # SMS for critical (via Twilio)
       - type: sms
         provider: twilio
         account_sid: "${TWILIO_ACCOUNT_SID}"
         auth_token: "${TWILIO_AUTH_TOKEN}"
         from_number: "${TWILIO_PHONE_NUMBER}"
-        to_numbers: 
+        to_numbers:
           - "+1234567890"
         severity: ["critical"]
-        
+
       # Webhook for all events
       - type: webhook
         url: "${MONITORING_WEBHOOK_URL}"
@@ -151,7 +151,7 @@ monitoring:
         severity: ["critical", "warning", "info"]
         retry_count: 3
         retry_delay: 30  # seconds
-    
+
     # Alert rules
     rules:
       # Performance alerts
@@ -160,59 +160,59 @@ monitoring:
         severity: "warning"
         cooldown: 3600  # 1 hour
         threshold_duration: 300  # Condition must be true for 5 minutes
-        
+
       - name: "Critical Latency"
         condition: "avg_latency > sla_target * 2.0 OR p95_latency > sla_target * 3.0"
         severity: "critical"
         cooldown: 1800  # 30 minutes
         threshold_duration: 60
-        
+
       # Availability alerts
       - name: "Service Down"
         condition: "error_rate > 0.5"
         severity: "critical"
         cooldown: 300  # 5 minutes
         auto_escalate: true
-        
+
       - name: "Degraded Service"
         condition: "error_rate > 0.1 AND error_rate < 0.5"
         severity: "warning"
         cooldown: 900
-        
+
       # Cost alerts
       - name: "Cost Spike"
         condition: "hourly_cost > daily_average * 3"
         severity: "warning"
         cooldown: 3600
-        
+
       - name: "Budget Exceeded"
         condition: "daily_cost > daily_budget"
         severity: "critical"
         cooldown: 86400  # 24 hours
-        
+
       # Quality alerts
       - name: "Quality Degradation"
         condition: "quality_score < quality_baseline * 0.9"
         severity: "warning"
         cooldown: 7200  # 2 hours
-        
+
       # Anomaly detection
       - name: "Anomalous Behavior"
         condition: "anomaly_score > 3.0"  # 3 standard deviations
         severity: "warning"
         cooldown: 1800
-        
+
       # Capacity alerts
       - name: "Rate Limit Warning"
         condition: "rate_limit_usage > 0.8"
         severity: "warning"
         cooldown: 3600
-        
+
       - name: "Rate Limit Critical"
         condition: "rate_limit_usage > 0.95"
         severity: "critical"
         cooldown: 900
-  
+
   # Reporting configuration
   reporting:
     # Email reports
@@ -223,13 +223,13 @@ monitoring:
       smtp_password: "${SMTP_PASSWORD}"
       from_address: "llm-monitoring@example.com"
       template_dir: "./templates/email"
-    
+
     # Report schedules
     schedules:
       # Daily summary
       - name: "Daily Summary"
         frequency: "daily at 8:00"
-        recipients: 
+        recipients:
           - "llm-team@example.com"
           - "management@example.com"
         format: "html"
@@ -239,11 +239,11 @@ monitoring:
           - cost_analysis
           - incidents
           - recommendations
-          
+
       # Weekly deep dive
       - name: "Weekly Analysis"
         frequency: "weekly on monday at 9:00"
-        recipients: 
+        recipients:
           - "llm-team@example.com"
           - "engineering@example.com"
         format: "pdf"
@@ -255,11 +255,11 @@ monitoring:
           - quality_analysis
           - capacity_planning
           - optimization_recommendations
-          
+
       # Monthly executive report
       - name: "Monthly Executive Report"
         frequency: "monthly on 1st at 10:00"
-        recipients: 
+        recipients:
           - "executives@example.com"
           - "board@example.com"
         format: "pdf"
@@ -269,11 +269,11 @@ monitoring:
           - cost_trends
           - roi_analysis
           - strategic_recommendations
-          
+
       # SLA compliance report
       - name: "SLA Compliance"
         frequency: "monthly on 1st at 11:00"
-        recipients: 
+        recipients:
           - "compliance@example.com"
           - "customers@example.com"
         format: "pdf"
@@ -283,7 +283,7 @@ monitoring:
           - performance_metrics
           - incident_analysis
           - improvement_plans
-  
+
   # Data retention policies
   data_retention:
     raw_metrics: 90  # days
@@ -291,7 +291,7 @@ monitoring:
     aggregated_daily: 730  # days
     alerts: 180  # days
     reports: 365  # days
-    
+
   # Dashboard configuration
   dashboard:
     # Refresh intervals (seconds)
@@ -299,7 +299,7 @@ monitoring:
       overview: 30
       detailed: 60
       historical: 300
-      
+
     # Time windows available
     time_windows:
       - "1h"
@@ -308,7 +308,7 @@ monitoring:
       - "7d"
       - "30d"
       - "90d"
-      
+
     # Default views by role
     default_views:
       engineer:
@@ -337,7 +337,7 @@ advanced_features:
       - lstm  # For complex patterns
     forecast_horizon: 24  # hours
     confidence_level: 0.95
-    
+
   # Anomaly detection
   anomaly_detection:
     enabled: true
@@ -346,7 +346,7 @@ advanced_features:
       - local_outlier_factor
       - statistical_process_control
     sensitivity: "medium"  # low, medium, high
-    
+
   # Auto-remediation
   auto_remediation:
     enabled: false  # Set to true with caution
@@ -354,11 +354,11 @@ advanced_features:
       - name: "Switch to fallback model"
         trigger: "primary_model_down"
         action: "route_to_fallback"
-        
+
       - name: "Scale horizontally"
         trigger: "high_load"
         action: "increase_capacity"
-        
+
       - name: "Clear cache"
         trigger: "cache_issues"
         action: "flush_cache"

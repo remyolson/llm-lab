@@ -61,7 +61,7 @@ training:
   gradient_checkpointing: true
   deepspeed_config: null
   fsdp_config: null
-  
+
   # LoRA configuration
   use_lora: true
   lora_rank: 32
@@ -116,7 +116,7 @@ metadata:
         "topic": "endocrinology"
       }
     }
-    
+
     The model learns medical terminology, clinical reasoning, and
     evidence-based responses. Extensive validation required before
     any clinical application.

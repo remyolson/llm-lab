@@ -36,13 +36,13 @@ cd llm-lab
    ```
 
 2. **Create and activate a virtual environment**
-   
+
    On macOS/Linux:
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
-   
+
    On Windows:
    ```cmd
    python -m venv venv
@@ -84,27 +84,43 @@ This repository uses a download-based approach for large files (models and datas
 
 ## ⚙️ Configuration
 
+### Quick Configuration with Wizard
+
+The easiest way to configure LLM Lab is using the interactive configuration wizard:
+
+```bash
+python -m src.config.wizard
+```
+
+This will guide you through:
+- Setting up API keys
+- Configuring providers and models
+- Setting default parameters
+- Creating configuration files
+
+### Manual Configuration
+
 1. **Copy the example environment file**
    ```bash
    cp .env.example .env
    ```
 
 2. **Add your API keys**
-   
+
    Edit `.env` and add the API keys for providers you want to use:
    ```
    # Core Providers
    OPENAI_API_KEY=your-openai-key-here
    ANTHROPIC_API_KEY=your-anthropic-key-here
    GOOGLE_API_KEY=your-google-key-here
-   
+
    # Additional Providers (optional)
    AZURE_OPENAI_ENDPOINT=your-azure-endpoint
    AZURE_OPENAI_API_KEY=your-azure-key
    COHERE_API_KEY=your-cohere-key
    MISTRAL_API_KEY=your-mistral-key
    PERPLEXITY_API_KEY=your-perplexity-key
-   
+
    # Monitoring (optional)
    SLACK_WEBHOOK_URL=your-slack-webhook
    SMTP_SERVER=smtp.gmail.com
@@ -119,6 +135,8 @@ This repository uses a download-based approach for large files (models and datas
    - Azure: [portal.azure.com](https://portal.azure.com/)
    - Cohere: [dashboard.cohere.ai](https://dashboard.cohere.ai/)
    - Mistral: [console.mistral.ai](https://console.mistral.ai/)
+
+For comprehensive configuration documentation, see [Configuration Guide](docs/CONFIGURATION.md)
 
 ## 🎮 Usage
 

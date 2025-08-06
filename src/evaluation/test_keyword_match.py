@@ -10,8 +10,7 @@ def test_keyword_match():
 
     # Test 1: Basic match
     result = keyword_match(
-        "Miguel de Cervantes wrote Don Quixote.",
-        ["Cervantes", "Miguel de Cervantes"]
+        "Miguel de Cervantes wrote Don Quixote.", ["Cervantes", "Miguel de Cervantes"]
     )
     print("Test 1 - Basic match:")
     print("  Response: 'Miguel de Cervantes wrote Don Quixote.'")
@@ -19,50 +18,35 @@ def test_keyword_match():
     print()
 
     # Test 2: No match
-    result = keyword_match(
-        "Shakespeare wrote Hamlet.",
-        ["Cervantes", "Miguel de Cervantes"]
-    )
+    result = keyword_match("Shakespeare wrote Hamlet.", ["Cervantes", "Miguel de Cervantes"])
     print("Test 2 - No match:")
     print("  Response: 'Shakespeare wrote Hamlet.'")
     print(f"  Result: {result}")
     print()
 
     # Test 3: Case insensitive match
-    result = keyword_match(
-        "CERVANTES was a Spanish writer.",
-        ["cervantes"]
-    )
+    result = keyword_match("CERVANTES was a Spanish writer.", ["cervantes"])
     print("Test 3 - Case insensitive match:")
     print("  Response: 'CERVANTES was a Spanish writer.'")
     print(f"  Result: {result}")
     print()
 
     # Test 4: Word boundary test (should not match partial)
-    result = keyword_match(
-        "The scar on his face was visible.",
-        ["car"]
-    )
+    result = keyword_match("The scar on his face was visible.", ["car"])
     print("Test 4 - Word boundary test (should not match 'car' in 'scar'):")
     print("  Response: 'The scar on his face was visible.'")
     print(f"  Result: {result}")
     print()
 
     # Test 5: Edge case - None response
-    result = keyword_match(
-        None,
-        ["test"]
-    )
+    result = keyword_match(None, ["test"])
     print("Test 5 - None response:")
     print("  Response: None")
     print(f"  Result: {result}")
     print()
 
     # Test 6: Edge case - Empty keywords
-    result = keyword_match(
-        "Some response text",
-        []
-    )
+    result = keyword_match("Some response text", [])
     print("Test 6 - Empty keywords:")
     print("  Response: 'Some response text'")
     print(f"  Result: {result}")

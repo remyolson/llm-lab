@@ -80,7 +80,7 @@ except Exception as e:
    ```bash
    # .env should be in project root
    ls -la .env
-   
+
    # Check format (no spaces around =)
    cat .env
    # Correct: GOOGLE_API_KEY=your-key-here
@@ -91,7 +91,7 @@ except Exception as e:
    ```python
    from dotenv import load_dotenv
    import os
-   
+
    load_dotenv()
    print("Google API Key:", "✓ Set" if os.getenv('GOOGLE_API_KEY') else "✗ Missing")
    ```
@@ -100,7 +100,7 @@ except Exception as e:
    ```python
    from pathlib import Path
    from dotenv import load_dotenv
-   
+
    env_path = Path(__file__).parent / '.env'
    load_dotenv(dotenv_path=env_path)
    ```
@@ -110,9 +110,22 @@ except Exception as e:
 ### Issue: Invalid or Missing API Keys
 
 **Symptoms**:
+- `InvalidCredentialsError: Invalid or missing credentials for OpenAI`
 - `401 Unauthorized` errors
-- `403 Forbidden` responses  
+- `403 Forbidden` responses
 - `Invalid API key` messages
+
+**Enhanced Error Messages**:
+Our improved error handling now provides specific troubleshooting steps:
+```
+InvalidCredentialsError: Invalid or missing credentials for OpenAI
+
+Troubleshooting:
+1. Check that OPENAI_API_KEY is set in your environment or .env file
+2. Verify your API key at https://platform.openai.com/api-keys
+3. Ensure your API key starts with 'sk-'
+4. Check if your account has available credits
+```
 
 **Diagnosis**:
 ```bash
@@ -168,19 +181,19 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
    ```python
    import time
    from datetime import datetime, timedelta
-   
+
    class QuotaTracker:
        def __init__(self, requests_per_minute=10):
            self.rpm_limit = requests_per_minute
            self.requests = []
-       
+
        def can_make_request(self):
            now = datetime.now()
            # Remove requests older than 1 minute
-           self.requests = [req for req in self.requests 
+           self.requests = [req for req in self.requests
                            if now - req < timedelta(minutes=1)]
            return len(self.requests) < self.rpm_limit
-       
+
        def record_request(self):
            self.requests.append(datetime.now())
    ```
@@ -201,7 +214,7 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
 1. **Increase timeout settings**:
    ```python
    from llm_providers import OpenAIProvider
-   
+
    provider = OpenAIProvider(
        model_name="gpt-4o-mini",
        timeout=60  # Increase from default 30 seconds
@@ -212,7 +225,7 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
    ```python
    import time
    import random
-   
+
    def retry_with_backoff(func, max_retries=3):
        for attempt in range(max_retries):
            try:
@@ -220,7 +233,7 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
            except Exception as e:
                if attempt == max_retries - 1:
                    raise e
-               
+
                wait_time = (2 ** attempt) + random.uniform(0, 1)
                print(f"Retry {attempt + 1} in {wait_time:.1f}s...")
                time.sleep(wait_time)
@@ -232,7 +245,7 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
    ping google.com
    ping api.openai.com
    ping api.anthropic.com
-   
+
    # Test DNS resolution
    nslookup generativelanguage.googleapis.com
    ```
@@ -250,11 +263,11 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
    ```python
    import os
    import requests
-   
+
    # Set proxy environment variables
    os.environ['HTTP_PROXY'] = 'http://proxy.company.com:8080'
    os.environ['HTTPS_PROXY'] = 'http://proxy.company.com:8080'
-   
+
    # Or configure in requests session
    session = requests.Session()
    session.proxies = {
@@ -267,10 +280,10 @@ curl -H "x-api-key: $ANTHROPIC_API_KEY" \
    ```python
    import ssl
    import urllib3
-   
+
    # Disable SSL warnings (not recommended for production)
    urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-   
+
    # Or provide custom certificate bundle
    import certifi
    ssl_context = ssl.create_default_context(cafile=certifi.where())
@@ -337,7 +350,7 @@ provider = GoogleProvider(
 1. **Check model availability**:
    ```python
    import openai
-   
+
    client = openai.OpenAI()
    models = client.models.list()
    for model in models.data:
@@ -400,8 +413,21 @@ def validate_messages(messages):
 #### Issue: Rate Limiting Errors
 
 **Symptoms**:
+- `RateLimitError: Rate limit exceeded for OpenAI`
 - `429 Too Many Requests` errors
 - Requests failing frequently
+
+**Enhanced Error Messages**:
+Our improved error handling now provides specific suggestions:
+```
+RateLimitError: Rate limit exceeded for OpenAI. Retry after 60 seconds
+
+Suggestions:
+1. Implement exponential backoff with retry logic
+2. Consider using a different model with higher rate limits
+3. Batch requests to reduce API calls
+4. Check your rate limits at https://platform.openai.com/account/limits
+```
 
 **Solutions**:
 ```python
@@ -412,19 +438,19 @@ class AnthropicRateLimiter:
     def __init__(self, requests_per_minute=5):  # Conservative for free tier
         self.rpm = requests_per_minute
         self.requests = []
-    
+
     async def wait_if_needed(self):
         now = datetime.now()
         # Remove old requests
-        self.requests = [req for req in self.requests 
+        self.requests = [req for req in self.requests
                         if now - req < timedelta(minutes=1)]
-        
+
         if len(self.requests) >= self.rpm:
             oldest = min(self.requests)
             wait_time = 60 - (now - oldest).total_seconds()
             if wait_time > 0:
                 await asyncio.sleep(wait_time)
-        
+
         self.requests.append(now)
 ```
 
@@ -466,7 +492,7 @@ def test_provider_speed():
    google_fast = GoogleProvider(model_name="gemini-1.5-flash")  # Fastest Gemini
    openai_fast = OpenAIProvider(model_name="gpt-4o-mini")      # Fastest GPT-4 class
    anthropic_fast = AnthropicProvider(model_name="claude-3-5-haiku-20241022")  # Fastest Claude
-   
+
    # Optimize parameters
    provider = GoogleProvider(
        model_name="gemini-1.5-flash",
@@ -479,19 +505,19 @@ def test_provider_speed():
    ```python
    from functools import lru_cache
    import hashlib
-   
+
    class CachedProvider:
        def __init__(self, provider):
            self.provider = provider
            self.cache = {}
-       
+
        def generate(self, prompt):
            # Create cache key
            key = hashlib.md5(prompt.encode()).hexdigest()
-           
+
            if key in self.cache:
                return self.cache[key]
-           
+
            response = self.provider.generate(prompt)
            self.cache[key] = response
            return response
@@ -500,11 +526,11 @@ def test_provider_speed():
 3. **Use async/await for concurrent requests**:
    ```python
    import asyncio
-   
+
    async def process_multiple_prompts(provider, prompts):
        async def process_one(prompt):
            return await provider.generate_async(prompt)
-       
+
        tasks = [process_one(prompt) for prompt in prompts]
        return await asyncio.gather(*tasks)
    ```
@@ -522,13 +548,13 @@ def test_provider_speed():
    ```python
    import psutil
    import gc
-   
+
    def check_memory():
        process = psutil.Process()
        memory_mb = process.memory_info().rss / 1024 / 1024
        print(f"Memory usage: {memory_mb:.1f} MB")
        return memory_mb
-   
+
    # Force garbage collection
    def cleanup_memory():
        gc.collect()
@@ -549,24 +575,24 @@ def test_provider_speed():
 3. **Limit response caching**:
    ```python
    from collections import OrderedDict
-   
+
    class LimitedCache:
        def __init__(self, max_size=100):
            self.cache = OrderedDict()
            self.max_size = max_size
-       
+
        def get(self, key):
            if key in self.cache:
                # Move to end (most recently used)
                self.cache.move_to_end(key)
                return self.cache[key]
            return None
-       
+
        def set(self, key, value):
            if key in self.cache:
                self.cache.move_to_end(key)
            self.cache[key] = value
-           
+
            # Remove oldest if over limit
            while len(self.cache) > self.max_size:
                self.cache.popitem(last=False)
@@ -613,8 +639,8 @@ pytest tests/test_providers.py -v
    ```python
    import pytest
    import os
-   
-   @pytest.mark.skipif(not os.getenv('GOOGLE_API_KEY'), 
+
+   @pytest.mark.skipif(not os.getenv('GOOGLE_API_KEY'),
                       reason="Google API key not available")
    def test_google_provider():
        # Test implementation
@@ -625,13 +651,13 @@ pytest tests/test_providers.py -v
    ```python
    import pytest
    from unittest.mock import patch
-   
+
    @pytest.fixture
    def mock_provider():
        with patch('llm_providers.GoogleProvider') as mock:
            mock.return_value.generate.return_value = "Mocked response"
            yield mock
-   
+
    def test_with_mock(mock_provider):
        # Test uses mocked provider
        pass
@@ -655,7 +681,7 @@ pytest tests/test_providers.py -v
    ```python
    import sys
    from pathlib import Path
-   
+
    # Add project root to path
    project_root = Path(__file__).parent.parent
    sys.path.insert(0, str(project_root))
@@ -678,7 +704,7 @@ pytest tests/test_providers.py -v
 
 **Response Time Categories**:
 - **Excellent**: < 1 second
-- **Good**: 1-3 seconds  
+- **Good**: 1-3 seconds
 - **Acceptable**: 3-10 seconds
 - **Slow**: > 10 seconds
 
@@ -724,7 +750,7 @@ pytest tests/test_providers.py -v
 1. **Enable detailed logging**:
    ```python
    import logging
-   
+
    logging.basicConfig(
        level=logging.DEBUG,
        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -733,7 +759,7 @@ pytest tests/test_providers.py -v
            logging.StreamHandler()
        ]
    )
-   
+
    logger = logging.getLogger(__name__)
    ```
 
@@ -741,7 +767,7 @@ pytest tests/test_providers.py -v
    ```python
    import time
    from functools import wraps
-   
+
    def monitor_api_calls(func):
        @wraps(func)
        def wrapper(*args, **kwargs):
@@ -763,19 +789,19 @@ pytest tests/test_providers.py -v
    import psutil
    import threading
    import time
-   
+
    class ResourceMonitor:
        def __init__(self, interval=5):
            self.interval = interval
            self.monitoring = False
            self.stats = []
-       
+
        def start_monitoring(self):
            self.monitoring = True
            thread = threading.Thread(target=self._monitor)
            thread.daemon = True
            thread.start()
-       
+
        def _monitor(self):
            while self.monitoring:
                stats = {
@@ -785,7 +811,7 @@ pytest tests/test_providers.py -v
                }
                self.stats.append(stats)
                time.sleep(self.interval)
-       
+
        def stop_monitoring(self):
            self.monitoring = False
            return self.stats
@@ -797,13 +823,13 @@ pytest tests/test_providers.py -v
    ```python
    import requests
    import time
-   
+
    def test_endpoint_connectivity(url, timeout=10):
        try:
            start = time.time()
            response = requests.get(url, timeout=timeout)
            end = time.time()
-           
+
            return {
                'success': response.status_code == 200,
                'status_code': response.status_code,
@@ -816,14 +842,14 @@ pytest tests/test_providers.py -v
                'error': str(e),
                'response_time': None
            }
-   
+
    # Test provider endpoints
    endpoints = {
        'google': 'https://generativelanguage.googleapis.com/v1/models',
        'openai': 'https://api.openai.com/v1/models',
        'anthropic': 'https://api.anthropic.com/v1/messages'
    }
-   
+
    for name, url in endpoints.items():
        result = test_endpoint_connectivity(url)
        print(f"{name}: {'✓' if result['success'] else '✗'} {result.get('response_time', 'N/A')}")
@@ -835,11 +861,11 @@ pytest tests/test_providers.py -v
    ```python
    from collections import defaultdict
    import re
-   
+
    class ErrorAnalyzer:
        def __init__(self):
            self.errors = defaultdict(list)
-       
+
        def record_error(self, error, context=None):
            error_type = self._categorize_error(str(error))
            self.errors[error_type].append({
@@ -847,7 +873,7 @@ pytest tests/test_providers.py -v
                'context': context,
                'timestamp': time.time()
            })
-       
+
        def _categorize_error(self, error_str):
            patterns = {
                'rate_limit': r'rate limit|429|too many requests',
@@ -856,12 +882,12 @@ pytest tests/test_providers.py -v
                'model': r'model.*not found|invalid model',
                'quota': r'quota|billing|exceeded'
            }
-           
+
            for category, pattern in patterns.items():
                if re.search(pattern, error_str.lower()):
                    return category
            return 'unknown'
-       
+
        def get_error_summary(self):
            return {
                category: {
@@ -893,7 +919,7 @@ pytest tests/test_providers.py -v
    make test-unit
    make lint
    make type-check
-   
+
    # Check specific components
    python -c "from llm_providers import GoogleProvider; print('✓ Import OK')"
    python examples/notebooks/01_basic_multi_model_comparison.py
@@ -910,29 +936,29 @@ pytest tests/test_providers.py -v
    ```markdown
    ## Problem Description
    Brief description of the issue
-   
+
    ## Environment
    - OS: macOS/Linux/Windows
    - Python version: 3.x
    - LLM Lab version: x.x.x
    - Provider: Google/OpenAI/Anthropic
-   
+
    ## Steps to Reproduce
    1. Step 1
    2. Step 2
    3. Step 3
-   
+
    ## Expected Behavior
    What you expected to happen
-   
+
    ## Actual Behavior
    What actually happened
-   
+
    ## Error Messages
    ```
    Full error traceback
    ```
-   
+
    ## Additional Context
    Any other relevant information
    ```
@@ -943,7 +969,7 @@ pytest tests/test_providers.py -v
    python --version
    pip list | grep -E "(llm|openai|anthropic|google)"
    echo "OS: $(uname -a)"
-   
+
    # Test basic functionality
    python -c "
    import sys

@@ -83,28 +83,28 @@ constitutional_ai:
     - id: harmless
       description: "Avoid potential harm in all forms"
       weight: 1.0
-      
+
   specific_rules:
     - id: no_illegal
       trigger: "illegal|crime|hack|exploit"
       action: "refuse_politely"
       message: "I can't provide assistance with potentially illegal activities."
-      
+
     - id: no_harmful_instructions
       trigger: "harm|hurt|damage|destroy"
       context: "instructions|how to|guide"
       action: "redirect_positive"
-      
+
     - id: medical_disclaimer
       trigger: "medical|health|diagnosis|treatment"
       action: "add_disclaimer"
       disclaimer: "This is general information only. Please consult healthcare professionals."
-      
+
     - id: financial_warning
       trigger: "invest|trading|financial advice"
       action: "add_warning"
       warning: "This is not financial advice. Please consult qualified professionals."
-      
+
   intervention_thresholds:
     toxicity: 0.7
     bias: 0.8
@@ -139,12 +139,12 @@ safety_pipeline:
     - filter: prompt_safety_check
       models: ["claude-3-5-haiku-20241022", "gpt-4o-mini"]
       consensus_threshold: 0.8
-      
+
   during_generation:
     - filter: real_time_monitoring
       check_interval: 50  # tokens
       abort_threshold: 0.9
-      
+
   post_generation:
     - filter: output_validation
       checks:
@@ -152,18 +152,18 @@ safety_pipeline:
         - bias_detection
         - factuality_verification
         - harm_potential_analysis
-        
+
   filters:
     toxicity_detection:
       model: "perspective-api"
       threshold: 0.7
       categories: ["severe_toxicity", "threat", "insult", "profanity"]
-      
+
     bias_detection:
       model: "custom-classifier"
       protected_attributes: ["race", "gender", "religion", "nationality"]
       threshold: 0.8
-      
+
     factuality_verification:
       method: "claim_detection"
       verify_with: ["search", "knowledge_base"]
@@ -226,9 +226,9 @@ consensus_system:
     - model: "gemini-1.5-pro"
       weight: 0.3
       role: "tertiary"
-      
+
   voting_mechanism: "weighted_average"
-  
+
   safety_criteria:
     - criterion: "harmful_content"
       threshold: 0.8
@@ -238,7 +238,7 @@ consensus_system:
       require_majority: true
     - criterion: "bias_presence"
       threshold: 0.75
-      
+
   disagreement_protocol:
     threshold: 0.3  # Max allowed disagreement
     action: "escalate_to_human"
@@ -343,7 +343,7 @@ Different patterns indicate different alignment characteristics:
 
 **📊 Healthy Alignment Patterns:**
 - **High safety, low false positives**: Well-calibrated filters
-- **Consistent intervention rates**: Predictable safety boundaries  
+- **Consistent intervention rates**: Predictable safety boundaries
 - **Strong preference alignment**: Matches human values
 - **Robust to adversarial inputs**: Handles edge cases well
 
@@ -389,7 +389,7 @@ system.add_context_rule(
 )
 
 system.add_context_rule(
-    context="professional", 
+    context="professional",
     relaxed_rules=["formal_language"],
     stricter_rules=["workplace_appropriate", "inclusive_language"]
 )
@@ -611,7 +611,7 @@ Anthropic's approach to value alignment:
 
 ### Output Filtering
 Post-processing safety checks:
-- **Best for**: Content moderation, compliance, specific restrictions  
+- **Best for**: Content moderation, compliance, specific restrictions
 - **Strengths**: Easy to implement, low overhead, modular
 - **Example**: "Block outputs containing personal information"
 

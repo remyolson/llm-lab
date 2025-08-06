@@ -6,6 +6,6 @@ for testing LLM performance across various tasks.
 """
 
 # Import key components for easier access
-from .runners import MultiModelBenchmarkRunner, BenchmarkResult, ModelBenchmarkResult, ExecutionMode
+from .runners import BenchmarkResult, ExecutionMode, ModelBenchmarkResult, MultiModelBenchmarkRunner
 
-__all__ = ["MultiModelBenchmarkRunner", "BenchmarkResult", "ModelBenchmarkResult", "ExecutionMode"]
+__all__ = ["BenchmarkResult", "ExecutionMode", "ModelBenchmarkResult", "MultiModelBenchmarkRunner"]

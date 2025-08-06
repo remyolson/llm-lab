@@ -192,15 +192,15 @@ body {
     .card.bg-info .card-title {
         font-size: 1.5rem;
     }
-    
+
     .table-responsive {
         font-size: 0.8rem;
     }
-    
+
     .btn-group {
         flex-direction: column;
     }
-    
+
     .btn-group .btn {
         border-radius: 6px !important;
         margin-bottom: 0.25rem;
@@ -213,26 +213,26 @@ body {
         background-color: #1a1a1a;
         color: #e9ecef;
     }
-    
+
     .card {
         background-color: #2d3748;
         color: #e9ecef;
     }
-    
+
     .card-header {
         background-color: #2d3748;
         border-bottom-color: #4a5568;
     }
-    
+
     .table {
         color: #e9ecef;
     }
-    
+
     .table th {
         background-color: #2d3748;
         color: #e9ecef;
     }
-    
+
     .table-hover tbody tr:hover {
         background-color: rgba(255, 255, 255, 0.05);
     }
@@ -265,12 +265,12 @@ body {
     #connection-status {
         display: none !important;
     }
-    
+
     .card {
         box-shadow: none;
         border: 1px solid #dee2e6;
     }
-    
+
     body {
         background-color: white !important;
         color: black !important;

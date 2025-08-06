@@ -148,17 +148,17 @@ from llm_providers import OpenAIProvider
 
 async def process_batch():
     provider = OpenAIProvider(model_name="gpt-4o-mini")
-    
+
     prompts = [
         "Summarize the benefits of cloud computing",
         "Explain blockchain in simple terms",
         "Describe the future of renewable energy"
     ]
-    
+
     # Process concurrently
     tasks = [provider.generate_async(prompt) for prompt in prompts]
     responses = await asyncio.gather(*tasks)
-    
+
     return responses
 
 # Run batch processing
@@ -225,7 +225,7 @@ class RateLimitedOpenAIProvider(OpenAIProvider):
     def __init__(self, max_concurrent=5, **kwargs):
         super().__init__(**kwargs)
         self.semaphore = Semaphore(max_concurrent)
-    
+
     async def generate_async_limited(self, prompt):
         async with self.semaphore:
             return await self.generate_async(prompt)
@@ -255,8 +255,8 @@ provider = RateLimitedOpenAIProvider(
 ```python
 from llm_providers import OpenAIProvider
 from llm_providers.exceptions import (
-    RateLimitError, 
-    AuthenticationError, 
+    RateLimitError,
+    AuthenticationError,
     InvalidRequestError,
     ServiceUnavailableError
 )
@@ -267,32 +267,32 @@ def robust_generate(prompt, max_retries=3):
     for attempt in range(max_retries):
         try:
             return provider.generate(prompt)
-            
+
         except RateLimitError as e:
             print(f"Rate limit hit, retry after: {e.retry_after} seconds")
             if e.retry_after:
                 time.sleep(e.retry_after)
             else:
                 time.sleep(2 ** attempt)
-                
+
         except AuthenticationError as e:
             print(f"Authentication failed: {e}")
             raise  # Don't retry auth errors
-            
+
         except InvalidRequestError as e:
             print(f"Invalid request: {e}")
             raise  # Don't retry invalid requests
-            
+
         except ServiceUnavailableError as e:
             print(f"Service unavailable, retrying in {2 ** attempt} seconds")
             time.sleep(2 ** attempt)
-            
+
         except Exception as e:
             print(f"Unexpected error: {e}")
             if attempt == max_retries - 1:
                 raise
             time.sleep(2 ** attempt)
-    
+
     raise Exception("Max retries exceeded")
 ```
 
@@ -358,15 +358,15 @@ provider = OpenAIProvider(model_name="gpt-4o-mini")
 
 def run_benchmark(dataset, output_file):
     results = []
-    
+
     for i, prompt_data in enumerate(dataset):
         print(f"Processing {i+1}/{len(dataset)}")
-        
+
         try:
             start_time = time.time()
             response = provider.generate(prompt_data['prompt'])
             end_time = time.time()
-            
+
             result = {
                 'prompt_id': prompt_data['id'],
                 'model_name': 'openai/gpt-4o-mini',
@@ -376,7 +376,7 @@ def run_benchmark(dataset, output_file):
                 'timestamp': datetime.now().isoformat(),
                 'success': True
             }
-            
+
         except Exception as e:
             result = {
                 'prompt_id': prompt_data['id'],
@@ -387,13 +387,13 @@ def run_benchmark(dataset, output_file):
                 'timestamp': datetime.now().isoformat(),
                 'success': False
             }
-        
+
         results.append(result)
-    
+
     # Save results
     with open(output_file, 'w') as f:
         json.dump(results, f, indent=2)
-    
+
     return results
 ```
 
@@ -438,11 +438,11 @@ response = provider.generate_with_functions(
 if response.get("function_call"):
     function_name = response["function_call"]["name"]
     function_args = json.loads(response["function_call"]["arguments"])
-    
+
     if function_name == "get_weather":
         # Call your actual weather function
         weather_data = get_weather(function_args["location"])
-        
+
         # Send function result back to model
         final_response = provider.generate_with_function_result(
             function_call=response["function_call"],
@@ -469,49 +469,49 @@ class CostOptimizedOpenAIProvider(OpenAIProvider):
         # Default to most cost-effective model
         if 'model_name' not in kwargs:
             kwargs['model_name'] = 'gpt-4o-mini'
-        
+
         super().__init__(**kwargs)
         self.budget_per_day = budget_per_day
         self.daily_spend = 0.0
         self.last_reset = datetime.now().date()
-    
+
     def generate_with_cost_tracking(self, prompt):
         # Reset daily spend if new day
         today = datetime.now().date()
         if today > self.last_reset:
             self.daily_spend = 0.0
             self.last_reset = today
-        
+
         # Check budget
         if self.daily_spend >= self.budget_per_day:
             raise Exception("Daily budget exceeded")
-        
+
         # Estimate cost before making request
         input_tokens = self.estimate_tokens(prompt)
         estimated_input_cost = input_tokens * self.get_input_price() / 1000
-        
+
         if self.daily_spend + estimated_input_cost > self.budget_per_day:
             raise Exception("Request would exceed daily budget")
-        
+
         # Make request
         response = self.generate(prompt)
-        
+
         # Calculate actual cost (approximation)
         output_tokens = self.estimate_tokens(response)
         actual_cost = (
             input_tokens * self.get_input_price() / 1000 +
             output_tokens * self.get_output_price() / 1000
         )
-        
+
         self.daily_spend += actual_cost
-        
+
         return {
             'response': response,
             'cost': actual_cost,
             'daily_spend': self.daily_spend,
             'budget_remaining': self.budget_per_day - self.daily_spend
         }
-    
+
     def get_input_price(self):
         prices = {
             'gpt-4o': 0.005,
@@ -520,7 +520,7 @@ class CostOptimizedOpenAIProvider(OpenAIProvider):
             'gpt-3.5-turbo': 0.001
         }
         return prices.get(self.model_name, 0.005)
-    
+
     def get_output_price(self):
         prices = {
             'gpt-4o': 0.015,
@@ -550,7 +550,7 @@ provider = OpenAIProvider(model_name="gpt-4o")
 def analyze_image(image_path, question):
     with open(image_path, "rb") as image_file:
         image_data = base64.b64encode(image_file.read()).decode('utf-8')
-    
+
     messages = [
         {
             "role": "user",
@@ -565,7 +565,7 @@ def analyze_image(image_path, question):
             ]
         }
     ]
-    
+
     return provider.generate_chat(messages)
 
 # Usage
@@ -583,7 +583,7 @@ provider = OpenAIProvider(
 response = provider.generate("""
 Extract the following information from this text and return as JSON:
 - Name
-- Age  
+- Age
 - Occupation
 
 Text: "John Smith is a 35-year-old software engineer working at Tech Corp."
@@ -615,16 +615,16 @@ echo $OPENAI_API_KEY
 def handle_token_limits(prompt, max_tokens=4000):
     """Handle prompts that exceed token limits"""
     estimated_tokens = len(prompt.split()) * 1.33
-    
+
     if estimated_tokens > max_tokens:
         # Truncate or split the prompt
         words = prompt.split()
         max_words = int(max_tokens * 0.75)
-        
+
         if len(words) > max_words:
             truncated = ' '.join(words[:max_words])
             return truncated + "\n[Content truncated...]"
-    
+
     return prompt
 ```
 
@@ -634,7 +634,7 @@ def handle_token_limits(prompt, max_tokens=4000):
 def check_model_access():
     """Verify you have access to specific models"""
     provider = OpenAIProvider(model_name="gpt-4o-mini")
-    
+
     try:
         response = provider.generate("Test message")
         return True
@@ -655,12 +655,12 @@ def check_usage():
     headers = {
         "Authorization": f"Bearer {os.getenv('OPENAI_API_KEY')}"
     }
-    
+
     response = requests.get(
         "https://api.openai.com/v1/usage",
         headers=headers
     )
-    
+
     if response.status_code == 200:
         return response.json()
     else:
@@ -681,15 +681,15 @@ class SecureOpenAIProvider(OpenAIProvider):
     def __init__(self, **kwargs):
         api_key = self.load_secure_api_key()
         super().__init__(api_key=api_key, **kwargs)
-    
+
     def load_secure_api_key(self):
         """Load API key securely"""
         # Try environment variable first
         api_key = os.getenv('OPENAI_API_KEY')
-        
+
         if api_key:
             return api_key
-        
+
         # Try keyring (macOS Keychain, Windows Credential Store, etc.)
         try:
             api_key = keyring.get_password("openai", "api_key")
@@ -697,7 +697,7 @@ class SecureOpenAIProvider(OpenAIProvider):
                 return api_key
         except:
             pass
-        
+
         # Try .env file as last resort
         env_file = Path('.env')
         if env_file.exists():
@@ -705,7 +705,7 @@ class SecureOpenAIProvider(OpenAIProvider):
                 for line in f:
                     if line.startswith('OPENAI_API_KEY='):
                         return line.split('=', 1)[1].strip()
-        
+
         raise ValueError("OpenAI API key not found")
 ```
 
@@ -714,20 +714,20 @@ class SecureOpenAIProvider(OpenAIProvider):
 ```python
 def safe_generate(provider, prompt):
     """Generate with content safety checks"""
-    
+
     # Pre-filter prompts
     if any(word in prompt.lower() for word in ['harmful', 'illegal', 'violence']):
         return "I can't help with that request."
-    
+
     try:
         response = provider.generate(prompt)
-        
+
         # Post-filter responses if needed
         if any(word in response.lower() for word in ['dangerous', 'harmful']):
             return "I cannot provide that information."
-        
+
         return response
-        
+
     except Exception as e:
         # Log security-related errors
         if "content_policy" in str(e).lower():
@@ -744,7 +744,7 @@ from datetime import datetime
 class MonitoredOpenAIProvider(OpenAIProvider):
     def __init__(self, log_file='openai_usage.log', **kwargs):
         super().__init__(**kwargs)
-        
+
         # Setup logging
         logging.basicConfig(
             filename=log_file,
@@ -752,25 +752,25 @@ class MonitoredOpenAIProvider(OpenAIProvider):
             format='%(asctime)s - %(message)s'
         )
         self.logger = logging.getLogger(__name__)
-    
+
     def generate(self, prompt):
         start_time = datetime.now()
         prompt_length = len(prompt)
-        
+
         try:
             response = super().generate(prompt)
             duration = (datetime.now() - start_time).total_seconds()
-            
+
             self.logger.info(f"SUCCESS - Model: {self.model_name}, "
                            f"Prompt length: {prompt_length}, "
                            f"Response length: {len(response)}, "
                            f"Duration: {duration:.2f}s")
-            
+
             return response
-            
+
         except Exception as e:
             duration = (datetime.now() - start_time).total_seconds()
-            
+
             self.logger.error(f"ERROR - Model: {self.model_name}, "
                             f"Prompt length: {prompt_length}, "
                             f"Duration: {duration:.2f}s, "

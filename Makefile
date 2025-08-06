@@ -93,7 +93,7 @@ test-all: test-unit test-integration test-compatibility test-security
 	@echo "All tests completed!"
 
 # Code quality targets
-lint: 
+lint:
 	@echo "Running linters..."
 	ruff check .
 	mypy src/ tests/ --ignore-missing-imports --no-strict-optional
@@ -169,7 +169,7 @@ pre-commit: format lint
 ci-test:
 	@echo "Simulating CI/CD pipeline..."
 	$(MAKE) format
-	$(MAKE) lint  
+	$(MAKE) lint
 	$(MAKE) test-unit
 	$(MAKE) test-security
 	@echo "CI/CD simulation completed!"

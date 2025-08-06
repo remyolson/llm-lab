@@ -8,7 +8,7 @@ providers:
     default_parameters:
       temperature: 0.5  # Use lower temperature for more consistent results
       max_tokens: 2000  # Increase token limit
-    
+
     # Model-specific overrides
     models:
       gpt-4:
@@ -16,7 +16,7 @@ providers:
           temperature: 0.8  # Higher temperature for creative tasks
         aliases:
           - my-gpt4  # Add custom alias
-      
+
       gpt-3.5-turbo:
         parameters:
           max_tokens: 500  # Limit tokens for cost savings

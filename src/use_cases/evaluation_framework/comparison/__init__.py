@@ -6,15 +6,10 @@ before and after fine-tuning.
 """
 
 from .comparison_view import (
-    ComparisonView,
     ComparisonConfig,
+    ComparisonView,
+    create_gradio_interface,
     create_streamlit_app,
-    create_gradio_interface
 )
 
-__all__ = [
-    "ComparisonView",
-    "ComparisonConfig",
-    "create_streamlit_app",
-    "create_gradio_interface"
-]
+__all__ = ["ComparisonConfig", "ComparisonView", "create_gradio_interface", "create_streamlit_app"]

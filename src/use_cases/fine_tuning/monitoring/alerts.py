@@ -6,20 +6,20 @@ including anomaly detection, threshold alerts, and notification mechanisms.
 
 Example:
     alert_system = AlertSystem()
-    
+
     # Add threshold alert
     alert_system.add_threshold_alert(
         metric="loss",
         threshold=2.0,
         condition="greater_than"
     )
-    
+
     # Add anomaly detection
     alert_system.add_anomaly_detector(
         metric="gpu_memory",
         sensitivity=2.5
     )
-    
+
     # Check metrics
     alert_system.check_metrics({
         "loss": 2.5,
@@ -27,27 +27,30 @@ Example:
     })
 """
 
-import time
+from __future__ import annotations  # Enable Python 3.9+ union syntax
+
 import json
 import logging
-from typing import Dict, Any, List, Optional, Callable, Tuple
+import smtplib
+import time
+from abc import ABC, abstractmethod
+from collections import defaultdict, deque
 from dataclasses import dataclass, field
 from datetime import datetime, timedelta
-from collections import deque, defaultdict
-from enum import Enum
-import numpy as np
-from abc import ABC, abstractmethod
-import smtplib
-from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from enum import Enum
+from typing import Any, Dict, List, Optional
+
+import numpy as np
 import requests
-import os
 
 logger = logging.getLogger(__name__)
 
 
 class AlertSeverity(Enum):
     """Alert severity levels."""
+
     INFO = "info"
     WARNING = "warning"
     ERROR = "error"
@@ -56,6 +59,7 @@ class AlertSeverity(Enum):
 
 class AlertCondition(Enum):
     """Alert condition types."""
+
     GREATER_THAN = "greater_than"
     LESS_THAN = "less_than"
     EQUALS = "equals"
@@ -67,6 +71,7 @@ class AlertCondition(Enum):
 @dataclass
 class AlertConfig:
     """Alert configuration."""
+
     name: str
     metric: str
     severity: AlertSeverity = AlertSeverity.WARNING
@@ -79,6 +84,7 @@ class AlertConfig:
 @dataclass
 class AlertEvent:
     """Alert event record."""
+
     alert_name: str
     timestamp: datetime
     severity: AlertSeverity
@@ -86,8 +92,8 @@ class AlertEvent:
     metric_value: float
     message: str
     context: Dict[str, Any] = field(default_factory=dict)
-    
-    def to_dict(self) -> Dict[str, Any]:
+
+    def to_dict(self) -> Dict[str | Any]:
         """Convert to dictionary."""
         return {
             "alert_name": self.alert_name,
@@ -96,54 +102,54 @@ class AlertEvent:
             "metric_name": self.metric_name,
             "metric_value": self.metric_value,
             "message": self.message,
-            "context": self.context
+            "context": self.context,
         }
 
 
 class BaseAlert(ABC):
     """Base class for alert types."""
-    
+
     def __init__(self, config: AlertConfig):
         """Initialize alert.
-        
+
         Args:
             config: Alert configuration
         """
         self.config = config
         self.last_alert_time = None
         self.alert_count_window = deque(maxlen=60)  # Last hour
-    
+
     @abstractmethod
     def check(self, value: float, context: Dict[str, Any]) -> Optional[AlertEvent]:
         """Check if alert should trigger.
-        
+
         Args:
             value: Metric value
             context: Additional context
-            
+
         Returns:
             AlertEvent if triggered, None otherwise
         """
         pass
-    
+
     def should_alert(self) -> bool:
         """Check if alert should be sent based on cooldown and rate limits."""
         current_time = datetime.now()
-        
+
         # Check cooldown
         if self.last_alert_time:
             cooldown_delta = timedelta(minutes=self.config.cooldown_minutes)
             if current_time - self.last_alert_time < cooldown_delta:
                 return False
-        
+
         # Check rate limit
         hour_ago = current_time - timedelta(hours=1)
         recent_alerts = sum(1 for t in self.alert_count_window if t > hour_ago)
         if recent_alerts >= self.config.max_alerts_per_hour:
             return False
-        
+
         return True
-    
+
     def record_alert(self):
         """Record that an alert was triggered."""
         current_time = datetime.now()
@@ -153,16 +159,16 @@ class BaseAlert(ABC):
 
 class ThresholdAlert(BaseAlert):
     """Threshold-based alert."""
-    
+
     def __init__(
         self,
         config: AlertConfig,
         threshold: float,
         condition: AlertCondition = AlertCondition.GREATER_THAN,
-        threshold2: Optional[float] = None
+        threshold2: Optional[float] = None,
     ):
         """Initialize threshold alert.
-        
+
         Args:
             config: Alert configuration
             threshold: Threshold value
@@ -173,14 +179,14 @@ class ThresholdAlert(BaseAlert):
         self.threshold = threshold
         self.condition = condition
         self.threshold2 = threshold2
-    
+
     def check(self, value: float, context: Dict[str, Any]) -> Optional[AlertEvent]:
         """Check threshold condition."""
         if not self.config.enabled or not self.should_alert():
             return None
-        
+
         triggered = False
-        
+
         if self.condition == AlertCondition.GREATER_THAN:
             triggered = value > self.threshold
         elif self.condition == AlertCondition.LESS_THAN:
@@ -193,14 +199,14 @@ class ThresholdAlert(BaseAlert):
             triggered = self.threshold <= value <= self.threshold2
         elif self.condition == AlertCondition.OUTSIDE and self.threshold2:
             triggered = value < self.threshold or value > self.threshold2
-        
+
         if triggered:
             self.record_alert()
-            
+
             message = f"{self.config.metric} ({value:.4f}) {self.condition.value} {self.threshold}"
             if self.threshold2:
                 message += f" and {self.threshold2}"
-            
+
             return AlertEvent(
                 alert_name=self.config.name,
                 timestamp=datetime.now(),
@@ -208,24 +214,24 @@ class ThresholdAlert(BaseAlert):
                 metric_name=self.config.metric,
                 metric_value=value,
                 message=message,
-                context=context
+                context=context,
             )
-        
+
         return None
 
 
 class AnomalyAlert(BaseAlert):
     """Anomaly detection alert using statistical methods."""
-    
+
     def __init__(
         self,
         config: AlertConfig,
         window_size: int = 50,
         sensitivity: float = 3.0,
-        min_samples: int = 20
+        min_samples: int = 20,
     ):
         """Initialize anomaly alert.
-        
+
         Args:
             config: Alert configuration
             window_size: Window size for statistics
@@ -237,43 +243,43 @@ class AnomalyAlert(BaseAlert):
         self.sensitivity = sensitivity
         self.min_samples = min_samples
         self.value_history = deque(maxlen=window_size)
-        
+
         # Moving statistics
         self.mean = 0
         self.std = 0
         self.update_count = 0
-    
+
     def update_statistics(self, value: float):
         """Update running statistics."""
         self.value_history.append(value)
         self.update_count += 1
-        
+
         if len(self.value_history) >= self.min_samples:
             values = np.array(self.value_history)
             self.mean = np.mean(values)
             self.std = np.std(values)
-    
+
     def check(self, value: float, context: Dict[str, Any]) -> Optional[AlertEvent]:
         """Check for anomalies."""
         self.update_statistics(value)
-        
+
         if not self.config.enabled or not self.should_alert():
             return None
-        
+
         if len(self.value_history) < self.min_samples:
             return None
-        
+
         if self.std == 0:
             return None
-        
+
         # Calculate z-score
         z_score = abs(value - self.mean) / self.std
-        
+
         if z_score > self.sensitivity:
             self.record_alert()
-            
+
             direction = "above" if value > self.mean else "below"
-            
+
             return AlertEvent(
                 alert_name=self.config.name,
                 timestamp=datetime.now(),
@@ -286,25 +292,25 @@ class AnomalyAlert(BaseAlert):
                     "z_score": z_score,
                     "mean": self.mean,
                     "std": self.std,
-                    "window_size": len(self.value_history)
-                }
+                    "window_size": len(self.value_history),
+                },
             )
-        
+
         return None
 
 
 class TrendAlert(BaseAlert):
     """Alert based on metric trends."""
-    
+
     def __init__(
         self,
         config: AlertConfig,
         window_size: int = 20,
         trend_threshold: float = 0.1,
-        direction: str = "increasing"
+        direction: str = "increasing",
     ):
         """Initialize trend alert.
-        
+
         Args:
             config: Alert configuration
             window_size: Window size for trend calculation
@@ -317,39 +323,39 @@ class TrendAlert(BaseAlert):
         self.direction = direction
         self.value_history = deque(maxlen=window_size)
         self.time_history = deque(maxlen=window_size)
-    
+
     def check(self, value: float, context: Dict[str, Any]) -> Optional[AlertEvent]:
         """Check for trend anomalies."""
         current_time = time.time()
         self.value_history.append(value)
         self.time_history.append(current_time)
-        
+
         if not self.config.enabled or not self.should_alert():
             return None
-        
+
         if len(self.value_history) < self.window_size:
             return None
-        
+
         # Calculate trend using linear regression
         times = np.array(self.time_history) - self.time_history[0]
         values = np.array(self.value_history)
-        
+
         # Normalize time to avoid numerical issues
         times = times / times[-1] if times[-1] > 0 else times
-        
+
         # Calculate slope
         slope = np.polyfit(times, values, 1)[0]
-        
+
         # Check trend direction
         triggered = False
         if self.direction == "increasing" and slope > self.trend_threshold:
             triggered = True
         elif self.direction == "decreasing" and slope < -self.trend_threshold:
             triggered = True
-        
+
         if triggered:
             self.record_alert()
-            
+
             return AlertEvent(
                 alert_name=self.config.name,
                 timestamp=datetime.now(),
@@ -361,23 +367,23 @@ class TrendAlert(BaseAlert):
                     **context,
                     "slope": slope,
                     "window_size": len(self.value_history),
-                    "direction": self.direction
-                }
+                    "direction": self.direction,
+                },
             )
-        
+
         return None
 
 
 class BaseNotifier(ABC):
     """Base class for notification methods."""
-    
+
     @abstractmethod
     def send(self, alert_event: AlertEvent) -> bool:
         """Send notification.
-        
+
         Args:
             alert_event: Alert event to notify about
-            
+
         Returns:
             True if successful
         """
@@ -386,37 +392,39 @@ class BaseNotifier(ABC):
 
 class ConsoleNotifier(BaseNotifier):
     """Console notification output."""
-    
+
     def send(self, alert_event: AlertEvent) -> bool:
         """Print alert to console."""
         severity_colors = {
-            AlertSeverity.INFO: "\033[94m",      # Blue
-            AlertSeverity.WARNING: "\033[93m",   # Yellow
-            AlertSeverity.ERROR: "\033[91m",     # Red
-            AlertSeverity.CRITICAL: "\033[95m"   # Magenta
+            AlertSeverity.INFO: "\033[94m",  # Blue
+            AlertSeverity.WARNING: "\033[93m",  # Yellow
+            AlertSeverity.ERROR: "\033[91m",  # Red
+            AlertSeverity.CRITICAL: "\033[95m",  # Magenta
         }
-        
+
         color = severity_colors.get(alert_event.severity, "")
         reset = "\033[0m"
-        
-        print(f"{color}[ALERT - {alert_event.severity.value.upper()}] "
-              f"{alert_event.timestamp.strftime('%Y-%m-%d %H:%M:%S')}{reset}")
+
+        print(
+            f"{color}[ALERT - {alert_event.severity.value.upper()}] "
+            f"{alert_event.timestamp.strftime('%Y-%m-%d %H:%M:%S')}{reset}"
+        )
         print(f"  Alert: {alert_event.alert_name}")
         print(f"  Message: {alert_event.message}")
         print(f"  Metric: {alert_event.metric_name} = {alert_event.metric_value:.4f}")
-        
+
         if alert_event.context:
             print("  Context:")
             for key, value in alert_event.context.items():
                 print(f"    {key}: {value}")
-        
+
         print()
         return True
 
 
 class EmailNotifier(BaseNotifier):
     """Email notification sender."""
-    
+
     def __init__(
         self,
         smtp_host: str,
@@ -425,10 +433,10 @@ class EmailNotifier(BaseNotifier):
         password: str,
         from_email: str,
         to_emails: List[str],
-        use_tls: bool = True
+        use_tls: bool = True,
     ):
         """Initialize email notifier.
-        
+
         Args:
             smtp_host: SMTP server host
             smtp_port: SMTP server port
@@ -445,23 +453,25 @@ class EmailNotifier(BaseNotifier):
         self.from_email = from_email
         self.to_emails = to_emails
         self.use_tls = use_tls
-    
+
     def send(self, alert_event: AlertEvent) -> bool:
         """Send email notification."""
         try:
             # Create message
             msg = MIMEMultipart()
-            msg['From'] = self.from_email
-            msg['To'] = ', '.join(self.to_emails)
-            msg['Subject'] = f"[{alert_event.severity.value.upper()}] Fine-Tuning Alert: {alert_event.alert_name}"
-            
+            msg["From"] = self.from_email
+            msg["To"] = ", ".join(self.to_emails)
+            msg["Subject"] = (
+                f"[{alert_event.severity.value.upper()}] Fine-Tuning Alert: {alert_event.alert_name}"
+            )
+
             # Create body
             body = f"""
 Fine-Tuning Alert Notification
 
 Alert: {alert_event.alert_name}
 Severity: {alert_event.severity.value.upper()}
-Time: {alert_event.timestamp.strftime('%Y-%m-%d %H:%M:%S')}
+Time: {alert_event.timestamp.strftime("%Y-%m-%d %H:%M:%S")}
 
 Message: {alert_event.message}
 
@@ -471,18 +481,18 @@ Value: {alert_event.metric_value:.4f}
 Context:
 {json.dumps(alert_event.context, indent=2)}
             """
-            
-            msg.attach(MIMEText(body, 'plain'))
-            
+
+            msg.attach(MIMEText(body, "plain"))
+
             # Send email
             with smtplib.SMTP(self.smtp_host, self.smtp_port) as server:
                 if self.use_tls:
                     server.starttls()
                 server.login(self.username, self.password)
                 server.send_message(msg)
-            
+
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to send email notification: {e}")
             return False
@@ -490,64 +500,64 @@ Context:
 
 class SlackNotifier(BaseNotifier):
     """Slack notification sender."""
-    
+
     def __init__(self, webhook_url: str):
         """Initialize Slack notifier.
-        
+
         Args:
             webhook_url: Slack webhook URL
         """
         self.webhook_url = webhook_url
-    
+
     def send(self, alert_event: AlertEvent) -> bool:
         """Send Slack notification."""
         try:
             # Severity colors for Slack
             severity_colors = {
-                AlertSeverity.INFO: "#36a64f",      # Green
-                AlertSeverity.WARNING: "#ff9900",   # Orange
-                AlertSeverity.ERROR: "#ff0000",     # Red
-                AlertSeverity.CRITICAL: "#9b59b6"   # Purple
+                AlertSeverity.INFO: "#36a64f",  # Green
+                AlertSeverity.WARNING: "#ff9900",  # Orange
+                AlertSeverity.ERROR: "#ff0000",  # Red
+                AlertSeverity.CRITICAL: "#9b59b6",  # Purple
             }
-            
+
             # Create Slack message
             payload = {
-                "attachments": [{
-                    "color": severity_colors.get(alert_event.severity, "#808080"),
-                    "title": f"{alert_event.severity.value.upper()}: {alert_event.alert_name}",
-                    "text": alert_event.message,
-                    "fields": [
-                        {
-                            "title": "Metric",
-                            "value": f"{alert_event.metric_name}: {alert_event.metric_value:.4f}",
-                            "short": True
-                        },
-                        {
-                            "title": "Time",
-                            "value": alert_event.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
-                            "short": True
-                        }
-                    ],
-                    "footer": "Fine-Tuning Alert System",
-                    "ts": int(alert_event.timestamp.timestamp())
-                }]
+                "attachments": [
+                    {
+                        "color": severity_colors.get(alert_event.severity, "#808080"),
+                        "title": f"{alert_event.severity.value.upper()}: {alert_event.alert_name}",
+                        "text": alert_event.message,
+                        "fields": [
+                            {
+                                "title": "Metric",
+                                "value": f"{alert_event.metric_name}: {alert_event.metric_value:.4f}",
+                                "short": True,
+                            },
+                            {
+                                "title": "Time",
+                                "value": alert_event.timestamp.strftime("%Y-%m-%d %H:%M:%S"),
+                                "short": True,
+                            },
+                        ],
+                        "footer": "Fine-Tuning Alert System",
+                        "ts": int(alert_event.timestamp.timestamp()),
+                    }
+                ]
             }
-            
+
             # Add context fields
             if alert_event.context:
                 for key, value in list(alert_event.context.items())[:4]:  # Limit to 4 fields
-                    payload["attachments"][0]["fields"].append({
-                        "title": key,
-                        "value": str(value),
-                        "short": True
-                    })
-            
+                    payload["attachments"][0]["fields"].append(
+                        {"title": key, "value": str(value), "short": True}
+                    )
+
             # Send to Slack
             response = requests.post(self.webhook_url, json=payload)
             response.raise_for_status()
-            
+
             return True
-            
+
         except Exception as e:
             logger.error(f"Failed to send Slack notification: {e}")
             return False
@@ -555,28 +565,28 @@ class SlackNotifier(BaseNotifier):
 
 class AlertSystem:
     """Main alert system for monitoring fine-tuning."""
-    
+
     def __init__(self):
         """Initialize alert system."""
         self.alerts: Dict[str, BaseAlert] = {}
         self.notifiers: List[BaseNotifier] = []
         self.alert_history: List[AlertEvent] = []
         self.metrics_buffer = defaultdict(lambda: deque(maxlen=1000))
-        
+
         # Add default console notifier
         self.add_notifier(ConsoleNotifier())
-    
+
     def add_threshold_alert(
         self,
         name: str,
         metric: str,
         threshold: float,
-        condition: Union[str, AlertCondition] = AlertCondition.GREATER_THAN,
-        severity: Union[str, AlertSeverity] = AlertSeverity.WARNING,
-        **kwargs
+        condition: str | AlertCondition = AlertCondition.GREATER_THAN,
+        severity: str | AlertSeverity = AlertSeverity.WARNING,
+        **kwargs,
     ):
         """Add threshold alert.
-        
+
         Args:
             name: Alert name
             metric: Metric to monitor
@@ -589,30 +599,25 @@ class AlertSystem:
             condition = AlertCondition(condition)
         if isinstance(severity, str):
             severity = AlertSeverity(severity)
-        
-        config = AlertConfig(
-            name=name,
-            metric=metric,
-            severity=severity,
-            **kwargs
-        )
-        
+
+        config = AlertConfig(name=name, metric=metric, severity=severity, **kwargs)
+
         alert = ThresholdAlert(config, threshold, condition)
         self.alerts[name] = alert
-        
+
         logger.info(f"Added threshold alert: {name} for {metric}")
-    
+
     def add_anomaly_detector(
         self,
         name: str,
         metric: str,
         sensitivity: float = 3.0,
         window_size: int = 50,
-        severity: Union[str, AlertSeverity] = AlertSeverity.WARNING,
-        **kwargs
+        severity: str | AlertSeverity = AlertSeverity.WARNING,
+        **kwargs,
     ):
         """Add anomaly detection alert.
-        
+
         Args:
             name: Alert name
             metric: Metric to monitor
@@ -623,19 +628,14 @@ class AlertSystem:
         """
         if isinstance(severity, str):
             severity = AlertSeverity(severity)
-        
-        config = AlertConfig(
-            name=name,
-            metric=metric,
-            severity=severity,
-            **kwargs
-        )
-        
+
+        config = AlertConfig(name=name, metric=metric, severity=severity, **kwargs)
+
         alert = AnomalyAlert(config, window_size, sensitivity)
         self.alerts[name] = alert
-        
+
         logger.info(f"Added anomaly detector: {name} for {metric}")
-    
+
     def add_trend_alert(
         self,
         name: str,
@@ -643,11 +643,11 @@ class AlertSystem:
         trend_threshold: float = 0.1,
         direction: str = "increasing",
         window_size: int = 20,
-        severity: Union[str, AlertSeverity] = AlertSeverity.WARNING,
-        **kwargs
+        severity: str | AlertSeverity = AlertSeverity.WARNING,
+        **kwargs,
     ):
         """Add trend detection alert.
-        
+
         Args:
             name: Alert name
             metric: Metric to monitor
@@ -659,124 +659,107 @@ class AlertSystem:
         """
         if isinstance(severity, str):
             severity = AlertSeverity(severity)
-        
-        config = AlertConfig(
-            name=name,
-            metric=metric,
-            severity=severity,
-            **kwargs
-        )
-        
+
+        config = AlertConfig(name=name, metric=metric, severity=severity, **kwargs)
+
         alert = TrendAlert(config, window_size, trend_threshold, direction)
         self.alerts[name] = alert
-        
+
         logger.info(f"Added trend alert: {name} for {metric}")
-    
+
     def add_notifier(self, notifier: BaseNotifier):
         """Add notification method.
-        
+
         Args:
             notifier: Notifier instance
         """
         self.notifiers.append(notifier)
         logger.info(f"Added notifier: {type(notifier).__name__}")
-    
-    def check_metrics(
-        self,
-        metrics: Dict[str, float],
-        context: Optional[Dict[str, Any]] = None
-    ):
+
+    def check_metrics(self, metrics: Dict[str, float], context: Optional[Dict[str, Any]] = None):
         """Check metrics against all alerts.
-        
+
         Args:
             metrics: Current metrics
             context: Additional context
         """
         context = context or {}
-        
+
         # Update metrics buffer
         for metric_name, value in metrics.items():
             self.metrics_buffer[metric_name].append(value)
-        
+
         # Check each alert
         for alert_name, alert in self.alerts.items():
             if alert.config.metric in metrics:
                 value = metrics[alert.config.metric]
-                
+
                 alert_event = alert.check(value, context)
                 if alert_event:
                     self._handle_alert(alert_event)
-    
+
     def _handle_alert(self, alert_event: AlertEvent):
         """Handle triggered alert.
-        
+
         Args:
             alert_event: Alert event
         """
         # Add to history
         self.alert_history.append(alert_event)
-        
+
         # Send notifications
         for notifier in self.notifiers:
             try:
                 notifier.send(alert_event)
             except Exception as e:
                 logger.error(f"Notifier {type(notifier).__name__} failed: {e}")
-    
-    def get_alert_summary(self) -> Dict[str, Any]:
+
+    def get_alert_summary(self) -> Dict[str | Any]:
         """Get summary of alert activity."""
         if not self.alert_history:
-            return {
-                "total_alerts": 0,
-                "by_severity": {},
-                "by_alert": {},
-                "recent_alerts": []
-            }
-        
+            return {"total_alerts": 0, "by_severity": {}, "by_alert": {}, "recent_alerts": []}
+
         # Count by severity
         by_severity = defaultdict(int)
         by_alert = defaultdict(int)
-        
+
         for event in self.alert_history:
             by_severity[event.severity.value] += 1
             by_alert[event.alert_name] += 1
-        
+
         # Get recent alerts
-        recent_alerts = [
-            event.to_dict()
-            for event in self.alert_history[-10:]
-        ]
-        
+        recent_alerts = [event.to_dict() for event in self.alert_history[-10:]]
+
         return {
             "total_alerts": len(self.alert_history),
             "by_severity": dict(by_severity),
             "by_alert": dict(by_alert),
-            "recent_alerts": recent_alerts
+            "recent_alerts": recent_alerts,
         }
-    
+
     def disable_alert(self, name: str):
         """Disable an alert.
-        
+
         Args:
             name: Alert name
         """
         if name in self.alerts:
             self.alerts[name].config.enabled = False
             logger.info(f"Disabled alert: {name}")
-    
+
     def enable_alert(self, name: str):
         """Enable an alert.
-        
+
         Args:
             name: Alert name
         """
         if name in self.alerts:
             self.alerts[name].config.enabled = True
             logger.info(f"Enabled alert: {name}")
-    
+
     def remove_alert(self, name: str):
         """Remove an alert.
-        
+
         Args:
             name: Alert name
         """
@@ -789,55 +772,48 @@ class AlertSystem:
 if __name__ == "__main__":
     # Create alert system
     alert_system = AlertSystem()
-    
+
     # Add alerts
     alert_system.add_threshold_alert(
-        name="high_loss",
-        metric="loss",
-        threshold=2.0,
-        condition="greater_than",
-        severity="warning"
+        name="high_loss", metric="loss", threshold=2.0, condition="greater_than", severity="warning"
     )
-    
+
     alert_system.add_anomaly_detector(
-        name="loss_anomaly",
-        metric="loss",
-        sensitivity=2.5,
-        window_size=30
+        name="loss_anomaly", metric="loss", sensitivity=2.5, window_size=30
     )
-    
+
     alert_system.add_trend_alert(
         name="increasing_memory",
         metric="gpu_memory",
         trend_threshold=100,  # MB per step
         direction="increasing",
-        severity="error"
+        severity="error",
     )
-    
+
     # Add Slack notifier (example)
     # slack_webhook = os.environ.get("SLACK_WEBHOOK_URL")
     # if slack_webhook:
     #     alert_system.add_notifier(SlackNotifier(slack_webhook))
-    
+
     # Simulate metrics
     import random
-    
+
     for step in range(100):
         metrics = {
             "loss": 2.5 - step * 0.02 + random.gauss(0, 0.1),
             "gpu_memory": 10000 + step * 50 + random.randint(-100, 100),
-            "learning_rate": 1e-4 * (0.95 ** (step // 20))
+            "learning_rate": 1e-4 * (0.95 ** (step // 20)),
         }
-        
+
         # Inject anomaly
         if step == 50:
             metrics["loss"] = 5.0
-        
+
         # Check metrics
         alert_system.check_metrics(metrics, {"step": step})
-        
+
         time.sleep(0.1)
-    
+
     # Print summary
     print("\nAlert Summary:")
     print(json.dumps(alert_system.get_alert_summary(), indent=2))

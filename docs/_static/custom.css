@@ -1,0 +1,294 @@
+/**
+ * Custom CSS for LLM Lab Documentation
+ * Enhances the default Sphinx RTD theme with better search and navigation
+ */
+
+/* Enhanced Search Box */
+.wy-side-nav-search input[type="text"] {
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.wy-side-nav-search input[type="text"]:focus {
+    box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.3);
+    outline: none;
+}
+
+/* Search Suggestions */
+.search-suggestions {
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+.suggestion-item:hover {
+    background-color: #f8f9fa !important;
+}
+
+/* Search Results Enhancement */
+.search-results li {
+    margin-bottom: 1.5em;
+    padding: 1em;
+    background: #f8f9fa;
+    border-radius: 4px;
+    border-left: 4px solid #2980b9;
+    transition: transform 0.2s ease;
+}
+
+.search-results li:hover {
+    transform: translateX(4px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Code Examples in Documentation */
+.highlight-python {
+    position: relative;
+}
+
+.highlight-python:before {
+    content: "Python";
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 2px 8px;
+    background: #3776ab;
+    color: white;
+    font-size: 12px;
+    border-radius: 0 0 0 4px;
+}
+
+/* Doctest Examples */
+.doctest .highlight {
+    background: #f5f5f5;
+    border: 1px solid #e1e4e5;
+    border-radius: 4px;
+    margin: 1em 0;
+}
+
+.doctest .highlight pre {
+    padding: 12px;
+}
+
+/* Interactive Examples */
+.interactive-example {
+    border: 2px solid #2980b9;
+    border-radius: 8px;
+    padding: 1em;
+    margin: 1em 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.interactive-example button {
+    background: white;
+    color: #2980b9;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.interactive-example button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* API Documentation Tables */
+.wy-table-responsive table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.wy-table-responsive table th {
+    background: #2980b9;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.wy-table-responsive table td {
+    padding: 10px;
+    border-bottom: 1px solid #e1e4e5;
+}
+
+.wy-table-responsive table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Navigation Improvements */
+.wy-nav-side {
+    background: #343131;
+}
+
+.wy-menu-vertical a {
+    transition: all 0.2s ease;
+}
+
+.wy-menu-vertical a:hover {
+    background: #2980b9;
+    padding-left: 2em;
+}
+
+.wy-menu-vertical li.current > a {
+    background: #2980b9;
+    border-left: 4px solid #1abc9c;
+}
+
+/* Notebook Integration */
+.notebook-container {
+    border: 1px solid #e1e4e5;
+    border-radius: 8px;
+    padding: 1em;
+    margin: 1em 0;
+    background: #fafafa;
+}
+
+.notebook-container .cell {
+    margin: 0.5em 0;
+}
+
+.notebook-container .input_area {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+.notebook-container .output_area {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px;
+    margin-top: 4px;
+}
+
+/* Badges and Labels */
+.badge {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 3px;
+    margin: 0 4px;
+}
+
+.badge-api {
+    background: #007bff;
+    color: white;
+}
+
+.badge-example {
+    background: #28a745;
+    color: white;
+}
+
+.badge-guide {
+    background: #ffc107;
+    color: #333;
+}
+
+.badge-deprecated {
+    background: #dc3545;
+    color: white;
+}
+
+/* Admonitions Enhancement */
+.admonition {
+    border-radius: 8px;
+    border-left: 4px solid;
+    padding: 12px;
+    margin: 1em 0;
+}
+
+.admonition.note {
+    border-left-color: #2980b9;
+    background: #e3f2fd;
+}
+
+.admonition.warning {
+    border-left-color: #f39c12;
+    background: #fff3cd;
+}
+
+.admonition.danger {
+    border-left-color: #e74c3c;
+    background: #f8d7da;
+}
+
+.admonition.tip {
+    border-left-color: #27ae60;
+    background: #d4edda;
+}
+
+/* Search Analytics Dashboard */
+.search-analytics {
+    background: white;
+    border: 1px solid #e1e4e5;
+    border-radius: 8px;
+    padding: 1em;
+    margin: 1em 0;
+}
+
+.search-analytics h3 {
+    color: #2980b9;
+    border-bottom: 2px solid #2980b9;
+    padding-bottom: 0.5em;
+}
+
+.search-analytics .stat {
+    display: inline-block;
+    margin: 0.5em 1em;
+    padding: 0.5em;
+    background: #f8f9fa;
+    border-radius: 4px;
+}
+
+.search-analytics .stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2980b9;
+}
+
+.search-analytics .stat-label {
+    font-size: 12px;
+    color: #666;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .wy-nav-side {
+        left: -300px;
+    }
+
+    .wy-nav-side.shift {
+        left: 0;
+    }
+
+    .search-suggestions {
+        font-size: 16px;
+    }
+
+    .suggestion-item {
+        padding: 12px !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .wy-nav-side,
+    .rst-versions,
+    .wy-nav-top {
+        display: none;
+    }
+
+    .wy-nav-content-wrap {
+        margin-left: 0;
+    }
+
+    .wy-nav-content {
+        max-width: 100%;
+    }
+}

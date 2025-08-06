@@ -2,16 +2,17 @@
 """Standalone test of result storage (no external dependencies)."""
 
 # Import paths fixed - sys.path manipulation removed
-import sys
-import os
 import json
+import os
+import sys
 import tempfile
-from datetime import datetime, timedelta
 from dataclasses import dataclass
-from typing import List, Dict, Any, Optional
+from datetime import datetime, timedelta
+from typing import Any, Dict, List, Optional
 
 print("Testing Result Storage System (Standalone)")
 print("=" * 60)
+
 
 # Define minimal data structures for testing
 @dataclass
@@ -28,7 +29,7 @@ class MockModelResponse:
     duration_seconds: float
     retry_count: int
     metadata: Dict[str, Any]
-    
+
     def to_dict(self):
         return {
             "model": self.model,
@@ -42,8 +43,9 @@ class MockModelResponse:
             "end_time": self.end_time.isoformat(),
             "duration_seconds": self.duration_seconds,
             "retry_count": self.retry_count,
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
+
 
 @dataclass
 class MockExecutionResult:
@@ -56,9 +58,9 @@ class MockExecutionResult:
     responses: List[MockModelResponse]
     execution_mode: str
 
+
 # Import result_storage module directly
-))
-), 'src/use_cases/custom_prompts'))
+
 
 # Mock the imports in result_storage
 class MockModule:
@@ -66,8 +68,9 @@ class MockModule:
     ModelResponse = MockModelResponse
     MetricResult = None
 
-sys.modules['src.use_cases.custom_prompts.prompt_runner'] = MockModule()
-sys.modules['src.use_cases.custom_prompts.evaluation_metrics'] = MockModule()
+
+sys.modules["src.use_cases.custom_prompts.prompt_runner"] = MockModule()
+sys.modules["src.use_cases.custom_prompts.evaluation_metrics"] = MockModule()
 
 # Now import result_storage
 import result_storage
@@ -89,7 +92,7 @@ responses = [
         end_time=datetime.now() + timedelta(seconds=1.5),
         duration_seconds=1.5,
         retry_count=0,
-        metadata={"temperature": 0.7}
+        metadata={"temperature": 0.7},
     ),
     MockModelResponse(
         model="claude-3",
@@ -103,8 +106,8 @@ responses = [
         end_time=datetime.now() + timedelta(seconds=2.0),
         duration_seconds=2.0,
         retry_count=0,
-        metadata={"temperature": 0.7}
-    )
+        metadata={"temperature": 0.7},
+    ),
 ]
 
 exec_result = MockExecutionResult(
@@ -115,7 +118,7 @@ exec_result = MockExecutionResult(
     models_failed=[],
     total_duration_seconds=3.5,
     responses=responses,
-    execution_mode="parallel"
+    execution_mode="parallel",
 )
 
 print(f"Created execution result with {len(responses)} responses")
@@ -152,24 +155,21 @@ print("\n5. Testing Storage System")
 print("-" * 40)
 with tempfile.TemporaryDirectory() as temp_dir:
     storage = result_storage.ResultStorage(temp_dir)
-    
+
     # Save results
     json_path = storage.save(custom_result, format="json")
     print(f"Saved to: {json_path}")
-    
+
     # Verify file exists
     if os.path.exists(json_path):
-        with open(json_path, 'r') as f:
+        with open(json_path, "r") as f:
             saved_data = json.load(f)
         print(f"Verified save - execution_id: {saved_data['execution_id']}")
-    
+
     # Test cache
     print("\n6. Testing Cache")
     print("-" * 40)
-    cached = storage.check_cache(
-        custom_result.prompt_template,
-        custom_result.template_variables
-    )
+    cached = storage.check_cache(custom_result.prompt_template, custom_result.template_variables)
     print(f"Found in cache: {cached is not None}")
 
 # Test comparison

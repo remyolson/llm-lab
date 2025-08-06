@@ -13,53 +13,209 @@ authors = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Testing",
-    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development :: Libraries :: Python Modules"
 ]
 requires-python = ">=3.9"
+
+# Core dependencies - minimal set required for basic functionality
 dependencies = [
+    # Essential LLM Provider APIs
     "openai>=1.0.0",
     "anthropic>=0.18.0",
     "google-generativeai>=0.3.0",
+
+    # Core utilities
     "requests>=2.28.0",
     "pydantic>=2.0.0",
     "python-dotenv>=1.0.0",
+    "click>=8.1.0",
+    "pyyaml>=6.0.0",
+    "tabulate>=0.9.0",
 ]
 dynamic = ["version"]
 
 [project.optional-dependencies]
+# Testing dependencies - for running the test suite
 test = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "pytest-xdist>=3.0.0",
     "pytest-mock>=3.10.0",
     "pytest-asyncio>=0.21.0",
+    "pytest-timeout>=2.1.0",
     "coverage[toml]>=7.0.0",
+    "types-requests>=2.28.0",
+    "types-toml>=0.10.8",
 ]
+
+# Development dependencies - full development environment
+dev = [
+    # Include test dependencies
+    "llm-lab[test]",
+
+    # Code quality and formatting
+    "ruff>=0.1.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "autoflake>=2.0.0",
+    "mypy>=1.0.0",
+    "flake8>=6.0.0",
+
+    # Security scanning
+    "bandit>=1.7.0",
+    "safety>=2.3.0",
+    "semgrep>=1.0.0",
+
+    # Documentation
+    "sphinx>=5.0.0",
+    "sphinx-rtd-theme>=1.2.0",
+    "sphinxcontrib-napoleon>=0.7",
+
+    # Development tools
+    "pre-commit>=3.0.0",
+    "ipython>=8.0.0",
+    "jupyter>=1.0.0",
+
+    # Additional testing tools
+    "pytest-html>=3.1.0",
+    "pytest-json-report>=1.5.0",
+    "diff-cover>=7.0.0",
+]
+
+# Data analysis and benchmarking
 benchmarks = [
     "matplotlib>=3.6.0",
     "seaborn>=0.12.0",
     "pandas>=1.5.0",
-    "psutil>=5.9.0",
     "numpy>=1.24.0",
+    "scipy>=1.10.0",
+    "psutil>=5.9.0",
+    "memory-profiler>=0.60.0",
 ]
-security = [
-    "bandit>=1.7.0",
-    "safety>=2.0.0",
-    "semgrep>=1.0.0",
+
+# GPU support for local models
+gpu = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "accelerate>=0.24.0",
+    "bitsandbytes>=0.41.0",
+    "xformers>=0.0.22",
 ]
-dev = [
-    "ruff>=0.1.0",
-    "mypy>=1.0.0",
-    "pre-commit>=3.0.0",
+
+# Local model support (CPU)
+local-models = [
+    "llama-cpp-python>=0.2.0",
+    "psutil>=5.9.0",
 ]
+
+# Fine-tuning capabilities
+fine-tuning = [
+    "transformers>=4.35.0",
+    "peft>=0.7.0",
+    "datasets>=2.14.0",
+    "accelerate>=0.24.0",
+    "bitsandbytes>=0.41.0",
+    "tensorboard>=2.14.0",
+    "wandb>=0.15.0",
+    "evaluate>=0.4.0",
+    "scikit-learn>=1.3.0",
+]
+
+# Monitoring and observability stack
+monitoring = [
+    "sqlalchemy>=1.4.0",
+    "alembic>=1.8.0",
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "apscheduler>=3.10.0",
+    "aiohttp>=3.8.0",
+    "prometheus-client>=0.18.0",
+    "opentelemetry-api>=1.20.0",
+    "opentelemetry-sdk>=1.20.0",
+    "opentelemetry-instrumentation-fastapi>=0.41b0",
+]
+
+# Database support
+database = [
+    "sqlalchemy>=1.4.0",
+    "alembic>=1.8.0",
+    "psycopg2-binary>=2.9.0",  # PostgreSQL
+    "pymysql>=1.0.0",           # MySQL
+    "redis>=5.0.0",             # Redis for caching
+    "motor>=3.3.0",             # MongoDB async driver
+]
+
+# Web dashboard dependencies
+dashboard = [
+    "flask>=3.0.0",
+    "flask-cors>=4.0.0",
+    "flask-socketio>=5.3.6",
+    "flask-sqlalchemy>=3.1.1",
+    "flask-login>=0.6.3",
+    "flask-mail>=0.9.1",
+    "python-socketio>=5.10.0",
+    "bcrypt>=4.1.2",
+    "pyjwt>=2.8.0",
+    "gunicorn>=21.2.0",
+    "eventlet>=0.33.3",
+    "jinja2>=3.1.2",
+]
+
+# Visualization and reporting
+visualization = [
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "plotly>=5.17.0",
+    "reportlab>=4.0.7",
+    "weasyprint>=61.2",
+    "pillow>=10.1.0",
+]
+
+# Additional provider support
+providers-extra = [
+    "groq>=0.4.0",
+    "cohere>=4.0.0",
+    "huggingface-hub>=0.19.0",
+    "replicate>=0.22.0",
+    "mistralai>=0.0.7",
+]
+
+# Fine-tuning studio specific
+fine-tuning-studio = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.22.0",
+    "websockets>=12.0",
+    "aiofiles>=23.0.0",
+    "python-multipart>=0.0.6",
+    "jose[cryptography]>=1.0.0",
+    "passlib[bcrypt]>=1.7.4",
+    "gitpython>=3.1.40",
+    "dvc>=3.0.0",
+    "vllm>=0.2.0",
+]
+
+# Common deployment configurations
+production = [
+    "llm-lab[database,monitoring,dashboard]",
+]
+
+research = [
+    "llm-lab[gpu,fine-tuning,benchmarks,visualization]",
+]
+
+# Complete package with all optional dependencies
 all = [
-    "llm-lab[test,benchmarks,security,dev]"
+    "llm-lab[test,dev,benchmarks,gpu,local-models,fine-tuning,monitoring,database,dashboard,visualization,providers-extra,fine-tuning-studio]"
 ]
 
 [project.urls]
@@ -120,24 +276,42 @@ addopts = [
     "-ra",
     "--strict-markers",
     "--strict-config",
+    "--cov=src",
     "--cov=llm_providers",
-    "--cov=tests",
     "--cov-branch",
     "--cov-report=term-missing:skip-covered",
     "--cov-fail-under=75",
 ]
 testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
 markers = [
-    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
-    "integration: marks tests as integration tests",
-    "compatibility: marks tests as compatibility tests",
-    "performance: marks tests as performance benchmarks",
-    "unit: marks tests as unit tests",
-    "openai: marks tests that require OpenAI API",
-    "anthropic: marks tests that require Anthropic API",
-    "google: marks tests that require Google API",
-    "requires_api: marks tests that require API access",
-    "expensive: marks tests that consume significant API quota",
+    # Test categories
+    "unit: Fast, isolated unit tests",
+    "integration: Integration tests requiring external services",
+    "e2e: End-to-end workflow tests",
+    "benchmark: Performance benchmark tests",
+
+    # Provider-specific markers
+    "openai: Test requires OpenAI API",
+    "anthropic: Test requires Anthropic API",
+    "google: Test requires Google API",
+
+    # Resource requirements
+    "slow: Test takes > 5 seconds",
+    "expensive: Test consumes significant API quota",
+    "requires_gpu: Test requires GPU resources",
+    "requires_network: Test requires network access",
+    "requires_api: Test requires API access",
+
+    # Environment markers
+    "ci_only: Test should only run in CI",
+    "local_only: Test should only run locally",
+
+    # Legacy markers (for backward compatibility)
+    "compatibility: Compatibility tests",
+    "performance: Performance tests",
 ]
 filterwarnings = [
     "error",
@@ -153,7 +327,7 @@ log_cli_date_format = "%Y-%m-%d %H:%M:%S"
 # Formatting and linting now handled by Ruff - see ruff.toml
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.11"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = false
@@ -169,16 +343,141 @@ strict_equality = true
 show_error_codes = true
 show_column_numbers = true
 ignore_missing_imports = true
+pretty = true
+follow_imports = "normal"
 
 [[tool.mypy.overrides]]
 module = [
     "tests.*",
     "conftest",
+    "scripts.*",
 ]
 ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = [
+    "yaml.*",
+    "dotenv.*",
+    "requests.*",
+    "anthropic.*",
+    "openai.*",
+    "google.generativeai.*",
+    "tiktoken.*",
+    "pytest.*",
+    "click.*",
+    "pydantic.*",
+]
+ignore_missing_imports = true
 
 [tool.bandit]
 exclude_dirs = ["tests", "test_*"]
 skips = ["B101", "B601"]  # Skip assert_used and shell injection in tests
 
 # Flake8 configuration removed - now handled by Ruff
+
+[tool.ruff]
+line-length = 120
+target-version = "py39"
+extend-include = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "SIM", # flake8-simplify
+    "TID", # flake8-tidy-imports
+    "RUF", # Ruff-specific rules
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # too complex
+    "W191",  # indentation contains tabs
+    "N802",  # function name should be lowercase
+    "N803",  # argument name should be lowercase
+    "N806",  # variable in function should be lowercase
+]
+fixable = ["ALL"]
+unfixable = []
+exclude = [
+    ".git",
+    ".ruff_cache",
+    ".venv",
+    "venv",
+    "__pycache__",
+    "*.egg-info",
+    ".pytest_cache",
+    ".mypy_cache",
+    "dist",
+    "build",
+    "htmlcov",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["src", "tests", "benchmarks", "scripts", "llm_providers"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+multi-line-output = 3
+include-trailing-comma = true
+force-grid-wrap = 0
+combine-as-imports = true
+split-on-trailing-comma = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+"tests/*" = ["S101", "D"]
+"scripts/*" = ["T201"]  # Allow print statements in scripts
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+combine_as_imports = true
+line_length = 120
+known_first_party = ["src", "tests", "benchmarks", "scripts", "llm_providers"]
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+skip_glob = ["*/migrations/*", "*/venv/*", "*/.venv/*", "*/build/*", "*/dist/*"]
+src_paths = ["src", "tests", "benchmarks", "scripts"]
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311", "py312"]
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.autoflake]
+check = false
+imports = ["django", "requests", "urllib3"]
+in-place = true
+recursive = true
+remove-all-unused-imports = true
+ignore-init-module-imports = true
+remove-duplicate-keys = true
+remove-unused-variables = true

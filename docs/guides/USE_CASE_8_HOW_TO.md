@@ -93,7 +93,7 @@ monitoring:
       model: gemini-1.5-pro
       priority: medium
       sla_target: 2.5
-  
+
   # Monitoring schedule
   schedule:
     performance_checks:
@@ -105,7 +105,7 @@ monitoring:
     full_benchmark:
       frequency: "weekly on sunday at 3:00"
       timeout: 3600
-  
+
   # Alert configuration
   alerts:
     channels:
@@ -119,7 +119,7 @@ monitoring:
       - type: pagerduty
         api_key: "${PAGERDUTY_API_KEY}"
         severity: ["critical"]
-    
+
     rules:
       - name: "High Latency"
         condition: "avg_latency > sla_target * 1.5"
@@ -325,7 +325,7 @@ reporting:
         - performance_trends
         - cost_analysis
         - incidents
-        
+
     - name: "Weekly Deep Dive"
       frequency: "weekly on monday at 9:00"
       recipients: ["management@example.com"]
@@ -336,7 +336,7 @@ reporting:
         - model_comparison
         - cost_breakdown
         - recommendations
-        
+
     - name: "Monthly SLA Report"
       frequency: "monthly on 1st at 10:00"
       recipients: ["compliance@example.com"]
@@ -439,7 +439,7 @@ def measure_satisfaction(response):
     sentiment_score = analyze_sentiment(response)
     length_score = score_response_length(response)
     relevance_score = check_relevance(response)
-    
+
     return (sentiment_score + length_score + relevance_score) / 3
 
 # Add custom performance metric
@@ -447,10 +447,10 @@ def measure_satisfaction(response):
 def measure_accuracy(response, expected):
     from sentence_transformers import SentenceTransformer
     model = SentenceTransformer('all-MiniLM-L6-v2')
-    
+
     response_embedding = model.encode(response)
     expected_embedding = model.encode(expected)
-    
+
     similarity = cosine_similarity(response_embedding, expected_embedding)
     return similarity
 
@@ -667,7 +667,7 @@ For production systems with strict SLAs:
 - **Frequency**: Every 1-5 minutes
 - **Alerts**: Immediate, multi-channel
 
-### Batch Monitoring  
+### Batch Monitoring
 For development and testing environments:
 - **Best for**: Cost optimization, quality tracking
 - **Metrics**: Accuracy, costs, performance trends

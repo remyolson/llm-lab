@@ -1,8 +1,8 @@
 <!-- Model Comparison Chart Component -->
-<div class="chart-container" 
+<div class="chart-container"
      data-chart-type="model-comparison"
      data-refresh-interval="{{ config.refresh_interval }}">
-    
+
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="mb-0">{{ config.title or 'Model Performance Comparison' }}</h5>
@@ -18,17 +18,17 @@
             </button>
         </div>
     </div>
-    
+
     <div class="chart-wrapper" style="height: {{ config.height }}px; width: {{ config.width }};">
         <canvas id="model-comparison-chart-{{ range(1000) | random }}"></canvas>
     </div>
-    
+
     <div class="model-legend mt-3">
         <div class="row" id="model-legend-items">
             <!-- Legend items will be populated dynamically -->
         </div>
     </div>
-    
+
     <div class="chart-loading d-none">
         <div class="text-center p-4">
             <div class="spinner-border" role="status">
@@ -36,7 +36,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-error d-none">
         <div class="alert alert-warning" role="alert">
             Failed to load model comparison data. <a href="#" class="retry-chart">Retry</a>
@@ -70,22 +70,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('[data-chart-type="model-comparison"]');
     const canvas = container.querySelector('canvas');
     const legendContainer = container.querySelector('#model-legend-items');
-    
+
     let chart = null;
     let chartData = null;
     let currentChartType = 'radar';
     let refreshInterval = null;
-    
+
     function loadChart() {
         showLoading(true);
-        
+
         fetch('/components/chart-data/model-comparison')
             .then(response => response.json())
             .then(data => {
                 chartData = data;
                 renderChart();
                 renderLegend();
-                
+
                 showLoading(false);
                 showError(false);
             })
@@ -95,14 +95,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(true);
             });
     }
-    
+
     function renderChart() {
         if (!chartData) return;
-        
+
         if (chart) chart.destroy();
-        
+
         const ctx = canvas.getContext('2d');
-        
+
         if (currentChartType === 'radar') {
             chart = new Chart(ctx, chartData);
         } else {
@@ -137,18 +137,18 @@ document.addEventListener('DOMContentLoaded', function() {
             chart = new Chart(ctx, barData);
         }
     }
-    
+
     function renderLegend() {
         if (!chartData) return;
-        
+
         legendContainer.innerHTML = '';
-        
+
         chartData.data.datasets.forEach((dataset, index) => {
             const legendItem = document.createElement('div');
             legendItem.className = 'col-md-6 legend-item';
-            
+
             const avgScore = dataset.data.reduce((a, b) => a + b, 0) / dataset.data.length;
-            
+
             legendItem.innerHTML = `
                 <div class="legend-color" style="background-color: ${dataset.backgroundColor}"></div>
                 <div>
@@ -158,21 +158,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-            
+
             legendContainer.appendChild(legendItem);
         });
     }
-    
+
     function showLoading(show) {
         container.querySelector('.chart-loading').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
     }
-    
+
     function showError(show) {
         container.querySelector('.chart-error').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
     }
-    
+
     // Chart type toggle
     container.querySelectorAll('[data-chart-type]').forEach(btn => {
         if (btn.dataset.chartType !== 'model-comparison') {
@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     });
-    
+
     // Export button
     container.querySelector('#export-model-chart').addEventListener('click', function() {
         if (chart) {
@@ -195,23 +195,23 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
         }
     });
-    
+
     // Retry button
     container.querySelector('.retry-chart').addEventListener('click', function(e) {
         e.preventDefault();
         loadChart();
     });
-    
+
     // Auto-refresh
     function startRefresh() {
         const interval = parseInt(container.dataset.refreshInterval) * 1000;
         refreshInterval = setInterval(loadChart, interval);
     }
-    
+
     // Initial load
     loadChart();
     startRefresh();
-    
+
     // Cleanup
     window.addEventListener('beforeunload', function() {
         if (refreshInterval) clearInterval(refreshInterval);

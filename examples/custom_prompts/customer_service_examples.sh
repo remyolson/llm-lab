@@ -12,7 +12,7 @@ python scripts/run_benchmarks.py \
   --prompt-file templates/customer_service/customer_service_response.txt \
   --prompt-variables '{
     "company_name": "TechSolutions Inc",
-    "customer_type": "Premium", 
+    "customer_type": "Premium",
     "severity": "Medium",
     "customer_message": "My software keeps crashing when I export large datasets. This is affecting my daily work and I need a solution quickly.",
     "tone": "professional and helpful",
@@ -27,7 +27,7 @@ python scripts/run_benchmarks.py \
 echo "✅ Basic support request completed"
 echo
 
-# Example 2: Escalation Scenario  
+# Example 2: Escalation Scenario
 echo "2. Testing Escalation Scenario..."
 python scripts/run_benchmarks.py \
   --prompt-file templates/customer_service/escalation_handling.txt \
@@ -55,7 +55,7 @@ python scripts/run_benchmarks.py \
   --prompt-variables '{
     "company_name": "CloudHost Pro",
     "customer_type": "Developer",
-    "severity": "Low", 
+    "severity": "Low",
     "customer_message": "How do I configure SSL certificates for my staging environment? The documentation seems outdated and I am getting certificate errors.",
     "tone": "technical and helpful",
     "resolution_steps": "1) Use our updated SSL setup guide 2) Run cert-manager tool 3) Contact DevOps team if issues persist",
@@ -75,11 +75,11 @@ for tone in "professional" "empathetic" "friendly"; do
   python scripts/run_benchmarks.py \
     --prompt-file templates/customer_service/customer_service_response.txt \
     --prompt-variables "{
-      \"company_name\": \"ServiceCorp\", 
-      \"customer_type\": \"Standard\", 
+      \"company_name\": \"ServiceCorp\",
+      \"customer_type\": \"Standard\",
       \"severity\": \"Medium\",
       \"customer_message\": \"I've been waiting 3 days for a response to my ticket. This is very frustrating.\",
-      \"tone\": \"$tone\", 
+      \"tone\": \"$tone\",
       \"max_words\": \"150\"
     }" \
     --models gpt-4o-mini \

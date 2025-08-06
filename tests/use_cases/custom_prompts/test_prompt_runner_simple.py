@@ -2,15 +2,15 @@
 """Simple test of prompt runner core functionality."""
 
 # Import paths fixed - sys.path manipulation removed
-import sys
-import os
 import json
+import os
+import sys
 from datetime import datetime
-))
+
+from src.use_cases.custom_prompts.prompt_runner import ExecutionResult, ModelResponse
 
 # Test just the data structures
 from src.use_cases.custom_prompts.template_engine import PromptTemplate
-from src.use_cases.custom_prompts.prompt_runner import ModelResponse, ExecutionResult
 
 print("Testing PromptRunner data structures...")
 print("-" * 50)
@@ -29,7 +29,7 @@ response = ModelResponse(
     end_time=datetime.now(),
     duration_seconds=1.23,
     retry_count=0,
-    metadata={"temperature": 0.7}
+    metadata={"temperature": 0.7},
 )
 
 print(f"Created ModelResponse for {response.model}")
@@ -47,7 +47,7 @@ exec_result = ExecutionResult(
     models_failed=["claude-3"],
     total_duration_seconds=5.67,
     responses=[response],
-    execution_mode="parallel"
+    execution_mode="parallel",
 )
 
 print(f"Created ExecutionResult")

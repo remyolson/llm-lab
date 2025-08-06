@@ -65,7 +65,7 @@ This guide provides comprehensive cost estimates for using various LLM providers
 # Example: Smart model routing based on complexity
 def select_model(prompt: str, max_cost_per_request: float = 0.10):
     complexity = analyze_complexity(prompt)
-    
+
     if complexity < 0.3:
         return "gpt-4o-mini"  # Simple queries
     elif complexity < 0.7:
@@ -187,7 +187,7 @@ def calculate_roi(
     monthly_profit = monthly_savings - monthly_api_costs
     roi_percentage = (monthly_profit / monthly_api_costs) * 100
     payback_months = monthly_api_costs / monthly_profit if monthly_profit > 0 else float('inf')
-    
+
     return {
         "monthly_savings": monthly_savings,
         "monthly_profit": monthly_profit,

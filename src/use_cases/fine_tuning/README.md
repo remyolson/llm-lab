@@ -271,13 +271,13 @@ config = TrainingConfig(
     # Use QLoRA for 75% memory reduction
     use_qlora=True,
     bits=4,
-    
+
     # Enable gradient checkpointing
     gradient_checkpointing=True,
-    
+
     # Use mixed precision
     fp16=True,  # or bf16=True for newer GPUs
-    
+
     # Reduce batch size and use accumulation
     batch_size=1,
     gradient_accumulation_steps=16
@@ -293,10 +293,10 @@ config = TrainingConfig(
 lora_config = LoRAConfig(
     # GPT models
     target_modules=["c_attn", "c_proj"],
-    
+
     # T5 models
     # target_modules=["q", "v"],
-    
+
     # Custom regex (PEFT feature)
     # target_modules=[".*attention.*"],
 )

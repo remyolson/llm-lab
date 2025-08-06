@@ -101,7 +101,7 @@ aliases:
   best: gpt-4-turbo
   fast: gpt-3.5-turbo
   cheap: gemini-1.5-flash
-  
+
   # Generic model type aliases
   gpt: gpt-4
   claude: claude-3-sonnet-20240229

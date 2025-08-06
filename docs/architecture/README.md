@@ -13,14 +13,14 @@ graph TB
         API[Python API]
         WEB[Web Dashboard]
     end
-    
+
     subgraph "Core Layer"
         PM[Provider Manager]
         EM[Evaluation Manager]
         CM[Configuration Manager]
         LM[Logging Manager]
     end
-    
+
     subgraph "Provider Layer"
         OAI[OpenAI Provider]
         ANT[Anthropic Provider]
@@ -28,7 +28,7 @@ graph TB
         AZR[Azure Provider]
         LOC[Local Provider]
     end
-    
+
     subgraph "Use Cases"
         BM[Benchmarking]
         FT[Fine-tuning]
@@ -36,30 +36,30 @@ graph TB
         MO[Monitoring]
         CP[Custom Prompts]
     end
-    
+
     subgraph "Storage"
         FS[File System]
         DB[(Database)]
         CACHE[Cache]
     end
-    
+
     CLI --> PM
     API --> PM
     WEB --> MO
-    
+
     PM --> OAI
     PM --> ANT
     PM --> GOO
     PM --> AZR
     PM --> LOC
-    
+
     EM --> BM
     EM --> AL
     EM --> CP
-    
+
     CM --> PM
     CM --> EM
-    
+
     LM --> FS
     MO --> DB
     PM --> CACHE
@@ -79,28 +79,28 @@ classDiagram
         +get_model_info()
         +estimate_cost()
     }
-    
+
     class OpenAIProvider {
         -client: OpenAI
         -model: str
         +generate(prompt, **kwargs)
         +_handle_response(response)
     }
-    
+
     class AnthropicProvider {
         -client: Anthropic
         -model: str
         +generate(prompt, **kwargs)
         +_handle_response(response)
     }
-    
+
     class ProviderRegistry {
         -providers: Dict
         +register(name, provider_class)
         +create_provider(name, **config)
         +list_providers()
     }
-    
+
     BaseProvider <|-- OpenAIProvider
     BaseProvider <|-- AnthropicProvider
     ProviderRegistry --> BaseProvider
@@ -116,14 +116,14 @@ graph LR
         EE --> ME[Metrics Calculator]
         ME --> RS[Results Storage]
     end
-    
+
     subgraph "Evaluators"
         TE[Truthfulness]
         SE[Safety]
         PE[Performance]
         CE[Custom]
     end
-    
+
     EE --> TE
     EE --> SE
     EE --> PE
@@ -142,11 +142,11 @@ sequenceDiagram
     participant Provider
     participant Cache
     participant Logger
-    
+
     User->>CLI: Run benchmark
     CLI->>ProviderManager: Create provider
     ProviderManager->>Cache: Check cache
-    
+
     alt Cache hit
         Cache-->>ProviderManager: Return cached result
     else Cache miss
@@ -154,7 +154,7 @@ sequenceDiagram
         Provider-->>ProviderManager: Return response
         ProviderManager->>Cache: Store result
     end
-    
+
     ProviderManager->>Logger: Log result
     ProviderManager-->>CLI: Return result
     CLI-->>User: Display result
@@ -169,19 +169,19 @@ graph LR
         P2[Provider 2] --> MC
         P3[Provider 3] --> MC
     end
-    
+
     subgraph "Processing"
         MC --> AG[Aggregator]
         AG --> AN[Analyzer]
         AN --> AD[Anomaly Detector]
     end
-    
+
     subgraph "Storage & Display"
         AD --> DB[(Time Series DB)]
         DB --> DASH[Dashboard]
         AD --> ALERT[Alert Manager]
     end
-    
+
     ALERT --> SLACK[Slack]
     ALERT --> EMAIL[Email]
 ```
@@ -295,10 +295,10 @@ graph TB
     ENV[Environment Variables] --> KM[Key Manager]
     VAULT[HashiCorp Vault] --> KM
     AWS[AWS Secrets] --> KM
-    
+
     KM --> ENC[Encryption Layer]
     ENC --> APP[Application]
-    
+
     APP --> LOG[Logger]
     LOG --> SANITIZE[Sanitizer]
     SANITIZE --> OUTPUT[Log Output]

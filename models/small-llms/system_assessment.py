@@ -451,7 +451,7 @@ def main():
         # Save results in assessments directory with timestamp
         assessments_dir = Path(__file__).parent / "assessments"
         assessments_dir.mkdir(exist_ok=True)
-        
+
         timestamp_str = time.strftime("%Y%m%d_%H%M%S")
         results_file = assessments_dir / f"system_assessment_{timestamp_str}.json"
         with open(results_file, "w") as f:

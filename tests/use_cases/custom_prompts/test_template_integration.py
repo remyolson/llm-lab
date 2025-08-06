@@ -2,9 +2,8 @@
 """Test the template engine integration."""
 
 # Import paths fixed - sys.path manipulation removed
-import sys
 import os
-))
+import sys
 
 from src.use_cases.custom_prompts import PromptTemplate
 
@@ -24,11 +23,13 @@ print("-" * 50)
 template2 = PromptTemplate("""Model: {model_name}
 {?context}Context: {context}
 {/context}Question: {question}""")
-result2 = template2.render({
-    "model_name": "claude-3",
-    "question": "What is the capital of France?",
-    "context": "We are discussing European geography."
-})
+result2 = template2.render(
+    {
+        "model_name": "claude-3",
+        "question": "What is the capital of France?",
+        "context": "We are discussing European geography.",
+    }
+)
 print(f"Template: {template2.template_str}")
 print(f"Result: {result2}")
 print()
@@ -37,11 +38,13 @@ print()
 print("Test 3: Load template from file")
 print("-" * 50)
 template3 = PromptTemplate.from_file("examples/prompts/reasoning_template.txt")
-result3 = template3.render({
-    "model_name": "gpt-4",
-    "question": "Explain quantum computing",
-    "context": "Focus on practical applications"
-})
+result3 = template3.render(
+    {
+        "model_name": "gpt-4",
+        "question": "Explain quantum computing",
+        "context": "Focus on practical applications",
+    }
+)
 print(f"Template name: {template3.name}")
 print(f"Required vars: {template3.get_required_variables()}")
 print(f"Result preview: {result3[:200]}...")

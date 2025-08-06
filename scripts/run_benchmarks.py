@@ -6,26 +6,27 @@ using various providers and datasets.
 """
 
 # Import paths fixed - sys.path manipulation removed
+import concurrent.futures
 import json
 import os
 import sys
 import time
 from datetime import datetime
-from typing import Any, Dict, List, Optional, Tuple
-import concurrent.futures
+from logging import CSVResultLogger
+from typing import Any, Dict, List, Optional
 
 # Standard imports with fixed paths
-
 import click
 
-from src.config import MODEL_DEFAULTS, ConfigurationError, get_api_key, get_model_config
-from src.evaluation import keyword_match
-from src.evaluation.improved_evaluation import multi_method_evaluation
-from src.providers import registry, get_provider_for_model
-from src.providers.exceptions import ProviderError, InvalidCredentialsError
-from src.logging import CSVResultLogger
-from src.use_cases.custom_prompts import PromptTemplate
-from benchmarks import MultiModelBenchmarkRunner, ExecutionMode
+from benchmarks import ExecutionMode, MultiModelBenchmarkRunner
+from config import MODEL_DEFAULTS, ConfigurationError, get_model_config
+from evaluation import keyword_match
+from evaluation.improved_evaluation import multi_method_evaluation
+from providers import get_provider_for_model, registry
+from providers.exceptions import InvalidCredentialsError
+from use_cases.custom_prompts import PromptTemplate
+from utils.logging_config import LogLevel, get_logger, log_execution_time, setup_logging
+from utils.progress import ProgressBar, progress_context, track_progress
 
 
 def retry_with_backoff(func, max_retries: int = 3, base_delay: float = 1.0):
@@ -65,7 +66,6 @@ def retry_with_backoff(func, max_retries: int = 3, base_delay: float = 1.0):
 
 
 # Import all providers to ensure they register themselves
-from src.providers import GoogleProvider, OpenAIProvider, AnthropicProvider
 
 # Available benchmark datasets
 DATASETS = {
@@ -153,6 +153,7 @@ def run_benchmark(
     dataset_name: str,
     limit: Optional[int] = None,
     evaluation_method: str = "multi",
+    verbose: bool = False,
 ) -> dict:
     """
     Orchestrate the benchmark execution.
@@ -162,11 +163,17 @@ def run_benchmark(
         dataset_name: Name of the benchmark dataset to run
         limit: Optional limit on number of dataset entries to process (for testing)
         evaluation_method: Evaluation method to use ('keyword', 'fuzzy', 'multi')
+        verbose: Whether to show detailed output during execution
 
     Returns:
         dict: Results of the benchmark run including scores and details
     """
+    logger = get_logger(__name__)
     start_time = datetime.now()
+
+    logger.info(f"Starting benchmark: {model_name} on {dataset_name}")
+    if limit:
+        logger.debug(f"Limiting to {limit} entries for testing")
 
     results = {
         "model": model_name,
@@ -208,8 +215,17 @@ def run_benchmark(
             provider = provider_class(model_name)
 
             # Initialize and validate credentials
-            provider.initialize()
-            click.echo(f"   ✓ {provider_name} provider initialized for model {model_name}")
+            with log_execution_time(
+                logger,
+                f"Provider initialization for {provider_name}",
+                provider=provider_name,
+                model=model_name,
+            ):
+                provider.initialize()
+
+            logger.info(f"Provider {provider_name} initialized for model {model_name}")
+            if verbose:
+                click.echo(f"   ✓ {provider_name} provider initialized for model {model_name}")
 
         except ValueError as e:
             click.echo(f"   ✗ {e!s}", err=True)
@@ -234,28 +250,39 @@ def run_benchmark(
         # Note: Dataset validation is handled by load_dataset() function below
 
         # Load dataset entries
-        entries = load_dataset(dataset_path, limit)
+        with log_execution_time(
+            logger, f"Loading dataset {dataset_name}", dataset=dataset_name, limit=limit
+        ):
+            entries = load_dataset(dataset_path, limit)
 
         results["total_prompts"] = len(entries)
-        click.echo(f"   ✓ Loaded {len(entries)} prompts from {dataset_name}")
+        logger.info(f"Loaded {len(entries)} prompts from {dataset_name}")
+        if verbose:
+            click.echo(f"   ✓ Loaded {len(entries)} prompts from {dataset_name}")
 
         # Step 4: Run evaluations
         click.echo("\n4. Running evaluations...")
-        for i, entry in enumerate(entries, 1):
-            prompt_start_time = datetime.now()
 
-            click.echo(f"\n   Prompt {i}/{len(entries)}: {entry['prompt'][:50]}...")
+        # Create progress bar for evaluations
+        with ProgressBar(
+            total=len(entries), desc="Evaluating", show_percentage=True, show_time=True
+        ) as pbar:
+            for i, entry in enumerate(entries, 1):
+                prompt_start_time = datetime.now()
 
-            eval_metadata = {
-                "prompt_id": entry.get("id", f"unknown_{i}"),
-                "prompt": entry["prompt"],
-                "timestamp": prompt_start_time.isoformat(),
-                "model_name": model_name,
-                "provider": provider_name,
-                "benchmark_name": dataset_name,
-                "evaluation_method": entry.get("evaluation_method", "unknown"),
-                "expected_keywords": entry.get("expected_keywords", []),
-            }
+                # Update progress bar description
+                pbar.set_description(f"Evaluating prompt {i}/{len(entries)}")
+
+                eval_metadata = {
+                    "prompt_id": entry.get("id", f"unknown_{i}"),
+                    "prompt": entry["prompt"],
+                    "timestamp": prompt_start_time.isoformat(),
+                    "model_name": model_name,
+                    "provider": provider_name,
+                    "benchmark_name": dataset_name,
+                    "evaluation_method": entry.get("evaluation_method", "unknown"),
+                    "expected_keywords": entry.get("expected_keywords", []),
+                }
 
             try:
                 # Generate response from model with retry logic
@@ -263,7 +290,20 @@ def run_benchmark(
                 retry_delay = model_config.get("retry_delay", 1.0)
 
                 def generate_with_prompt():
-                    return provider.generate(entry["prompt"])
+                    start_time = time.time()
+                    try:
+                        response = provider.generate(entry["prompt"])
+                        duration = time.time() - start_time
+                        logger.debug(
+                            f"API call to {provider_name}/{model_name} completed in {duration:.2f}s"
+                        )
+                        return response
+                    except Exception as e:
+                        duration = time.time() - start_time
+                        logger.error(
+                            f"API call to {provider_name}/{model_name} failed after {duration:.2f}s: {e}"
+                        )
+                        raise
 
                 try:
                     response = retry_with_backoff(
@@ -283,8 +323,10 @@ def run_benchmark(
 
                 response_time = (datetime.now() - prompt_start_time).total_seconds()
 
-                click.echo(f"   Response: {response[:100]}...")
-                click.echo(f"   Generation time: {response_time:.2f}s")
+                # Only show verbose output if not in progress bar mode
+                if verbose:
+                    click.echo(f"   Response: {response[:100]}...")
+                    click.echo(f"   Generation time: {response_time:.2f}s")
 
                 eval_metadata["response"] = response
                 eval_metadata["response_time_seconds"] = response_time
@@ -295,7 +337,7 @@ def run_benchmark(
                     if evaluation_method == "keyword":
                         eval_result = keyword_match(response, entry["expected_keywords"])
                     elif evaluation_method == "fuzzy":
-                        from src.evaluation.improved_evaluation import fuzzy_keyword_match
+                        from evaluation.improved_evaluation import fuzzy_keyword_match
 
                         eval_result = fuzzy_keyword_match(response, entry["expected_keywords"])
                     else:  # multi (default)
@@ -307,12 +349,14 @@ def run_benchmark(
 
                     if eval_result["success"]:
                         results["successful_evaluations"] += 1
-                        click.echo(
-                            f"   ✓ Evaluation passed (matched: {', '.join(eval_result['matched_keywords'])})"
-                        )
+                        if verbose:
+                            click.echo(
+                                f"   ✓ Evaluation passed (matched: {', '.join(eval_result['matched_keywords'])})"
+                            )
                     else:
                         results["failed_evaluations"] += 1
-                        click.echo("   ✗ Evaluation failed (no keyword match)")
+                        if verbose:
+                            click.echo("   ✗ Evaluation failed (no keyword match)")
                 else:
                     # Unsupported evaluation method
                     click.echo(
@@ -330,7 +374,8 @@ def run_benchmark(
                     )
 
             except Exception as e:
-                click.echo(f"   ✗ Error during evaluation: {e!s}", err=True)
+                if verbose:
+                    click.echo(f"   ✗ Error during evaluation: {e!s}", err=True)
                 results["failed_evaluations"] += 1
                 results["evaluations"].append(
                     {
@@ -341,6 +386,9 @@ def run_benchmark(
                         "error_type": type(e).__name__,
                     }
                 )
+
+            # Update progress bar
+            pbar.update(1)
 
         # Calculate overall score and finalize results
         end_time = datetime.now()
@@ -380,59 +428,59 @@ def run_custom_prompt(
 ) -> dict:
     """
     Run a custom prompt on a single model.
-    
+
     Args:
         model_name: Name of the LLM model to use
         prompt_content: The prompt text (may contain template variables)
         template_variables: Optional dict of variables to substitute in the prompt
-        
+
     Returns:
         dict: Results including the model response
     """
     start_time = datetime.now()
-    
+
     results = {
         "model": model_name,
         "prompt": prompt_content,
         "template_variables": template_variables or {},
         "start_time": start_time.isoformat(),
     }
-    
+
     try:
         # Apply template variables using the template engine
         template = PromptTemplate(prompt_content, name="custom_prompt")
-        
+
         # Add model_name to the context
         render_context = {"model_name": model_name}
         if template_variables:
             render_context.update(template_variables)
-        
+
         # Check for missing variables before rendering
         missing_vars = template.validate_context(render_context)
         if missing_vars:
             click.echo(f"⚠️  Missing template variables: {', '.join(missing_vars)}", err=True)
             click.echo(f"   Available variables: {', '.join(template.get_all_variables())}")
-        
+
         # Render the prompt (non-strict mode to allow missing variables)
         rendered_prompt = template.render(render_context, strict=False)
         results["rendered_prompt"] = rendered_prompt
         results["template_info"] = {
             "required_variables": list(template.get_required_variables()),
             "all_variables": list(template.get_all_variables()),
-            "missing_variables": missing_vars
+            "missing_variables": missing_vars,
         }
-            
+
         # Get provider and initialize
         provider_class = get_provider_for_model(model_name)
         provider_name = provider_class.__name__.replace("Provider", "").lower()
         results["provider"] = provider_name
-        
+
         provider = provider_class(model_name)
         provider.initialize()
-        
+
         # Get model configuration
         model_config = get_model_config()
-        
+
         # Generate response
         prompt_start_time = datetime.now()
         response = retry_with_backoff(
@@ -445,27 +493,27 @@ def run_custom_prompt(
             base_delay=model_config.get("retry_delay", 1.0),
         )
         prompt_end_time = datetime.now()
-        
+
         results["response"] = response
         results["response_time_seconds"] = (prompt_end_time - prompt_start_time).total_seconds()
         results["success"] = True
-        
+
         # Basic metrics (will be expanded in task 3.4)
         results["metrics"] = {
             "response_length": len(response),
             "response_words": len(response.split()),
             "response_lines": len(response.splitlines()),
         }
-        
+
     except Exception as e:
         results["success"] = False
         results["error"] = str(e)
         results["error_type"] = type(e).__name__
-        
+
     end_time = datetime.now()
     results["end_time"] = end_time.isoformat()
     results["total_duration_seconds"] = (end_time - start_time).total_seconds()
-    
+
     return results
 
 
@@ -542,6 +590,9 @@ def run_custom_prompt(
     default=None,
     help='JSON string of template variables (e.g., \'{"context": "math", "difficulty": "easy"}\')',
 )
+@click.option(
+    "--verbose", "-v", is_flag=True, default=False, help="Show detailed output during execution"
+)
 def main(
     model: Optional[str],
     models: Optional[str],
@@ -558,6 +609,7 @@ def main(
     custom_prompt: Optional[str],
     prompt_file: Optional[str],
     prompt_variables: Optional[str],
+    verbose: bool,
 ):
     """
     Run LLM benchmarks with specified models and dataset.
@@ -577,19 +629,28 @@ def main(
 
         # Parallel execution
         python run_benchmarks.py --models gpt-4,claude-3-opus-20240229 --dataset truthfulness --parallel
-        
+
         # Custom prompt (inline)
         python run_benchmarks.py --model gpt-4 --custom-prompt "What is 2+2?"
-        
+
         # Custom prompt from file
         python run_benchmarks.py --model claude-3-opus-20240229 --prompt-file ./prompts/test.txt
-        
+
         # Custom prompt with template variables
         python run_benchmarks.py --models gemini-1.5-flash,gpt-4 --custom-prompt "Solve this {difficulty} math problem: {problem}" --prompt-variables '{"difficulty": "easy", "problem": "2+2"}'
-        
+
         # Compare multiple models on custom prompt
         python run_benchmarks.py --models gpt-4,claude-3-opus-20240229,gemini-1.5-flash --custom-prompt "Write a haiku about programming" --parallel
     """
+    # Set up logging based on verbosity
+    if verbose:
+        setup_logging(level=LogLevel.DEBUG, format_style="colored")
+    else:
+        setup_logging(level=LogLevel.INFO, format_style="colored")
+
+    logger = get_logger(__name__)
+    logger.info("Starting LLM Lab Benchmark Runner")
+
     click.echo("🔬 LLM Lab Benchmark Runner")
     click.echo(f"{'=' * 50}")
 
@@ -653,27 +714,27 @@ def main(
     is_custom_prompt_mode = False
     prompt_content = None
     template_variables = {}
-    
+
     # Validate mutually exclusive options
     if custom_prompt and prompt_file:
         click.echo("❌ Cannot use both --custom-prompt and --prompt-file", err=True)
         sys.exit(1)
-    
+
     if (custom_prompt or prompt_file) and dataset != "truthfulness":
         click.echo("⚠️  Warning: --dataset is ignored when using custom prompts", err=True)
-    
+
     # Process custom prompt
     if custom_prompt or prompt_file:
         is_custom_prompt_mode = True
-        
+
         if custom_prompt:
             prompt_content = custom_prompt
             click.echo(f"\n📝 Using custom prompt: {custom_prompt[:50]}...")
         else:
-            with open(prompt_file, 'r', encoding='utf-8') as f:
+            with open(prompt_file, encoding="utf-8") as f:
                 prompt_content = f.read().strip()
             click.echo(f"\n📝 Loaded custom prompt from: {prompt_file}")
-        
+
         # Parse template variables if provided
         if prompt_variables:
             try:
@@ -690,7 +751,7 @@ def main(
         if is_custom_prompt_mode:
             # Custom prompt mode
             click.echo(f"\n🚀 Running custom prompt on {len(models_to_benchmark)} model(s)...")
-            
+
             if parallel and len(models_to_benchmark) > 1:
                 # Parallel execution for custom prompts
                 with concurrent.futures.ThreadPoolExecutor(
@@ -702,40 +763,49 @@ def main(
                         ): model_name
                         for model_name in models_to_benchmark
                     }
-                    
+
                     for future in concurrent.futures.as_completed(future_to_model):
                         model_name = future_to_model[future]
                         try:
                             result = future.result()
                             all_results.append(result)
                             if result.get("success"):
-                                click.echo(f"✓ {model_name}: Response received ({result['metrics']['response_words']} words)")
+                                click.echo(
+                                    f"✓ {model_name}: Response received ({result['metrics']['response_words']} words)"
+                                )
                             else:
-                                click.echo(f"✗ {model_name}: {result.get('error', 'Unknown error')}", err=True)
+                                click.echo(
+                                    f"✗ {model_name}: {result.get('error', 'Unknown error')}",
+                                    err=True,
+                                )
                         except Exception as e:
                             click.echo(f"✗ Exception for {model_name}: {e!s}", err=True)
-                            all_results.append({
-                                "model": model_name,
-                                "success": False,
-                                "error": str(e),
-                                "error_type": type(e).__name__
-                            })
+                            all_results.append(
+                                {
+                                    "model": model_name,
+                                    "success": False,
+                                    "error": str(e),
+                                    "error_type": type(e).__name__,
+                                }
+                            )
             else:
                 # Sequential execution for custom prompts
                 for model_name in models_to_benchmark:
                     click.echo(f"\n📤 Sending prompt to {model_name}...")
                     result = run_custom_prompt(model_name, prompt_content, template_variables)
                     all_results.append(result)
-                    
+
                     if result.get("success"):
-                        click.echo(f"✓ Response received ({result['metrics']['response_words']} words)")
+                        click.echo(
+                            f"✓ Response received ({result['metrics']['response_words']} words)"
+                        )
                         click.echo(f"\n📝 Response:\n{result['response']}")
                     else:
                         click.echo(f"✗ Error: {result.get('error', 'Unknown error')}", err=True)
-        
+
         elif use_engine:
             # Use the new multi-model execution engine
-            click.echo(f"\n🔧 Using multi-model execution engine...")
+            click.echo("\n🔧 Using multi-model execution engine...")
 
             # Define progress callback
             def progress_callback(model_name: str, current: int, total: int):
@@ -743,7 +813,7 @@ def main(
 
             # Create a wrapper function that includes the limit and evaluation_method parameters
             def benchmark_function_with_limit(model_name: str, dataset_name: str) -> dict:
-                return run_benchmark(model_name, dataset_name, limit, evaluation_method)
+                return run_benchmark(model_name, dataset_name, limit, evaluation_method, verbose)
 
             # Create the execution engine
             execution_mode = ExecutionMode.PARALLEL if parallel else ExecutionMode.SEQUENTIAL
@@ -824,7 +894,7 @@ def main(
                 click.echo(f"Benchmarking: {model_name}")
                 click.echo(f"{'=' * 50}")
 
-                results = run_benchmark(model_name, dataset, limit, evaluation_method)
+                results = run_benchmark(model_name, dataset, limit, evaluation_method, verbose)
                 all_results.append(results)
 
         # Display summary
@@ -843,10 +913,10 @@ def main(
                 click.echo(f"\nModel: {result['model']}")
                 click.echo(f"Provider: {result.get('provider', 'unknown')}")
                 click.echo(f"Success: {'✓' if result.get('success') else '✗'}")
-                
-                if result.get('success'):
-                    click.echo(f"\n📊 Response Metrics:")
-                    metrics = result.get('metrics', {})
+
+                if result.get("success"):
+                    click.echo("\n📊 Response Metrics:")
+                    metrics = result.get("metrics", {})
                     click.echo(f"  Length: {metrics.get('response_length', 0)} characters")
                     click.echo(f"  Words: {metrics.get('response_words', 0)}")
                     click.echo(f"  Lines: {metrics.get('response_lines', 0)}")
@@ -855,7 +925,9 @@ def main(
                     click.echo(f"Error: {result.get('error', 'Unknown error')}")
             else:
                 # Multiple model custom prompt results
-                click.echo(f"\nPrompt: {prompt_content[:100]}{'...' if len(prompt_content) > 100 else ''}")
+                click.echo(
+                    f"\nPrompt: {prompt_content[:100]}{'...' if len(prompt_content) > 100 else ''}"
+                )
                 click.echo(f"Models Tested: {len(all_results)}")
                 click.echo("\n📈 Model Comparison:")
                 click.echo("-" * 80)
@@ -863,9 +935,9 @@ def main(
                     f"{'Model':<30} {'Provider':<12} {'Status':<10} {'Words':<10} {'Time (s)':<10}"
                 )
                 click.echo("-" * 80)
-                
+
                 for result in all_results:
-                    if result.get('success'):
+                    if result.get("success"):
                         click.echo(
                             f"{result['model']:<30} "
                             f"{result.get('provider', 'unknown'):<12} "

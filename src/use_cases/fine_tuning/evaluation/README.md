@@ -119,25 +119,25 @@ from src.use_cases.fine_tuning.evaluation import CustomEvaluationRegistry
 def evaluate_custom(model, tokenizer, config=None):
     """Custom evaluation function."""
     results = []
-    
+
     # Your evaluation logic here
     test_prompts = config.get("prompts", ["Test prompt"])
-    
+
     for prompt in test_prompts:
         # Generate and evaluate
         inputs = tokenizer(prompt, return_tensors="pt")
         outputs = model.generate(**inputs)
         response = tokenizer.decode(outputs[0])
-        
+
         # Calculate metrics
         score = calculate_custom_metric(response)
-        
+
         results.append({
             "name": f"custom_{prompt[:20]}",
             "value": score,
             "metadata": {"prompt": prompt}
         })
-    
+
     return results
 ```
 

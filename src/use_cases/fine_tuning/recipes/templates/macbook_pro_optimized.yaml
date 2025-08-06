@@ -56,7 +56,7 @@ training:
   gradient_checkpointing: true  # Critical for memory
   deepspeed_config: null  # Not needed for single GPU
   fsdp_config: null
-  
+
   # LoRA configuration - essential for MacBook
   use_lora: true
   lora_rank: 8  # Very low rank for memory
@@ -88,7 +88,7 @@ optimization:
   use_pytorch_mps: true
   enable_unified_memory: true
   background_training: true  # Allow other tasks
-  
+
   # Power/thermal management
   power_mode: balanced  # balanced, low_power, performance
   thermal_throttle_threshold: 80  # Celsius
@@ -106,18 +106,18 @@ metadata:
     - "Metal acceleration automatically enabled"
   notes: |
     This recipe is specifically optimized for MacBook Pro:
-    
+
     Memory Management:
     - 8-bit model loading reduces memory by ~50%
     - Gradient checkpointing trades compute for memory
     - Small batch size with accumulation
     - CPU offloading for optimizer states
-    
+
     Performance:
     - Automatically uses Metal Performance Shaders
     - Mixed precision (fp16) for faster training
     - Thermal management to prevent throttling
-    
+
     Best Practices:
     - Close other applications during training
     - Use Activity Monitor to track memory usage

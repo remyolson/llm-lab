@@ -6,7 +6,7 @@ echo "🚀 Running All Custom Prompt Examples"
 echo "======================================"
 echo "This will run examples for:"
 echo "  - Customer Service Response Testing"
-echo "  - Code Generation Across Complexity Levels"  
+echo "  - Code Generation Across Complexity Levels"
 echo "  - Creative Writing in Multiple Genres"
 echo
 echo "Results will be saved to ./results/examples/"
@@ -63,7 +63,7 @@ echo
 echo "⚡ Waiting 5 seconds before next batch..."
 sleep 5
 
-# Run Code Generation Examples  
+# Run Code Generation Examples
 echo "💻 Running Code Generation Examples..."
 ./examples/custom_prompts/code_generation_examples.sh
 

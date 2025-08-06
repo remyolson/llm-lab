@@ -2,15 +2,14 @@
 """Test the result storage functionality."""
 
 # Import paths fixed - sys.path manipulation removed
-import sys
-import os
-import json
-import tempfile
-from datetime import datetime, timedelta
-))
-
 # Import modules directly to avoid provider dependencies
 import importlib.util
+import json
+import os
+import sys
+import tempfile
+from datetime import datetime, timedelta
+
 
 # Load modules
 def load_module(name, path):
@@ -18,6 +17,7 @@ def load_module(name, path):
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
     return module
+
 
 # Load required modules
 prompt_runner = load_module("prompt_runner", "src/use_cases/custom_prompts/prompt_runner.py")
@@ -36,15 +36,16 @@ ResultComparator = result_storage.ResultComparator
 print("Testing Result Storage System")
 print("=" * 60)
 
+
 # Create mock data
 def create_mock_response(model, success=True, response_text=None):
     """Create a mock ModelResponse."""
     if response_text is None:
         response_text = f"This is a response from {model}. The answer is 42."
-    
+
     return ModelResponse(
         model=model,
-        provider=model.split('-')[0],
+        provider=model.split("-")[0],
         prompt="What is the meaning of life?",
         rendered_prompt="What is the meaning of life?",
         response=response_text if success else None,
@@ -54,14 +55,23 @@ def create_mock_response(model, success=True, response_text=None):
         end_time=datetime.now() + timedelta(seconds=2),
         duration_seconds=2.0,
         retry_count=0,
-        metadata={"temperature": 0.7}
+        metadata={"temperature": 0.7},
     )
+
 
 # Create mock execution result
 responses = [
-    create_mock_response("gpt-4", True, "The meaning of life is a profound philosophical question that has been pondered throughout history."),
-    create_mock_response("claude-3", True, "Life's meaning is subjective and varies from person to person. Many find meaning through relationships, achievements, and personal growth."),
-    create_mock_response("gemini-pro", False)
+    create_mock_response(
+        "gpt-4",
+        True,
+        "The meaning of life is a profound philosophical question that has been pondered throughout history.",
+    ),
+    create_mock_response(
+        "claude-3",
+        True,
+        "Life's meaning is subjective and varies from person to person. Many find meaning through relationships, achievements, and personal growth.",
+    ),
+    create_mock_response("gemini-pro", False),
 ]
 
 exec_result = ExecutionResult(
@@ -72,7 +82,7 @@ exec_result = ExecutionResult(
     models_failed=["gemini-pro"],
     total_duration_seconds=6.5,
     responses=responses,
-    execution_mode="parallel"
+    execution_mode="parallel",
 )
 
 # Test 1: Create CustomPromptResult
@@ -113,27 +123,24 @@ print("\n5. Storage System")
 print("-" * 40)
 with tempfile.TemporaryDirectory() as temp_dir:
     storage = ResultStorage(temp_dir)
-    
+
     # Save in different formats
     json_path = storage.save(custom_result, format="json")
     csv_path = storage.save(custom_result, format="csv")
     md_path = storage.save(custom_result, format="markdown")
-    
+
     print(f"Saved JSON to: {json_path}")
     print(f"Saved CSV to: {csv_path}")
     print(f"Saved Markdown to: {md_path}")
-    
+
     # Test cache
     print("\n6. Cache Testing")
     print("-" * 40)
-    cached = storage.check_cache(
-        exec_result.prompt_template,
-        exec_result.template_variables
-    )
+    cached = storage.check_cache(exec_result.prompt_template, exec_result.template_variables)
     print(f"Found in cache: {cached is not None}")
     if cached:
         print(f"Cached execution ID: {cached.execution_id}")
-    
+
     # List results
     print("\n7. Listing Results")
     print("-" * 40)
@@ -160,20 +167,20 @@ custom_result.metrics = {
     "gpt-4": {
         "response_length": {"words": 50},
         "sentiment": {"score": 0.8, "label": "positive"},
-        "coherence": {"score": 0.92}
+        "coherence": {"score": 0.92},
     },
     "claude-3": {
         "response_length": {"words": 45},
         "sentiment": {"score": 0.85, "label": "positive"},
-        "coherence": {"score": 0.95}
-    }
+        "coherence": {"score": 0.95},
+    },
 }
 
 custom_result.aggregated_metrics = {
     "response_length": {"mean": 47.5, "std": 2.5},
     "sentiment": {"mean": 0.825},
     "coherence": {"mean": 0.935},
-    "diversity": {"score": 0.72}
+    "diversity": {"score": 0.72},
 }
 
 # Format with metrics
