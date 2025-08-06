@@ -13,7 +13,7 @@ Available models:
 Usage:
     python run_small_model_demo.py
     python run_small_model_demo.py "Your prompt here"
-    python run_small_model_demo.py --model qwen "Your prompt here"
+    python run_small_model_demo.py --model qwen-0.5b "Your prompt here"
 """
 
 import sys
@@ -69,9 +69,7 @@ def check_model_available(model_name):
 def check_ollama_available():
     """Check if Ollama is installed and running."""
     try:
-        result = subprocess.run(
-            ["ollama", "list"], capture_output=True, text=True, timeout=10
-        )
+        result = subprocess.run(["ollama", "list"], capture_output=True, text=True, timeout=10)
         return result.returncode == 0
     except (subprocess.TimeoutExpired, FileNotFoundError):
         return False
@@ -277,15 +275,11 @@ def run_with_transformers(model_path, prompt, max_tokens=100):
                 print("   This appears to be a Mixture-of-Experts (MoE) runtime issue.")
                 print("   The model loaded successfully but failed during inference.")
                 print(f"\n💡 Alternative Solution:")
-                print(
-                    f"   The GPT-OSS README recommends using Ollama for consumer hardware:"
-                )
+                print(f"   The GPT-OSS README recommends using Ollama for consumer hardware:")
                 print(f"   1. Install Ollama: https://ollama.com/download")
                 print(f"   2. Run: ollama pull gpt-oss:20b")
                 print(f"   3. Run: ollama run gpt-oss:20b")
-                print(
-                    f"\n   This avoids the MoE compatibility issues with transformers on Mac."
-                )
+                print(f"\n   This avoids the MoE compatibility issues with transformers on Mac.")
             elif "mxfp4" in error_str:
                 print("   MXFP4 quantization requires CUDA GPUs.")
                 print("   Consider using Ollama as recommended in the README.")
@@ -320,9 +314,7 @@ def run_simple_demo(model_name, prompt):
             print(f"💡 Alternative suggestions:")
             if model_name == "gpt-oss-20b":
                 print("   The 20B model may be too large for your hardware.")
-                print(
-                    "   Try the smaller model: python run_small_model_demo.py --model llama3.2-1b"
-                )
+                print("   Try the smaller model: python run_small_model_demo.py --model llama3.2-1b")
             return False
     else:
         # Use transformers for local models
@@ -397,9 +389,7 @@ def list_available_models():
                         "llama3.2-1b": "llama3.2:1b",
                     }
                     ollama_name = model_map.get(model_dir, model_dir)
-                    result = subprocess.run(
-                        ["ollama", "list"], capture_output=True, text=True
-                    )
+                    result = subprocess.run(["ollama", "list"], capture_output=True, text=True)
                     status = "✓" if ollama_name in result.stdout else "📥"
                 except:
                     status = "❌"
@@ -419,9 +409,7 @@ def list_available_models():
 
 def main():
     parser = argparse.ArgumentParser(description="Run small language models locally")
-    parser.add_argument(
-        "prompt", nargs="*", default=None, help="Text prompt for the model"
-    )
+    parser.add_argument("prompt", nargs="*", default=None, help="Text prompt for the model")
     parser.add_argument(
         "--model",
         default="smollm-360m",
@@ -437,9 +425,7 @@ def main():
         help="Model to use",
     )
     parser.add_argument("--list", action="store_true", help="List available models")
-    parser.add_argument(
-        "--max-tokens", type=int, default=100, help="Maximum tokens to generate"
-    )
+    parser.add_argument("--max-tokens", type=int, default=100, help="Maximum tokens to generate")
 
     args = parser.parse_args()
 
