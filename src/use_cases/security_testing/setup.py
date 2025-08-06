@@ -1,82 +1,57 @@
-"""Setup script for Attack Library System."""
+"""Setup configuration for LLM Security Testing Framework."""
 
 from setuptools import find_packages, setup
 
-with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
-
 setup(
     name="llm-security-testing",
-    version="0.1.0",
+    version="1.0.0",
+    description="Comprehensive security testing framework for Large Language Models",
     author="LLM Lab Team",
-    author_email="team@llmlab.com",
-    description="Comprehensive attack library and prompt generation system for LLM security testing",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/llm-lab/llm-lab",
-    package_dir={"": "src"},
     packages=find_packages(where="src"),
+    package_dir={"": "src"},
+    python_requires=">=3.8",
+    install_requires=[
+        "click>=8.0.0",
+        "rich>=10.0.0",
+        "pydantic>=2.0.0",
+        "requests>=2.25.0",
+        "aiohttp>=3.8.0",
+        "pandas>=1.3.0",
+        "numpy>=1.21.0",
+        "pytest>=7.0.0",
+        "pytest-asyncio>=0.18.0",
+        "python-dotenv>=0.19.0",
+    ],
+    extras_require={
+        "dev": [
+            "black>=22.0.0",
+            "flake8>=4.0.0",
+            "mypy>=0.950",
+            "pre-commit>=2.17.0",
+        ],
+        "reporting": [
+            "reportlab>=3.6.0",  # For PDF generation
+            "jinja2>=3.0.0",  # For HTML templates
+            "matplotlib>=3.5.0",  # For charts
+            "seaborn>=0.11.0",  # For advanced visualizations
+        ],
+    },
+    entry_points={
+        "console_scripts": [
+            "llm-security=cli:cli",
+            "llm-scan=cli:cli",
+        ],
+    },
     classifiers=[
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
+        "Intended Audience :: Science/Research",
+        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+        "Topic :: Security",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
-        "Topic :: Security",
-        "Topic :: Software Development :: Testing",
-        "Topic :: Scientific/Engineering :: Artificial Intelligence",
     ],
-    python_requires=">=3.8",
-    install_requires=[
-        "pydantic>=2.0.0",
-        "fastapi>=0.104.0",
-        "uvicorn>=0.24.0",
-        "click>=8.1.0",
-        "pyyaml>=6.0.1",
-        "jinja2>=3.1.2",
-        "numpy>=1.24.0",
-        "pandas>=2.0.0",
-        "requests>=2.31.0",
-        "aiohttp>=3.9.0",
-        "rich>=13.0.0",
-        "tqdm>=4.65.0",
-        "python-dotenv>=1.0.0",
-        "jsonschema>=4.17.0",
-        "faker>=19.0.0",
-        "nltk>=3.8.0",
-        "textstat>=0.7.3",
-    ],
-    extras_require={
-        "dev": [
-            "pytest>=7.4.0",
-            "pytest-asyncio>=0.21.0",
-            "pytest-cov>=4.1.0",
-            "black>=23.7.0",
-            "flake8>=6.0.0",
-            "mypy>=1.5.0",
-            "pre-commit>=3.3.0",
-        ],
-        "ml": [
-            "transformers>=4.33.0",
-            "torch>=2.0.0",
-            "scikit-learn>=1.3.0",
-        ],
-    },
-    entry_points={
-        "console_scripts": [
-            "attack-library=attack_library.cli:main",
-        ],
-    },
-    include_package_data=True,
-    package_data={
-        "attack_library": [
-            "data/attacks/*.json",
-            "data/schemas/*.json",
-            "templates/*.j2",
-        ],
-    },
 )

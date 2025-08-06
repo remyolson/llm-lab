@@ -11,31 +11,47 @@ A comprehensive, production-grade platform for benchmarking, fine-tuning, monito
 ## 🌟 What's New (v2.0)
 
 ### Major Enhancements
-- **🎯 Small LLMs Hub**: Optimized support for running models from 70M to 20B parameters locally on MacBook Pro
+- **🛡️ Security Testing Framework**: 500+ attack patterns with red team simulation capabilities
 - **🏗️ Fine-Tuning Studio**: Complete web-based platform for model fine-tuning with real-time monitoring
 - **📊 Visual Analytics Suite**: Advanced model comparison and response analysis tools
-- **💉 Dependency Injection**: Enterprise-grade DI system for modular, testable code
-- **📚 Documentation System**: Full Sphinx documentation with CI/CD and interactive examples
-- **🎭 Type System**: Comprehensive type annotations with protocols and generics
-- **🔄 Restructured Architecture**: Flattened directory structure for better maintainability
+- **🧬 Synthetic Data Platform**: Privacy-preserving data generation across 6 specialized domains
+- **📋 Benchmark Creation Tool**: Git-based versioning system for custom benchmark development
+- **🔍 Interpretability Suite**: Deep model introspection with attention visualization
+- **🎯 Small LLMs Hub**: Optimized support for running models from 70M to 20B parameters locally
+- **📚 Model Documentation System**: Automated compliance reporting (EU AI Act, ISO 26000)
 
 ## 🚀 Key Features
 
-### Core Capabilities
+### Core Platform Capabilities
 - **🌐 Multi-Provider Support**: Unified interface for 15+ providers including OpenAI, Anthropic, Google, Azure, Cohere, Mistral, Perplexity, and local models
 - **📈 Comprehensive Benchmarking**: Multi-dataset evaluation with statistical analysis, confidence intervals, and performance tracking
-- **🎓 Fine-Tuning Platform**: Web-based studio for cloud and local model fine-tuning (LoRA, QLoRA, full fine-tuning)
-- **🛡️ Advanced Alignment**: Constitutional AI, multi-layer safety filters, and preference learning (RLHF/DPO)
-- **📊 Real-Time Monitoring**: Production dashboards with Grafana, alerts, and SLA tracking
+- **🎓 Dual Fine-Tuning Systems**: CLI-based pipeline and web-based studio for cloud and local model fine-tuning (LoRA, QLoRA, full fine-tuning)
+- **🛡️ Advanced Security**: 500+ attack patterns, red team simulation, and comprehensive vulnerability assessment
+- **📊 Real-Time Monitoring**: Production dashboards with Grafana, alerts, regression detection, and SLA tracking
 - **💰 Cost Management**: Detailed tracking, forecasting, and optimization recommendations
-- **🏢 Enterprise Features**: Multi-tenancy, A/B testing, compliance reporting, and audit logging
+- **🏢 Enterprise Features**: Multi-tenancy, A/B testing, compliance reporting (EU AI Act), and audit logging
 
-### New Features
-- **🖥️ Local Model Excellence**: Optimized for Apple Silicon with Metal acceleration
-- **🔬 Visual Analytics**: Interactive model response comparison and analysis
-- **🏗️ Modern Architecture**: Clean dependency injection and modular design
-- **📝 Rich Documentation**: Comprehensive guides, API docs, and interactive notebooks
-- **🧪 95%+ Test Coverage**: Extensive unit, integration, and end-to-end testing
+### 13 Specialized Use Cases
+1. **Security Testing**: Comprehensive LLM vulnerability assessment with red team capabilities
+2. **Synthetic Data**: Privacy-preserving data generation across 6 domains
+3. **Model Documentation**: Automated compliance and model card generation
+4. **Interpretability**: Deep model introspection and explainability tools
+5. **Benchmark Creation**: Custom benchmark development with version control
+6. **Fine-Tuning**: Recipe-based training pipeline with cost optimization
+7. **Monitoring**: Continuous performance tracking and alerting
+8. **Custom Prompts**: Advanced prompt engineering and optimization
+9. **Local Models**: Optimized local model management and deployment
+10. **Alignment**: Constitutional AI and safety filter implementation
+11. **Evaluation Framework**: Extensible evaluation system with plugins
+12. **Visual Analytics**: Interactive dashboards for model analysis
+13. **Fine-Tuning Studio**: Full-stack web UI with real-time collaboration
+
+### Technical Excellence
+- **🖥️ Local Model Optimization**: Support for 70M to 20B parameters, optimized for Apple Silicon
+- **🔬 Visual Analytics**: Interactive model response comparison and behavior analysis
+- **🏗️ Modern Architecture**: Clean dependency injection, modular design, and 95%+ test coverage
+- **📝 Rich Documentation**: Comprehensive guides, API docs, and interactive Jupyter notebooks
+- **🔄 CI/CD Pipeline**: Automated testing, documentation building, and performance regression detection
 
 ## 📋 Prerequisites
 
@@ -175,14 +191,20 @@ llm-lab/
 │   │   ├── protocols.py       # Protocol definitions
 │   │   ├── generics.py        # Generic types
 │   │   └── core.py            # Core types
-│   └── use_cases/             # Production use cases
-│       ├── fine_tuning/       # Fine-tuning platform
-│       │   ├── api/           # FastAPI backend
-│       │   ├── web/           # Next.js frontend
-│       │   └── deployment/    # Deployment configs
-│       ├── visual_analytics/  # Visual analysis tools
-│       ├── monitoring/        # Monitoring system
-│       └── alignment/         # Safety alignment
+│   └── use_cases/             # 13 Production use cases
+│       ├── security_testing/  # LLM vulnerability assessment (500+ attacks)
+│       ├── synthetic_data/    # Privacy-preserving data generation
+│       ├── model_documentation/ # Automated docs & compliance
+│       ├── interpretability/  # Model introspection & explainability
+│       ├── benchmark_creation/ # Custom benchmark development
+│       ├── fine_tuning/       # Recipe-based training pipeline
+│       ├── monitoring/        # Continuous performance tracking
+│       ├── custom_prompts/    # Prompt engineering tools
+│       ├── local_models/      # Local model management
+│       ├── alignment/         # Constitutional AI & safety
+│       ├── evaluation_framework/ # Extensible evaluation system
+│       ├── visual_analytics/  # Interactive analysis dashboard
+│       └── fine_tuning_studio/ # Web-based fine-tuning UI
 ├── models/                    # Model storage
 │   └── small-llms/           # Local model zoo
 │       ├── pythia-70m/       # Tiny models (70-160M)
@@ -216,102 +238,196 @@ llm-lab/
 - **Monitoring**: Grafana, Prometheus, OpenTelemetry
 - **Deployment**: Docker, Kubernetes, GitHub Actions
 
-## 🎮 Use Cases
+## 🎮 13 Production-Ready Use Cases
 
-### 1. Local Model Development
-
-Perfect for development and experimentation without API costs:
+### 1. 🛡️ Security Testing Framework
+**500+ attack patterns for comprehensive LLM vulnerability assessment**
 
 ```python
-from src.providers.local import UnifiedLocalProvider
+from src.use_cases.security_testing import SecurityScanner
 
-# Initialize local provider
-provider = UnifiedLocalProvider(
-    backend="ollama",  # or "transformers", "llamacpp"
-    model_name="llama3.2:1b"
+scanner = SecurityScanner()
+results = scanner.scan(
+    model="gpt-4o-mini",
+    attack_categories=["jailbreak", "injection", "extraction"],
+    severity_threshold="medium"
 )
-
-# Generate text
-response = provider.generate("Explain quantum computing in simple terms")
-print(response)
+# Features: Red team simulation, evasion techniques, domain-specific scenarios
 ```
 
-### 2. Fine-Tuning Studio
-
-Web-based interface for model fine-tuning:
+### 2. 🧬 Synthetic Data Generation
+**Privacy-preserving data generation across 6 specialized domains**
 
 ```python
-# Use the API programmatically
-from src.use_cases.fine_tuning.api import FineTuningClient
+from src.use_cases.synthetic_data import DataGenerator
 
-client = FineTuningClient()
-job = client.create_fine_tuning_job(
-    base_model="gpt-3.5-turbo",
-    training_data="data/training.jsonl",
-    hyperparameters={"epochs": 3, "learning_rate": 2e-5}
+generator = DataGenerator(domain="medical")
+synthetic_data = generator.generate(
+    num_samples=1000,
+    privacy_level="differential",  # PII detection & anonymization
+    format="parquet"
 )
+# Domains: medical, financial, legal, e-commerce, educational, code
 ```
 
-### 3. Visual Model Comparison
-
-Compare responses across models visually:
+### 3. 📚 Model Documentation System
+**Automated documentation with compliance reporting**
 
 ```python
-from src.use_cases.visual_analytics import ResponseAnalyzer
+from src.use_cases.model_documentation import ModelCardGenerator
 
-analyzer = ResponseAnalyzer()
-comparison = analyzer.compare_models(
-    prompt="What is consciousness?",
-    models=["gpt-4o", "claude-3.5", "llama3.2:1b"],
-    visualize=True
+doc_gen = ModelCardGenerator()
+model_card = doc_gen.generate(
+    model_path="models/custom_model.pt",
+    compliance_standards=["EU_AI_Act", "ISO_26000"],
+    include_bias_analysis=True
 )
+# Outputs: Model cards, compliance reports, ethical assessments
 ```
 
-### 4. Cost-Optimized Deployment
-
-Find the best model for your budget:
+### 4. 🔍 Interpretability Suite
+**Deep model introspection and explainability**
 
 ```python
-from src.use_cases.cost_optimization import CostOptimizer
+from src.use_cases.interpretability import InterpretabilityAnalyzer
 
-optimizer = CostOptimizer()
-recommendation = optimizer.recommend(
-    required_accuracy=0.9,
-    max_latency_ms=500,
-    monthly_budget=1000,
-    expected_requests=100000
+analyzer = InterpretabilityAnalyzer()
+explanations = analyzer.analyze(
+    model="llama3.2:1b",
+    input_text="Why is the sky blue?",
+    methods=["attention", "gradients", "activations"]
 )
+# Features: Attention visualization, feature attribution, interactive dashboards
 ```
 
-### 5. A/B Testing
-
-Test models in production:
+### 5. 📋 Benchmark Creation Tool
+**Build and version custom LLM benchmarks**
 
 ```python
-from src.use_cases.ab_testing import ABTestRunner
+from src.use_cases.benchmark_creation import BenchmarkBuilder
 
-runner = ABTestRunner()
-results = runner.run_test(
-    control_model="gpt-3.5-turbo",
-    treatment_model="llama3.2:1b",
-    test_duration_hours=168,  # 1 week
-    traffic_split=0.5
+builder = BenchmarkBuilder()
+benchmark = builder.create(
+    name="domain_specific_qa",
+    generation_method="model_assisted",
+    validation_enabled=True,
+    version_control=True  # Git-based versioning
 )
 ```
 
-### 6. Safety Alignment
-
-Implement constitutional AI and safety filters:
+### 6. 🎓 Fine-Tuning Platform
+**Complete fine-tuning pipeline with recipe management**
 
 ```python
-from src.use_cases.alignment import SafetyPipeline
+from src.use_cases.fine_tuning import FineTuningPipeline
 
-pipeline = SafetyPipeline()
+pipeline = FineTuningPipeline()
+model = pipeline.train(
+    recipe="recipes/chat_finetuning.yaml",  # YAML-based configs
+    cost_estimation=True,
+    monitoring=["wandb", "tensorboard"],
+    optimization="qlora"  # Memory optimization
+)
+```
+
+### 7. 📊 Continuous Monitoring
+**Production monitoring with regression detection**
+
+```python
+from src.use_cases.monitoring import MonitoringDashboard
+
+monitor = MonitoringDashboard()
+monitor.track(
+    models=["production_v1", "production_v2"],
+    metrics=["latency", "accuracy", "cost"],
+    alerts={"regression_threshold": 0.05},
+    channels=["slack", "email"]
+)
+```
+
+### 8. 🎯 Custom Prompt Engineering
+**Advanced prompt management and optimization**
+
+```python
+from src.use_cases.custom_prompts import PromptEngine
+
+engine = PromptEngine()
+optimized_prompt = engine.optimize(
+    base_prompt="Summarize this text",
+    optimization_goal="accuracy",
+    test_dataset="validation_set.jsonl"
+)
+```
+
+### 9. 🖥️ Local Model Management
+**Run models locally with automatic optimization**
+
+```python
+from src.use_cases.local_models import LocalModelProvider
+
+provider = LocalModelProvider()
+provider.setup(
+    model="llama3.2:1b",
+    quantization="Q4_K_M",  # Automatic quantization
+    gpu_layers="auto"  # Automatic GPU detection
+)
+```
+
+### 10. 🤝 AI Alignment Tools
+**Constitutional AI and safety measures**
+
+```python
+from src.use_cases.alignment import AlignmentPipeline
+
+pipeline = AlignmentPipeline()
 safe_response = pipeline.generate(
     prompt=user_input,
-    safety_level="strict",
-    constitutional_rules="rules.yaml"
+    constitutional_rules="rules.yaml",
+    human_feedback_enabled=True,
+    safety_filters=["toxicity", "bias", "pii"]
 )
+```
+
+### 11. 📈 Evaluation Framework
+**Comprehensive model evaluation system**
+
+```python
+from src.use_cases.evaluation_framework import EvaluationSuite
+
+suite = EvaluationSuite()
+results = suite.evaluate(
+    models=["gpt-4o", "claude-3.5"],
+    benchmarks=["truthfulness", "reasoning", "safety"],
+    include_cost_analysis=True,
+    export_format="html"
+)
+```
+
+### 12. 📊 Visual Analytics Dashboard
+**Interactive visualization for model analysis**
+
+```python
+from src.use_cases.visual_analytics import AnalyticsDashboard
+
+dashboard = AnalyticsDashboard()
+dashboard.launch(
+    port=8080,
+    features=["response_comparison", "behavior_analysis",
+              "regression_detection", "task_evaluation"]
+)
+```
+
+### 13. 🏗️ Fine-Tuning Studio (Web UI)
+**Full-stack web application for interactive fine-tuning**
+
+```bash
+# Launch the complete web-based fine-tuning environment
+cd src/use_cases/fine_tuning_studio
+python backend/api/main.py  # FastAPI backend
+
+# In another terminal
+cd frontend && npm install && npm run dev  # Next.js frontend
+# Features: Real-time collaboration, A/B testing, dataset explorer, live preview
 ```
 
 ## 🧪 Testing
@@ -393,12 +509,27 @@ The project includes comprehensive CI/CD pipelines:
 
 ## 📚 Documentation
 
+### Quick Links
 - **[Quick Start Guide](docs/getting_started/README.md)** - Get up and running quickly
 - **[API Reference](docs/api/)** - Complete API documentation
 - **[Architecture Guide](docs/architecture/)** - System design and patterns
-- **[Use Case Guides](docs/guides/)** - Detailed tutorials for each use case
 - **[Configuration Reference](docs/CONFIGURATION.md)** - All configuration options
 - **[Troubleshooting Guide](docs/TROUBLESHOOTING.md)** - Common issues and solutions
+
+### Use Case Guides
+- **[Security Testing Guide](docs/guides/USE_CASE_1_HOW_TO.md)** - LLM vulnerability assessment
+- **[Synthetic Data Guide](docs/guides/USE_CASE_2_HOW_TO.md)** - Privacy-preserving data generation
+- **[Model Documentation Guide](docs/guides/USE_CASE_3_HOW_TO.md)** - Automated documentation & compliance
+- **[Interpretability Guide](docs/guides/USE_CASE_4_HOW_TO.md)** - Model introspection tools
+- **[Benchmark Creation Guide](docs/guides/USE_CASE_5_HOW_TO.md)** - Custom benchmark development
+- **[Fine-Tuning Guide](docs/guides/USE_CASE_6_HOW_TO.md)** - Recipe-based training pipeline
+- **[Monitoring Guide](docs/guides/USE_CASE_7_HOW_TO.md)** - Performance tracking & alerts
+- **[Custom Prompts Guide](docs/guides/USE_CASE_8_HOW_TO.md)** - Prompt engineering tools
+- **[Local Models Guide](docs/guides/USE_CASE_9_HOW_TO.md)** - Running models locally
+- **[Alignment Guide](docs/guides/USE_CASE_10_HOW_TO.md)** - Safety and alignment tools
+- **[Evaluation Framework Guide](docs/guides/USE_CASE_11_HOW_TO.md)** - Model evaluation system
+- **[Visual Analytics Guide](docs/guides/USE_CASE_12_HOW_TO.md)** - Interactive analysis tools
+- **[Fine-Tuning Studio Guide](docs/guides/USE_CASE_13_HOW_TO.md)** - Web-based fine-tuning UI
 
 ### Interactive Documentation
 
@@ -469,7 +600,7 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) for deta
 
 <div align="center">
 
-**Built with ❤️ by the LLM Lab Team**
+**R3MY 0LS0N**
 
 [Website](https://llm-lab.dev) • [Documentation](https://docs.llm-lab.dev) • [Blog](https://blog.llm-lab.dev)
 
