@@ -1,0 +1,11 @@
+# Task ID: 45
+# Title: Create Benchmark Templates
+# Status: pending
+# Dependencies: 42
+# Priority: medium
+# Description: Build template library for common benchmark patterns
+# Details:
+Create templates for classification, generation, QA, and reasoning tasks. Build domain-specific templates (medical, legal, technical). Implement template customization system. Support template inheritance and composition. Create template validation and testing.
+
+# Test Strategy:
+Test template instantiation and customization. Validate generated benchmarks from templates. Test template inheritance.

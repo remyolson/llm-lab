@@ -1,0 +1,11 @@
+# Task ID: 36
+# Title: Build Interactive Dashboard
+# Status: pending
+# Dependencies: 32, 33, 34, 35
+# Priority: medium
+# Description: Create comprehensive web interface for interpretability exploration
+# Details:
+Build Dash/Streamlit dashboard with real-time interpretation. Create multi-method comparison views. Implement interactive input modification. Build visualization export capabilities. Support session saving and sharing. Create collaborative annotation features.
+
+# Test Strategy:
+Test dashboard component functionality. Validate real-time updates. Test export capabilities. Verify session management.

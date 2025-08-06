@@ -1,0 +1,11 @@
+# Task ID: 15
+# Title: Create Domain Template Library
+# Status: pending
+# Dependencies: 12
+# Priority: medium
+# Description: Build pre-configured templates for common synthetic data generation scenarios
+# Details:
+Create template system with DataTemplate class supporting domain-specific patterns. Build healthcare templates (clinical notes, patient records, diagnostic reports). Create financial templates (transactions, risk assessments, market data). Develop legal templates (contracts, case summaries, compliance docs). Include customer service templates (support conversations, FAQs). Support template customization and parameter overrides.
+
+# Test Strategy:
+Test template instantiation for each domain. Validate template parameter customization. Test generated data against domain requirements. Verify template variations produce diverse outputs.

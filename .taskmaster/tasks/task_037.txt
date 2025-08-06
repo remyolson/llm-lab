@@ -1,0 +1,11 @@
+# Task ID: 37
+# Title: Implement Model Comparison Tools
+# Status: pending
+# Dependencies: 36
+# Priority: medium
+# Description: Build tools for comparing interpretability across different models
+# Details:
+Create cross-model attention comparison. Build feature attribution alignment analysis. Implement concept consistency checking. Create behavioral difference detection. Support model evolution tracking. Build interpretation stability metrics.
+
+# Test Strategy:
+Test comparison accuracy between models. Validate alignment metrics. Test evolution tracking functionality. Verify stability measurements.

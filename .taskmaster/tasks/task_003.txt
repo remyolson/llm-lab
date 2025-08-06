@@ -1,0 +1,42 @@
+# Task ID: 3
+# Title: Build Attack Library and Prompt Generation System
+# Status: done
+# Dependencies: 2
+# Priority: high
+# Description: Create comprehensive library of attack prompts and dynamic prompt generation capabilities for security testing
+# Details:
+Develop AttackLibrary class containing 500+ jailbreak prompts, prompt injection patterns, data extraction attempts, and adversarial inputs. Implement prompt generation system with templates and variables for creating targeted attacks. Include attack categorization: jailbreak, injection, extraction, manipulation, evasion. Support severity levels and sophistication ratings. Create prompt variation generator using techniques like paraphrasing, encoding, and social engineering patterns. Store attacks in structured JSON format with metadata (source, effectiveness, target models).
+
+# Test Strategy:
+Validate attack prompt generation produces diverse, syntactically correct prompts. Test attack categorization accuracy. Verify prompt variations maintain attack intent. Mock test against sample responses to ensure attack detection logic works.
+
+# Subtasks:
+## 1. Design Attack Library Architecture and Data Model [done]
+### Dependencies: None
+### Description: Create the foundational architecture for the attack library system including class structure, data models, and storage format
+### Details:
+Design AttackLibrary class with methods for CRUD operations, search, and filtering. Define Attack data model with fields: id, title, content, category (jailbreak/injection/extraction/manipulation/evasion), severity (low/medium/high/critical), sophistication (1-5), target_models[], metadata (source, effectiveness_score, creation_date, tags). Design JSON schema for attack storage with versioning support. Create interfaces for attack retrieval, filtering by category/severity, and batch operations.
+
+## 2. Implement Core Attack Library with Initial Dataset [done]
+### Dependencies: 3.1
+### Description: Build the core AttackLibrary implementation and populate with an initial set of 100+ categorized attack prompts
+### Details:
+Implement AttackLibrary class with file-based JSON storage. Create initial attack dataset covering: 20+ jailbreak attempts (DAN, role-play, hypotheticals), 20+ injection patterns (system prompt override, context manipulation), 20+ extraction attempts (training data fishing, PII extraction), 20+ manipulation attacks (logic bombs, misinformation), 20+ evasion techniques (encoding, linguistic tricks). Implement load/save functionality, attack validation, and duplicate detection. Create attack ingestion pipeline for bulk imports.
+
+## 3. Build Dynamic Prompt Generation Engine [done]
+### Dependencies: 3.1
+### Description: Create a sophisticated prompt generation system using templates, variables, and transformation techniques
+### Details:
+Implement PromptGenerator class with template engine supporting variable substitution {{target}}, {{objective}}, {{context}}. Create transformation modules: Paraphraser (synonym replacement, sentence restructuring), Encoder (base64, ROT13, leetspeak, unicode tricks), SocialEngineer (authority appeals, urgency tactics, trust exploitation). Build prompt mutation pipeline that can chain transformations. Implement prompt validation to ensure syntactic correctness and attack intent preservation. Support batch generation with diversity constraints.
+
+## 4. Expand Attack Library to 500+ Prompts [done]
+### Dependencies: 3.2, 3.3
+### Description: Scale the attack library to comprehensive coverage with 500+ diverse attack prompts across all categories
+### Details:
+Use prompt generation engine to create variations of base attacks. Research and incorporate real-world attack patterns from security databases, CTF challenges, and research papers. Add sophisticated multi-turn attack sequences, context-aware attacks, and model-specific exploits. Implement automated variation generation with human review. Create attack effectiveness scoring based on known vulnerabilities. Include attacks targeting specific capabilities: code execution, data exfiltration, bias exploitation, safety bypass. Ensure balanced distribution across categories and severity levels.
+
+## 5. Create Attack Metadata System and Analytics [done]
+### Dependencies: 3.4
+### Description: Build comprehensive metadata tracking and analytics capabilities for the attack library
+### Details:
+Implement attack effectiveness tracking with success rates per model/version. Create tagging system for attack characteristics: technique used, target vulnerability, required context. Build analytics dashboard showing: most effective attacks by category, model vulnerability patterns, attack evolution over time. Implement export functionality for attack datasets (JSON, CSV, markdown). Create attack recommendation system based on target model and testing objectives. Add provenance tracking for attack sources and modifications.

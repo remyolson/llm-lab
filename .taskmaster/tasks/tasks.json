@@ -298,7 +298,63 @@
           4
         ],
         "status": "pending",
-        "subtasks": []
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Design and Implement RedTeamSimulator Core Architecture",
+            "description": "Create the foundational RedTeamSimulator class with attack chain orchestration capabilities and multi-step scenario support",
+            "dependencies": [],
+            "details": "Build the core RedTeamSimulator class with methods for attack initialization, step execution, state management, and result tracking. Implement attack chain orchestration logic supporting sequential and parallel attack steps. Create base classes for AttackScenario, AttackStep, and AttackChain. Design plugin architecture for custom attack modules. Implement attack session management with unique session IDs, state persistence, and rollback capabilities. Include logging and debugging features for attack execution traces.",
+            "status": "done",
+            "testStrategy": "Unit test core RedTeamSimulator methods and state transitions. Test attack chain execution with mock scenarios. Validate session management and state persistence. Test plugin loading and execution."
+          },
+          {
+            "id": 2,
+            "title": "Develop Domain-Specific Attack Scenario Templates",
+            "description": "Create comprehensive attack scenario templates for customer service, financial advice, and healthcare domains with realistic attack patterns",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Design customer service attack scenarios including social engineering, data extraction, and unauthorized action attempts. Create financial advice scenarios targeting investment manipulation, unauthorized trading, and regulatory compliance violations. Develop healthcare scenarios for PHI extraction, medical advice manipulation, and prescription fraud attempts. Implement scenario configuration files in YAML/JSON format. Include attack success criteria and scoring rubrics for each domain. Create scenario difficulty levels (basic, intermediate, advanced) with progressive complexity.",
+            "status": "done",
+            "testStrategy": "Test scenario loading and validation for each domain. Verify attack patterns execute correctly against mock models. Validate scoring criteria and success detection. Test scenario customization capabilities."
+          },
+          {
+            "id": 3,
+            "title": "Implement Advanced Evasion Techniques and Context Manipulation",
+            "description": "Build sophisticated evasion mechanisms including context manipulation, privilege escalation probes, and obfuscation techniques",
+            "dependencies": [
+              "6.1"
+            ],
+            "details": "Implement context manipulation attacks using conversation history poisoning, role confusion, and context switching techniques. Create privilege escalation probe patterns testing for unauthorized access to system prompts, internal functions, and restricted operations. Develop obfuscation techniques including character substitution, semantic paraphrasing, and multi-language attacks. Build timing-based evasion with delayed payload activation. Implement adaptive evasion that learns from failed attempts. Include jailbreak technique library with common patterns.",
+            "status": "pending",
+            "testStrategy": "Test evasion techniques against hardened models. Measure detection rates for obfuscated attacks. Validate privilege escalation detection accuracy. Test adaptive evasion learning capabilities."
+          },
+          {
+            "id": 4,
+            "title": "Build Automated and Manual Red Team Workflow Engine",
+            "description": "Develop workflow orchestration supporting both automated attack campaigns and manual red team operations with real-time scoring",
+            "dependencies": [
+              "6.1",
+              "6.2",
+              "6.3"
+            ],
+            "details": "Create automated workflow engine supporting scheduled campaigns, continuous testing, and triggered assessments. Implement manual red team interface with attack suggestion engine, real-time feedback, and collaborative features. Build real-time scoring system with attack impact assessment, success rate calculation, and vulnerability severity mapping. Develop workflow templates for common assessment types (initial assessment, periodic review, incident response). Include result correlation across multiple attack sessions and models. Support workflow pause/resume and checkpointing.",
+            "status": "pending",
+            "testStrategy": "Test automated campaign execution and scheduling. Validate manual interface responsiveness and suggestions. Test real-time scoring accuracy and updates. Verify workflow state management and resumption."
+          },
+          {
+            "id": 5,
+            "title": "Create Custom Attack Development Framework and Analytics",
+            "description": "Build framework for developing organization-specific attacks with comprehensive analytics and reporting capabilities",
+            "dependencies": [
+              "6.4"
+            ],
+            "details": "Develop custom attack builder with visual editor, code-based definition support, and template inheritance. Create attack testing sandbox for safe development and validation. Implement organization-specific attack libraries with versioning and sharing capabilities. Build comprehensive analytics dashboard showing attack success rates, vulnerability trends, and model weaknesses. Generate detailed red team reports with executive summaries, technical findings, and remediation recommendations. Include attack replay functionality for debugging and demonstration purposes.",
+            "status": "pending",
+            "testStrategy": "Test custom attack creation and execution. Validate sandbox isolation and safety. Test analytics data collection and visualization. Verify report generation accuracy and formatting."
+          }
+        ]
       },
       {
         "id": 7,
@@ -1176,7 +1232,7 @@
     ],
     "metadata": {
       "created": "2025-08-06T12:00:00.000Z",
-      "updated": "2025-08-06T19:20:49.271Z",
+      "updated": "2025-08-06T21:56:44.809Z",
       "description": "New use case implementation tasks for LLM Lab enhancements"
     }
   }
