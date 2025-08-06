@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-3">
         <div class="card bg-success text-white">
             <div class="card-body">
@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-3">
         <div class="card bg-warning text-white">
             <div class="card-body">
@@ -82,7 +82,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-3">
         <div class="card bg-info text-white">
             <div class="card-body">
@@ -106,17 +106,17 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <iframe src="/components/chart/performance-comparison?title=Performance%20Over%20Time&height=400&refresh=30&time_range=24h" 
+                <iframe src="/components/chart/performance-comparison?title=Performance%20Over%20Time&height=400&refresh=30&time_range=24h"
                         width="100%" height="500" frameborder="0" style="border: none;"></iframe>
             </div>
         </div>
     </div>
-    
+
     <!-- Cost Trends Chart -->
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <iframe src="/components/chart/cost-trends?title=Cost%20Analysis&height=400&refresh=60" 
+                <iframe src="/components/chart/cost-trends?title=Cost%20Analysis&height=400&refresh=60"
                         width="100%" height="500" frameborder="0" style="border: none;"></iframe>
             </div>
         </div>
@@ -129,17 +129,17 @@
     <div class="col-lg-8">
         <div class="card">
             <div class="card-body">
-                <iframe src="/components/chart/model-comparison?title=Model%20Performance%20Comparison&height=400&refresh=120" 
+                <iframe src="/components/chart/model-comparison?title=Model%20Performance%20Comparison&height=400&refresh=120"
                         width="100%" height="500" frameborder="0" style="border: none;"></iframe>
             </div>
         </div>
     </div>
-    
+
     <!-- Alert Timeline -->
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <iframe src="/components/chart/alert-timeline?title=Alert%20History&height=400&refresh=60" 
+                <iframe src="/components/chart/alert-timeline?title=Alert%20History&height=400&refresh=60"
                         width="100%" height="500" frameborder="0" style="border: none;"></iframe>
             </div>
         </div>
@@ -152,17 +152,17 @@
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <iframe src="/components/chart/latency-distribution?title=Latency%20Distribution&height=350&refresh=60" 
+                <iframe src="/components/chart/latency-distribution?title=Latency%20Distribution&height=350&refresh=60"
                         width="100%" height="450" frameborder="0" style="border: none;"></iframe>
             </div>
         </div>
     </div>
-    
+
     <!-- Success Rate Trend -->
     <div class="col-lg-6">
         <div class="card">
             <div class="card-body">
-                <iframe src="/components/chart/success-rate?title=Success%20Rate%20Trend&height=350&refresh=30" 
+                <iframe src="/components/chart/success-rate?title=Success%20Rate%20Trend&height=350&refresh=30"
                         width="100%" height="450" frameborder="0" style="border: none;"></iframe>
             </div>
         </div>
@@ -238,17 +238,17 @@ function initializeDashboard() {
     loadCostChart();
     loadProviderComparison();
     loadRecentAlerts();
-    
+
     // Set up refresh timer
     setInterval(function() {
         refreshDashboard();
     }, {{ dashboard_config().monitoring.refresh_interval * 1000 }});
-    
+
     // Set up WebSocket connection (if enabled)
     {% if dashboard_config().enable_websockets %}
     initializeWebSocket();
     {% endif %}
-    
+
     // Bind event handlers
     bindEventHandlers();
 }
@@ -260,7 +260,7 @@ function loadOverviewMetrics() {
             $('#total-requests').text(formatNumber(data.total_requests || 0));
             $('#avg-latency').text(formatDuration(data.avg_latency || 0));
             $('#total-cost').text(formatCurrency(data.total_cost || 0));
-            
+
             updateConnectionStatus('success');
         })
         .fail(function() {
@@ -329,16 +329,16 @@ function refreshDashboard() {
 {% if dashboard_config().enable_websockets %}
 function initializeWebSocket() {
     const socket = io();
-    
+
     socket.on('connect', function() {
         updateConnectionStatus('success');
         socket.emit('subscribe_metrics', {metric_type: 'overview'});
     });
-    
+
     socket.on('disconnect', function() {
         updateConnectionStatus('error');
     });
-    
+
     socket.on('metrics_update', function(data) {
         // Handle real-time metric updates
         if (data.type === 'overview') {
@@ -357,7 +357,7 @@ function bindEventHandlers() {
             $(this).find('i').removeClass('fa-spin');
         }, 1000);
     });
-    
+
     // Time range buttons
     $('[data-timerange]').click(function() {
         $('[data-timerange]').removeClass('active');
@@ -365,7 +365,7 @@ function bindEventHandlers() {
         // Reload charts with new time range
         loadPerformanceChart();
     });
-    
+
     // Export buttons
     $('[data-export]').click(function(e) {
         e.preventDefault();
@@ -377,7 +377,7 @@ function bindEventHandlers() {
 function updateConnectionStatus(status) {
     const statusBadge = $('#connection-status');
     const wsStatus = $('#ws-status');
-    
+
     if (status === 'success') {
         statusBadge.removeClass('bg-danger').addClass('bg-success').html('<i class="fas fa-circle me-1"></i>Connected');
         wsStatus.removeClass('bg-danger').addClass('bg-success').text('Connected');
@@ -400,7 +400,7 @@ function showAlert(message, type = 'info') {
         </div>
     `;
     $('#alert-container').append(alertHtml);
-    
+
     // Auto-dismiss after 5 seconds
     setTimeout(() => {
         $('.alert').alert('close');

@@ -61,7 +61,7 @@ training:
   gradient_checkpointing: true
   deepspeed_config: null
   fsdp_config: null
-  
+
   # LoRA configuration
   use_lora: true
   lora_rank: 16
@@ -110,7 +110,7 @@ metadata:
         "summary_word_count": 150
       }
     }
-    
+
     The model learns to:
     - Extract key information
     - Maintain factual accuracy

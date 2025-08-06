@@ -10,14 +10,14 @@ from .benchmark_runner import (
     AutoBenchmarkRunner,
     BenchmarkConfig,
     BenchmarkResult,
+    EvaluationState,
     ModelVersion,
-    EvaluationState
 )
 
 __all__ = [
     "AutoBenchmarkRunner",
     "BenchmarkConfig",
     "BenchmarkResult",
+    "EvaluationState",
     "ModelVersion",
-    "EvaluationState"
 ]

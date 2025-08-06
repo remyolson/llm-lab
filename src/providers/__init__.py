@@ -1,36 +1,41 @@
 """LLM Providers Package"""
 
-from .base import LLMProvider, ProviderConfig
-from .google import GoogleProvider
-from .openai import OpenAIProvider
+# Import local providers to trigger auto-registration
+from . import local
 from .anthropic import AnthropicProvider
-from .registry import registry, register_provider, get_provider_for_model
+from .base import LLMProvider, ProviderConfig
 from .exceptions import (
-    ProviderError,
-    ProviderNotFoundError,
     InvalidCredentialsError,
     ModelNotSupportedError,
+    ProviderConfigurationError,
+    ProviderError,
+    ProviderNotFoundError,
+    ProviderResponseError,
     ProviderTimeoutError,
     RateLimitError,
-    ProviderConfigurationError,
-    ProviderResponseError
 )
+from .google import GoogleProvider
+
+# Temporarily disable OpenAI provider due to syntax issues
+# from .openai import OpenAIProvider
+from .registry import get_provider_for_model, register_provider, registry
 
 __all__ = [
-    'LLMProvider',
-    'ProviderConfig',
-    'GoogleProvider',
-    'OpenAIProvider',
-    'AnthropicProvider',
-    'registry',
-    'register_provider',
-    'get_provider_for_model',
-    'ProviderError',
-    'ProviderNotFoundError',
-    'InvalidCredentialsError',
-    'ModelNotSupportedError',
-    'ProviderTimeoutError',
-    'RateLimitError',
-    'ProviderConfigurationError',
-    'ProviderResponseError'
+    "AnthropicProvider",
+    "GoogleProvider",
+    "InvalidCredentialsError",
+    "LLMProvider",
+    "ModelNotSupportedError",
+    # "OpenAIProvider",  # Temporarily disabled
+    "ProviderConfig",
+    "ProviderConfigurationError",
+    "ProviderError",
+    "ProviderNotFoundError",
+    "ProviderResponseError",
+    "ProviderTimeoutError",
+    "RateLimitError",
+    "get_provider_for_model",
+    "register_provider",
+    "registry",
+    "local",
 ]

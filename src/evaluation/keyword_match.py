@@ -19,17 +19,17 @@ import re
 from typing import Any, Dict, List
 
 
-def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str, Any]:
+def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str | Any]:
     """
     Evaluate if a response contains expected keywords.
-    
+
     This function performs case-insensitive matching to check if any of the
     expected keywords appear in the model's response.
-    
+
     Args:
         response: The model's generated response text
         expected_keywords: List of keywords to search for (any match counts as success)
-        
+
     Returns:
         Dict containing:
             - success: bool indicating if any keyword was found
@@ -48,8 +48,8 @@ def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str, Any]
                 "total_expected": len(expected_keywords) if expected_keywords else 0,
                 "total_matched": 0,
                 "response_length": 0,
-                "expected_keywords": expected_keywords or []
-            }
+                "expected_keywords": expected_keywords or [],
+            },
         }
 
     # Handle edge cases for expected_keywords
@@ -63,8 +63,8 @@ def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str, Any]
                 "total_expected": 0,
                 "total_matched": 0,
                 "response_length": len(response),
-                "expected_keywords": []
-            }
+                "expected_keywords": [],
+            },
         }
 
     # Convert response to string if it isn't already
@@ -92,7 +92,7 @@ def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str, Any]
         # Check if keyword appears in response
         # Use word boundary matching for more accurate results
         # This prevents partial matches like "car" matching in "scar"
-        pattern = r'\b' + re.escape(keyword_lower) + r'\b'
+        pattern = r"\b" + re.escape(keyword_lower) + r"\b"
         if re.search(pattern, response_lower):
             matched_keywords.append(keyword)
 
@@ -109,8 +109,8 @@ def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str, Any]
             "total_expected": len(expected_keywords),
             "total_matched": len(matched_keywords),
             "response_length": len(response),
-            "expected_keywords": expected_keywords
-        }
+            "expected_keywords": expected_keywords,
+        },
     }
 
     return result

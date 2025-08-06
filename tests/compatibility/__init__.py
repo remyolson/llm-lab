@@ -15,20 +15,14 @@ Key Features:
 
 Usage:
     pytest tests/compatibility/test_provider_compatibility.py -v
-    
+
     # Run compatibility tests for specific providers
     pytest tests/compatibility/ -k "openai or anthropic" -v
-    
+
     # Generate compatibility report
     pytest tests/compatibility/test_provider_compatibility.py::test_compatibility_report_generation -v -s
 """
 
-from .test_provider_compatibility import (
-    TestProviderCompatibility,
-    TestProviderFeatureCompatibility
-)
+from .test_provider_compatibility import TestProviderCompatibility, TestProviderFeatureCompatibility
 
-__all__ = [
-    'TestProviderCompatibility',
-    'TestProviderFeatureCompatibility'
-]
+__all__ = ["TestProviderCompatibility", "TestProviderFeatureCompatibility"]

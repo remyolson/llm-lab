@@ -53,7 +53,7 @@ python scripts/run_benchmarks.py [OPTIONS]
 # OpenAI Models
 gpt-4o-mini, gpt-4o, gpt-4, gpt-3.5-turbo
 
-# Anthropic Models  
+# Anthropic Models
 claude-3-haiku, claude-3-sonnet, claude-3-opus, claude-3-5-sonnet
 
 # Google Models
@@ -239,7 +239,7 @@ python scripts/run_benchmarks.py \
 python scripts/run_benchmarks.py \
   --prompt-file templates/customer_service_response.txt \
   --prompt-variables '{
-    "company_name": "TechCorp Solutions", 
+    "company_name": "TechCorp Solutions",
     "customer_type": "Standard",
     "severity": "High",
     "customer_message": "This is my third email about the same issue! Your previous agent promised a fix that never came. I want a refund NOW!",
@@ -253,12 +253,12 @@ python scripts/run_benchmarks.py \
   --metrics sentiment,coherence \
   --output-dir ./results/customer-service/escalations
 
-# Test 3: Technical Support  
+# Test 3: Technical Support
 python scripts/run_benchmarks.py \
   --prompt-file templates/customer_service_response.txt \
   --prompt-variables '{
     "company_name": "DevTools Inc",
-    "customer_type": "Enterprise", 
+    "customer_type": "Enterprise",
     "severity": "Low",
     "customer_message": "How do I configure SSL certificates for the development environment? The documentation seems outdated.",
     "resolution_steps": "1) Download latest SSL guide 2) Use dev-cert-tool 3) Contact DevOps if issues persist",
@@ -385,7 +385,7 @@ python scripts/run_benchmarks.py \
   --prompt-variables '{
     "function_name": "process_user_data",
     "function_purpose": "Process and validate user data from CSV file",
-    "complexity_level": "intermediate", 
+    "complexity_level": "intermediate",
     "input_parameters": "csv_file_path (str), required_fields (List[str])",
     "return_type": "Dict[str, List[Dict]]",
     "additional_requirements": "Handle missing values, validate email addresses, group by user type",
@@ -397,7 +397,7 @@ python scripts/run_benchmarks.py \
   --metrics all \
   --output-dir ./results/code-generation/intermediate
 
-# Test 3: Advanced Level - Algorithm Implementation  
+# Test 3: Advanced Level - Algorithm Implementation
 python scripts/run_benchmarks.py \
   --prompt-file templates/code_generation.txt \
   --prompt-variables '{
@@ -539,7 +539,7 @@ python scripts/run_benchmarks.py \
   --prompt-file templates/creative_writing.txt \
   --prompt-variables '{
     "writer_type": "contemporary poet",
-    "content_type": "poem", 
+    "content_type": "poem",
     "genre": "free verse",
     "writing_style": "lyrical and introspective",
     "target_length": "20-30 lines",
@@ -589,7 +589,7 @@ python scripts/run_benchmarks.py \
   --prompt-file templates/creative_writing.txt \
   --prompt-variables '{
     "content_type": "story",
-    "genre": "contemporary fiction", 
+    "genre": "contemporary fiction",
     "writing_style": "minimalist and sparse",
     "target_length": "400 words",
     "theme": "family reconciliation"
@@ -603,7 +603,7 @@ python scripts/run_benchmarks.py \
   --prompt-variables '{
     "content_type": "story",
     "genre": "contemporary fiction",
-    "writing_style": "rich and descriptive", 
+    "writing_style": "rich and descriptive",
     "target_length": "400 words",
     "theme": "family reconciliation"
   }' \
@@ -689,7 +689,7 @@ execution_id,model,success,word_count,sentiment_score,coherence_score,creativity
 
 **Sample:** "In the dim corridors of New Geneva Station, Dr. Sarah Chen's footsteps echoed against the metallic walls..."
 
-### Claude-3-Sonnet Response  
+### Claude-3-Sonnet Response
 - **Word Count:** 494 words
 - **Coherence:** 0.87 (Very Good)
 - **Creativity:** 0.82 (Very Good)

@@ -56,7 +56,7 @@ templates/
 
 **What it demonstrates:**
 - Professional customer service responses
-- Escalation handling procedures  
+- Escalation handling procedures
 - Technical support scenarios
 - Different response tones (professional, empathetic, friendly)
 - Template variable usage with conditionals

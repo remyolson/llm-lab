@@ -1,4 +1,4 @@
-# Story Generation Template  
+# Story Generation Template
 # Required variables: genre, word_count, protagonist
 # Optional variables: setting, conflict, theme, tone, pov, target_audience
 
@@ -28,7 +28,7 @@ Story Requirements:
 Mystery-Specific Requirements:
 - Plant clues fairly for the reader
 - Create red herrings that don't frustrate
-- Ensure the solution is logical and satisfying  
+- Ensure the solution is logical and satisfying
 - Build suspense through pacing and revelation
 {/genre}
 

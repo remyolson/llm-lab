@@ -11,13 +11,13 @@ Usage:
     python scripts/finetune.py evaluate --checkpoint path/to/checkpoint
 """
 
-import sys
 import os
+import sys
 
 # Add parent directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from src.use_cases.fine_tuning.cli.fine_tuning_cli import main
+from use_cases.fine_tuning.cli.fine_tuning_cli import main
 
 if __name__ == "__main__":
     main()

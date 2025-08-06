@@ -1,9 +1,9 @@
 <!-- Cost Trends Chart Component -->
-<div class="chart-container" 
+<div class="chart-container"
      data-chart-type="cost-trends"
      data-refresh-interval="{{ config.refresh_interval }}"
      data-time-range="{{ config.time_range }}">
-    
+
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="mb-0">{{ config.title or 'Cost Trends' }}</h5>
@@ -19,7 +19,7 @@
             </button>
         </div>
     </div>
-    
+
     <div class="row">
         <div class="col-md-8">
             <div class="chart-wrapper" style="height: {{ config.height }}px;">
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-loading d-none">
         <div class="text-center p-4">
             <div class="spinner-border" role="status">
@@ -40,7 +40,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-error d-none">
         <div class="alert alert-warning" role="alert">
             Failed to load cost data. <a href="#" class="retry-chart">Retry</a>
@@ -53,36 +53,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('[data-chart-type="cost-trends"]');
     const dailyCanvas = container.querySelector('[id^="daily-costs-chart"]');
     const breakdownCanvas = container.querySelector('[id^="provider-breakdown-chart"]');
-    
+
     let dailyChart = null;
     let breakdownChart = null;
     let refreshInterval = null;
-    
+
     function loadCharts() {
         const timeRange = container.dataset.timeRange;
         const params = new URLSearchParams({
             hours: timeRange === '1h' ? 1 : timeRange === '24h' ? 24 : timeRange === '7d' ? 168 : 720
         });
-        
+
         showLoading(true);
-        
+
         fetch(`/components/chart-data/cost-trends?${params}`)
             .then(response => response.json())
             .then(data => {
                 // Destroy existing charts
                 if (dailyChart) dailyChart.destroy();
                 if (breakdownChart) breakdownChart.destroy();
-                
+
                 // Create daily costs chart
                 const dailyCtx = dailyCanvas.getContext('2d');
                 dailyChart = new Chart(dailyCtx, data);
-                
+
                 // Create provider breakdown chart
                 if (data.provider_breakdown) {
                     const breakdownCtx = breakdownCanvas.getContext('2d');
                     breakdownChart = new Chart(breakdownCtx, data.provider_breakdown);
                 }
-                
+
                 showLoading(false);
                 showError(false);
             })
@@ -92,23 +92,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(true);
             });
     }
-    
+
     function showLoading(show) {
         container.querySelector('.chart-loading').classList.toggle('d-none', !show);
         container.querySelector('.row').classList.toggle('d-none', show);
     }
-    
+
     function showError(show) {
         container.querySelector('.chart-error').classList.toggle('d-none', !show);
         container.querySelector('.row').classList.toggle('d-none', show);
     }
-    
-    // View toggle buttons  
+
+    // View toggle buttons
     container.querySelectorAll('[data-view]').forEach(btn => {
         btn.addEventListener('click', function() {
             container.querySelectorAll('[data-view]').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
-            
+
             const view = this.dataset.view;
             if (view === 'daily') {
                 container.querySelector('.col-md-8').style.display = 'block';
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Export button
     container.querySelector('#export-cost-chart').addEventListener('click', function() {
         if (dailyChart && breakdownChart) {
@@ -128,11 +128,11 @@ document.addEventListener('DOMContentLoaded', function() {
             canvas.width = 1200;
             canvas.height = 600;
             const ctx = canvas.getContext('2d');
-            
+
             // Draw both charts
             ctx.drawImage(dailyChart.canvas, 0, 0, 800, 600);
             ctx.drawImage(breakdownChart.canvas, 800, 0, 400, 600);
-            
+
             const url = canvas.toDataURL();
             const link = document.createElement('a');
             link.download = 'cost-trends.png';
@@ -140,23 +140,23 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
         }
     });
-    
+
     // Retry button
     container.querySelector('.retry-chart').addEventListener('click', function(e) {
         e.preventDefault();
         loadCharts();
     });
-    
+
     // Auto-refresh
     function startRefresh() {
         const interval = parseInt(container.dataset.refreshInterval) * 1000;
         refreshInterval = setInterval(loadCharts, interval);
     }
-    
+
     // Initial load
     loadCharts();
     startRefresh();
-    
+
     // Cleanup
     window.addEventListener('beforeunload', function() {
         if (refreshInterval) clearInterval(refreshInterval);

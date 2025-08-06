@@ -1,14 +1,14 @@
 instruction,input,output,text
-Give three tips for staying healthy.,,"1.Eat a balanced diet and make sure to include plenty of fruits and vegetables. 
-2. Exercise regularly to keep your body active and strong. 
+Give three tips for staying healthy.,,"1.Eat a balanced diet and make sure to include plenty of fruits and vegetables.
+2. Exercise regularly to keep your body active and strong.
 3. Get enough sleep and maintain a consistent sleep schedule.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Give three tips for staying healthy.
 
 ### Response:
-1.Eat a balanced diet and make sure to include plenty of fruits and vegetables. 
-2. Exercise regularly to keep your body active and strong. 
+1.Eat a balanced diet and make sure to include plenty of fruits and vegetables.
+2. Exercise regularly to keep your body active and strong.
 3. Get enough sleep and maintain a consistent sleep schedule."
 What are the three primary colors?,,"The three primary colors are red, blue, and yellow.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -58,7 +58,7 @@ Explain why the following fraction is equivalent to 1/4
 
 ### Response:
 The fraction 4/16 is equivalent to 1/4 because both numerators and denominators are divisible by 4. Dividing both the top and bottom numbers by 4 yields the fraction 1/4."
-Write a short story in third person narration about a protagonist who has to make an important career decision.,,"John was at a crossroads in his life. He had just graduated college and was now facing the big decision of what career to pursue. After much deliberation, he decided that he wanted to be an accountant and help the financially disadvantaged. He had always been good with numbers and enjoyed seeing the tangible results of his work. 
+Write a short story in third person narration about a protagonist who has to make an important career decision.,,"John was at a crossroads in his life. He had just graduated college and was now facing the big decision of what career to pursue. After much deliberation, he decided that he wanted to be an accountant and help the financially disadvantaged. He had always been good with numbers and enjoyed seeing the tangible results of his work.
 
 John enrolled in accounting courses and initially found it quite challenging. He had to learn multiple systems and regulations quickly, but he worked hard and eventually excelled in his studies. After a few years, John started working at an accounting firm in his city. He was eager to put his knowledge of taxes and accounting to use in a real-world setting.
 
@@ -68,7 +68,7 @@ John loved his job, as it let him express his creativity in finding strategies t
 Write a short story in third person narration about a protagonist who has to make an important career decision.
 
 ### Response:
-John was at a crossroads in his life. He had just graduated college and was now facing the big decision of what career to pursue. After much deliberation, he decided that he wanted to be an accountant and help the financially disadvantaged. He had always been good with numbers and enjoyed seeing the tangible results of his work. 
+John was at a crossroads in his life. He had just graduated college and was now facing the big decision of what career to pursue. After much deliberation, he decided that he wanted to be an accountant and help the financially disadvantaged. He had always been good with numbers and enjoyed seeing the tangible results of his work.
 
 John enrolled in accounting courses and initially found it quite challenging. He had to learn multiple systems and regulations quickly, but he worked hard and eventually excelled in his studies. After a few years, John started working at an accounting firm in his city. He was eager to put his knowledge of taxes and accounting to use in a real-world setting.
 
@@ -168,12 +168,12 @@ Reverse engineer this code to create a new version,"def factorialize(num):
   factorial = 1
   for i in range(1, num):
     factorial *= i
-  
+
   return factorial","def factorialize(num):
   factorial = 1
   for i in range(num, 0, -1):
     factorial *= i
-  
+
   return factorial","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -184,7 +184,7 @@ def factorialize(num):
   factorial = 1
   for i in range(1, num):
     factorial *= i
-  
+
   return factorial
 
 ### Response:
@@ -192,7 +192,7 @@ def factorialize(num):
   factorial = 1
   for i in range(num, 0, -1):
     factorial *= i
-  
+
   return factorial"
 Propose an ethical solution to the problem of data privacy,,"One ethical solution to the problem of data privacy is to implement an opt-in data collection policy. This means that companies cannot collect and use personal data without the explicit permission of the data owners. This approach gives users the power to determine which data companies can use and for what purpose. Companies should also be transparent about how they use the collected data, so that users can make informed decisions and have control over their own data.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -517,16 +517,16 @@ He ran to the bus stop in order to catch the bus that was due to arrive in five 
 ### Response:
 He ran to the bus stop, due to arrive in five minutes."
 Generate a poem with 10 lines.,,"The evening light shimmers on the shore
-Softly the waves echoes around and more 
+Softly the waves echoes around and more
 As I bask in the sun, my worries are all gone
-The sound of seagulls I now foolishly ignore 
-Glistening sand, beckons me with a silent plea 
-Glistening seawater, cool to the touch and refreshingly free 
-The evening brings peace, yet I can't find any 
+The sound of seagulls I now foolishly ignore
+Glistening sand, beckons me with a silent plea
+Glistening seawater, cool to the touch and refreshingly free
+The evening brings peace, yet I can't find any
 But maybe in the morning there'll be time for me
-My bottled peacefulness, I uncork and pour 
-The sound of the ocean, lulls me even more 
-And for just a moment I close my eyes and behold 
+My bottled peacefulness, I uncork and pour
+The sound of the ocean, lulls me even more
+And for just a moment I close my eyes and behold
 The vastness of the ocean, to my soul I now unfold.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -534,16 +534,16 @@ Generate a poem with 10 lines.
 
 ### Response:
 The evening light shimmers on the shore
-Softly the waves echoes around and more 
+Softly the waves echoes around and more
 As I bask in the sun, my worries are all gone
-The sound of seagulls I now foolishly ignore 
-Glistening sand, beckons me with a silent plea 
-Glistening seawater, cool to the touch and refreshingly free 
-The evening brings peace, yet I can't find any 
+The sound of seagulls I now foolishly ignore
+Glistening sand, beckons me with a silent plea
+Glistening seawater, cool to the touch and refreshingly free
+The evening brings peace, yet I can't find any
 But maybe in the morning there'll be time for me
-My bottled peacefulness, I uncork and pour 
-The sound of the ocean, lulls me even more 
-And for just a moment I close my eyes and behold 
+My bottled peacefulness, I uncork and pour
+The sound of the ocean, lulls me even more
+And for just a moment I close my eyes and behold
 The vastness of the ocean, to my soul I now unfold."
 Convert from celsius to fahrenheit.,Temperature in Celsius: 15,Temperature in Fahrenheit: 59,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -868,20 +868,20 @@ A magic bow and arrow
 ### Response:
 Once upon a time, there lived a young girl named Alexa who was gifted with an incredible magical bow and arrow. Whenever she pulled back her bow and let an arrow fly, wherever it landed, something extraordinary happened. Flowers bloomed, oceans calmed, and the sun shone brighter. Alexa's bow and arrow were so powerful, that it could make even the most impossible things possible. One day, during a great storm, Alexa used her magical bow and arrow to bring calm and harmony to her hometown. She was praised and celebrated by the whole town, and she soon became a symbol of hope and peace."
 Generate a list of methods to reduce food waste.,,"- Shop smarter and only buy what you need.
-- Save leftovers for later and freeze them if necessary. 
+- Save leftovers for later and freeze them if necessary.
 - Monitor expiration dates and consume items before they go bad.
 - Participate in community or public food sharing initiatives.
 - Compost leftover food scraps.
 - Reuse containers, jars, and bags.
-- Make use of restaurant discounts to reduce over-ordering. 
-- Donate foods that have short expiration dates to local food banks. 
+- Make use of restaurant discounts to reduce over-ordering.
+- Donate foods that have short expiration dates to local food banks.
 - Buy more produce that is close to the expiration date and prepare it soon.
 - Order small portions while dining out.
 - Educate yourself and others about food waste.
-- Plan meals in advance and base your grocery list on the meals. 
+- Plan meals in advance and base your grocery list on the meals.
 - Store food correctly to reduce spoilage.
 - Make sure your fridge is at the right temperature.
-- Have a system to track leftovers in the fridge. 
+- Have a system to track leftovers in the fridge.
 - Eat all edible parts of food, including stems and skins.
 - Use creative recipes to use the entire food item.
 - Use food that would otherwise be thrown away for animal feed.
@@ -892,20 +892,20 @@ Generate a list of methods to reduce food waste.
 
 ### Response:
 - Shop smarter and only buy what you need.
-- Save leftovers for later and freeze them if necessary. 
+- Save leftovers for later and freeze them if necessary.
 - Monitor expiration dates and consume items before they go bad.
 - Participate in community or public food sharing initiatives.
 - Compost leftover food scraps.
 - Reuse containers, jars, and bags.
-- Make use of restaurant discounts to reduce over-ordering. 
-- Donate foods that have short expiration dates to local food banks. 
+- Make use of restaurant discounts to reduce over-ordering.
+- Donate foods that have short expiration dates to local food banks.
 - Buy more produce that is close to the expiration date and prepare it soon.
 - Order small portions while dining out.
 - Educate yourself and others about food waste.
-- Plan meals in advance and base your grocery list on the meals. 
+- Plan meals in advance and base your grocery list on the meals.
 - Store food correctly to reduce spoilage.
 - Make sure your fridge is at the right temperature.
-- Have a system to track leftovers in the fridge. 
+- Have a system to track leftovers in the fridge.
 - Eat all edible parts of food, including stems and skins.
 - Use creative recipes to use the entire food item.
 - Use food that would otherwise be thrown away for animal feed.
@@ -924,48 +924,48 @@ Explain the concept of a linear regression model using simple language.
 
 ### Response:
 A linear regression model is a type of machine learning model that can be used to predict or estimate the value of a continuous numerical variable from a set of input variables. In this model, a line is fitted to a set of data points such that the sum of the squared distance of the data points from the line is minimized. This line of best fit can then be used to estimate the value of the output variable based on the values of the input variables."
-Construct a list of tips to help reduce stress.,,"- Take a time out and acquire some rest when feeling overwhelmed. 
-- Make time for yourself and learn to relax. 
-- Exercise regularly and get plenty of sleep. 
-- Listen to music you like, or take a warm bath. 
+Construct a list of tips to help reduce stress.,,"- Take a time out and acquire some rest when feeling overwhelmed.
+- Make time for yourself and learn to relax.
+- Exercise regularly and get plenty of sleep.
+- Listen to music you like, or take a warm bath.
 - Stick to a healthy diet full of essential vitamins and minerals.
 - Reach out to friends and family for support.
-- Try aromatherapy or yoga. 
-- Do something creative like drawing, painting, or writing. 
-- Engage in activities that bring you joy and peace of mind. 
-- Avoid drugs or excessive amounts of alcohol. 
-- Practice deep breathing and progressive muscle relaxation. 
-- Take up a new hobby to stay occupied. 
-- Break big tasks down into smaller, more manageable tasks. 
-- Practice positive self-talk to keep your morale high. 
-- Talk to a therapist or trusted mentor if necessary. 
-- Make time for fun activities and social events. 
-- Prioritize tasks and create a weekly schedule. 
-- Create a plan of action and identify solutions to problems. 
+- Try aromatherapy or yoga.
+- Do something creative like drawing, painting, or writing.
+- Engage in activities that bring you joy and peace of mind.
+- Avoid drugs or excessive amounts of alcohol.
+- Practice deep breathing and progressive muscle relaxation.
+- Take up a new hobby to stay occupied.
+- Break big tasks down into smaller, more manageable tasks.
+- Practice positive self-talk to keep your morale high.
+- Talk to a therapist or trusted mentor if necessary.
+- Make time for fun activities and social events.
+- Prioritize tasks and create a weekly schedule.
+- Create a plan of action and identify solutions to problems.
 - Learn to forgive yourself and others.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Construct a list of tips to help reduce stress.
 
 ### Response:
-- Take a time out and acquire some rest when feeling overwhelmed. 
-- Make time for yourself and learn to relax. 
-- Exercise regularly and get plenty of sleep. 
-- Listen to music you like, or take a warm bath. 
+- Take a time out and acquire some rest when feeling overwhelmed.
+- Make time for yourself and learn to relax.
+- Exercise regularly and get plenty of sleep.
+- Listen to music you like, or take a warm bath.
 - Stick to a healthy diet full of essential vitamins and minerals.
 - Reach out to friends and family for support.
-- Try aromatherapy or yoga. 
-- Do something creative like drawing, painting, or writing. 
-- Engage in activities that bring you joy and peace of mind. 
-- Avoid drugs or excessive amounts of alcohol. 
-- Practice deep breathing and progressive muscle relaxation. 
-- Take up a new hobby to stay occupied. 
-- Break big tasks down into smaller, more manageable tasks. 
-- Practice positive self-talk to keep your morale high. 
-- Talk to a therapist or trusted mentor if necessary. 
-- Make time for fun activities and social events. 
-- Prioritize tasks and create a weekly schedule. 
-- Create a plan of action and identify solutions to problems. 
+- Try aromatherapy or yoga.
+- Do something creative like drawing, painting, or writing.
+- Engage in activities that bring you joy and peace of mind.
+- Avoid drugs or excessive amounts of alcohol.
+- Practice deep breathing and progressive muscle relaxation.
+- Take up a new hobby to stay occupied.
+- Break big tasks down into smaller, more manageable tasks.
+- Practice positive self-talk to keep your morale high.
+- Talk to a therapist or trusted mentor if necessary.
+- Make time for fun activities and social events.
+- Prioritize tasks and create a weekly schedule.
+- Create a plan of action and identify solutions to problems.
 - Learn to forgive yourself and others."
 Write a review of a recent movie you watched.,Parasite (2019),"I recently watched the movie Parasite, directed by Bong Joon-Ho, and I was absolutely blown away. This movie is a masterful blend of genres—it's both a black comedy and a commentary on classism, with a twist ending that no one could see coming. The acting is fantastic, particularly Song Kang-ho as the head of the poor household, and the cinematography is stunning. The movie has a perfect balance of humor and thought-provoking drama, and it will leave you talking about the ending for days afterwards. Overall, I highly recommend Parasite; it is an exceptional movie and an experience you won't soon forget.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -1003,18 +1003,18 @@ Generate a list of marketing strategies to promote a new mobile app.,,"- Impleme
 - Share the app through word of mouth among friends.
 - Create demo videos and tutorials to explain the app's features.
 - Offer discounts and special incentives to early adopters.
-- Build a basic website to explain the app's purpose and features. 
+- Build a basic website to explain the app's purpose and features.
 - Take advantage of app store optimization techniques.
 - Send out emails and newsletters to inform new users about the app.
 - Aim for awards and good reviews on the app store.
 - Include the app link in your email signature.
 - Try promotional press releases and campaigns.
 - Encourage users to rate and review the app on the app store.
-- Leverage user-generated content to your advantage. 
+- Leverage user-generated content to your advantage.
 - Integrate the app with existing or popular apps.
 - Hold giveaways or contests to drive engagement.
 - Feature the app on your company's website and blog.
-- Cross-promote the app with other apps, websites, and social media platforms. 
+- Cross-promote the app with other apps, websites, and social media platforms.
 - Create promotional content such as blogs and podcasts.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -1027,18 +1027,18 @@ Generate a list of marketing strategies to promote a new mobile app.
 - Share the app through word of mouth among friends.
 - Create demo videos and tutorials to explain the app's features.
 - Offer discounts and special incentives to early adopters.
-- Build a basic website to explain the app's purpose and features. 
+- Build a basic website to explain the app's purpose and features.
 - Take advantage of app store optimization techniques.
 - Send out emails and newsletters to inform new users about the app.
 - Aim for awards and good reviews on the app store.
 - Include the app link in your email signature.
 - Try promotional press releases and campaigns.
 - Encourage users to rate and review the app on the app store.
-- Leverage user-generated content to your advantage. 
+- Leverage user-generated content to your advantage.
 - Integrate the app with existing or popular apps.
 - Hold giveaways or contests to drive engagement.
 - Feature the app on your company's website and blog.
-- Cross-promote the app with other apps, websites, and social media platforms. 
+- Cross-promote the app with other apps, websites, and social media platforms.
 - Create promotional content such as blogs and podcasts."
 Rewrite the sentence to provide more clarity and flow.,Making the decision to rent a house was a wise choice,Renting a house was a wise decision to make.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -1068,22 +1068,22 @@ Design a logo for a mobile application.
 ### Response:
 The logo design should be simple, modern, and unique. It should capture the essence of the application and communicate its functions. The logo should feature bold colors that are eye-catching, and the design should be adaptable to various sizes and platforms, such as websites and mobile devices."
 Generate a list of country names in the western hemisphere.,,"- Canada
-- United States 
-- Mexico 
+- United States
+- Mexico
 - Brazil
-- Argentina 
-- Chile 
-- Colombia 
-- Venezuela 
+- Argentina
+- Chile
+- Colombia
+- Venezuela
 - Cuba
-- Jamaica 
+- Jamaica
 - Ecuador
-- Peru 
+- Peru
 - Uruguay
-- Paraguay 
-- Costa Rica 
-- Panama 
-- Honduras 
+- Paraguay
+- Costa Rica
+- Panama
+- Honduras
 - Nicaragua
 - Guatemala","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -1092,22 +1092,22 @@ Generate a list of country names in the western hemisphere.
 
 ### Response:
 - Canada
-- United States 
-- Mexico 
+- United States
+- Mexico
 - Brazil
-- Argentina 
-- Chile 
-- Colombia 
-- Venezuela 
+- Argentina
+- Chile
+- Colombia
+- Venezuela
 - Cuba
-- Jamaica 
+- Jamaica
 - Ecuador
-- Peru 
+- Peru
 - Uruguay
-- Paraguay 
-- Costa Rica 
-- Panama 
-- Honduras 
+- Paraguay
+- Costa Rica
+- Panama
+- Honduras
 - Nicaragua
 - Guatemala"
 Translate the following phrase into French.,I miss you,Je te manque.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -1168,10 +1168,10 @@ The book is about a small town in the Midwest and how people respond to a series
 
 ### Response:
 The theme of the book is resilience in the face of unexpected tragedy, and how the people of a small town come together to overcome difficult times."
-Assign each word in the sentence below to its part of speech.,Kittens often scamper around excitedly.,"Kittens - Noun 
-often - Adverb 
-scamper - Verb 
-around - Preposition 
+Assign each word in the sentence below to its part of speech.,Kittens often scamper around excitedly.,"Kittens - Noun
+often - Adverb
+scamper - Verb
+around - Preposition
 excitedly - Adverb","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -1181,10 +1181,10 @@ Assign each word in the sentence below to its part of speech.
 Kittens often scamper around excitedly.
 
 ### Response:
-Kittens - Noun 
-often - Adverb 
-scamper - Verb 
-around - Preposition 
+Kittens - Noun
+often - Adverb
+scamper - Verb
+around - Preposition
 excitedly - Adverb"
 Generate a password of 8 characters.,,e9gKyd2D,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -1619,7 +1619,7 @@ arr = [5,-2,8,-7,3,-1,0,5]
 Calculate the square root of a given number.,,"def sqrt(n):
     low = 0
     high = n
-    
+
     while low <= high:
         mid = (low + high) // 2
         if mid * mid == n:
@@ -1628,7 +1628,7 @@ Calculate the square root of a given number.,,"def sqrt(n):
             low = mid + 1
         else:
             high = mid - 1
-            
+
     return low - 1","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -1638,7 +1638,7 @@ Calculate the square root of a given number.
 def sqrt(n):
     low = 0
     high = n
-    
+
     while low <= high:
         mid = (low + high) // 2
         if mid * mid == n:
@@ -1647,36 +1647,36 @@ def sqrt(n):
             low = mid + 1
         else:
             high = mid - 1
-            
+
     return low - 1"
-Reverse a linked list.,,"def reverse(head): 
+Reverse a linked list.,,"def reverse(head):
     prev = None
-    cur = head 
+    cur = head
 
     while cur:
         next = cur.next
-        cur.next = prev 
-        prev = cur 
+        cur.next = prev
+        prev = cur
         cur = next
     head = prev
-    
+
     return head","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Reverse a linked list.
 
 ### Response:
-def reverse(head): 
+def reverse(head):
     prev = None
-    cur = head 
+    cur = head
 
     while cur:
         next = cur.next
-        cur.next = prev 
-        prev = cur 
+        cur.next = prev
+        prev = cur
         cur = next
     head = prev
-    
+
     return head"
 Compute the longest increasing subsequence of a given array?,"arr = [7, 10, 8, 11, 9, 5]","[7, 8, 9, 11]","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -1693,7 +1693,7 @@ Design an algorithm to find the maximum profit of a stock buy and sell?,,"def ma
     max_profit = 0
 
     for price in prices:
-        min_price = min(min_price, price) 
+        min_price = min(min_price, price)
         profit = price - min_price
         max_profit = max(max_profit, profit)
 
@@ -1708,7 +1708,7 @@ def maxProfit(prices):
     max_profit = 0
 
     for price in prices:
-        min_price = min(min_price, price) 
+        min_price = min(min_price, price)
         profit = price - min_price
         max_profit = max(max_profit, profit)
 
@@ -1718,7 +1718,7 @@ s2 = ‘erbottlewat’","def isRotation(s1, s2):
     if len(s1) != len(s2):
         return False
 
-    s3 = s1 + s1 
+    s3 = s1 + s1
     return s3.find(s2) != -1","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -1733,7 +1733,7 @@ def isRotation(s1, s2):
     if len(s1) != len(s2):
         return False
 
-    s3 = s1 + s1 
+    s3 = s1 + s1
     return s3.find(s2) != -1"
 "Given an array of integers, return the first repeating element.","arr = [3, 6, 7, 1, 4, 6, 7]",6,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -1756,13 +1756,13 @@ arr = [2, 3, 7, 9, 11, 2, 3, 11]
 ### Response:
 7, 9"
 "Given a binary tree, check if it is a binary search tree?",,"def isBST(root):
-if root is None : 
+if root is None :
 	return True
 
-if root.left is not None and root.left.val > root.val: 
+if root.left is not None and root.left.val > root.val:
 	return False
 
-if root.right is not None and root.right.val < root.val: 
+if root.right is not None and root.right.val < root.val:
 	return False
 
 return isBST(root.left) and isBST(root.right)","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -1772,13 +1772,13 @@ Given a binary tree, check if it is a binary search tree?
 
 ### Response:
 def isBST(root):
-if root is None : 
+if root is None :
 	return True
 
-if root.left is not None and root.left.val > root.val: 
+if root.left is not None and root.left.val > root.val:
 	return False
 
-if root.right is not None and root.right.val < root.val: 
+if root.right is not None and root.right.val < root.val:
 	return False
 
 return isBST(root.left) and isBST(root.right)"
@@ -1808,15 +1808,15 @@ Give me a detailed overview of the framework of a web service.
 A web service should be composed of several components: a client application, a set of API (application programming interface) to interact with the client, a database to store data, a server to run the service, and a client-side application to process requests. The API should be designed with RESTful architecture and the server should be built with a language like Python or Ruby. The database should be tailored to the data that needs to be stored, and the client-side application should handle the response from the API. Additionally, for security purposes, certain requests should be encrypted or secured using authentication mechanisms."
 Create a timeline describing the history of the internet,,"1968: ARPANET, the first internet network, is created.
  1973: TCP/IP is created, allowing computers to communicate with each other.
- 1983: DNS is created to simplify the communication process. 
+ 1983: DNS is created to simplify the communication process.
  1989: The World Wide Web is created, giving birth to the public internet.
  1995: JavaScript is developed, introducing dynamic content to the web.
  2001: Wikipedia is launched, providing an online encyclopedia.
  2004: Facebook is launched, growing quickly to 1 billion users.
  2007: Apple introduces the iPhone, making mobile devices commonplace.
- 2009: Cloud computing begins to revolutionize data storage. 
+ 2009: Cloud computing begins to revolutionize data storage.
  2011: HTML5 is released, encouraging richer web experiences.
- 2013: The Internet of Things (IoT) emerges, connecting dozens of durable devices. 
+ 2013: The Internet of Things (IoT) emerges, connecting dozens of durable devices.
  2015: ""Voice first"" technology, such as Amazon's Alexa, launches.
  2018: 5G networks begin rolling out, allowing for faster connection speeds.
  2020: AI begins to be used to power home assistants like Alexa.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -1827,15 +1827,15 @@ Create a timeline describing the history of the internet
 ### Response:
 1968: ARPANET, the first internet network, is created.
  1973: TCP/IP is created, allowing computers to communicate with each other.
- 1983: DNS is created to simplify the communication process. 
+ 1983: DNS is created to simplify the communication process.
  1989: The World Wide Web is created, giving birth to the public internet.
  1995: JavaScript is developed, introducing dynamic content to the web.
  2001: Wikipedia is launched, providing an online encyclopedia.
  2004: Facebook is launched, growing quickly to 1 billion users.
  2007: Apple introduces the iPhone, making mobile devices commonplace.
- 2009: Cloud computing begins to revolutionize data storage. 
+ 2009: Cloud computing begins to revolutionize data storage.
  2011: HTML5 is released, encouraging richer web experiences.
- 2013: The Internet of Things (IoT) emerges, connecting dozens of durable devices. 
+ 2013: The Internet of Things (IoT) emerges, connecting dozens of durable devices.
  2015: ""Voice first"" technology, such as Amazon's Alexa, launches.
  2018: 5G networks begin rolling out, allowing for faster connection speeds.
  2020: AI begins to be used to power home assistants like Alexa."
@@ -1920,7 +1920,7 @@ Create a list of 10 different animals,,"1. Tiger
 2. Elephant
 3. Chimpanzee
 4. Gorilla
-5. Wolf 
+5. Wolf
 6. Fox
 7. Kangaroo
 8. Hedgehog
@@ -1935,7 +1935,7 @@ Create a list of 10 different animals
 2. Elephant
 3. Chimpanzee
 4. Gorilla
-5. Wolf 
+5. Wolf
 6. Fox
 7. Kangaroo
 8. Hedgehog
@@ -2086,15 +2086,15 @@ Amelia Earhart
 
 ### Response:
 Amelia Earhart was an American aviation pioneer and a renowned aviation figure. She was the first female aviator to fly solo across the Atlantic Ocean. Despite tragic circumstances, she is remembered as an inspiring role model and a symbol of courage, adventure, and determination. Her groundbreaking achievements pushed the boundaries of gender roles and inspired many."
-Generate a list of questions related to a given topic.,Innovation,"1. What are the most current trends in the field of innovation? 
-2. What aspects of innovation offer the most potential for success? 
-3. What challenges have businesses recently faced related to innovation? 
-4. What strategies can businesses use to drive innovation? 
-5. How have technological advances helped shape new models of innovation? 
-6. What unique approaches to innovation have proven successful? 
-7. What principles guide successful innovation projects? 
+Generate a list of questions related to a given topic.,Innovation,"1. What are the most current trends in the field of innovation?
+2. What aspects of innovation offer the most potential for success?
+3. What challenges have businesses recently faced related to innovation?
+4. What strategies can businesses use to drive innovation?
+5. How have technological advances helped shape new models of innovation?
+6. What unique approaches to innovation have proven successful?
+7. What principles guide successful innovation projects?
 8. What opportunities for innovation exist in emerging markets?
-9. In what ways does collaboration foster innovation? 
+9. In what ways does collaboration foster innovation?
 10. How can ideas be leveraged to promote innovation?","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -2104,15 +2104,15 @@ Generate a list of questions related to a given topic.
 Innovation
 
 ### Response:
-1. What are the most current trends in the field of innovation? 
-2. What aspects of innovation offer the most potential for success? 
-3. What challenges have businesses recently faced related to innovation? 
-4. What strategies can businesses use to drive innovation? 
-5. How have technological advances helped shape new models of innovation? 
-6. What unique approaches to innovation have proven successful? 
-7. What principles guide successful innovation projects? 
+1. What are the most current trends in the field of innovation?
+2. What aspects of innovation offer the most potential for success?
+3. What challenges have businesses recently faced related to innovation?
+4. What strategies can businesses use to drive innovation?
+5. How have technological advances helped shape new models of innovation?
+6. What unique approaches to innovation have proven successful?
+7. What principles guide successful innovation projects?
 8. What opportunities for innovation exist in emerging markets?
-9. In what ways does collaboration foster innovation? 
+9. In what ways does collaboration foster innovation?
 10. How can ideas be leveraged to promote innovation?"
 Create a slogan for a given product.,Healthy snack,A bite of goodness - Healthy snacks for your whole family!,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -2385,7 +2385,7 @@ DB
 
 ### Response:
 333"
-Gather some recent data related to the increasing rates of unemployment.,,"Recent data on the increasing rates of unemployment across the US show that, since the start of the coronavirus outbreak, the unemployment rate has increased from 3.5% to 14.7%. This is the highest the unemployment rate has been since the Great Depression. The US Bureau of Labor Statistics also reports that since April 2020, 43 million Americans have filed for unemployment. 
+Gather some recent data related to the increasing rates of unemployment.,,"Recent data on the increasing rates of unemployment across the US show that, since the start of the coronavirus outbreak, the unemployment rate has increased from 3.5% to 14.7%. This is the highest the unemployment rate has been since the Great Depression. The US Bureau of Labor Statistics also reports that since April 2020, 43 million Americans have filed for unemployment.
 
 The US Federal Reserve reported in June 2020 that 40% of households making less than $40,000 a year had lost a job or experienced a reduction in income due to COVID-19, while 23% of households making over $100,000 had experienced job losses or income reductions.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -2393,7 +2393,7 @@ The US Federal Reserve reported in June 2020 that 40% of households making less 
 Gather some recent data related to the increasing rates of unemployment.
 
 ### Response:
-Recent data on the increasing rates of unemployment across the US show that, since the start of the coronavirus outbreak, the unemployment rate has increased from 3.5% to 14.7%. This is the highest the unemployment rate has been since the Great Depression. The US Bureau of Labor Statistics also reports that since April 2020, 43 million Americans have filed for unemployment. 
+Recent data on the increasing rates of unemployment across the US show that, since the start of the coronavirus outbreak, the unemployment rate has increased from 3.5% to 14.7%. This is the highest the unemployment rate has been since the Great Depression. The US Bureau of Labor Statistics also reports that since April 2020, 43 million Americans have filed for unemployment.
 
 The US Federal Reserve reported in June 2020 that 40% of households making less than $40,000 a year had lost a job or experienced a reduction in income due to COVID-19, while 23% of households making over $100,000 had experienced job losses or income reductions."
 "Indicate how the following characters in the novel reflect the theme of ""the corrupting influence of power"".",Gregoire in Zola's Germinal,"Gregoire serves as an example of the corrupting influence of power in the novel Germinal. As the only one of the miners who rises to the upper echelons of the mining company, Gregoire turns his back on his former comrades in favor of promoting his own interests. He changes from being a loyal and kind miner to a callous overseer who takes joy in crushing the miners' spirit and punishing them for the smallest of offenses. His transformation is a stark illustration of how those corrupted by power have the capacity to be so much more heartless and ruthless than before, and his journey encapsulates the theme of ""the corrupting influence of power"".","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -2603,22 +2603,22 @@ Design a communication tool for internal team members.
 
 ### Response:
 The design team has been assigned the task of designing a communication tool for internal team members."
-Provide the lyrics for the song titled “Yesterday”,,"Yesterday, all my troubles seemed so far away 
-Now it looks as though they're here to stay 
-Oh, I believe in yesterday 
-Suddenly, I'm not half the man I used to be 
-There's a shadow hanging over me 
+Provide the lyrics for the song titled “Yesterday”,,"Yesterday, all my troubles seemed so far away
+Now it looks as though they're here to stay
+Oh, I believe in yesterday
+Suddenly, I'm not half the man I used to be
+There's a shadow hanging over me
 Oh, yesterday came suddenly","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Provide the lyrics for the song titled “Yesterday”
 
 ### Response:
-Yesterday, all my troubles seemed so far away 
-Now it looks as though they're here to stay 
-Oh, I believe in yesterday 
-Suddenly, I'm not half the man I used to be 
-There's a shadow hanging over me 
+Yesterday, all my troubles seemed so far away
+Now it looks as though they're here to stay
+Oh, I believe in yesterday
+Suddenly, I'm not half the man I used to be
+There's a shadow hanging over me
 Oh, yesterday came suddenly"
 "Provide a brief summary of the novel ""Never Let Me Go"".",,"Never Let Me Go is a dystopian novel by Kazuo Ishiguro that tells the story of three friends who attended a school together that, unbeknownst to them, was preparing them for a grim fate. As they grow up, they begin to understand their true purpose and are forced to confront the moral and ethical dilemmas presented by their impending destiny.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -2805,13 +2805,13 @@ What is the process of photosynthesis and why is it important?
 
 ### Response:
 Photosynthesis is the process by which plants convert sunlight into food energy. During this process, the plant takes in carbon dioxide from the air and combines it with water to create glucose and oxygen. This glucose is then used to produce energy for the plant and oxygen, which is released into the air. Photosynthesis is important as it provides a major source of food energy for living organisms, and is also responsible for the upkeep of the earth's atmosphere."
-Write a 250 word essay about Coral Reef Conservation,,"Coral reefs are among the most diverse and beautiful ecosystems and they are in danger of being destroyed by human activities, pollution and climate change. As a result, it is important to protect these valuable environments by implementing conservation measures. To gain a better understanding of the choices and strategies for protecting coral reefs, it is important to understand the ecology and structure of the environments, the threats, and the benefits that conservation provides. 
+Write a 250 word essay about Coral Reef Conservation,,"Coral reefs are among the most diverse and beautiful ecosystems and they are in danger of being destroyed by human activities, pollution and climate change. As a result, it is important to protect these valuable environments by implementing conservation measures. To gain a better understanding of the choices and strategies for protecting coral reefs, it is important to understand the ecology and structure of the environments, the threats, and the benefits that conservation provides.
 
-Coral reefs are complex and highly structured ecosystems where species interact and co-evolve. They are made of colonies of small invertebrate animals called corals that form intricate networks and canoes. In addition to being biologically and ecologically important, coral reefs provide important benefits such as food, coastal protection, and protection from extreme weather events. 
+Coral reefs are complex and highly structured ecosystems where species interact and co-evolve. They are made of colonies of small invertebrate animals called corals that form intricate networks and canoes. In addition to being biologically and ecologically important, coral reefs provide important benefits such as food, coastal protection, and protection from extreme weather events.
 
 Unfortunately, human activities have caused significant damage to coral reefs all over the world. The most significant threats are overfishing, coastal development, water pollution and climate change. Global warming has caused coral bleaching which occurs when corals become stressed and expel the algae living inside them which can be fatal. It is also important to note that organic pollutants and sediment discharged into the water can smother and damage coral reefs.
 
-In order to protect these valuable ecosystems, there are several key strategies that must be implemented. The most important is reducing pollution by controlling agricultural runoff and discharges, controlling coastal development to minimize sedimentation, reducing human activity on the reefs, establishing marine parks and protected areas, and increasing public awareness of the importance of coral reef conservation. Additionally, it is important to monitor changes in water temperature to prevent coral bleaching and to research and employ methods for coral reef restoration. 
+In order to protect these valuable ecosystems, there are several key strategies that must be implemented. The most important is reducing pollution by controlling agricultural runoff and discharges, controlling coastal development to minimize sedimentation, reducing human activity on the reefs, establishing marine parks and protected areas, and increasing public awareness of the importance of coral reef conservation. Additionally, it is important to monitor changes in water temperature to prevent coral bleaching and to research and employ methods for coral reef restoration.
 
 Coral reef conservation is a pressing issue that requires urgent action from individuals, organizations, and governments. To mitigate the impacts of human activities, it is essential to implement conservation strategies now to protect these beautiful and valuable environments for generations to come.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -2819,13 +2819,13 @@ Coral reef conservation is a pressing issue that requires urgent action from ind
 Write a 250 word essay about Coral Reef Conservation
 
 ### Response:
-Coral reefs are among the most diverse and beautiful ecosystems and they are in danger of being destroyed by human activities, pollution and climate change. As a result, it is important to protect these valuable environments by implementing conservation measures. To gain a better understanding of the choices and strategies for protecting coral reefs, it is important to understand the ecology and structure of the environments, the threats, and the benefits that conservation provides. 
+Coral reefs are among the most diverse and beautiful ecosystems and they are in danger of being destroyed by human activities, pollution and climate change. As a result, it is important to protect these valuable environments by implementing conservation measures. To gain a better understanding of the choices and strategies for protecting coral reefs, it is important to understand the ecology and structure of the environments, the threats, and the benefits that conservation provides.
 
-Coral reefs are complex and highly structured ecosystems where species interact and co-evolve. They are made of colonies of small invertebrate animals called corals that form intricate networks and canoes. In addition to being biologically and ecologically important, coral reefs provide important benefits such as food, coastal protection, and protection from extreme weather events. 
+Coral reefs are complex and highly structured ecosystems where species interact and co-evolve. They are made of colonies of small invertebrate animals called corals that form intricate networks and canoes. In addition to being biologically and ecologically important, coral reefs provide important benefits such as food, coastal protection, and protection from extreme weather events.
 
 Unfortunately, human activities have caused significant damage to coral reefs all over the world. The most significant threats are overfishing, coastal development, water pollution and climate change. Global warming has caused coral bleaching which occurs when corals become stressed and expel the algae living inside them which can be fatal. It is also important to note that organic pollutants and sediment discharged into the water can smother and damage coral reefs.
 
-In order to protect these valuable ecosystems, there are several key strategies that must be implemented. The most important is reducing pollution by controlling agricultural runoff and discharges, controlling coastal development to minimize sedimentation, reducing human activity on the reefs, establishing marine parks and protected areas, and increasing public awareness of the importance of coral reef conservation. Additionally, it is important to monitor changes in water temperature to prevent coral bleaching and to research and employ methods for coral reef restoration. 
+In order to protect these valuable ecosystems, there are several key strategies that must be implemented. The most important is reducing pollution by controlling agricultural runoff and discharges, controlling coastal development to minimize sedimentation, reducing human activity on the reefs, establishing marine parks and protected areas, and increasing public awareness of the importance of coral reef conservation. Additionally, it is important to monitor changes in water temperature to prevent coral bleaching and to research and employ methods for coral reef restoration.
 
 Coral reef conservation is a pressing issue that requires urgent action from individuals, organizations, and governments. To mitigate the impacts of human activities, it is essential to implement conservation strategies now to protect these beautiful and valuable environments for generations to come."
 Compose a haiku about cats,,"Cats curl up purring,
@@ -3052,36 +3052,36 @@ I am happy to meet you.
 
 ### Response:
 Je suis heureux de te rencontrer."
-Analyze the given poem and explain the theme.,"Roses are red, 
-Violets are blue, 
-Sugar is sweet 
+Analyze the given poem and explain the theme.,"Roses are red,
+Violets are blue,
+Sugar is sweet
 And so are you.",The theme of this poem is to express love. The poet is saying that the recipient of these words is as sweet as sugar. The poem has a romantic feel to it and is depicting appreciation towards the other person.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
 Analyze the given poem and explain the theme.
 
 ### Input:
-Roses are red, 
-Violets are blue, 
-Sugar is sweet 
+Roses are red,
+Violets are blue,
+Sugar is sweet
 And so are you.
 
 ### Response:
 The theme of this poem is to express love. The poet is saying that the recipient of these words is as sweet as sugar. The poem has a romantic feel to it and is depicting appreciation towards the other person."
-Calculate the average age of the following five people.,"John, 32 
-Anne, 25 
+Calculate the average age of the following five people.,"John, 32
+Anne, 25
 Hugh, 27
-Peter, 40 
+Peter, 40
 Rebecca, 28",The average age of the five people is 30.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
 Calculate the average age of the following five people.
 
 ### Input:
-John, 32 
-Anne, 25 
+John, 32
+Anne, 25
 Hugh, 27
-Peter, 40 
+Peter, 40
 Rebecca, 28
 
 ### Response:
@@ -3243,7 +3243,7 @@ Determined
 
 ### Response:
 Resolute, persistent, staunch, decisive."
-Draft a letter of appreciation for the given recipient.,Mr. John Smith,"Dear Mr. Smith, 
+Draft a letter of appreciation for the given recipient.,Mr. John Smith,"Dear Mr. Smith,
 
 I would like to express my heartfelt appreciation for all that you have done for us in the past. Your efforts have contributed significantly to our success and I could not have asked for a better partner. Your wisdom and guidance were invaluable and I am thankful for your dedication and hard work.
 
@@ -3259,7 +3259,7 @@ Draft a letter of appreciation for the given recipient.
 Mr. John Smith
 
 ### Response:
-Dear Mr. Smith, 
+Dear Mr. Smith,
 
 I would like to express my heartfelt appreciation for all that you have done for us in the past. Your efforts have contributed significantly to our success and I could not have asked for a better partner. Your wisdom and guidance were invaluable and I am thankful for your dedication and hard work.
 
@@ -3291,8 +3291,8 @@ Write a definition of ""photoshop"".
 
 ### Response:
 Photoshop is a photo editing software developed by Adobe that is used to improve images or create effects by manipulating and combining parts of the existing digital image. Photoshop enables users to adjust the tones, color, lighting, and texture of an image, as well as to create text, create 3D objects, add digital effects and apply filters."
-List five factors that lead to global warming.,,"1. Burning fossil fuels such as coal, petroleum, and natural gas. 
-2. Deforestation and landfills, which increases the concentration of carbon dioxide in the atmosphere. 
+List five factors that lead to global warming.,,"1. Burning fossil fuels such as coal, petroleum, and natural gas.
+2. Deforestation and landfills, which increases the concentration of carbon dioxide in the atmosphere.
 3. Livestock production, which increases the amount of greenhouse gases.
 4. Intensive agriculture, which produces emissions such as methane.
 5. Industry processes, which produce carbon dioxide, methane and other greenhouse gases.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -3301,25 +3301,25 @@ List five factors that lead to global warming.,,"1. Burning fossil fuels such as
 List five factors that lead to global warming.
 
 ### Response:
-1. Burning fossil fuels such as coal, petroleum, and natural gas. 
-2. Deforestation and landfills, which increases the concentration of carbon dioxide in the atmosphere. 
+1. Burning fossil fuels such as coal, petroleum, and natural gas.
+2. Deforestation and landfills, which increases the concentration of carbon dioxide in the atmosphere.
 3. Livestock production, which increases the amount of greenhouse gases.
 4. Intensive agriculture, which produces emissions such as methane.
 5. Industry processes, which produce carbon dioxide, methane and other greenhouse gases."
-Name 5 invasive species.,,"1. Zebra mussels 
+Name 5 invasive species.,,"1. Zebra mussels
 2. Kudzu
-3. European green crab 
-4. Brown tree snake 
+3. European green crab
+4. Brown tree snake
 5. Asian carp","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Name 5 invasive species.
 
 ### Response:
-1. Zebra mussels 
+1. Zebra mussels
 2. Kudzu
-3. European green crab 
-4. Brown tree snake 
+3. European green crab
+4. Brown tree snake
 5. Asian carp"
 What is an AI algorithm?,,"An AI algorithm is a set of instructions or rules which are used to enable a computer or AI system to solve a problem or achieve a desired goal. AI algorithms can be used to capture and analyze data, classify objects, develop predictive models, and automate capabilities.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -3395,25 +3395,25 @@ Write a scientific explanation for why the sky is blue.
 
 ### Response:
 The sky appears blue due to the scattering of light from molecules in the Earth's atmosphere. Sunlight enters the atmosphere and interacts with the molecules and particles, causing light particles to scatter in all directions. The blue light has the greatest ability to penetrate the atmosphere, so it reaches our eyes more often than other colors, making the sky appear blue."
-List five characteristics of good communication.,,"1. Being clear and concise. 
+List five characteristics of good communication.,,"1. Being clear and concise.
 2. Being respectful and courteous.
-3. Using active listening. 
-4. Having an open mind. 
+3. Using active listening.
+4. Having an open mind.
 5. Offering feedback.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 List five characteristics of good communication.
 
 ### Response:
-1. Being clear and concise. 
+1. Being clear and concise.
 2. Being respectful and courteous.
-3. Using active listening. 
-4. Having an open mind. 
+3. Using active listening.
+4. Having an open mind.
 5. Offering feedback."
 Suggest five strategies for self-motivation.,,"1. Set goals and create an action plan.
-2. Break tasks down into smaller, achievable goals. 
+2. Break tasks down into smaller, achievable goals.
 3. Celebrate successes and success motivates.
-4. Have a positive attitude and outlook. 
+4. Have a positive attitude and outlook.
 5. Surround yourself with inspiring and motivating people.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -3421,14 +3421,14 @@ Suggest five strategies for self-motivation.
 
 ### Response:
 1. Set goals and create an action plan.
-2. Break tasks down into smaller, achievable goals. 
+2. Break tasks down into smaller, achievable goals.
 3. Celebrate successes and success motivates.
-4. Have a positive attitude and outlook. 
+4. Have a positive attitude and outlook.
 5. Surround yourself with inspiring and motivating people."
 Name five characteristics of a typical resume.,,"1. A clear, concise, and organized format.
-2. A professional summary that highlights the key qualifications and strengths. 
-3. A detailed description of the previous work experience and education. 
-4. Contact information such as name, phone number, email, and physical address. 
+2. A professional summary that highlights the key qualifications and strengths.
+3. A detailed description of the previous work experience and education.
+4. Contact information such as name, phone number, email, and physical address.
 5. A list of relevant skills and achievements.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -3436,9 +3436,9 @@ Name five characteristics of a typical resume.
 
 ### Response:
 1. A clear, concise, and organized format.
-2. A professional summary that highlights the key qualifications and strengths. 
-3. A detailed description of the previous work experience and education. 
-4. Contact information such as name, phone number, email, and physical address. 
+2. A professional summary that highlights the key qualifications and strengths.
+3. A detailed description of the previous work experience and education.
+4. Contact information such as name, phone number, email, and physical address.
 5. A list of relevant skills and achievements."
 Describe the benefits of using a GPT model.,,"Using a GPT model has numerous benefits. It can generate text quickly and accurately by using large datasets, which can be used for natural language processing tasks such as summarization, question-answering, and text generation. GPT models are also scaleable, meaning they are able to process complex tasks with minimal resources. They are fast and require no human effort to train, which makes them useful for quickly generating results in various tasks where manual work may be too expensive or slow. Additionally, GPT models are highly flexible, allowing developers to easily adjust the output according to their own preferences. In short, GPT models are an efficient and cost-effective way to generate text.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -3576,7 +3576,7 @@ Product name: Apple iWatch
 
 ### Response:
 Introducing the Apple iWatch - the perfect combination of style and technology! Get yours today to stay connected and stylish! #Apple #iWatch #GetYours #StayConnected #Style"
-Create a new recipe for flavorful noodles,,"Thai Coconut Noodle Stir-Fry 
+Create a new recipe for flavorful noodles,,"Thai Coconut Noodle Stir-Fry
 Ingredients:
 - 4 ounces rice noodles
 - 2 tablespoons vegetable oil
@@ -3606,7 +3606,7 @@ Directions:
 Create a new recipe for flavorful noodles
 
 ### Response:
-Thai Coconut Noodle Stir-Fry 
+Thai Coconut Noodle Stir-Fry
 Ingredients:
 - 4 ounces rice noodles
 - 2 tablespoons vegetable oil
@@ -3655,14 +3655,14 @@ The blue sky is so beautiful.
 
 ### Response:
 El cielo azul es tan hermoso."
-Generate a function for calculating the mean of a list.,,"def mean(lst): 
+Generate a function for calculating the mean of a list.,,"def mean(lst):
     return sum(lst) / len(lst)","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Generate a function for calculating the mean of a list.
 
 ### Response:
-def mean(lst): 
+def mean(lst):
     return sum(lst) / len(lst)"
 Write a blog post about how AI is transforming the healthcare industry.,,"The healthcare industry is one of the most rapidly evolving sectors today and AI is playing a major role in transforming the industry. AI solutions are enabling hospitals, clinics and other healthcare providers to provide more precise and personalized care to their patients. AI solutions are being used to automate mundane tasks such as data collection and analysis, thus freeing up resources for other more important tasks. AI solutions are also being used to provide predictive insights on a patient’s health and detect diseases in a timely manner. AI-driven technologies have been particularly useful in diagnosing diseases such as cancer by recognizing patterns from medical images. AI-enabled robotic surgeries can also provide precise and minimally invasive procedures for patients. All in all, AI is changing the way healthcare is delivered and allowing medical practitioners to provide better and more efficient care to their patients.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -3695,14 +3695,14 @@ Movie name: The Martian
 
 ### Response:
 The Martian is an exciting, thrilling and inspiring movie that is sure to stimulate the senses. The story follows Mark Watney, a NASA Astronaut who is stranded on Mars after being presumed dead. He must use his skills in science and engineering to survive on the harsh planet and find a way back home. The Martian is a gripping movie that depicts the struggle of survival in an extreme environment, along with the hope of being rescued. The actors and special effects give a realistic feel to the story, making it even more captivating. The movie is certainly a must-watch and a great representation of human ingenuity and resilience."
-Generate a function to sort a list of strings alphabetically,,"def alphabetic_sort(lst): 
+Generate a function to sort a list of strings alphabetically,,"def alphabetic_sort(lst):
     return sorted(lst, key=str.lower)","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Generate a function to sort a list of strings alphabetically
 
 ### Response:
-def alphabetic_sort(lst): 
+def alphabetic_sort(lst):
     return sorted(lst, key=str.lower)"
 Write a Satire article about the coronavirus pandemic,,"It’s been one year since the coronavirus pandemic began to affect the lives of people around the world. In the midst of massive lockdowns and social distancing, we managed to learn a few things about this virus. For starters, it is apparently very contagious, as it spread like wildfire around the globe. We have also come to realize though, that the virus only targets those who aren’t following specific protocols. Wearing a face covering, washing your hands and staying home has proven to be the ultimate remedy – the only thing standing in the way of avoiding infection. Taking preventive measures has significantly reduced the spread of the virus, and yet, people are still getting sick. Is this virus selectively choosing who to infect? It just doesn’t make sense! We may never know the answer, but at least we can attempt to stay safe and healthy.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -3711,18 +3711,18 @@ Write a Satire article about the coronavirus pandemic
 
 ### Response:
 It’s been one year since the coronavirus pandemic began to affect the lives of people around the world. In the midst of massive lockdowns and social distancing, we managed to learn a few things about this virus. For starters, it is apparently very contagious, as it spread like wildfire around the globe. We have also come to realize though, that the virus only targets those who aren’t following specific protocols. Wearing a face covering, washing your hands and staying home has proven to be the ultimate remedy – the only thing standing in the way of avoiding infection. Taking preventive measures has significantly reduced the spread of the virus, and yet, people are still getting sick. Is this virus selectively choosing who to infect? It just doesn’t make sense! We may never know the answer, but at least we can attempt to stay safe and healthy."
-Create a function to check whether two strings are anagrams.,,"def is_anagram(s1, s2): 
-    s1 = sorted(s1.lower()) 
-    s2 = sorted(s2.lower()) 
+Create a function to check whether two strings are anagrams.,,"def is_anagram(s1, s2):
+    s1 = sorted(s1.lower())
+    s2 = sorted(s2.lower())
     return s1 == s2","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Create a function to check whether two strings are anagrams.
 
 ### Response:
-def is_anagram(s1, s2): 
-    s1 = sorted(s1.lower()) 
-    s2 = sorted(s2.lower()) 
+def is_anagram(s1, s2):
+    s1 = sorted(s1.lower())
+    s2 = sorted(s2.lower())
     return s1 == s2"
 Explain what is a neural network,,"A neural network is an artificial intelligence (AI) system inspired by the structure and functioning of the human brain. It is an interconnected system of artificial neurons that use signals from datasets to make predictions or decisions. Neural networks consist of an input layer, hidden layers, and a output layer. The input layer receives data from the outside. The hidden layers process and manipulate the data. And the output layer provides predictions or decisions to the outside world. Neural networks are used in a range of tasks such as image recognition, text analysis and forecasting.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -3781,13 +3781,13 @@ John and Lisa were walking through the park on a sunny day. They stopped to admi
 
 ### Response:
 John and Lisa"
-Suggest topics for an informal discussion about the given country.,China,"- The culture and customs of China 
-- Recent developments in the Chinese economy 
-- The Chinese education system 
-- The political landscape in China 
-- The comparison between traditional and modern Chinese cuisine 
-- China's stance on international relations 
-- China's healthcare system 
+Suggest topics for an informal discussion about the given country.,China,"- The culture and customs of China
+- Recent developments in the Chinese economy
+- The Chinese education system
+- The political landscape in China
+- The comparison between traditional and modern Chinese cuisine
+- China's stance on international relations
+- China's healthcare system
 - Impacts of China's population on its economy","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -3797,13 +3797,13 @@ Suggest topics for an informal discussion about the given country.
 China
 
 ### Response:
-- The culture and customs of China 
-- Recent developments in the Chinese economy 
-- The Chinese education system 
-- The political landscape in China 
-- The comparison between traditional and modern Chinese cuisine 
-- China's stance on international relations 
-- China's healthcare system 
+- The culture and customs of China
+- Recent developments in the Chinese economy
+- The Chinese education system
+- The political landscape in China
+- The comparison between traditional and modern Chinese cuisine
+- China's stance on international relations
+- China's healthcare system
 - Impacts of China's population on its economy"
 Explain the implications of the given information.,A recent study suggests that teenagers are spending too much time on social media.,"The implications of this study are clear: Teenagers are prioritizing social media over other aspects of their lives, such as socializing, studying and exercising. This could lead to negative mental health effects such as depression and anxiety, as well as physical health harms such as weight gain and social isolation. It is therefore important that parents, teachers, and other adults help teenagers to learn how to manage their online time in a healthy and balanced way.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -3815,8 +3815,8 @@ A recent study suggests that teenagers are spending too much time on social medi
 
 ### Response:
 The implications of this study are clear: Teenagers are prioritizing social media over other aspects of their lives, such as socializing, studying and exercising. This could lead to negative mental health effects such as depression and anxiety, as well as physical health harms such as weight gain and social isolation. It is therefore important that parents, teachers, and other adults help teenagers to learn how to manage their online time in a healthy and balanced way."
-Convert the following text into a list.,"The four elements of design are line, color, shape, and texture.","- Line 
-- Color 
+Convert the following text into a list.,"The four elements of design are line, color, shape, and texture.","- Line
+- Color
 - Shape
 - Texture","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -3827,8 +3827,8 @@ Convert the following text into a list.
 The four elements of design are line, color, shape, and texture.
 
 ### Response:
-- Line 
-- Color 
+- Line
+- Color
 - Shape
 - Texture"
 Generate a sentence that contains the given words.,"magic, castle, king",The king of the magic castle cast a spell that mesmerized everyone.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -3841,20 +3841,20 @@ magic, castle, king
 
 ### Response:
 The king of the magic castle cast a spell that mesmerized everyone."
-Compile a list of five items that would help someone go camping.,,"- Tent 
-- Sleeping bags 
-- Flashlight 
-- Cooking utensils 
+Compile a list of five items that would help someone go camping.,,"- Tent
+- Sleeping bags
+- Flashlight
+- Cooking utensils
 - Portable stove","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Compile a list of five items that would help someone go camping.
 
 ### Response:
-- Tent 
-- Sleeping bags 
-- Flashlight 
-- Cooking utensils 
+- Tent
+- Sleeping bags
+- Flashlight
+- Cooking utensils
 - Portable stove"
 Correct any spelling or grammar mistakes in the given sentence.,She jogged excersies around the lake.,She jogged exercises around the lake.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -4082,7 +4082,7 @@ Describe the differences between a substantive and procedural law.
 ### Response:
 Substantive laws establish rules and regulations governing behavior and conduct, while procedural laws determine how the substantive laws will be enforced. Substantive law defines and regulates rights and duties, and typically consists of criminal, civil, and administrative laws. Procedural law focuses on how the legal system will handle disputes that arise under the substantive law by outlining the steps, rules, and procedures of civil and criminal courts."
 Suggest three methods for recycling paper.,,"Three methods for recycling paper are:
-1. Composting: breaking down paper into soil-like material. 
+1. Composting: breaking down paper into soil-like material.
 2. Repurposing: using paper to create new paper-based products or crafts.
 3. Energy Production: using paper to generate electricity in incinerators or gasification plants.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -4091,7 +4091,7 @@ Suggest three methods for recycling paper.
 
 ### Response:
 Three methods for recycling paper are:
-1. Composting: breaking down paper into soil-like material. 
+1. Composting: breaking down paper into soil-like material.
 2. Repurposing: using paper to create new paper-based products or crafts.
 3. Energy Production: using paper to generate electricity in incinerators or gasification plants."
 Describe the color pink.,,"The color pink is a soft, light hue, typically described as a pastel or baby pink. It is generally seen as a feminine color, sweet and romantic. It is often associated with innocence and love. It is also thought to be calming and can create a sense of accountability and acceptance. Pink is often considered the color of unconditional love, compassion, and understanding. It is also said to be the color of unconditional acceptance and unconditional understanding, inviting us to appreciate all the wonders of life.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -4474,7 +4474,7 @@ The restaurant is called La Taqueria.
 I recently visited La Taqueria and I was really impressed.  The food was amazing and the service was excellent. The atmosphere was cozy and inviting and the staff were friendly and attentive to all the customers. Overall, I would highly recommend La Taqueria for an enjoyable, delicious, and satisfying dining experience."
 Outline an itinerary for a three day trip.,"Location: London, England","Day 1: Begin your day at St. Paul’s Cathedral, then take a leisurely stroll down to the bustling markets at Borough, followed by a cruise down the Thames. Afterward, walk through the lush greenery of Kensington Gardens and admire the beauty of Kensington Palace. End your day with dinner at one of London’s most iconic restaurants.
 
-Day 2: Start the day with a visit to the historic Tower of London, followed by a scenic boat ride along the Thames. Afterward, head to the Tate Britain art gallery and explore the best of British art. Then, practice your photography skills at the beautiful Oxford Street and Hyde Park. 
+Day 2: Start the day with a visit to the historic Tower of London, followed by a scenic boat ride along the Thames. Afterward, head to the Tate Britain art gallery and explore the best of British art. Then, practice your photography skills at the beautiful Oxford Street and Hyde Park.
 
 Day 3: Visit the famous British Museum, followed by a trip to the bustling and vibrant Covent Garden. Afterward, take a delightful walk to the iconic Big Ben, the most iconic clock tower in London. End the day with a quiet and cozy dinner surrounded by the views of the London Eye.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -4487,7 +4487,7 @@ Location: London, England
 ### Response:
 Day 1: Begin your day at St. Paul’s Cathedral, then take a leisurely stroll down to the bustling markets at Borough, followed by a cruise down the Thames. Afterward, walk through the lush greenery of Kensington Gardens and admire the beauty of Kensington Palace. End your day with dinner at one of London’s most iconic restaurants.
 
-Day 2: Start the day with a visit to the historic Tower of London, followed by a scenic boat ride along the Thames. Afterward, head to the Tate Britain art gallery and explore the best of British art. Then, practice your photography skills at the beautiful Oxford Street and Hyde Park. 
+Day 2: Start the day with a visit to the historic Tower of London, followed by a scenic boat ride along the Thames. Afterward, head to the Tate Britain art gallery and explore the best of British art. Then, practice your photography skills at the beautiful Oxford Street and Hyde Park.
 
 Day 3: Visit the famous British Museum, followed by a trip to the bustling and vibrant Covent Garden. Afterward, take a delightful walk to the iconic Big Ben, the most iconic clock tower in London. End the day with a quiet and cozy dinner surrounded by the views of the London Eye."
 Classify the item as either animal or vegetable.,Banana,"Animal: No, it's a vegetable.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -4822,11 +4822,11 @@ February 2020: World Health Organization (WHO) Declares a Public Health Emergenc
 
 March 2020: COVID-19 Declared a Global Pandemic
 
-April 2020: Many Countries Begin to Reopen 
+April 2020: Many Countries Begin to Reopen
 
 May 2020: Vaccine Research & Development Begins
 
-June 2020: WHO announces start of vaccine distribution to low-income countries 
+June 2020: WHO announces start of vaccine distribution to low-income countries
 
 July 2020: Vaccinations Begin in Developed Countries
 
@@ -4852,11 +4852,11 @@ February 2020: World Health Organization (WHO) Declares a Public Health Emergenc
 
 March 2020: COVID-19 Declared a Global Pandemic
 
-April 2020: Many Countries Begin to Reopen 
+April 2020: Many Countries Begin to Reopen
 
 May 2020: Vaccine Research & Development Begins
 
-June 2020: WHO announces start of vaccine distribution to low-income countries 
+June 2020: WHO announces start of vaccine distribution to low-income countries
 
 July 2020: Vaccinations Begin in Developed Countries
 
@@ -4869,7 +4869,7 @@ October 2020: Global Cases Pass 40 Million
 November 2020: Vaccine Rollout Begins in US
 
 December 2020: Virus Cases Reach an All-Time High"
-Compare and contrast two types of computer networks.,,"There are two main types of computer networks: Local Area Networks (LANs) and Wide Area Networks (WANs). 
+Compare and contrast two types of computer networks.,,"There are two main types of computer networks: Local Area Networks (LANs) and Wide Area Networks (WANs).
 
 LANs are typically used in small geographic areas such as businesses and homes, and involve connecting multiple computers in a single region using a common communications protocol. They are usually limited to a few miles in size and provide high-speed connections between users.
 
@@ -4881,7 +4881,7 @@ Each type of network has its own advantages and disadvantages, and which network
 Compare and contrast two types of computer networks.
 
 ### Response:
-There are two main types of computer networks: Local Area Networks (LANs) and Wide Area Networks (WANs). 
+There are two main types of computer networks: Local Area Networks (LANs) and Wide Area Networks (WANs).
 
 LANs are typically used in small geographic areas such as businesses and homes, and involve connecting multiple computers in a single region using a common communications protocol. They are usually limited to a few miles in size and provide high-speed connections between users.
 
@@ -4951,17 +4951,17 @@ Generate a list of five elements for a grocery shopping list
 3. Bread
 4. Cheese
 5. Bananas"
-Create a dialogue between a customer and a flight attendant for a plane ride,,"Customer: Hi, I would like to inquire about the snacks available on the flight. 
+Create a dialogue between a customer and a flight attendant for a plane ride,,"Customer: Hi, I would like to inquire about the snacks available on the flight.
 
 Flight Attendant: Of course! We have a selection of snacks available including chips, crackers, and candy bars. Would you like to purchase any snacks?
 
 Customer: Yes, I would like to purchase a snack. Do you have any healthy options?
 
-Flight Attendant: Yes, we offer a variety of healthy options such as yogurt, trail mix, and fruit. Would you like to choose any of those? 
+Flight Attendant: Yes, we offer a variety of healthy options such as yogurt, trail mix, and fruit. Would you like to choose any of those?
 
 Customer: Yes, I'd like to purchase a yogurt. How much does it cost?
 
-Flight Attendant: The yogurt costs $3. Would you like to purchase that? 
+Flight Attendant: The yogurt costs $3. Would you like to purchase that?
 
 Customer: Yes, I'd like to purchase the yogurt. Thank you!
 
@@ -4971,17 +4971,17 @@ Flight Attendant: You're welcome, here's your yogurt and have a great flight!","
 Create a dialogue between a customer and a flight attendant for a plane ride
 
 ### Response:
-Customer: Hi, I would like to inquire about the snacks available on the flight. 
+Customer: Hi, I would like to inquire about the snacks available on the flight.
 
 Flight Attendant: Of course! We have a selection of snacks available including chips, crackers, and candy bars. Would you like to purchase any snacks?
 
 Customer: Yes, I would like to purchase a snack. Do you have any healthy options?
 
-Flight Attendant: Yes, we offer a variety of healthy options such as yogurt, trail mix, and fruit. Would you like to choose any of those? 
+Flight Attendant: Yes, we offer a variety of healthy options such as yogurt, trail mix, and fruit. Would you like to choose any of those?
 
 Customer: Yes, I'd like to purchase a yogurt. How much does it cost?
 
-Flight Attendant: The yogurt costs $3. Would you like to purchase that? 
+Flight Attendant: The yogurt costs $3. Would you like to purchase that?
 
 Customer: Yes, I'd like to purchase the yogurt. Thank you!
 
@@ -5220,7 +5220,7 @@ tall life the in
 
 ### Response:
 Life in the tall is full of surprises."
-Sort the following items into two categories.,"pencil, apple, phone","Category 1: Pencil, Apple 
+Sort the following items into two categories.,"pencil, apple, phone","Category 1: Pencil, Apple
 Category 2: Phone","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -5230,7 +5230,7 @@ Sort the following items into two categories.
 pencil, apple, phone
 
 ### Response:
-Category 1: Pencil, Apple 
+Category 1: Pencil, Apple
 Category 2: Phone"
 Rewrite the following sentence with more accurate grammar.,She done a lot of good,She has done a lot of good.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -5507,7 +5507,7 @@ D. Hydrogen
 
 ### Response:
 C. Nitrogen"
-Provide 3 practice questions for multiplication,,"1. What is 9 x 8? 
+Provide 3 practice questions for multiplication,,"1. What is 9 x 8?
 2. What is 5 x 10?
 3. What is 6 x 7?","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -5515,7 +5515,7 @@ Provide 3 practice questions for multiplication,,"1. What is 9 x 8?
 Provide 3 practice questions for multiplication
 
 ### Response:
-1. What is 9 x 8? 
+1. What is 9 x 8?
 2. What is 5 x 10?
 3. What is 6 x 7?"
 Provide an example of an antonym for the word “happy”,,Sad,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -5591,26 +5591,26 @@ Find the temperature of boiling water at sea level.
 
 ### Response:
 100 °C."
-Outline the events of the following movie: The Great Gatsby.,,"1. Jay Gatsby throws lavish parties in hopes of winning the heart of Daisy Buchanan. 
-2. Nick Carraway, Daisy’s cousin, looks on as Gatsby and Daisy reunite. 
-3. Gatsby and Daisy plan to run away together. 
-4. Tom Buchanan discovers their plans and confronts Gatsby. 
-5. Daisy decides to stay with Tom, leaving Gatsby heartbroken. 
-6. Gatsby is killed by George Wilson. 
-7. Daisy realizes the depth of Gatsby’s love for her too late and is consumed with guilt. 
+Outline the events of the following movie: The Great Gatsby.,,"1. Jay Gatsby throws lavish parties in hopes of winning the heart of Daisy Buchanan.
+2. Nick Carraway, Daisy’s cousin, looks on as Gatsby and Daisy reunite.
+3. Gatsby and Daisy plan to run away together.
+4. Tom Buchanan discovers their plans and confronts Gatsby.
+5. Daisy decides to stay with Tom, leaving Gatsby heartbroken.
+6. Gatsby is killed by George Wilson.
+7. Daisy realizes the depth of Gatsby’s love for her too late and is consumed with guilt.
 8. Nick reconsiders his opinions of Gatsby and realizes what a great man he was.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Outline the events of the following movie: The Great Gatsby.
 
 ### Response:
-1. Jay Gatsby throws lavish parties in hopes of winning the heart of Daisy Buchanan. 
-2. Nick Carraway, Daisy’s cousin, looks on as Gatsby and Daisy reunite. 
-3. Gatsby and Daisy plan to run away together. 
-4. Tom Buchanan discovers their plans and confronts Gatsby. 
-5. Daisy decides to stay with Tom, leaving Gatsby heartbroken. 
-6. Gatsby is killed by George Wilson. 
-7. Daisy realizes the depth of Gatsby’s love for her too late and is consumed with guilt. 
+1. Jay Gatsby throws lavish parties in hopes of winning the heart of Daisy Buchanan.
+2. Nick Carraway, Daisy’s cousin, looks on as Gatsby and Daisy reunite.
+3. Gatsby and Daisy plan to run away together.
+4. Tom Buchanan discovers their plans and confronts Gatsby.
+5. Daisy decides to stay with Tom, leaving Gatsby heartbroken.
+6. Gatsby is killed by George Wilson.
+7. Daisy realizes the depth of Gatsby’s love for her too late and is consumed with guilt.
 8. Nick reconsiders his opinions of Gatsby and realizes what a great man he was."
 "Calculate the area of a triangle with the following sides: 10, 14, 8.",,The area of the triangle is 36 sq. units.,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -5638,18 +5638,18 @@ Outline a strategy for increasing website traffic.
 5. Run email campaigns.
 6. Create a promotion plan.
 7. Monitor analytics to track performance."
-Make a list of four styles of furniture.,,"- Contemporary 
-- Rustic 
-- Modern 
+Make a list of four styles of furniture.,,"- Contemporary
+- Rustic
+- Modern
 - Scandinavian","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Make a list of four styles of furniture.
 
 ### Response:
-- Contemporary 
-- Rustic 
-- Modern 
+- Contemporary
+- Rustic
+- Modern
 - Scandinavian"
 List four strategies for teaching children to read.,,"1. Provide age appropriate reading materials.
 2. Encourage children to read aloud.
@@ -5709,7 +5709,7 @@ joyful, joyous, festive
 
 ### Response:
 joyous"
-Write a humorous joke.,,"Q: What did the fish say when he swam into a wall? 
+Write a humorous joke.,,"Q: What did the fish say when he swam into a wall?
 
 A: Dam!","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -5717,7 +5717,7 @@ A: Dam!","Below is an instruction that describes a task. Write a response that a
 Write a humorous joke.
 
 ### Response:
-Q: What did the fish say when he swam into a wall? 
+Q: What did the fish say when he swam into a wall?
 
 A: Dam!"
 Put together a business plan for a new restaurant.,,"The new restaurant will be located in a vibrant and high-traffic part of town. It will offer a broad menu of delicious and reasonably priced meals along with an excellent selection of drinks. In addition to the restaurant, there will be a takeout and catering service available. The atmosphere will be warm and inviting and will feature art from local artists. The business plan aims to build a sustainable and profitable business. The budget includes start-up costs and ongoing expenses such as rent, insurance, salaries, marketing, and utilities.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -5824,7 +5824,7 @@ Rewrite the following sentence:
 The candidate has an intense desire to succeed and to reach their goals."
 Name 4 different types of art,,"- Painting
  - Sculpture
- - Photography 
+ - Photography
  - Film/Video","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -5833,7 +5833,7 @@ Name 4 different types of art
 ### Response:
 - Painting
  - Sculpture
- - Photography 
+ - Photography
  - Film/Video"
 What is the history of the Tour de France?,,"The Tour de France is the most prestigious cycling event in the world. Its history began in 1903, when the first event was held over a distance of roughly 2,000 kilometers (1,200 miles) with just 60 competitors. The race has evolved over the years, becoming a staple of the summertime sports calendar. Today, the Tour de France covers over 2,000 miles and includes over 189 of the world's top cyclists competing for the title of winner.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -5997,24 +5997,24 @@ Noinput
 
 ### Response:
 Good morning everyone! Today I'm here to talk to you about the importance of voting. I'm sure you have all heard the phrase ""your vote counts"" - and this is true. Even if it doesn't seem like it, your vote can have a drastic effect on how our election turns out. So, I urge all of you to use your voice and make your vote count!"
-Create a to-do list for a given holiday.,Thanksgiving,"- Set a date for Thanksgiving dinner 
+Create a to-do list for a given holiday.,Thanksgiving,"- Set a date for Thanksgiving dinner
 - Start shopping for ingredients
 - Send out invites
 - Plan activities
-- Start decorating for the occasion 
-- Research recipes 
-- Plan menu 
-- Buy wine 
+- Start decorating for the occasion
+- Research recipes
+- Plan menu
+- Buy wine
 - Set up tables and chairs
-- Purchase paper plates and cups 
-- Make a grocery list 
+- Purchase paper plates and cups
+- Make a grocery list
 - Ask family to bring a dish
 - Set up bar area
-- Create a seating chart 
-- Make a timeline of events 
-- Make a post-dinner cleanup plan 
+- Create a seating chart
+- Make a timeline of events
+- Make a post-dinner cleanup plan
 - Clean the house
-- Prepare food 
+- Prepare food
 - Have fun!","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -6024,24 +6024,24 @@ Create a to-do list for a given holiday.
 Thanksgiving
 
 ### Response:
-- Set a date for Thanksgiving dinner 
+- Set a date for Thanksgiving dinner
 - Start shopping for ingredients
 - Send out invites
 - Plan activities
-- Start decorating for the occasion 
-- Research recipes 
-- Plan menu 
-- Buy wine 
+- Start decorating for the occasion
+- Research recipes
+- Plan menu
+- Buy wine
 - Set up tables and chairs
-- Purchase paper plates and cups 
-- Make a grocery list 
+- Purchase paper plates and cups
+- Make a grocery list
 - Ask family to bring a dish
 - Set up bar area
-- Create a seating chart 
-- Make a timeline of events 
-- Make a post-dinner cleanup plan 
+- Create a seating chart
+- Make a timeline of events
+- Make a post-dinner cleanup plan
 - Clean the house
-- Prepare food 
+- Prepare food
 - Have fun!"
 Find a sentence that can be used to explain why someone should not use a particular product.,Laser Hair Removal,"Although laser hair removal might seem like a quick and easy way to get rid of unwanted body hair, it can cause skin damage and should always be used with caution.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -6285,20 +6285,20 @@ A limited edition, handmade wooden toy truck
 
 ### Response:
 The limited edition, handmade wooden toy truck is priced at $150."
-List five advantages of using solar energy.,,"1. Solar energy is renewable and sustainable. 
-2. Low ongoing costs and no fuel expenses. 
-3. Generates no pollution or noise. 
-4. Easily scalable for different types of applications. 
+List five advantages of using solar energy.,,"1. Solar energy is renewable and sustainable.
+2. Low ongoing costs and no fuel expenses.
+3. Generates no pollution or noise.
+4. Easily scalable for different types of applications.
 5. Solar energy is widely available in most regions.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 List five advantages of using solar energy.
 
 ### Response:
-1. Solar energy is renewable and sustainable. 
-2. Low ongoing costs and no fuel expenses. 
-3. Generates no pollution or noise. 
-4. Easily scalable for different types of applications. 
+1. Solar energy is renewable and sustainable.
+2. Low ongoing costs and no fuel expenses.
+3. Generates no pollution or noise.
+4. Easily scalable for different types of applications.
 5. Solar energy is widely available in most regions."
 Generate an example of a travel destination in your favorite country.,,"My favorite travel destination in Australia is Fraser Island, located on the eastern coast.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -6426,16 +6426,16 @@ What are the five most important elements in a website homepage?
 
 ### Response:
 SELECT TOP 5 Elements FROM Homepages ORDER BY importance DESC;"
-Generate a correct formula to calculate surface area of a triangle,,"Surface Area = (b·h)/2 
+Generate a correct formula to calculate surface area of a triangle,,"Surface Area = (b·h)/2
 where b = base and h = height of the triangle","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Generate a correct formula to calculate surface area of a triangle
 
 ### Response:
-Surface Area = (b·h)/2 
+Surface Area = (b·h)/2
 where b = base and h = height of the triangle"
-Compose a story based on the following facts,"Facts: 
+Compose a story based on the following facts,"Facts:
 - There is a family who have lived in the countryside for generations.
 - They are so far isolated that they had no clue about the world outside of their small village.
 - One day a traveler visited them and introduced them to technologies, books and new ideas.","In the small and isolated village, there lived a family. This family had lived in the countryside for generations and they had no knowledge of the world outside their boundaries. But one day, a traveler arrived with a few books and gadgets. He introduced them to technologies far superior than anything they had ever witnessed before. He opened their eyes to layers of knowledge from books and ideas that made them question their world. It was this visitor who introduced them to the world outside and showed them the power of progress.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -6444,7 +6444,7 @@ Compose a story based on the following facts,"Facts:
 Compose a story based on the following facts
 
 ### Input:
-Facts: 
+Facts:
 - There is a family who have lived in the countryside for generations.
 - They are so far isolated that they had no clue about the world outside of their small village.
 - One day a traveler visited them and introduced them to technologies, books and new ideas.
@@ -6695,7 +6695,7 @@ Explain the term ""impeachment""
 
 ### Response:
 Impeachment is the process of bringing formal charges against a public official in order to remove that person from office. It is performed by an organization, such as a legislature, in order to investigate allegations of misconduct, and can result in removal of the official from office if sufficient evidence is found."
-Choose the right antonym,Discreet/Flaunt,"Discreet/Flaunt 
+Choose the right antonym,Discreet/Flaunt,"Discreet/Flaunt
 Antonym: Discreet/Show off.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -6705,7 +6705,7 @@ Choose the right antonym
 Discreet/Flaunt
 
 ### Response:
-Discreet/Flaunt 
+Discreet/Flaunt
 Antonym: Discreet/Show off."
 Rewrite this sentence in the present tense,She had cooked,She cooks.,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -6839,8 +6839,8 @@ Person A: 6
 Person B: 7
 Person C: 8","Person | Duration of Sleep (in hours)
 ------|--------------------------
-A     | 6 
-B     | 7 
+A     | 6
+B     | 7
 C     | 8","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -6855,8 +6855,8 @@ Person C: 8
 ### Response:
 Person | Duration of Sleep (in hours)
 ------|--------------------------
-A     | 6 
-B     | 7 
+A     | 6
+B     | 7
 C     | 8"
 Describe the difference between plagiarism and copyright infringement.,,"Plagiarism is the passing off of someone else's work as one's own without crediting the original author or creator, while copyright infringement is using or reproducing someone else's work without approval or permission from the copyright owner. Plagiarism is considered an ethical and academic violation and can lead to serious consequences, while copyright infringement is a violation of law and can lead to fines and other legal action.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -6897,19 +6897,19 @@ He came out of the house and suddenly remembered he had forgotten to bring his w
 ### Response:
 He came out of the house and suddenly remembered. He had forgotten to bring his wallet."
 Generate a list of items related to the topic given.,Scuba diving,"Items related to scuba diving:
-- Wet Suit 
-- Fins 
-- Snorkel 
-- BCD (Buoyancy Control Device) 
-- Mask 
-- Regulator 
-- Dive Computer 
-- Dive Knife or Cutting Tool 
-- Weight Belt or Jacket 
-- Under Water Flashlight 
-- Cylinder and Air Tank 
-- Torch 
-- Dive Log Book 
+- Wet Suit
+- Fins
+- Snorkel
+- BCD (Buoyancy Control Device)
+- Mask
+- Regulator
+- Dive Computer
+- Dive Knife or Cutting Tool
+- Weight Belt or Jacket
+- Under Water Flashlight
+- Cylinder and Air Tank
+- Torch
+- Dive Log Book
 - Compass","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -6920,19 +6920,19 @@ Scuba diving
 
 ### Response:
 Items related to scuba diving:
-- Wet Suit 
-- Fins 
-- Snorkel 
-- BCD (Buoyancy Control Device) 
-- Mask 
-- Regulator 
-- Dive Computer 
-- Dive Knife or Cutting Tool 
-- Weight Belt or Jacket 
-- Under Water Flashlight 
-- Cylinder and Air Tank 
-- Torch 
-- Dive Log Book 
+- Wet Suit
+- Fins
+- Snorkel
+- BCD (Buoyancy Control Device)
+- Mask
+- Regulator
+- Dive Computer
+- Dive Knife or Cutting Tool
+- Weight Belt or Jacket
+- Under Water Flashlight
+- Cylinder and Air Tank
+- Torch
+- Dive Log Book
 - Compass"
 Structures the following instructions into a step by step guide.,Initiate a conversation with someone on LinkedIn for job related advice.,"Step by Step Guide for initiating a conversation with someone on LinkedIn for job related advice:
 
@@ -6974,9 +6974,9 @@ A successful sales pitch should engage the potential buyer.
 
 ### Response:
 A successful sales pitch should engage the potential buyer because engaging them helps build trust and rapport. When potential buyers are engaged, they are more likely to listen to the salesperson and understand the value and benefits offered by the product or service. An engaging sales pitch is also more likely to help the potential buyer come to a conclusion, as they are more likely to be actively participating in the conversation. Engaging potential buyers also helps salespeople gain insights on their potential customers and how to best tailor their pitch to their needs."
-Create a story about a parrot.,,"Once upon a time, there was a magical parrot living in the jungles of South America. His feathers were an array of colors, including bright yellow, fiery red, and deep blue. He was said to have been sent down from the heavens to serve as a guide to the people of the jungle. 
+Create a story about a parrot.,,"Once upon a time, there was a magical parrot living in the jungles of South America. His feathers were an array of colors, including bright yellow, fiery red, and deep blue. He was said to have been sent down from the heavens to serve as a guide to the people of the jungle.
 
-The parrot had a knack for languages and could speak human words with perfect clarity, becoming the go-to translator for the people of the jungle. He was also very intelligent, able to solve puzzles and understand complex concepts. 
+The parrot had a knack for languages and could speak human words with perfect clarity, becoming the go-to translator for the people of the jungle. He was also very intelligent, able to solve puzzles and understand complex concepts.
 
 One day, the parrot was sent on a mission to deliver a message from the gods to a particular tribe in the jungle. As he flew through the air, he noticed something curious. Below him, the tribal people were gathering around a mysterious object. As he flew closer, he saw that the object was a magical crystal ball.
 
@@ -6988,9 +6988,9 @@ And that is the story of the magical parrot of the South American jungle.","Belo
 Create a story about a parrot.
 
 ### Response:
-Once upon a time, there was a magical parrot living in the jungles of South America. His feathers were an array of colors, including bright yellow, fiery red, and deep blue. He was said to have been sent down from the heavens to serve as a guide to the people of the jungle. 
+Once upon a time, there was a magical parrot living in the jungles of South America. His feathers were an array of colors, including bright yellow, fiery red, and deep blue. He was said to have been sent down from the heavens to serve as a guide to the people of the jungle.
 
-The parrot had a knack for languages and could speak human words with perfect clarity, becoming the go-to translator for the people of the jungle. He was also very intelligent, able to solve puzzles and understand complex concepts. 
+The parrot had a knack for languages and could speak human words with perfect clarity, becoming the go-to translator for the people of the jungle. He was also very intelligent, able to solve puzzles and understand complex concepts.
 
 One day, the parrot was sent on a mission to deliver a message from the gods to a particular tribe in the jungle. As he flew through the air, he noticed something curious. Below him, the tribal people were gathering around a mysterious object. As he flew closer, he saw that the object was a magical crystal ball.
 
@@ -7336,22 +7336,22 @@ Canada, Mexico, Brazil
 
 ### Response:
 Brazil, Mexico, Canada"
-List the most recent five books that Mark Twain wrote.,,"The most recent five books written by Mark Twain are: 
-1. Letters From the Earth (1909) 
+List the most recent five books that Mark Twain wrote.,,"The most recent five books written by Mark Twain are:
+1. Letters From the Earth (1909)
 2. What Is Man? And Other Philosophical Writings (1917)
-3. The Mysterious Stranger and Other Stories (1916) 
-4. Mark Twain's Autobiography (1924) 
+3. The Mysterious Stranger and Other Stories (1916)
+4. Mark Twain's Autobiography (1924)
 5. Mark Twain's Notebooks & Journals (Vol. 1, 1935)","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 List the most recent five books that Mark Twain wrote.
 
 ### Response:
-The most recent five books written by Mark Twain are: 
-1. Letters From the Earth (1909) 
+The most recent five books written by Mark Twain are:
+1. Letters From the Earth (1909)
 2. What Is Man? And Other Philosophical Writings (1917)
-3. The Mysterious Stranger and Other Stories (1916) 
-4. Mark Twain's Autobiography (1924) 
+3. The Mysterious Stranger and Other Stories (1916)
+4. Mark Twain's Autobiography (1924)
 5. Mark Twain's Notebooks & Journals (Vol. 1, 1935)"
 Write an algorithm to find the minimum element in an array.,,"Step 1: Declare an array A.
 Step 2: Initialize min to A[0].
@@ -7391,7 +7391,7 @@ Write a summary of the book ""The Catcher in the Rye"".
 
 ### Response:
 The Catcher in the Rye is a novel by J. D. Salinger, published in 1951. It tells the story of Holden Caulfield, a teenage boy who is struggling to find his place in an adult world. The novel follows Holden as he tries to make sense of the world around him, including his relationships with family and friends, and his interactions with society. Ultimately, Holden realizes the importance of growing up and accepting responsibility. He learns the hard way that rejection and defeat form a part of life, but by the novel's end, he is able to face life with a renewed attitude."
-Create a 5-item shopping list for a healthy breakfast.,,"Shopping list for a healthy breakfast: 
+Create a 5-item shopping list for a healthy breakfast.,,"Shopping list for a healthy breakfast:
 1. Whole wheat bread
 2. Eggs
 3. Fruit of your choice
@@ -7402,7 +7402,7 @@ Create a 5-item shopping list for a healthy breakfast.,,"Shopping list for a hea
 Create a 5-item shopping list for a healthy breakfast.
 
 ### Response:
-Shopping list for a healthy breakfast: 
+Shopping list for a healthy breakfast:
 1. Whole wheat bread
 2. Eggs
 3. Fruit of your choice
@@ -7415,7 +7415,7 @@ What is the formula for calculating the area of a triangle?
 
 ### Response:
 The formula for calculating the area of a triangle is A = 1/2 * base * height."
-Read the article and identify the central idea.,"Here is the article. 
+Read the article and identify the central idea.,"Here is the article.
 
 India is a country of varied cultures, languages, and religions. Each of these elements co-exist peacefully here, giving India its unique and rich identity. People from different backgrounds live in harmony and form strong bonds of friendship which are the foundation of our great nation.","The central idea of the article is that India is a country of diverse components, including cultures, languages and religions, which peacefully exist together and form strong bonds of friendship.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -7423,14 +7423,14 @@ India is a country of varied cultures, languages, and religions. Each of these e
 Read the article and identify the central idea.
 
 ### Input:
-Here is the article. 
+Here is the article.
 
 India is a country of varied cultures, languages, and religions. Each of these elements co-exist peacefully here, giving India its unique and rich identity. People from different backgrounds live in harmony and form strong bonds of friendship which are the foundation of our great nation.
 
 ### Response:
 The central idea of the article is that India is a country of diverse components, including cultures, languages and religions, which peacefully exist together and form strong bonds of friendship."
-Suggest 4 entertaining activities one can do with friends on a weekend.,,"Here are 4 entertaining activities one can do with friends on a weekend: 
-1. Have a game night 
+Suggest 4 entertaining activities one can do with friends on a weekend.,,"Here are 4 entertaining activities one can do with friends on a weekend:
+1. Have a game night
 2. Go to a movie
 3. Go bowling
 4. Have a picnic","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -7439,8 +7439,8 @@ Suggest 4 entertaining activities one can do with friends on a weekend.,,"Here a
 Suggest 4 entertaining activities one can do with friends on a weekend.
 
 ### Response:
-Here are 4 entertaining activities one can do with friends on a weekend: 
-1. Have a game night 
+Here are 4 entertaining activities one can do with friends on a weekend:
+1. Have a game night
 2. Go to a movie
 3. Go bowling
 4. Have a picnic"
@@ -7478,14 +7478,14 @@ The list of adjectives for the color blue is:
 8. Cerulean
 9. Sapphire
 10. Lapis"
-Explain the significance of the Battle of Gettysburg.,,"The Battle of Gettysburg was an important battle during the American Civil War, fought between the Union and the Confederate armies in Gettysburg, Pennsylvania on July 1–3, 1863. It was a pivotal battle which resulted in heavy losses; the Union lost an estimated 23,000 men, while the Confederate was estimated to be 28,000 men. The victory ensured that the Union forces maintained control of the North, while the Confederate forces were forced to retreat. In addition, it marked the end of General Robert E. Lee’s invasion of the North, thus ending the Confederates' hopes of winning the war. 
+Explain the significance of the Battle of Gettysburg.,,"The Battle of Gettysburg was an important battle during the American Civil War, fought between the Union and the Confederate armies in Gettysburg, Pennsylvania on July 1–3, 1863. It was a pivotal battle which resulted in heavy losses; the Union lost an estimated 23,000 men, while the Confederate was estimated to be 28,000 men. The victory ensured that the Union forces maintained control of the North, while the Confederate forces were forced to retreat. In addition, it marked the end of General Robert E. Lee’s invasion of the North, thus ending the Confederates' hopes of winning the war.
 The Battle of Gettysburg was considered to be a major turning point in the Civil War, and is often referred to as one of the bloodiest battles in American history.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Explain the significance of the Battle of Gettysburg.
 
 ### Response:
-The Battle of Gettysburg was an important battle during the American Civil War, fought between the Union and the Confederate armies in Gettysburg, Pennsylvania on July 1–3, 1863. It was a pivotal battle which resulted in heavy losses; the Union lost an estimated 23,000 men, while the Confederate was estimated to be 28,000 men. The victory ensured that the Union forces maintained control of the North, while the Confederate forces were forced to retreat. In addition, it marked the end of General Robert E. Lee’s invasion of the North, thus ending the Confederates' hopes of winning the war. 
+The Battle of Gettysburg was an important battle during the American Civil War, fought between the Union and the Confederate armies in Gettysburg, Pennsylvania on July 1–3, 1863. It was a pivotal battle which resulted in heavy losses; the Union lost an estimated 23,000 men, while the Confederate was estimated to be 28,000 men. The victory ensured that the Union forces maintained control of the North, while the Confederate forces were forced to retreat. In addition, it marked the end of General Robert E. Lee’s invasion of the North, thus ending the Confederates' hopes of winning the war.
 The Battle of Gettysburg was considered to be a major turning point in the Civil War, and is often referred to as one of the bloodiest battles in American history."
 "Delete the 2nd, 4th, and 5th element of the following array: [1, 2, 3, 4, 5, 6, 7].",,"The array after deleting the specified elements is: [1, 3, 6, 7].","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7494,11 +7494,11 @@ Delete the 2nd, 4th, and 5th element of the following array: [1, 2, 3, 4, 5, 6, 
 
 ### Response:
 The array after deleting the specified elements is: [1, 3, 6, 7]."
-Name two advantages of using a distributed database.,,"Using a distributed database has many advantages, such as increased speed and flexibility, improved scalability and availability, and improved fault tolerance. 
+Name two advantages of using a distributed database.,,"Using a distributed database has many advantages, such as increased speed and flexibility, improved scalability and availability, and improved fault tolerance.
 
 Firstly, distributed databases allow users to access data faster. This is because data is broken up into smaller chunks and stored across multiple servers, allowing faster access and retrieval. This increases overall performance and user satisfaction.
 
-Secondly, distributed databases provide improved scalability and availability. As data is divided across several servers, it can easily be scaled up as the amount of data increases without having to start from scratch. Additionally, if one server goes down, other servers will continue to operate so that data is still available. This improves system reliability and data safety. 
+Secondly, distributed databases provide improved scalability and availability. As data is divided across several servers, it can easily be scaled up as the amount of data increases without having to start from scratch. Additionally, if one server goes down, other servers will continue to operate so that data is still available. This improves system reliability and data safety.
 
 Finally, distributed databases have improved fault tolerance. This is because the data is mirrored across multiple servers which reduces the risk of data getting lost or corrupted due to the failure of a single server. With this system in place, even if one server fails, the data will still be safe and accessible.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7506,27 +7506,27 @@ Finally, distributed databases have improved fault tolerance. This is because th
 Name two advantages of using a distributed database.
 
 ### Response:
-Using a distributed database has many advantages, such as increased speed and flexibility, improved scalability and availability, and improved fault tolerance. 
+Using a distributed database has many advantages, such as increased speed and flexibility, improved scalability and availability, and improved fault tolerance.
 
 Firstly, distributed databases allow users to access data faster. This is because data is broken up into smaller chunks and stored across multiple servers, allowing faster access and retrieval. This increases overall performance and user satisfaction.
 
-Secondly, distributed databases provide improved scalability and availability. As data is divided across several servers, it can easily be scaled up as the amount of data increases without having to start from scratch. Additionally, if one server goes down, other servers will continue to operate so that data is still available. This improves system reliability and data safety. 
+Secondly, distributed databases provide improved scalability and availability. As data is divided across several servers, it can easily be scaled up as the amount of data increases without having to start from scratch. Additionally, if one server goes down, other servers will continue to operate so that data is still available. This improves system reliability and data safety.
 
 Finally, distributed databases have improved fault tolerance. This is because the data is mirrored across multiple servers which reduces the risk of data getting lost or corrupted due to the failure of a single server. With this system in place, even if one server fails, the data will still be safe and accessible."
-Describe a situation where a chatbot would be more useful than a human assistant.,,"A chatbot would be more useful than a human assistant in situations that require quick responses or large-scale customer support, such as customer queries, sales inquiries, or financial transactions. Chatbots can provide immediate, accurate, and personalized responses, helping to automate customer service tasks, allowing users to get the information they need quickly and conveniently. 
+Describe a situation where a chatbot would be more useful than a human assistant.,,"A chatbot would be more useful than a human assistant in situations that require quick responses or large-scale customer support, such as customer queries, sales inquiries, or financial transactions. Chatbots can provide immediate, accurate, and personalized responses, helping to automate customer service tasks, allowing users to get the information they need quickly and conveniently.
 
-For example, a chatbot could be used in a customer service setting to ask the customer their query, collect all the necessary data from the customer, and then provide the customer with a solution or direct them to the proper channels for further support. This saves time for both the customer and the human customer service representative, as the chatbot can provide a quicker, more effective response to the customer query. 
- 
+For example, a chatbot could be used in a customer service setting to ask the customer their query, collect all the necessary data from the customer, and then provide the customer with a solution or direct them to the proper channels for further support. This saves time for both the customer and the human customer service representative, as the chatbot can provide a quicker, more effective response to the customer query.
+
 In addition, chatbots can also be used for large-scale customer support and marketing. For example, a chatbot can be used to send targeted promotions or personalized messages to customers, helping businesses to reach their customers quickly and easily, without having to use a large customer service staff. This can help businesses to perfect their customer outreach strategies and enhance customer service.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Describe a situation where a chatbot would be more useful than a human assistant.
 
 ### Response:
-A chatbot would be more useful than a human assistant in situations that require quick responses or large-scale customer support, such as customer queries, sales inquiries, or financial transactions. Chatbots can provide immediate, accurate, and personalized responses, helping to automate customer service tasks, allowing users to get the information they need quickly and conveniently. 
+A chatbot would be more useful than a human assistant in situations that require quick responses or large-scale customer support, such as customer queries, sales inquiries, or financial transactions. Chatbots can provide immediate, accurate, and personalized responses, helping to automate customer service tasks, allowing users to get the information they need quickly and conveniently.
 
-For example, a chatbot could be used in a customer service setting to ask the customer their query, collect all the necessary data from the customer, and then provide the customer with a solution or direct them to the proper channels for further support. This saves time for both the customer and the human customer service representative, as the chatbot can provide a quicker, more effective response to the customer query. 
- 
+For example, a chatbot could be used in a customer service setting to ask the customer their query, collect all the necessary data from the customer, and then provide the customer with a solution or direct them to the proper channels for further support. This saves time for both the customer and the human customer service representative, as the chatbot can provide a quicker, more effective response to the customer query.
+
 In addition, chatbots can also be used for large-scale customer support and marketing. For example, a chatbot can be used to send targeted promotions or personalized messages to customers, helping businesses to reach their customers quickly and easily, without having to use a large customer service staff. This can help businesses to perfect their customer outreach strategies and enhance customer service."
 Create a dialogue between two colleagues discussing a project they are working on.,,"Colleague 1: Hey, how's the project going?
 
@@ -7558,26 +7558,26 @@ Name five countries with the most number of UNESCO World Heritage sites.
 
 ### Response:
 1. Italy (54 sites) 2. China (52 sites) 3. Spain (48 sites) 4. France (45 sites) 5. Germany (43 sites)"
-Create a recipe for a Creamy Tomato Soup.,,"Ingredients: 1 onion, diced; 2 cloves garlic, minced; 2 tablespoons olive oil; 28 ounces canned crushed tomatoes; 2 cups vegetable or chicken stock; 1 teaspoon dried oregano; 1 teaspoon dried basil; 1/2 teaspoon sugar; 1/2 teaspoon salt; 1/4 teaspoon ground black pepper; 1/2 cup heavy cream. 
+Create a recipe for a Creamy Tomato Soup.,,"Ingredients: 1 onion, diced; 2 cloves garlic, minced; 2 tablespoons olive oil; 28 ounces canned crushed tomatoes; 2 cups vegetable or chicken stock; 1 teaspoon dried oregano; 1 teaspoon dried basil; 1/2 teaspoon sugar; 1/2 teaspoon salt; 1/4 teaspoon ground black pepper; 1/2 cup heavy cream.
 
-Instructions: 
-1. Heat the olive oil in a large pot over medium heat. Add the onion and garlic and cook until soft, about 3 minutes. 
-2. Add the crushed tomatoes, stock, oregano, basil, sugar, salt, and pepper. Bring to a simmer and cook for 15 minutes. 
-3. Remove from heat and stir in the cream. 
-4. Puree with an immersion blender or in two batches in a blender until smooth. 
+Instructions:
+1. Heat the olive oil in a large pot over medium heat. Add the onion and garlic and cook until soft, about 3 minutes.
+2. Add the crushed tomatoes, stock, oregano, basil, sugar, salt, and pepper. Bring to a simmer and cook for 15 minutes.
+3. Remove from heat and stir in the cream.
+4. Puree with an immersion blender or in two batches in a blender until smooth.
 5. Return to pot and bring to a simmer if necessary. Serve hot.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Create a recipe for a Creamy Tomato Soup.
 
 ### Response:
-Ingredients: 1 onion, diced; 2 cloves garlic, minced; 2 tablespoons olive oil; 28 ounces canned crushed tomatoes; 2 cups vegetable or chicken stock; 1 teaspoon dried oregano; 1 teaspoon dried basil; 1/2 teaspoon sugar; 1/2 teaspoon salt; 1/4 teaspoon ground black pepper; 1/2 cup heavy cream. 
+Ingredients: 1 onion, diced; 2 cloves garlic, minced; 2 tablespoons olive oil; 28 ounces canned crushed tomatoes; 2 cups vegetable or chicken stock; 1 teaspoon dried oregano; 1 teaspoon dried basil; 1/2 teaspoon sugar; 1/2 teaspoon salt; 1/4 teaspoon ground black pepper; 1/2 cup heavy cream.
 
-Instructions: 
-1. Heat the olive oil in a large pot over medium heat. Add the onion and garlic and cook until soft, about 3 minutes. 
-2. Add the crushed tomatoes, stock, oregano, basil, sugar, salt, and pepper. Bring to a simmer and cook for 15 minutes. 
-3. Remove from heat and stir in the cream. 
-4. Puree with an immersion blender or in two batches in a blender until smooth. 
+Instructions:
+1. Heat the olive oil in a large pot over medium heat. Add the onion and garlic and cook until soft, about 3 minutes.
+2. Add the crushed tomatoes, stock, oregano, basil, sugar, salt, and pepper. Bring to a simmer and cook for 15 minutes.
+3. Remove from heat and stir in the cream.
+4. Puree with an immersion blender or in two batches in a blender until smooth.
 5. Return to pot and bring to a simmer if necessary. Serve hot."
 Describe the economic system of the United States.,,"The United States operates under a mixed economy, which is a system that combines free-market capitalism with governmental, economic regulations. This system allows businesses to compete in a free, competitive market while protecting consumers and providing employment and safety regulations. Additionally, the government provides social services, including education, health care and infrastructure. In this way, it seeks to balance the needs of both the market and society.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7597,7 +7597,7 @@ Create a table of ten of the world's wealthiest people.,,"Name                  
 ------------------------------|-----------------
 Jeff Bezos                    | 179.3 billion
 Bill Gates                   | 128.3 billion
-Bernard Arnault              | 113.7 billion 
+Bernard Arnault              | 113.7 billion
 Warren Buffett                | 107.5 billion
 Mark Zuckerberg               | 84.8 billion
 Amancio Ortega               | 83.7 billion
@@ -7614,7 +7614,7 @@ Name                          | Net Worth (USD)
 ------------------------------|-----------------
 Jeff Bezos                    | 179.3 billion
 Bill Gates                   | 128.3 billion
-Bernard Arnault              | 113.7 billion 
+Bernard Arnault              | 113.7 billion
 Warren Buffett                | 107.5 billion
 Mark Zuckerberg               | 84.8 billion
 Amancio Ortega               | 83.7 billion
@@ -7632,7 +7632,7 @@ Determine the median of the following group of numbers:
 
 ### Response:
 11"
-Tell me about the seasons in the temperate forest biome.,,"The temperate forest biome experiences four distinct seasons--spring, summer, autumn, and winter. During the spring, the weather is typically warm, rainy, and mild. The summer brings hot temperatures and plenty of sunshine. The fall brings cooler temperatures and increased precipitation. Lastly, the winter is typically cold and rainy. 
+Tell me about the seasons in the temperate forest biome.,,"The temperate forest biome experiences four distinct seasons--spring, summer, autumn, and winter. During the spring, the weather is typically warm, rainy, and mild. The summer brings hot temperatures and plenty of sunshine. The fall brings cooler temperatures and increased precipitation. Lastly, the winter is typically cold and rainy.
 
 The vegetation in these forests is also largely influenced by the change in seasons. Many plants and animals will flourish in the spring, while some may go dormant in the summer or winter.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7640,7 +7640,7 @@ The vegetation in these forests is also largely influenced by the change in seas
 Tell me about the seasons in the temperate forest biome.
 
 ### Response:
-The temperate forest biome experiences four distinct seasons--spring, summer, autumn, and winter. During the spring, the weather is typically warm, rainy, and mild. The summer brings hot temperatures and plenty of sunshine. The fall brings cooler temperatures and increased precipitation. Lastly, the winter is typically cold and rainy. 
+The temperate forest biome experiences four distinct seasons--spring, summer, autumn, and winter. During the spring, the weather is typically warm, rainy, and mild. The summer brings hot temperatures and plenty of sunshine. The fall brings cooler temperatures and increased precipitation. Lastly, the winter is typically cold and rainy.
 
 The vegetation in these forests is also largely influenced by the change in seasons. Many plants and animals will flourish in the spring, while some may go dormant in the summer or winter."
 Convert 28 cm to inches.,,11 inches,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -7785,13 +7785,13 @@ It looks altogether like the situation will be getting worse.
 It appears that the situation will likely be deteriorating further."
 Generate a pseudocode for sorting an array.,,"a. Set a pointer low to the first element in the array
 b. Set a pointer high to the last element in the array
-c. While the low pointer is less than the high pointer 
-d. If the element at the low pointer is higher than the element at the high pointer 
+c. While the low pointer is less than the high pointer
+d. If the element at the low pointer is higher than the element at the high pointer
   i. Swap the elements
   ii. Increment the low pointer by 1
   iii. Decrement the high pointer by 1
 e. Repeat step c until the low pointer is equal or higher than the high pointer
-f. Sort the elements in the subarray between the two pointers using the same procedure 
+f. Sort the elements in the subarray between the two pointers using the same procedure
 g. Repeat until the subarray is fully sorted","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -7800,13 +7800,13 @@ Generate a pseudocode for sorting an array.
 ### Response:
 a. Set a pointer low to the first element in the array
 b. Set a pointer high to the last element in the array
-c. While the low pointer is less than the high pointer 
-d. If the element at the low pointer is higher than the element at the high pointer 
+c. While the low pointer is less than the high pointer
+d. If the element at the low pointer is higher than the element at the high pointer
   i. Swap the elements
   ii. Increment the low pointer by 1
   iii. Decrement the high pointer by 1
 e. Repeat step c until the low pointer is equal or higher than the high pointer
-f. Sort the elements in the subarray between the two pointers using the same procedure 
+f. Sort the elements in the subarray between the two pointers using the same procedure
 g. Repeat until the subarray is fully sorted"
 Ask the assistant to book a flight from Boston to Miami for June 9th.,,I'd like to book a flight from Boston to Miami for June 9th.,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7844,16 +7844,16 @@ It is clear that the current economic crisis has impacted a large number of peop
 
 ### Response:
 The document now includes the text: ""It is clear that the current economic crisis has impacted a large number of people."""
-Create a topic outline for the essay.,Essay topic: Technology and its Impact on Society.,"I. Introduction 
-A. Definition of Technology 
-B. Impact of Technology on Society 
+Create a topic outline for the essay.,Essay topic: Technology and its Impact on Society.,"I. Introduction
+A. Definition of Technology
+B. Impact of Technology on Society
 
-II. Effects of Technology 
-A. Positive Effects 
-B. Negative Effects 
+II. Effects of Technology
+A. Positive Effects
+B. Negative Effects
 
-III. Conclusion 
-A. Summary of the Impact 
+III. Conclusion
+A. Summary of the Impact
 B. Recommendations","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -7863,16 +7863,16 @@ Create a topic outline for the essay.
 Essay topic: Technology and its Impact on Society.
 
 ### Response:
-I. Introduction 
-A. Definition of Technology 
-B. Impact of Technology on Society 
+I. Introduction
+A. Definition of Technology
+B. Impact of Technology on Society
 
-II. Effects of Technology 
-A. Positive Effects 
-B. Negative Effects 
+II. Effects of Technology
+A. Positive Effects
+B. Negative Effects
 
-III. Conclusion 
-A. Summary of the Impact 
+III. Conclusion
+A. Summary of the Impact
 B. Recommendations"
 Name two characters in the novel Moby Dick.,,Captain Ahab and Ishmael.,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7905,16 +7905,16 @@ Define what a neural network is.
 
 ### Response:
 A neural network is a computer system modeled on the human brain and nervous system. It consists of a network of neurons connected via synapses, which are constantly exchanging information in the form of electrical signals. These networks have the ability to learn by adjusting connections and assigning weights to inputs in order to predict output based on prior experience. Neural networks are used in a variety of applications such as speech recognition, image recognition, natural language processing, machine learning, and forecasting."
-"Create a grammar for the phrase ""a milkshake"".",,"The grammar for ""a milkshake"" is: 
-Article (a) + Noun (milkshake) 
+"Create a grammar for the phrase ""a milkshake"".",,"The grammar for ""a milkshake"" is:
+Article (a) + Noun (milkshake)
 -> A milkshake.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Create a grammar for the phrase ""a milkshake"".
 
 ### Response:
-The grammar for ""a milkshake"" is: 
-Article (a) + Noun (milkshake) 
+The grammar for ""a milkshake"" is:
+Article (a) + Noun (milkshake)
 -> A milkshake."
 Write a tweet summarizing this article about an animal rescue in Thailand.,The article,Amazing news! An animal rescue in Thailand has successfully freed 63 bears from animal trafficking. The rescued bears will now receive the proper care and attention they need. #animalrescue #animalrights #Thailand,"Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -7961,16 +7961,16 @@ The article
 
 ### Response:
 ""Decoding the Future: Understanding the Power of Artificial Intelligence"""
-Provide 3 potential solutions to reduce the amount of plastic waste.,,"1. Implement effective recycling and composting programs. 
-2. Increase public awareness and education about plastic waste. 
+Provide 3 potential solutions to reduce the amount of plastic waste.,,"1. Implement effective recycling and composting programs.
+2. Increase public awareness and education about plastic waste.
 3. Promote reuseable and biodegradable alternatives to plastic.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Provide 3 potential solutions to reduce the amount of plastic waste.
 
 ### Response:
-1. Implement effective recycling and composting programs. 
-2. Increase public awareness and education about plastic waste. 
+1. Implement effective recycling and composting programs.
+2. Increase public awareness and education about plastic waste.
 3. Promote reuseable and biodegradable alternatives to plastic."
 Suggest a snack that you can make in under 5 minutes.,,Peanut Butter and Banana Toast. Simply toast two slices of your favorite bread and spread each slice with peanut butter and a layer of sliced banana.,"Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -7986,24 +7986,24 @@ Create a mnemonic to remember the eight planets of our solar system.
 
 ### Response:
 M My Mars V Venus E Earth M Mercury J Jupiter S Saturn U Uranus N Neptune"
-Write an algorithm to calculate the perimeter of a rectangle.,,"Algorithm: 
-1. Start 
-2. Declare variables length, width, perimeter 
-3. Read length, width 
-4. Calculate perimeter as length + width + length + width 
-5. Print perimeter 
+Write an algorithm to calculate the perimeter of a rectangle.,,"Algorithm:
+1. Start
+2. Declare variables length, width, perimeter
+3. Read length, width
+4. Calculate perimeter as length + width + length + width
+5. Print perimeter
 6. End","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Write an algorithm to calculate the perimeter of a rectangle.
 
 ### Response:
-Algorithm: 
-1. Start 
-2. Declare variables length, width, perimeter 
-3. Read length, width 
-4. Calculate perimeter as length + width + length + width 
-5. Print perimeter 
+Algorithm:
+1. Start
+2. Declare variables length, width, perimeter
+3. Read length, width
+4. Calculate perimeter as length + width + length + width
+5. Print perimeter
 6. End"
 Design an app interface for a book recommendation system.,,"The app interface should include a section with book recommendations, a search bar and filter options to refine results, a page for each book with ratings, reviews, and tags, a page for each author with profile information, a page for each genre with top books and related genres, and a page for user preferences.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -8339,9 +8339,9 @@ Develop a pitch for a new technology product that can measure access to healthca
 
 ### Response:
 Our new technology product is a platform that can measure access to healthcare. It can quickly identify gaps in access to healthcare services, such as geography, time, socio-economic status, and ethnicity, and make invaluable data available to both researchers and policymakers to help address these gaps."
-Create a list of tips to help someone who is new to blogging.,,"1. Develop a content plan: Decide on the topics that you want to cover in your blog and the frequency of your blog posts. 
+Create a list of tips to help someone who is new to blogging.,,"1. Develop a content plan: Decide on the topics that you want to cover in your blog and the frequency of your blog posts.
 2. Come up with a catchy title: Make sure that your blog title is interesting, captivating and eye-catching.
-3. Write engaging content: Provide interesting and thorough content that your readers will find useful and interesting. 
+3. Write engaging content: Provide interesting and thorough content that your readers will find useful and interesting.
 4. Promote your blog: Use social media, email campaigns, and other marketing methods to promote your blog and get it noticed.
 5. Interact with your readers: Ask questions and respond to comments to build rapport and create an engaging dialogue.
 6. Update your blog frequently: Frequently update your blog to keep your readers engaged and interested.
@@ -8351,9 +8351,9 @@ Create a list of tips to help someone who is new to blogging.,,"1. Develop a con
 Create a list of tips to help someone who is new to blogging.
 
 ### Response:
-1. Develop a content plan: Decide on the topics that you want to cover in your blog and the frequency of your blog posts. 
+1. Develop a content plan: Decide on the topics that you want to cover in your blog and the frequency of your blog posts.
 2. Come up with a catchy title: Make sure that your blog title is interesting, captivating and eye-catching.
-3. Write engaging content: Provide interesting and thorough content that your readers will find useful and interesting. 
+3. Write engaging content: Provide interesting and thorough content that your readers will find useful and interesting.
 4. Promote your blog: Use social media, email campaigns, and other marketing methods to promote your blog and get it noticed.
 5. Interact with your readers: Ask questions and respond to comments to build rapport and create an engaging dialogue.
 6. Update your blog frequently: Frequently update your blog to keep your readers engaged and interested.
@@ -8510,24 +8510,24 @@ List the names of four social media platforms.
 
 ### Response:
 Facebook, Twitter, Instagram, Snapchat."
-Create a timeline of the key events surrounding the 2004 Indian Ocean earthquake and tsunami.,,"-December 26, 2004: A 9.1-magnitude earthquake off the coast of Indonesia triggers a massive tsunami affecting Indonesia, Thailand, India, Sri Lanka, and other countries in the region. 
--December 29, 2004: The death toll from the disaster passes 10,000. 
--December 31, 2004: More than 90,000 people are reported dead and millions are displaced. 
--January 5, 2005: International relief effort is launched to help those affected. 
--April 2005: An intensive international relief and reconstruction effort is underway, with pledges of $5.5 billion in aid from countries and organizations around the world. 
--December 2005: The entire cost of the disaster is estimated at $14.5 billion. 
+Create a timeline of the key events surrounding the 2004 Indian Ocean earthquake and tsunami.,,"-December 26, 2004: A 9.1-magnitude earthquake off the coast of Indonesia triggers a massive tsunami affecting Indonesia, Thailand, India, Sri Lanka, and other countries in the region.
+-December 29, 2004: The death toll from the disaster passes 10,000.
+-December 31, 2004: More than 90,000 people are reported dead and millions are displaced.
+-January 5, 2005: International relief effort is launched to help those affected.
+-April 2005: An intensive international relief and reconstruction effort is underway, with pledges of $5.5 billion in aid from countries and organizations around the world.
+-December 2005: The entire cost of the disaster is estimated at $14.5 billion.
 -March–April 2006: The final death toll reaches 220,000.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Create a timeline of the key events surrounding the 2004 Indian Ocean earthquake and tsunami.
 
 ### Response:
--December 26, 2004: A 9.1-magnitude earthquake off the coast of Indonesia triggers a massive tsunami affecting Indonesia, Thailand, India, Sri Lanka, and other countries in the region. 
--December 29, 2004: The death toll from the disaster passes 10,000. 
--December 31, 2004: More than 90,000 people are reported dead and millions are displaced. 
--January 5, 2005: International relief effort is launched to help those affected. 
--April 2005: An intensive international relief and reconstruction effort is underway, with pledges of $5.5 billion in aid from countries and organizations around the world. 
--December 2005: The entire cost of the disaster is estimated at $14.5 billion. 
+-December 26, 2004: A 9.1-magnitude earthquake off the coast of Indonesia triggers a massive tsunami affecting Indonesia, Thailand, India, Sri Lanka, and other countries in the region.
+-December 29, 2004: The death toll from the disaster passes 10,000.
+-December 31, 2004: More than 90,000 people are reported dead and millions are displaced.
+-January 5, 2005: International relief effort is launched to help those affected.
+-April 2005: An intensive international relief and reconstruction effort is underway, with pledges of $5.5 billion in aid from countries and organizations around the world.
+-December 2005: The entire cost of the disaster is estimated at $14.5 billion.
 -March–April 2006: The final death toll reaches 220,000."
 How do you create a pivot table in Excel?,,"To create a pivot table in Microsoft Excel, select the ""Insert"" tab, click the ""PivotTable"" button, select the data range, and choose where the pivot table will be placed. Then, select which data you'd like to analyze by adding fields to the Rows, Columns, and Values area of the pivot table. Finally, use the ""Filter"" in the PivotTable to refine your results.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -8589,19 +8589,19 @@ Find a dinosaur species in the Jurassic Period with a name starting with a ""T""
 ### Response:
 Triceratops is a genus of herbivorous ceratopsid dinosaur that first appeared during the late Maastrichtian stage of the late Cretaceous period, about 68 million years ago."
 "Given a list of ingredients, create a recipe for a vegan curry.","2 cans of chickpeas, 1 onion, 1 clove of garlic, 1 inch ginger, 1 teaspoon cumin, 1 teaspoon curry powder, 1 teaspoon turmeric","Vegan Curry
-Ingredients: 
-• 2 cans of chickpeas 
+Ingredients:
+• 2 cans of chickpeas
 • 1 onion, diced
 • 1 clove of garlic, finely minced
 • 1 inch of ginger, grated
 • 1 teaspoon cumin
 • 1 teaspoon curry powder
 • 1 teaspoon turmeric
-Instructions: 
+Instructions:
 1. Heat oil in a large saucepan over medium heat.
 2. Add the onion, garlic and ginger. Cook until onions are translucent, about 5 minutes.
-3. Add the spices and stir until fragrant. 
-4. Add the chickpeas and stir to evenly coat with the spice mix. 
+3. Add the spices and stir until fragrant.
+4. Add the chickpeas and stir to evenly coat with the spice mix.
 5. Add 1 cup of water and bring to a gentle simmer.
 6. Cook for 15 minutes or until the sauce has thickened and the chickpeas are soft.
 7. Serve over cooked rice, quinoa or cauliflower rice. Enjoy!","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -8614,19 +8614,19 @@ Given a list of ingredients, create a recipe for a vegan curry.
 
 ### Response:
 Vegan Curry
-Ingredients: 
-• 2 cans of chickpeas 
+Ingredients:
+• 2 cans of chickpeas
 • 1 onion, diced
 • 1 clove of garlic, finely minced
 • 1 inch of ginger, grated
 • 1 teaspoon cumin
 • 1 teaspoon curry powder
 • 1 teaspoon turmeric
-Instructions: 
+Instructions:
 1. Heat oil in a large saucepan over medium heat.
 2. Add the onion, garlic and ginger. Cook until onions are translucent, about 5 minutes.
-3. Add the spices and stir until fragrant. 
-4. Add the chickpeas and stir to evenly coat with the spice mix. 
+3. Add the spices and stir until fragrant.
+4. Add the chickpeas and stir to evenly coat with the spice mix.
 5. Add 1 cup of water and bring to a gentle simmer.
 6. Cook for 15 minutes or until the sauce has thickened and the chickpeas are soft.
 7. Serve over cooked rice, quinoa or cauliflower rice. Enjoy!"
@@ -8674,16 +8674,16 @@ She cooked the dinner last night.
 
 ### Response:
 She is cooking the dinner tonight."
-Write a Haiku poem about a sunset.,,"Orange fades to black 
-The sun sets in the distant sky 
+Write a Haiku poem about a sunset.,,"Orange fades to black
+The sun sets in the distant sky
 Peaceful night arrives","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Write a Haiku poem about a sunset.
 
 ### Response:
-Orange fades to black 
-The sun sets in the distant sky 
+Orange fades to black
+The sun sets in the distant sky
 Peaceful night arrives"
 Write a customer review for a car wash service.,,"I went to this car wash for the first time today and was very impressed. The staff was friendly and helpful, and the place seemed very clean and well kept. The process was quick and efficient and the car came out looking like new. Highly recommended!","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -8725,11 +8725,11 @@ Cross-sectional area: 5 m^2
 
 ### Response:
 The volumetric flow rate is 10 m^3/s."
-Create a grocery list for a week's worth of meals.,"Meals for the week: Spaghetti, tacos, grilled chicken, stir-fry","Grocery list: 
+Create a grocery list for a week's worth of meals.,"Meals for the week: Spaghetti, tacos, grilled chicken, stir-fry","Grocery list:
 
-- Spaghetti: Onion, garlic, ground beef, canned tomatoes, oregano 
-- Tacos: ground beef, taco shells, lettuce, cheese, tomatoes, onion, avocado 
-- Grilled chicken: chicken breasts or thighs, marinade, salt, pepper 
+- Spaghetti: Onion, garlic, ground beef, canned tomatoes, oregano
+- Tacos: ground beef, taco shells, lettuce, cheese, tomatoes, onion, avocado
+- Grilled chicken: chicken breasts or thighs, marinade, salt, pepper
 - Stir-Fry: vegetables (broccoli, carrots, snow peas, bell pepper), ginger, garlic, soy sauce, cooked rice.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -8739,11 +8739,11 @@ Create a grocery list for a week's worth of meals.
 Meals for the week: Spaghetti, tacos, grilled chicken, stir-fry
 
 ### Response:
-Grocery list: 
+Grocery list:
 
-- Spaghetti: Onion, garlic, ground beef, canned tomatoes, oregano 
-- Tacos: ground beef, taco shells, lettuce, cheese, tomatoes, onion, avocado 
-- Grilled chicken: chicken breasts or thighs, marinade, salt, pepper 
+- Spaghetti: Onion, garlic, ground beef, canned tomatoes, oregano
+- Tacos: ground beef, taco shells, lettuce, cheese, tomatoes, onion, avocado
+- Grilled chicken: chicken breasts or thighs, marinade, salt, pepper
 - Stir-Fry: vegetables (broccoli, carrots, snow peas, bell pepper), ginger, garlic, soy sauce, cooked rice."
 Describe the taste of an apple.,,"An apple has a crisp, sweet and tart flavor. Its texture is juicy and tender. It has a subtle and delicate aroma that ends with a subtly tangy flavor.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -8874,7 +8874,7 @@ CNN's consultant on political television advertising believes that the cost to i
 - Television ads on health care alone total $60 million so far this year.
 - Groups are pivoting from legislative advocacy mode to political mode and targeting candidates with aggressive advertising.
 - Candidates need to create ads that stand out from the sheer number of ads, otherwise they risk being lost in the noise."
-Come up with 2 key questions related to this article.,CNN's consultant on political television advertising believes that the cost to influence the 2008 election may exceed $3 billion.,"- What challenges must candidates and interest groups face when advertising in the 2008 election? 
+Come up with 2 key questions related to this article.,CNN's consultant on political television advertising believes that the cost to influence the 2008 election may exceed $3 billion.,"- What challenges must candidates and interest groups face when advertising in the 2008 election?
 - How can candidates make sure that their ads stand out from the sheer number of ads this election cycle?","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -8884,7 +8884,7 @@ Come up with 2 key questions related to this article.
 CNN's consultant on political television advertising believes that the cost to influence the 2008 election may exceed $3 billion.
 
 ### Response:
-- What challenges must candidates and interest groups face when advertising in the 2008 election? 
+- What challenges must candidates and interest groups face when advertising in the 2008 election?
 - How can candidates make sure that their ads stand out from the sheer number of ads this election cycle?"
 Suggest a way to make physical activity a part of your daily routine.,,"One way to make exercise a part of your daily routine is to set achievable goals for yourself. Start with simple goals that you can actually accomplish. Break up the goals into manageable chunks and find a way to measure your progress. This will help you feel a sense of accomplishment and success. Schedule the activity as you would for any other important activity and try to keep to the same time each day. It may also help to try out different sports and activities to keep things interesting. Finally, reward yourself after each successful workout and remember that it's OK to take a short break when needed.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -8900,7 +8900,7 @@ Explain what is foreshadowing.
 
 ### Response:
 Foreshadowing is a literary device and a narrative technique used to hint at or suggest an event or plot twist that will come later in the story. It’s used to create suspense and to build up the tension, helping readers to make predictions and become more engaged with the story. Writers use foreshadowing to set up future events and plot twists and to create a sense of anticipation. It can be used in a subtle or obvious way, and can be embodied by characters, settings, objects, actions, or words."
-Come up with 3 tips for writing effective dialogue.,,"1. Keep dialogue concise and to the point. Use as few words as possible to get your point across. 
+Come up with 3 tips for writing effective dialogue.,,"1. Keep dialogue concise and to the point. Use as few words as possible to get your point across.
 2. Every character should have a unique speech pattern and vocabulary, based on their background and personality.
 3. Dialogue should help to develop your characters and advance the plot. Avoid meaningless banter and exchanges that don’t contribute to the story.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -8908,7 +8908,7 @@ Come up with 3 tips for writing effective dialogue.,,"1. Keep dialogue concise a
 Come up with 3 tips for writing effective dialogue.
 
 ### Response:
-1. Keep dialogue concise and to the point. Use as few words as possible to get your point across. 
+1. Keep dialogue concise and to the point. Use as few words as possible to get your point across.
 2. Every character should have a unique speech pattern and vocabulary, based on their background and personality.
 3. Dialogue should help to develop your characters and advance the plot. Avoid meaningless banter and exchanges that don’t contribute to the story."
 Analyze the following sentence for any errors.,They aren't no good at all.,"This sentence is incorrect and should be rewritten to ""They aren't any good at all.""","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -9018,50 +9018,50 @@ Design a logo for a child care center.
 
 ### Response:
 The logo should be warm, playful and inviting. It should utilize a font that is easy to read and appealing to children. I would suggest a combination of vibrant colors, such as yellow, blue and green. It could include an image of a happy kid or an illustration of a sun and clouds. The logo should also convey a sense of security and safety, as the center is aiming to provide a safe, nurturing environment for kids."
-Create an outline for a presentation about the current state of the world economy.,,"1. Introduction 
-   a. Definition of Economics 
-   b. Overview of the Major Factors Affecting the Global Economy 
+Create an outline for a presentation about the current state of the world economy.,,"1. Introduction
+   a. Definition of Economics
+   b. Overview of the Major Factors Affecting the Global Economy
 
-2. Causes of Economic Instability 
-   a. Impact of Globalization 
-   b. Trade Imbalances 
-   c. Currency Exchange Rates 
-   d. Inflation and Deflation 
+2. Causes of Economic Instability
+   a. Impact of Globalization
+   b. Trade Imbalances
+   c. Currency Exchange Rates
+   d. Inflation and Deflation
 
-3. Effects of Economic Trends 
-   a. Changes to Consumption and Investment Patterns 
-   b. Impact on Employment and Unemployment Rates 
+3. Effects of Economic Trends
+   a. Changes to Consumption and Investment Patterns
+   b. Impact on Employment and Unemployment Rates
    c. Shift in Distribution of Wealth
 
 4. Conclusion
-   a. Solutions to Achieve Economic Stability 
-   b. Suggestions to Overcome Economic Challenges 
+   a. Solutions to Achieve Economic Stability
+   b. Suggestions to Overcome Economic Challenges
    c. Summary of Current State of Global Economy","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Create an outline for a presentation about the current state of the world economy.
 
 ### Response:
-1. Introduction 
-   a. Definition of Economics 
-   b. Overview of the Major Factors Affecting the Global Economy 
+1. Introduction
+   a. Definition of Economics
+   b. Overview of the Major Factors Affecting the Global Economy
 
-2. Causes of Economic Instability 
-   a. Impact of Globalization 
-   b. Trade Imbalances 
-   c. Currency Exchange Rates 
-   d. Inflation and Deflation 
+2. Causes of Economic Instability
+   a. Impact of Globalization
+   b. Trade Imbalances
+   c. Currency Exchange Rates
+   d. Inflation and Deflation
 
-3. Effects of Economic Trends 
-   a. Changes to Consumption and Investment Patterns 
-   b. Impact on Employment and Unemployment Rates 
+3. Effects of Economic Trends
+   a. Changes to Consumption and Investment Patterns
+   b. Impact on Employment and Unemployment Rates
    c. Shift in Distribution of Wealth
 
 4. Conclusion
-   a. Solutions to Achieve Economic Stability 
-   b. Suggestions to Overcome Economic Challenges 
+   a. Solutions to Achieve Economic Stability
+   b. Suggestions to Overcome Economic Challenges
    c. Summary of Current State of Global Economy"
-Make a suggestion for a topic for a persuasive essay.,,"The Topic of Advantages and Disadvantages of Technology in Our Everyday Lives. 
+Make a suggestion for a topic for a persuasive essay.,,"The Topic of Advantages and Disadvantages of Technology in Our Everyday Lives.
 
 Technology has become an integral part of our lives, from using computers and smartphones to using various types of software for communications and entertainment. However, the effects of technology on our lives have both positive and negative aspects. This essay could discuss the pros and cons of technology and examine how its usage can both improve and diminish our lives. It could also explore the ethical implications of our growing reliance on technology and the potential implications it has on our relationships, job security, and more.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -9069,7 +9069,7 @@ Technology has become an integral part of our lives, from using computers and sm
 Make a suggestion for a topic for a persuasive essay.
 
 ### Response:
-The Topic of Advantages and Disadvantages of Technology in Our Everyday Lives. 
+The Topic of Advantages and Disadvantages of Technology in Our Everyday Lives.
 
 Technology has become an integral part of our lives, from using computers and smartphones to using various types of software for communications and entertainment. However, the effects of technology on our lives have both positive and negative aspects. This essay could discuss the pros and cons of technology and examine how its usage can both improve and diminish our lives. It could also explore the ethical implications of our growing reliance on technology and the potential implications it has on our relationships, job security, and more."
 Explain why it is important to stay hydrated.,,"Staying hydrated is an essential part of staying healthy and keeping your body functioning properly. Proper hydration helps keep your body cool, aids in digestion and absorption of nutrients, helps remove waste products, and even helps lubricate your joints. Additionally, inadequate hydration can impact cognition, leading to headaches, fatigue, and difficulty concentrating. As such, staying hydrated is one of the most important steps you can take to keep your body running its best.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -9100,7 +9100,7 @@ The soothing moonlight basks the sea
 Moonlight soothes
 the serene waves that bask in it
 endless and calming."
-Create a successful dentist marketing campaign.,,"An effective dentist marketing campaign should focus on customer satisfaction, affordability, and convenience. Highlighting these aspects will help the practice to stand out from the competition. 
+Create a successful dentist marketing campaign.,,"An effective dentist marketing campaign should focus on customer satisfaction, affordability, and convenience. Highlighting these aspects will help the practice to stand out from the competition.
 
 It should also focus on highlighting the experience of the dentist and staff, how much the practice values patient care, and any special amenities offered. Ads should stress that patients will receive personalized care and try to create an atmosphere of trust and comfort.
 
@@ -9110,7 +9110,7 @@ The campaign should also emphasize special offers and discounts that are availab
 Create a successful dentist marketing campaign.
 
 ### Response:
-An effective dentist marketing campaign should focus on customer satisfaction, affordability, and convenience. Highlighting these aspects will help the practice to stand out from the competition. 
+An effective dentist marketing campaign should focus on customer satisfaction, affordability, and convenience. Highlighting these aspects will help the practice to stand out from the competition.
 
 It should also focus on highlighting the experience of the dentist and staff, how much the practice values patient care, and any special amenities offered. Ads should stress that patients will receive personalized care and try to create an atmosphere of trust and comfort.
 
@@ -9210,10 +9210,10 @@ Write a definition for the term ""machine learning"".
 ### Response:
 Machine learning is an application of artificial intelligence that gives systems the capability to automatically learn and improve from experience without being explicitly programmed. This process of machine learning involves data mining techniques to predict outcomes, identify patterns, and classify data without the need to explicitly define rules."
 Write a message inviting someone to join your team.,John Smith,"Dear John Smith,
- 
-I'm writing to invite you to join our team. We are a group of passionate individuals working together to deliver innovative solutions and make an impact. Your input and expertise would be of great value in this pursuit, and I believe you would enjoy the experience. Please let me know if you're interested, and I'll answer any questions you may have. 
- 
-Best, 
+
+I'm writing to invite you to join our team. We are a group of passionate individuals working together to deliver innovative solutions and make an impact. Your input and expertise would be of great value in this pursuit, and I believe you would enjoy the experience. Please let me know if you're interested, and I'll answer any questions you may have.
+
+Best,
 [Name]","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -9224,10 +9224,10 @@ John Smith
 
 ### Response:
 Dear John Smith,
- 
-I'm writing to invite you to join our team. We are a group of passionate individuals working together to deliver innovative solutions and make an impact. Your input and expertise would be of great value in this pursuit, and I believe you would enjoy the experience. Please let me know if you're interested, and I'll answer any questions you may have. 
- 
-Best, 
+
+I'm writing to invite you to join our team. We are a group of passionate individuals working together to deliver innovative solutions and make an impact. Your input and expertise would be of great value in this pursuit, and I believe you would enjoy the experience. Please let me know if you're interested, and I'll answer any questions you may have.
+
+Best,
 [Name]"
 Create a metaphor to explain the concept of artificial intelligence.,,"Artificial intelligence is like a chef in a kitchen: it takes inputs from the environment, combines them with its knowledge, and then it takes action to create something new and unique that changes the environment.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -9476,13 +9476,13 @@ Generate a 10 word list of descriptive words for loneliness.
 ### Response:
 Isolation, forlorn, solitary, desolate, abandoned, bleak, empty, estranged, despondent, despair."
 Recite a poem about rivers.,,"Rivers are like long winding roads that lead us down new paths.
-They are like a lifeline, they protect us in their wakes. 
-They carve paths deep in the ground and carry the secrets we don’t share. 
+They are like a lifeline, they protect us in their wakes.
+They carve paths deep in the ground and carry the secrets we don’t share.
 Like a rainbow, they stretch out over each land; showing that beauty can be found anywhere.
 
-Rivers provide lifeblood to all living things, including us. 
-In nature they are bright and full of energy; in cities they become industrial, with factory built on each side. 
-But one thing is certain, rivers keep flowing, even if the current changes in every way. 
+Rivers provide lifeblood to all living things, including us.
+In nature they are bright and full of energy; in cities they become industrial, with factory built on each side.
+But one thing is certain, rivers keep flowing, even if the current changes in every way.
 Like a journey, life will always bring us new experiences and rivers show us that it's alright.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
@@ -9490,13 +9490,13 @@ Recite a poem about rivers.
 
 ### Response:
 Rivers are like long winding roads that lead us down new paths.
-They are like a lifeline, they protect us in their wakes. 
-They carve paths deep in the ground and carry the secrets we don’t share. 
+They are like a lifeline, they protect us in their wakes.
+They carve paths deep in the ground and carry the secrets we don’t share.
 Like a rainbow, they stretch out over each land; showing that beauty can be found anywhere.
 
-Rivers provide lifeblood to all living things, including us. 
-In nature they are bright and full of energy; in cities they become industrial, with factory built on each side. 
-But one thing is certain, rivers keep flowing, even if the current changes in every way. 
+Rivers provide lifeblood to all living things, including us.
+In nature they are bright and full of energy; in cities they become industrial, with factory built on each side.
+But one thing is certain, rivers keep flowing, even if the current changes in every way.
 Like a journey, life will always bring us new experiences and rivers show us that it's alright."
 Rearrange the following list into descending order.,"9, -7, 15, 12","15, 12, 9, -7","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
 
@@ -9539,7 +9539,7 @@ Calculate the cost of 4 apples at $2.50 each.
 
 ### Response:
 The cost of 4 apples at $2.50 each is $10.00."
-List five steps for writing an essay.,,"Five steps for writing an essay include: 
+List five steps for writing an essay.,,"Five steps for writing an essay include:
 1. Brainstorming ideas and choosing a topic.
 2. Structuring the essay with an introduction, body, and conclusion.
 3. Gathering sources, reading, and researching.
@@ -9550,7 +9550,7 @@ List five steps for writing an essay.,,"Five steps for writing an essay include:
 List five steps for writing an essay.
 
 ### Response:
-Five steps for writing an essay include: 
+Five steps for writing an essay include:
 1. Brainstorming ideas and choosing a topic.
 2. Structuring the essay with an introduction, body, and conclusion.
 3. Gathering sources, reading, and researching.
@@ -9743,7 +9743,7 @@ Would you like to go out?
 
 ### Response:
 Interrogative"
-Write a short story in 100 words or less.,,"Once upon a time, there was a girl named Sarah who had a great life. She had a loving family, lots of friends, and no shortage of fun things to do. One day, Sarah decided to do something extra adventurous and take a solo road trip. She packed her car and hit the open road with no set destination. She drove until nightfall, eventually finding a small townshe hadn't heard of before. 
+Write a short story in 100 words or less.,,"Once upon a time, there was a girl named Sarah who had a great life. She had a loving family, lots of friends, and no shortage of fun things to do. One day, Sarah decided to do something extra adventurous and take a solo road trip. She packed her car and hit the open road with no set destination. She drove until nightfall, eventually finding a small townshe hadn't heard of before.
 
 Sarah went in search of a place to stay, eventually stumbling upon a charming little inn. She settled into her room and began exploring the town, making some new friends along the way. Although Sarah knew her time in the town was limited, she enjoyed learning about the locals and the unique culture of the town. She stayed a few days before eventually heading back home, energized by the adventure she had set out on. She may not have traveled far, but Sarah's journey was filled with joy, surprise and new experiences.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -9751,7 +9751,7 @@ Sarah went in search of a place to stay, eventually stumbling upon a charming li
 Write a short story in 100 words or less.
 
 ### Response:
-Once upon a time, there was a girl named Sarah who had a great life. She had a loving family, lots of friends, and no shortage of fun things to do. One day, Sarah decided to do something extra adventurous and take a solo road trip. She packed her car and hit the open road with no set destination. She drove until nightfall, eventually finding a small townshe hadn't heard of before. 
+Once upon a time, there was a girl named Sarah who had a great life. She had a loving family, lots of friends, and no shortage of fun things to do. One day, Sarah decided to do something extra adventurous and take a solo road trip. She packed her car and hit the open road with no set destination. She drove until nightfall, eventually finding a small townshe hadn't heard of before.
 
 Sarah went in search of a place to stay, eventually stumbling upon a charming little inn. She settled into her room and began exploring the town, making some new friends along the way. Although Sarah knew her time in the town was limited, she enjoyed learning about the locals and the unique culture of the town. She stayed a few days before eventually heading back home, energized by the adventure she had set out on. She may not have traveled far, but Sarah's journey was filled with joy, surprise and new experiences."
 Classify the following items as either solid or liquid.,"Water, sugar, steel","Water: liquid, Sugar: solid, Steel: solid.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -9771,11 +9771,11 @@ What is the meaning of the idiom ""A penny saved is a penny earned""?
 
 ### Response:
 The phrase ""A penny saved is a penny earned"" means that if you save money, it is like earning money as it keeps you from having to spend it. In other words, it is a way of saying that when you save money, you are essentially making money. It encourages people to save their money and be mindful of their money-saving habits."
-List three benefits of meditation,,"Meditation can provide a number of benefits, including: 
+List three benefits of meditation,,"Meditation can provide a number of benefits, including:
 
 1. Improved mental health and emotional stability: Regular meditation can have a positive effect on mood, lower stress levels and increase self-awareness.
 
-2. Increased concentration and productivity: Meditation helps to improve focus and concentration and can help you stay on task and maximize your productivity. 
+2. Increased concentration and productivity: Meditation helps to improve focus and concentration and can help you stay on task and maximize your productivity.
 
 3. Physical health improvements: Meditation helps to reduce inflammation in the body and blood pressure, while also helping with symptoms of insomnia and chronic pain. Additionally, meditation can help foster a healthier lifestyle and reduce the risk of certain conditions.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -9783,11 +9783,11 @@ List three benefits of meditation,,"Meditation can provide a number of benefits,
 List three benefits of meditation
 
 ### Response:
-Meditation can provide a number of benefits, including: 
+Meditation can provide a number of benefits, including:
 
 1. Improved mental health and emotional stability: Regular meditation can have a positive effect on mood, lower stress levels and increase self-awareness.
 
-2. Increased concentration and productivity: Meditation helps to improve focus and concentration and can help you stay on task and maximize your productivity. 
+2. Increased concentration and productivity: Meditation helps to improve focus and concentration and can help you stay on task and maximize your productivity.
 
 3. Physical health improvements: Meditation helps to reduce inflammation in the body and blood pressure, while also helping with symptoms of insomnia and chronic pain. Additionally, meditation can help foster a healthier lifestyle and reduce the risk of certain conditions."
 "From the words given, form a sentence that conveys a feeling of hope and resilience.","courage, sun, darkness","In the midst of darkness, courage shines like the sun and brings hope for a better tomorrow.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -9828,13 +9828,13 @@ Age: 40
 
 Occupation: Scientist (specialization in biotechnology)
 
-Appearance: Intelligent and handsome, with sharp features, dark eyes and brown hair that is often pulled back. Wears glasses and a lab coat when working. 
+Appearance: Intelligent and handsome, with sharp features, dark eyes and brown hair that is often pulled back. Wears glasses and a lab coat when working.
 
 Personality: Inquisitive, tenacious, and passionate about her field of expertise. She loves a good challenge and often takes on projects on her own time. Very independent and ambitious. A natural born leader.
 
-Hobbies: Gardening, stargazing, and baking. 
+Hobbies: Gardening, stargazing, and baking.
 
-Relationships: Married to a fellow scientist and has two children. Very loving and supportive of her family. 
+Relationships: Married to a fellow scientist and has two children. Very loving and supportive of her family.
 
 Goals: To make major advancements in the fields of biotechnology and environmental conservation.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -9848,13 +9848,13 @@ Age: 40
 
 Occupation: Scientist (specialization in biotechnology)
 
-Appearance: Intelligent and handsome, with sharp features, dark eyes and brown hair that is often pulled back. Wears glasses and a lab coat when working. 
+Appearance: Intelligent and handsome, with sharp features, dark eyes and brown hair that is often pulled back. Wears glasses and a lab coat when working.
 
 Personality: Inquisitive, tenacious, and passionate about her field of expertise. She loves a good challenge and often takes on projects on her own time. Very independent and ambitious. A natural born leader.
 
-Hobbies: Gardening, stargazing, and baking. 
+Hobbies: Gardening, stargazing, and baking.
 
-Relationships: Married to a fellow scientist and has two children. Very loving and supportive of her family. 
+Relationships: Married to a fellow scientist and has two children. Very loving and supportive of her family.
 
 Goals: To make major advancements in the fields of biotechnology and environmental conservation."
 "Design a logo for ""Acme Limousines""",,"The Acme Limousines logo should feature a rectangular frame in black, with two uneven curved stripes running along the edges of the frame. The curved stripes should meet in the center of the logo, creating a “limousine” shape. Within the frame, the text “Acme Limousines” should be written in white, in a modern font.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -9892,7 +9892,7 @@ Explain why it is important to establish trust with customers.
 
 ### Response:
 It is important to establish trust with customers because it helps to build strong relationships and creates customer loyalty. When customers see that a business is reliable and trustworthy, they are more likely to return for additional purchases or services. Establishing trust also helps to enhance the customer experience and can lead to increased customer satisfaction. By having a trusting relationship with customers, businesses can gain their trust and better understand their needs and expectations."
-"Construct a SQL query that will retrieve the first 5 records from a table called ""Customers"".",,"SELECT * FROM Customers 
+"Construct a SQL query that will retrieve the first 5 records from a table called ""Customers"".",,"SELECT * FROM Customers
 ORDER BY id
 LIMIT 5;","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -9900,7 +9900,7 @@ LIMIT 5;","Below is an instruction that describes a task. Write a response that 
 Construct a SQL query that will retrieve the first 5 records from a table called ""Customers"".
 
 ### Response:
-SELECT * FROM Customers 
+SELECT * FROM Customers
 ORDER BY id
 LIMIT 5;"
 Recommend a healthy snack for work.,,"A healthy snack to have during work could be a protein-packed energy bar, such as an oatmeal and peanut butter bar. This quick and easy snack is filled with vitamins and minerals, and is a great source of energy. It's portable and can be easily tucked in a desk drawer for a quick snack.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
@@ -10153,27 +10153,27 @@ She was nervous about meeting the people in the new city.
 
 ### Response:
 Her palms were sweaty as she walked through the streets, taking in her new surroundings."
-Create a dialogue between two characters for a conflict resolution.,,"Character A: ""I'm so frustrated that you haven't been in touch for the last few days!"" 
-Character B: ""I realize I made a mistake by not being in touch. I'm sorry, I got caught up with work and it all happened without me noticing it."" 
-Character A: ""I understand, but it still hurt that you neglected me like that. How do you plan on fixing this?"" 
-Character B: ""I can promise to check in with you more often to make sure you know what I'm up to. Will that help?"" 
+Create a dialogue between two characters for a conflict resolution.,,"Character A: ""I'm so frustrated that you haven't been in touch for the last few days!""
+Character B: ""I realize I made a mistake by not being in touch. I'm sorry, I got caught up with work and it all happened without me noticing it.""
+Character A: ""I understand, but it still hurt that you neglected me like that. How do you plan on fixing this?""
+Character B: ""I can promise to check in with you more often to make sure you know what I'm up to. Will that help?""
 Character A: ""Yes, that would make me feel better. Thanks for understanding"".","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Create a dialogue between two characters for a conflict resolution.
 
 ### Response:
-Character A: ""I'm so frustrated that you haven't been in touch for the last few days!"" 
-Character B: ""I realize I made a mistake by not being in touch. I'm sorry, I got caught up with work and it all happened without me noticing it."" 
-Character A: ""I understand, but it still hurt that you neglected me like that. How do you plan on fixing this?"" 
-Character B: ""I can promise to check in with you more often to make sure you know what I'm up to. Will that help?"" 
+Character A: ""I'm so frustrated that you haven't been in touch for the last few days!""
+Character B: ""I realize I made a mistake by not being in touch. I'm sorry, I got caught up with work and it all happened without me noticing it.""
+Character A: ""I understand, but it still hurt that you neglected me like that. How do you plan on fixing this?""
+Character B: ""I can promise to check in with you more often to make sure you know what I'm up to. Will that help?""
 Character A: ""Yes, that would make me feel better. Thanks for understanding""."
-Specify an algorithm to find the maximum sum in a given array.,"[1,2,3,4]","A simple solution is to traverse the array and keep track of the maximum sum encountered so far. This can be done using the following approach: 
+Specify an algorithm to find the maximum sum in a given array.,"[1,2,3,4]","A simple solution is to traverse the array and keep track of the maximum sum encountered so far. This can be done using the following approach:
 Iterate through the array and for each element, update the maximum sum encountered so far.
 
 At any point, the maximum sum encountered so far is either the element itself or the sum of the previous maximum sum and the current element.
 
-Thus, the algorithm can be recursively defined as follows: 
+Thus, the algorithm can be recursively defined as follows:
 maxSum(i) = max(arr[i], maxSum(i-1)+arr[i])
 
 Where maxSum(i) represents the maximum sum with arr[i] as the last element and arr[0...i] as the given array.","Below is an instruction that describes a task, paired with an input that provides further context. Write a response that appropriately completes the request.
@@ -10185,12 +10185,12 @@ Specify an algorithm to find the maximum sum in a given array.
 [1,2,3,4]
 
 ### Response:
-A simple solution is to traverse the array and keep track of the maximum sum encountered so far. This can be done using the following approach: 
+A simple solution is to traverse the array and keep track of the maximum sum encountered so far. This can be done using the following approach:
 Iterate through the array and for each element, update the maximum sum encountered so far.
 
 At any point, the maximum sum encountered so far is either the element itself or the sum of the previous maximum sum and the current element.
 
-Thus, the algorithm can be recursively defined as follows: 
+Thus, the algorithm can be recursively defined as follows:
 maxSum(i) = max(arr[i], maxSum(i-1)+arr[i])
 
 Where maxSum(i) represents the maximum sum with arr[i] as the last element and arr[0...i] as the given array."
@@ -10201,30 +10201,30 @@ Predict what might happen if the Earth's temperature rises.
 
 ### Response:
 If the Earth's temperature rises, we can expect to see more extreme weather events, such as heatwaves, floods, droughts, and storms. Rising sea levels may lead to increased coastal flooding and erosion. An increase in air temperature may result in an increase in atmospheric moisture, leading to more intense precipitation events. It could also lead to an increase in regional species extinctions, as species unable to adapt to the changing climate would be unable to survive."
-Generate a list of ideas for an app that helps people save money.,,"1. An automated budgeting app that helps you track and monitor your spending. 
-2. An app that helps you find the best prices on products and services. 
-3. A savings calculator that allows you to calculate how much you will save by cutting certain expenses. 
-4. An app that sends you notifications and reminders when a bill is due. 
-5. An app that helps you create a monthly plan for saving money. 
-6. An app that negotiates discounted deals on behalf of the user. 
-7. A rebate tracking app for tracking cash back and other savings. 
-8. An app to help you find the cheapest gas station near you. 
-9. A virtual marketplace to compare different product prices from different stores. 
+Generate a list of ideas for an app that helps people save money.,,"1. An automated budgeting app that helps you track and monitor your spending.
+2. An app that helps you find the best prices on products and services.
+3. A savings calculator that allows you to calculate how much you will save by cutting certain expenses.
+4. An app that sends you notifications and reminders when a bill is due.
+5. An app that helps you create a monthly plan for saving money.
+6. An app that negotiates discounted deals on behalf of the user.
+7. A rebate tracking app for tracking cash back and other savings.
+8. An app to help you find the cheapest gas station near you.
+9. A virtual marketplace to compare different product prices from different stores.
 10. An app to automatically search for promotional codes and coupons.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
 ### Instruction:
 Generate a list of ideas for an app that helps people save money.
 
 ### Response:
-1. An automated budgeting app that helps you track and monitor your spending. 
-2. An app that helps you find the best prices on products and services. 
-3. A savings calculator that allows you to calculate how much you will save by cutting certain expenses. 
-4. An app that sends you notifications and reminders when a bill is due. 
-5. An app that helps you create a monthly plan for saving money. 
-6. An app that negotiates discounted deals on behalf of the user. 
-7. A rebate tracking app for tracking cash back and other savings. 
-8. An app to help you find the cheapest gas station near you. 
-9. A virtual marketplace to compare different product prices from different stores. 
+1. An automated budgeting app that helps you track and monitor your spending.
+2. An app that helps you find the best prices on products and services.
+3. A savings calculator that allows you to calculate how much you will save by cutting certain expenses.
+4. An app that sends you notifications and reminders when a bill is due.
+5. An app that helps you create a monthly plan for saving money.
+6. An app that negotiates discounted deals on behalf of the user.
+7. A rebate tracking app for tracking cash back and other savings.
+8. An app to help you find the cheapest gas station near you.
+9. A virtual marketplace to compare different product prices from different stores.
 10. An app to automatically search for promotional codes and coupons."
 Make a list of potential risks associated with a given venture.,Starting a small business,"1. Financial Risk: Lack of financial resources, Insufficient Capital, Unanticipated Cash Flow Problems
 2. Market Risk: Over-saturation, Unfavorable Economic Conditions, Displacement by New Technology, Unsupportive Government Policies
@@ -10265,7 +10265,7 @@ Name five medicinal plants widely used in Ayurveda.
 
 ### Response:
 The five medicinal plants widely used in Ayurveda are Ashwagandha, Turmeric, Neem, Aloe Vera, and Guduchi. These plants are known for their healing properties, aiding in treating ailments such as digestive disorders, skin diseases, diabetes, and other conditions."
-generate an algorithm to find the first common ancestor of two nodes in a binary tree.,,"A simple solution is to traverse the binary tree and find the paths from the root node to both nodes. Then compare the paths to find the last common ancestor node. The algorithm can be recursively defined as follows: 
+generate an algorithm to find the first common ancestor of two nodes in a binary tree.,,"A simple solution is to traverse the binary tree and find the paths from the root node to both nodes. Then compare the paths to find the last common ancestor node. The algorithm can be recursively defined as follows:
 
 FindFirstCommonAncestor(nodeA, nodeB):
 – Find the path from root to nodeA and store it in a vector or array.
@@ -10276,7 +10276,7 @@ FindFirstCommonAncestor(nodeA, nodeB):
 generate an algorithm to find the first common ancestor of two nodes in a binary tree.
 
 ### Response:
-A simple solution is to traverse the binary tree and find the paths from the root node to both nodes. Then compare the paths to find the last common ancestor node. The algorithm can be recursively defined as follows: 
+A simple solution is to traverse the binary tree and find the paths from the root node to both nodes. Then compare the paths to find the last common ancestor node. The algorithm can be recursively defined as follows:
 
 FindFirstCommonAncestor(nodeA, nodeB):
 – Find the path from root to nodeA and store it in a vector or array.
@@ -10321,7 +10321,7 @@ Wind Energy
 
 ### Response:
 Wind energy has several environmental benefits, as it is a renewable energy source that does not produce any emissions. Wind turbines can reduce greenhouse gas emissions, reduce our reliance on fossil fuels, and have a positive impact on global climate change. Wind turbines can also help reduce air pollution, as they are not powered by burning fossil fuels. Additionally, wind turbines have minimal impact on habitats, as they can be located in areas away from sensitive habitats, such as bird nesting grounds."
-Explain the process of gaining creditworthiness for a loan,,"Creditworthiness is an evaluation of an individual's or business' ability to pay back a loan. To gain creditworthiness, one must possess a good credit history, show proof of income, and demonstrate financial stability. A lender will look at the applicant’s credit score, credit history, and current financial situation to determine eligibility. The applicant must also prove they have a steady source of income, can keep up with debt payments, and can repay the desired loan amount. 
+Explain the process of gaining creditworthiness for a loan,,"Creditworthiness is an evaluation of an individual's or business' ability to pay back a loan. To gain creditworthiness, one must possess a good credit history, show proof of income, and demonstrate financial stability. A lender will look at the applicant’s credit score, credit history, and current financial situation to determine eligibility. The applicant must also prove they have a steady source of income, can keep up with debt payments, and can repay the desired loan amount.
 
 In order to gain creditworthiness, the applicant must usually provide documents such as payment histories, tax returns, income statements, and bank statements. The lender will look these documents over and provide an assessment of the applicant's risk.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -10329,7 +10329,7 @@ In order to gain creditworthiness, the applicant must usually provide documents 
 Explain the process of gaining creditworthiness for a loan
 
 ### Response:
-Creditworthiness is an evaluation of an individual's or business' ability to pay back a loan. To gain creditworthiness, one must possess a good credit history, show proof of income, and demonstrate financial stability. A lender will look at the applicant’s credit score, credit history, and current financial situation to determine eligibility. The applicant must also prove they have a steady source of income, can keep up with debt payments, and can repay the desired loan amount. 
+Creditworthiness is an evaluation of an individual's or business' ability to pay back a loan. To gain creditworthiness, one must possess a good credit history, show proof of income, and demonstrate financial stability. A lender will look at the applicant’s credit score, credit history, and current financial situation to determine eligibility. The applicant must also prove they have a steady source of income, can keep up with debt payments, and can repay the desired loan amount.
 
 In order to gain creditworthiness, the applicant must usually provide documents such as payment histories, tax returns, income statements, and bank statements. The lender will look these documents over and provide an assessment of the applicant's risk."
 Generate a list of tips to improve metabolism.,,"1. Eat more protein: Protein-rich foods can help improve metabolism, as they require more energy to digest than carbohydrates and fats.
@@ -10392,7 +10392,7 @@ Chorus
 C  G  A-minor  F
 C  G  A-minor  F
 
-Bridge 
+Bridge
 F  D  G  C
 A-minor  D  A-minor  F
 
@@ -10420,7 +10420,7 @@ Chorus
 C  G  A-minor  F
 C  G  A-minor  F
 
-Bridge 
+Bridge
 F  D  G  C
 A-minor  D  A-minor  F
 
@@ -10499,11 +10499,11 @@ Name one chemical that is both an acid and a base.
 
 ### Response:
 One chemical that is both an acid and a base is sodium hydroxide."
-Write a 200-word essay explaining the importance of sustainable energy.,,"Sustainable energy is energy obtained from sources which cannot be exhausted and is renewable. These sources include solar energy, wind energy, biomass energy, geothermal energy, and waves from the ocean. Sustainable energy provides an abundance of energy and is not damaging to the environment. It also leads to a decreased need to rely on depleting resources as well as a reduced amount of waste and emissions. 
+Write a 200-word essay explaining the importance of sustainable energy.,,"Sustainable energy is energy obtained from sources which cannot be exhausted and is renewable. These sources include solar energy, wind energy, biomass energy, geothermal energy, and waves from the ocean. Sustainable energy provides an abundance of energy and is not damaging to the environment. It also leads to a decreased need to rely on depleting resources as well as a reduced amount of waste and emissions.
 
 Using sustainable energy saves a lot of money in the long run since it is not being produced and thus fossil fuels are no longer needed. Renewable energy is particularly useful in areas where there is a lack of access to traditional energy sources and in areas where conventional energy sources cause damage to the environment, such as coastal areas and areas with large amounts of forestry.
 
-Sustainable energy helps reduce the emissions of greenhouse gases into the atmosphere and thus helps mitigate climate change. It is much more efficient than traditional energy sources and does not have the large setup costs associated with them. Additionally, it does not require large amounts of land for installation and allows for much of the energy and resources to be used locally, which helps to create jobs and stimulate local economies. 
+Sustainable energy helps reduce the emissions of greenhouse gases into the atmosphere and thus helps mitigate climate change. It is much more efficient than traditional energy sources and does not have the large setup costs associated with them. Additionally, it does not require large amounts of land for installation and allows for much of the energy and resources to be used locally, which helps to create jobs and stimulate local economies.
 
 Overall, sustainable energy is incredibly important for saving money, protecting the environment, and providing a healthy and prosperous future for all.","Below is an instruction that describes a task. Write a response that appropriately completes the request.
 
@@ -10511,11 +10511,11 @@ Overall, sustainable energy is incredibly important for saving money, protecting
 Write a 200-word essay explaining the importance of sustainable energy.
 
 ### Response:
-Sustainable energy is energy obtained from sources which cannot be exhausted and is renewable. These sources include solar energy, wind energy, biomass energy, geothermal energy, and waves from the ocean. Sustainable energy provides an abundance of energy and is not damaging to the environment. It also leads to a decreased need to rely on depleting resources as well as a reduced amount of waste and emissions. 
+Sustainable energy is energy obtained from sources which cannot be exhausted and is renewable. These sources include solar energy, wind energy, biomass energy, geothermal energy, and waves from the ocean. Sustainable energy provides an abundance of energy and is not damaging to the environment. It also leads to a decreased need to rely on depleting resources as well as a reduced amount of waste and emissions.
 
 Using sustainable energy saves a lot of money in the long run since it is not being produced and thus fossil fuels are no longer needed. Renewable energy is particularly useful in areas where there is a lack of access to traditional energy sources and in areas where conventional energy sources cause damage to the environment, such as coastal areas and areas with large amounts of forestry.
 
-Sustainable energy helps reduce the emissions of greenhouse gases into the atmosphere and thus helps mitigate climate change. It is much more efficient than traditional energy sources and does not have the large setup costs associated with them. Additionally, it does not require large amounts of land for installation and allows for much of the energy and resources to be used locally, which helps to create jobs and stimulate local economies. 
+Sustainable energy helps reduce the emissions of greenhouse gases into the atmosphere and thus helps mitigate climate change. It is much more efficient than traditional energy sources and does not have the large setup costs associated with them. Additionally, it does not require large amounts of land for installation and allows for much of the energy and resources to be used locally, which helps to create jobs and stimulate local economies.
 
 Overall, sustainable energy is incredibly important for saving money, protecting the environment, and providing a healthy and prosperous future for all."
 "Identify the type of sentence ""I drove to the store yesterday"".",,Declarative sentence.,"Below is an instruction that describes a task. Write a response that appropriately completes the request.

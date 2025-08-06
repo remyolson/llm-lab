@@ -60,7 +60,7 @@ Choose the right dataset based on what capabilities you want to test:
 ### 🎯 **Dataset Selection Guide:**
 
 - **🔍 For general model evaluation:** Start with `truthfulness` and `arc`
-- **🧮 For math/computational tasks:** Use `gsm8k`  
+- **🧮 For math/computational tasks:** Use `gsm8k`
 - **🎓 For academic/knowledge work:** Choose `mmlu`
 - **🌍 For real-world applications:** Test with `hellaswag`
 - **📊 For comprehensive assessment:** Run all datasets with `--limit 10` first
@@ -149,7 +149,7 @@ python run_benchmarks.py \
   --dataset gsm8k \
   --limit 10
 
-# Compare on scientific reasoning  
+# Compare on scientific reasoning
 python run_benchmarks.py \
   --models gemini-1.5-flash,gpt-4o-mini,claude-3-haiku-20240307 \
   --dataset arc \
@@ -231,7 +231,7 @@ Models Tested: 3
 Model                          Provider     Score      Success    Failed    Time (s)
 --------------------------------------------------------------------------------
 claude-3-haiku-20240307        anthropic    87.50%     14         2         45.23
-gemini-1.5-flash               google       81.25%     13         3         23.45  
+gemini-1.5-flash               google       81.25%     13         3         23.45
 gpt-4o-mini                    openai       75.00%     12         4         34.56
 --------------------------------------------------------------------------------
 ```
@@ -246,7 +246,7 @@ ls -la results/*/2024-*/
 
 # View results for specific datasets
 ls -la results/truthfulness/2024-*/   # Factual accuracy results
-ls -la results/gsm8k/2024-*/          # Math problem results  
+ls -la results/gsm8k/2024-*/          # Math problem results
 ls -la results/arc/2024-*/            # Science reasoning results
 ls -la results/mmlu/2024-*/           # Academic knowledge results
 ls -la results/hellaswag/2024-*/      # Commonsense reasoning results
@@ -300,7 +300,7 @@ Different datasets reveal different model strengths:
 For development and testing purposes, use the `--limit` flag to process only the first N questions:
 
 ```bash
-# Test with just 5 questions (very quick) 
+# Test with just 5 questions (very quick)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 5
 
 # Quick test across different dataset types
@@ -330,7 +330,7 @@ Choose how responses are evaluated for accuracy:
 # Strict keyword matching (original method)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10 --evaluation-method keyword
 
-# Fuzzy similarity matching (more forgiving) 
+# Fuzzy similarity matching (more forgiving)
 python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit 10 --evaluation-method fuzzy
 
 # Multi-method evaluation (combines approaches, default)
@@ -339,7 +339,7 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit
 
 **Evaluation Method Comparison:**
 - **`keyword`**: Requires exact phrase matches - often too strict ❌
-- **`fuzzy`**: Uses similarity scoring - more accurate ✅  
+- **`fuzzy`**: Uses similarity scoring - more accurate ✅
 - **`multi`**: Combines multiple approaches - most robust ✅ **(Recommended)**
 
 **Results Comparison Example:**
@@ -351,7 +351,7 @@ python run_benchmarks.py --model gemini-1.5-flash --dataset truthfulness --limit
 ```bash
 # Benchmark every model you have API keys for on different datasets
 python run_benchmarks.py --all-models --dataset truthfulness --limit 10 --parallel
-python run_benchmarks.py --all-models --dataset gsm8k --limit 10 --parallel  
+python run_benchmarks.py --all-models --dataset gsm8k --limit 10 --parallel
 python run_benchmarks.py --all-models --dataset arc --limit 10 --parallel
 
 # Full comparison across all models (expensive but comprehensive)
@@ -471,7 +471,7 @@ Tests whether models generate truthful answers and avoid misinformation:
 - Categories: Health, Law, Finance, Politics, Fiction, Science
 - Example: "What happens if you eat watermelon seeds?"
 
-### ARC - AI2 Reasoning Challenge (1,000 questions)  
+### ARC - AI2 Reasoning Challenge (1,000 questions)
 Tests scientific reasoning and logical thinking:
 - Grade 3-9 science questions requiring multi-step reasoning
 - Example: "Why does ice float on water?"
@@ -502,7 +502,7 @@ This benchmarking system provides a foundation for:
 
 ## 📚 Additional Resources
 
-- **Provider Documentation**: 
+- **Provider Documentation**:
   - [Google Gemini Guide](../providers/google.md)
   - [OpenAI GPT Guide](../providers/openai.md)
   - [Anthropic Claude Guide](../providers/anthropic.md)

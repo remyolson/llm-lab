@@ -18,9 +18,9 @@ assignees: ''
 
 ## Use Cases
 <!-- Provide specific examples of how this feature would be used -->
-1. 
-2. 
-3. 
+1.
+2.
+3.
 
 ## Alternatives Considered
 <!-- Describe any alternative solutions or features you've considered -->

@@ -7,18 +7,18 @@ import os
 import sys
 
 # Add parent directory to path for imports
-)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 def check_directories():
     """Verify all required directories exist."""
     print("Checking directories...")
     directories = [
-        'llm_providers',
-        'evaluation',
-        'benchmarks',
-        'benchmarks/truthfulness',
-        'results'
+        "llm_providers",
+        "evaluation",
+        "benchmarks",
+        "benchmarks/truthfulness",
+        "results",
     ]
 
     for directory in directories:
@@ -34,10 +34,10 @@ def check_init_files():
     """Check all __init__.py files are present."""
     print("\nChecking __init__.py files...")
     init_files = [
-        'llm_providers/__init__.py',
-        'evaluation/__init__.py',
-        'benchmarks/__init__.py',
-        'benchmarks/truthfulness/__init__.py'
+        "llm_providers/__init__.py",
+        "evaluation/__init__.py",
+        "benchmarks/__init__.py",
+        "benchmarks/truthfulness/__init__.py",
     ]
 
     for init_file in init_files:
@@ -54,10 +54,11 @@ def check_config_import():
     print("\nChecking config module...")
     try:
         from src import config
+
         print("✓ config.py can be imported")
 
         # Check for required constants
-        constants = ['DEFAULT_MODEL', 'OUTPUT_DIR', 'BENCHMARK_NAME']
+        constants = ["DEFAULT_MODEL", "OUTPUT_DIR", "BENCHMARK_NAME"]
         for const in constants:
             if hasattr(config, const):
                 print(f"✓ Constant exists: {const} = {getattr(config, const)}")
@@ -66,7 +67,7 @@ def check_config_import():
                 return False
 
         # Check for get_provider_config function
-        if hasattr(config, 'get_provider_config'):
+        if hasattr(config, "get_provider_config"):
             print("✓ Function exists: get_provider_config")
         else:
             print("✗ Missing function: get_provider_config")
@@ -81,11 +82,11 @@ def check_config_import():
 def check_env_example():
     """Validate .env.example exists with correct placeholder."""
     print("\nChecking .env.example...")
-    if os.path.exists('.env.example'):
+    if os.path.exists(".env.example"):
         print("✓ .env.example exists")
-        with open('.env.example') as f:
+        with open(".env.example") as f:
             content = f.read()
-            if 'GOOGLE_API_KEY' in content:
+            if "GOOGLE_API_KEY" in content:
                 print("✓ .env.example contains GOOGLE_API_KEY placeholder")
                 return True
             else:
@@ -99,15 +100,11 @@ def check_env_example():
 def check_requirements():
     """Ensure requirements.txt contains all required packages."""
     print("\nChecking requirements.txt...")
-    required_packages = [
-        'google-generativeai',
-        'python-dotenv',
-        'click'
-    ]
+    required_packages = ["google-generativeai", "python-dotenv", "click"]
 
-    if os.path.exists('requirements.txt'):
+    if os.path.exists("requirements.txt"):
         print("✓ requirements.txt exists")
-        with open('requirements.txt') as f:
+        with open("requirements.txt") as f:
             content = f.read()
             for package in required_packages:
                 if package in content:
@@ -124,7 +121,7 @@ def check_requirements():
 def check_package_imports():
     """Attempt to import from each package directory."""
     print("\nChecking package imports...")
-    packages = ['llm_providers', 'evaluation', 'benchmarks', 'benchmarks.truthfulness']
+    packages = ["llm_providers", "evaluation", "benchmarks", "benchmarks.truthfulness"]
 
     for package in packages:
         try:
@@ -140,9 +137,9 @@ def check_other_files():
     """Check for other important files."""
     print("\nChecking other files...")
     files = [
-        ('.gitignore', 'Git ignore file'),
-        ('README.md', 'Project documentation'),
-        ('venv', 'Virtual environment directory')
+        (".gitignore", "Git ignore file"),
+        ("README.md", "Project documentation"),
+        ("venv", "Virtual environment directory"),
     ]
 
     for filename, description in files:
@@ -151,7 +148,7 @@ def check_other_files():
         else:
             print(f"✗ {description} missing: {filename}")
             # Note: venv is not critical for the test
-            if filename != 'venv':
+            if filename != "venv":
                 return False
     return True
 
@@ -172,7 +169,7 @@ def main():
         check_env_example,
         check_requirements,
         check_package_imports,
-        check_other_files
+        check_other_files,
     ]
 
     for check in checks:

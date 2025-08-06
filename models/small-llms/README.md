@@ -32,7 +32,7 @@ The repository includes 8 models (6 small + 2 large):
 - **Use case**: Ultra-fast responses, basic Q&A, simple tasks
 - **Quality**: Limited but functional for basic queries
 
-### SmolLM2-360M-Instruct  
+### SmolLM2-360M-Instruct
 - **Size**: 360M parameters (~720MB)
 - **Speed**: ~20-40 tokens/sec on M-series
 - **Use case**: Better quality than 135M, still very fast
@@ -258,7 +258,7 @@ print(response['choices'][0]['text'])
 ### Good For:
 - Quick prototyping and experiments
 - Local development without internet
-- Privacy-sensitive applications  
+- Privacy-sensitive applications
 - Learning about LLMs
 - Simple chatbots and assistants
 - Basic code completion

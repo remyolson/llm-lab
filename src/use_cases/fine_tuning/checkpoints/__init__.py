@@ -8,17 +8,17 @@ and cloud storage support.
 from .checkpoint_manager import (
     CheckpointManager,
     CheckpointMetadata,
-    StorageBackend,
+    GCSStorageBackend,
     LocalStorageBackend,
     S3StorageBackend,
-    GCSStorageBackend
+    StorageBackend,
 )
 
 __all__ = [
     "CheckpointManager",
     "CheckpointMetadata",
-    "StorageBackend",
+    "GCSStorageBackend",
     "LocalStorageBackend",
     "S3StorageBackend",
-    "GCSStorageBackend"
+    "StorageBackend",
 ]

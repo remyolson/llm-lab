@@ -16,4 +16,4 @@ from .app import create_app
 from .config.settings import DashboardConfig
 
 __version__ = "1.0.0"
-__all__ = ["create_app", "DashboardConfig"]
+__all__ = ["DashboardConfig", "create_app"]

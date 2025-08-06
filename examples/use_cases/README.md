@@ -33,7 +33,7 @@ Complete performance testing across providers.
 
 **Features:**
 - Latency measurement
-- Throughput testing  
+- Throughput testing
 - Token rate analysis
 - Cost per token calculation
 - Statistical significance testing

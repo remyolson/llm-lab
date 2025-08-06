@@ -1,9 +1,9 @@
 <!-- Success Rate Chart Component -->
-<div class="chart-container" 
+<div class="chart-container"
      data-chart-type="success-rate"
      data-refresh-interval="{{ config.refresh_interval }}"
      data-time-range="{{ config.time_range }}">
-    
+
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
         <div>
             <h5 class="mb-0">{{ config.title or 'Success Rate Trend' }}</h5>
@@ -21,7 +21,7 @@
             </button>
         </div>
     </div>
-    
+
     <div class="success-summary mb-3">
         <div class="row">
             <div class="col-md-4">
@@ -44,11 +44,11 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-wrapper" style="height: {{ config.height }}px; width: {{ config.width }};">
         <canvas id="success-rate-chart-{{ range(1000) | random }}"></canvas>
     </div>
-    
+
     <div class="chart-loading d-none">
         <div class="text-center p-4">
             <div class="spinner-border" role="status">
@@ -56,7 +56,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="chart-error d-none">
         <div class="alert alert-warning" role="alert">
             Failed to load success rate data. <a href="#" class="retry-chart">Retry</a>
@@ -104,27 +104,27 @@
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('[data-chart-type="success-rate"]');
     const canvas = container.querySelector('canvas');
-    
+
     let chart = null;
     let refreshInterval = null;
     let currentPeriod = '1h';
-    
+
     function loadChart() {
         showLoading(true);
-        
+
         const params = new URLSearchParams({
-            hours: currentPeriod === '1h' ? 1 : 
-                   currentPeriod === '6h' ? 6 : 
+            hours: currentPeriod === '1h' ? 1 :
+                   currentPeriod === '6h' ? 6 :
                    currentPeriod === '24h' ? 24 : 168
         });
-        
+
         fetch(`/components/chart-data/success-rate?${params}`)
             .then(response => response.json())
             .then(data => {
                 if (chart) chart.destroy();
-                
+
                 const ctx = canvas.getContext('2d');
-                
+
                 // Enhance chart options for better visualization
                 const enhancedData = {
                     ...data,
@@ -152,11 +152,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
                 };
-                
+
                 chart = new Chart(ctx, enhancedData);
-                
+
                 updateSuccessStats(data);
-                
+
                 showLoading(false);
                 showError(false);
             })
@@ -166,40 +166,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 showError(true);
             });
     }
-    
+
     function updateSuccessStats(chartData) {
         if (chartData.data && chartData.data.datasets[0] && chartData.data.datasets[0].data.length > 0) {
             const successRates = chartData.data.datasets[0].data;
-            
+
             // Current success rate (latest data point)
             const currentRate = successRates[successRates.length - 1];
-            
+
             // Average success rate
             const avgRate = successRates.reduce((sum, rate) => sum + rate, 0) / successRates.length;
-            
+
             // Count failures (assuming 100 requests per data point for estimation)
             const totalRequests = successRates.length * 100;
             const successfulRequests = successRates.reduce((sum, rate) => sum + (rate * 100 / 100), 0);
             const failuresCount = Math.round(totalRequests - successfulRequests);
-            
+
             // Update display
             const currentElement = document.getElementById('current-success-rate');
             currentElement.textContent = `${currentRate.toFixed(1)}%`;
-            
+
             // Add trend indicator
             if (successRates.length > 1) {
                 const previousRate = successRates[successRates.length - 2];
                 const trend = currentRate - previousRate;
-                
-                currentElement.className = 'stat-number ' + 
-                    (trend > 0.5 ? 'success-trend-up' : 
+
+                currentElement.className = 'stat-number ' +
+                    (trend > 0.5 ? 'success-trend-up' :
                      trend < -0.5 ? 'success-trend-down' : 'success-trend-stable');
-                
+
                 // Add trend arrow
                 const trendIcon = trend > 0.5 ? ' ↗' : trend < -0.5 ? ' ↘' : ' →';
                 currentElement.textContent += trendIcon;
             }
-            
+
             document.getElementById('avg-success-rate').textContent = `${avgRate.toFixed(1)}%`;
             document.getElementById('failures-count').textContent = failuresCount.toLocaleString();
         } else {
@@ -208,19 +208,19 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('failures-count').textContent = '-';
         }
     }
-    
+
     function showLoading(show) {
         container.querySelector('.chart-loading').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
         container.querySelector('.success-summary').classList.toggle('d-none', show);
     }
-    
+
     function showError(show) {
         container.querySelector('.chart-error').classList.toggle('d-none', !show);
         container.querySelector('.chart-wrapper').classList.toggle('d-none', show);
         container.querySelector('.success-summary').classList.toggle('d-none', show);
     }
-    
+
     // Period selection
     container.querySelectorAll('[data-period]').forEach(btn => {
         btn.addEventListener('click', function() {
@@ -230,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function() {
             loadChart();
         });
     });
-    
+
     // Export button
     container.querySelector('#export-success-chart').addEventListener('click', function() {
         if (chart) {
@@ -241,23 +241,23 @@ document.addEventListener('DOMContentLoaded', function() {
             link.click();
         }
     });
-    
+
     // Retry button
     container.querySelector('.retry-chart').addEventListener('click', function(e) {
         e.preventDefault();
         loadChart();
     });
-    
+
     // Auto-refresh
     function startRefresh() {
         const interval = parseInt(container.dataset.refreshInterval) * 1000;
         refreshInterval = setInterval(loadChart, interval);
     }
-    
+
     // Initial load
     loadChart();
     startRefresh();
-    
+
     // Cleanup
     window.addEventListener('beforeunload', function() {
         if (refreshInterval) clearInterval(refreshInterval);

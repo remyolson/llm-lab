@@ -1,5 +1,5 @@
 """Configuration management for fine-tuning."""
 
-from .training_config import TrainingConfig, LoRAConfig, DataConfig
+from .training_config import DataConfig, LoRAConfig, TrainingConfig
 
-__all__ = ["TrainingConfig", "LoRAConfig", "DataConfig"]
+__all__ = ["DataConfig", "LoRAConfig", "TrainingConfig"]

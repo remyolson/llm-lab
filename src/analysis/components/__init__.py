@@ -1,14 +1,14 @@
 """Analysis components package."""
 
-from .models import ModelResult, ComparisonResult
 from .metrics import MetricsCalculator
-from .statistics import StatisticalAnalyzer
+from .models import ComparisonResult, ModelResult
 from .reports import ReportGenerator
+from .statistics import StatisticalAnalyzer
 
 __all__ = [
-    'ModelResult',
-    'ComparisonResult', 
-    'MetricsCalculator',
-    'StatisticalAnalyzer',
-    'ReportGenerator'
+    "ComparisonResult",
+    "MetricsCalculator",
+    "ModelResult",
+    "ReportGenerator",
+    "StatisticalAnalyzer",
 ]

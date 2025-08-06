@@ -55,7 +55,7 @@ training:
   gradient_checkpointing: true
   deepspeed_config: null
   fsdp_config: null
-  
+
   # LoRA configuration
   use_lora: true
   lora_rank: 16
@@ -95,6 +95,6 @@ metadata:
     - instruction: The task description
     - input: Optional context or input data
     - output: The expected response
-    
+
     The model will learn to follow diverse instructions and generate
     appropriate responses.

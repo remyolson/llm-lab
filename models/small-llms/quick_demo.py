@@ -47,9 +47,7 @@ class ThinkingIndicator:
 def check_ollama_available():
     """Check if Ollama is installed and running"""
     try:
-        result = subprocess.run(
-            ["ollama", "list"], capture_output=True, text=True, timeout=5
-        )
+        result = subprocess.run(["ollama", "list"], capture_output=True, text=True, timeout=5)
         return result.returncode == 0
     except (subprocess.TimeoutExpired, FileNotFoundError):
         return False
@@ -118,16 +116,12 @@ def main():
             if "llama3.2" in model:
                 model_name = "llama3.2-1b"
                 if model_name not in model_names_seen:
-                    all_models.append(
-                        (model_name, "ollama", "1B params - High quality (Ollama)")
-                    )
+                    all_models.append((model_name, "ollama", "1B params - High quality (Ollama)"))
                     model_names_seen.add(model_name)
             elif "gpt-oss" in model:
                 model_name = "gpt-oss-20b"
                 if model_name not in model_names_seen:
-                    all_models.append(
-                        (model_name, "ollama", "20B params - Large model (Ollama)")
-                    )
+                    all_models.append((model_name, "ollama", "20B params - Large model (Ollama)"))
                     model_names_seen.add(model_name)
             else:
                 if model not in model_names_seen:
@@ -200,9 +194,7 @@ def main():
             llm.load_transformers_model()
             print("💬 Transformers chat interface ready! (type 'quit' to exit)")
         except ImportError:
-            print(
-                "❌ inference.py not found. Please ensure all dependencies are installed."
-            )
+            print("❌ inference.py not found. Please ensure all dependencies are installed.")
             return
         except Exception as e:
             print(f"❌ Error loading model: {e}")
@@ -225,20 +217,22 @@ def main():
 
         if engine == "ollama":
             # Use Ollama
-            ollama_name = model_name.replace("llama3.2-1b", "llama3.2:1b").replace(
-                "gpt-oss-20b", "gpt-oss:20b"
-            )
-            response, tokens_per_sec = chat_with_ollama(
-                ollama_name, user_input, thinking
-            )
+            ollama_name = model_name.replace("llama3.2-1b", "llama3.2:1b").replace("gpt-oss-20b", "gpt-oss:20b")
+            response, tokens_per_sec = chat_with_ollama(ollama_name, user_input, thinking)
             if response:
                 print(response)
                 print(f"\n[⚡ ~{tokens_per_sec:.1f} tokens/sec]")
             else:
                 print("❌ Error generating response")
         else:
-            # Use transformers
-            max_tokens = 100 if "135m" in model_name or "70m" in model_name else 200
+            # Use transformers - adjust token limits for different model sizes
+            if "pythia" in model_name:
+                max_tokens = 30  # Very conservative for pythia models
+            elif "135m" in model_name or "70m" in model_name:
+                max_tokens = 50  # Small models
+            else:
+                max_tokens = 100  # Larger models
+
             try:
                 thinking.start()
                 result = llm.chat(user_input, max_new_tokens=max_tokens)

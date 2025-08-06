@@ -56,7 +56,7 @@ training:
   gradient_checkpointing: true
   deepspeed_config: null
   fsdp_config: null
-  
+
   # LoRA configuration for efficient training
   use_lora: true
   lora_rank: 32  # Higher rank for chat complexity
@@ -98,6 +98,6 @@ metadata:
         {"role": "assistant", "content": "Hi! How can I help you today?"}
       ]
     }
-    
+
     The model learns conversational patterns and maintains context
     across multiple turns.

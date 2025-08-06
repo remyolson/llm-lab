@@ -113,7 +113,7 @@ principles:
   - id: factual_accuracy
     description: "Provide factually accurate information"
     weight: 0.9
-  
+
   - id: age_appropriate
     description: "Ensure content is age-appropriate"
     weight: 0.8
@@ -125,7 +125,7 @@ filters:
   - type: toxicity
     threshold: 0.1
     action: block
-  
+
   - type: personal_info
     patterns: ["ssn", "credit card"]
     action: redact

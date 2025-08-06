@@ -16,7 +16,7 @@ from typing import Dict, Any, Optional, List
 
 class BaseProvider(ABC):
     """Base class for all LLM providers."""
-    
+
     @abstractmethod
     def generate(
         self,
@@ -26,13 +26,13 @@ class BaseProvider(ABC):
         **kwargs
     ) -> Dict[str, Any]:
         """Generate text from the model.
-        
+
         Args:
             prompt: The input prompt
             max_tokens: Maximum tokens to generate
             temperature: Sampling temperature (0-2)
             **kwargs: Provider-specific parameters
-            
+
         Returns:
             Dictionary containing:
                 - text: Generated text
@@ -250,7 +250,7 @@ print(f"Cost per 1K tokens: ${info['cost_per_1k_tokens']}")
    ```python
    # Cache frequently used responses
    from functools import lru_cache
-   
+
    @lru_cache(maxsize=100)
    def cached_generate(prompt: str) -> str:
        return provider.generate(prompt)['text']

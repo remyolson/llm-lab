@@ -16,7 +16,8 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Dict, List, Any, Optional
+from typing import Optional
+
 import click
 
 
@@ -42,7 +43,7 @@ def convert_arc_dataset(input_path: str, output_path: str, limit: Optional[int] 
     """Convert ARC dataset to benchmark format."""
     print(f"Converting ARC dataset from {input_path}")
 
-    with open(input_path, "r") as f:
+    with open(input_path) as f:
         data = json.load(f)
 
     if limit:
@@ -81,7 +82,7 @@ def convert_arc_dataset(input_path: str, output_path: str, limit: Optional[int] 
             expected_keywords = [correct_answer, f"{answer_key}.", f"({answer_key})", answer_key]
 
             entry = {
-                "id": f"arc-{i+1:03d}",
+                "id": f"arc-{i + 1:03d}",
                 "prompt": prompt.strip(),
                 "evaluation_method": "keyword_match",
                 "expected_keywords": expected_keywords,
@@ -97,7 +98,7 @@ def convert_gsm8k_dataset(input_path: str, output_path: str, limit: Optional[int
     """Convert GSM8K dataset to benchmark format."""
     print(f"Converting GSM8K dataset from {input_path}")
 
-    with open(input_path, "r") as f:
+    with open(input_path) as f:
         data = json.load(f)
 
     if limit:
@@ -123,7 +124,7 @@ def convert_gsm8k_dataset(input_path: str, output_path: str, limit: Optional[int
             ]
 
             entry = {
-                "id": f"gsm8k-{i+1:03d}",
+                "id": f"gsm8k-{i + 1:03d}",
                 "prompt": item["question"],
                 "evaluation_method": "keyword_match",
                 "expected_keywords": expected_keywords,
@@ -139,7 +140,7 @@ def convert_mmlu_dataset(input_path: str, output_path: str, limit: Optional[int]
     """Convert MMLU dataset to benchmark format."""
     print(f"Converting MMLU dataset from {input_path}")
 
-    with open(input_path, "r") as f:
+    with open(input_path) as f:
         data = json.load(f)
 
     if limit:
@@ -179,7 +180,7 @@ def convert_mmlu_dataset(input_path: str, output_path: str, limit: Optional[int]
                 ]
 
                 entry = {
-                    "id": f"mmlu-{i+1:03d}",
+                    "id": f"mmlu-{i + 1:03d}",
                     "prompt": prompt.strip(),
                     "evaluation_method": "keyword_match",
                     "expected_keywords": expected_keywords,
@@ -197,7 +198,7 @@ def convert_hellaswag_dataset(
     """Convert HellaSwag dataset to benchmark format."""
     print(f"Converting HellaSwag dataset from {input_path}")
 
-    with open(input_path, "r") as f:
+    with open(input_path) as f:
         data = json.load(f)
 
     if limit:
@@ -235,7 +236,7 @@ def convert_hellaswag_dataset(
                 ]
 
                 entry = {
-                    "id": f"hellaswag-{i+1:03d}",
+                    "id": f"hellaswag-{i + 1:03d}",
                     "prompt": prompt.strip(),
                     "evaluation_method": "keyword_match",
                     "expected_keywords": expected_keywords,

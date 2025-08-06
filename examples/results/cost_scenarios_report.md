@@ -135,11 +135,11 @@
 ## Cost Comparison Matrix
 
 ```
-Scenario                      | Monthly Requests | Cheapest Option  | Cost    | Best Performance          | Cost   
+Scenario                      | Monthly Requests | Cheapest Option  | Cost    | Best Performance          | Cost
 ------------------------------|------------------|------------------|---------|---------------------------|--------
 Customer Service Chatbot      | 500,000          | gemini-1.5-flash | $71.25  | claude-3-5-haiku-20241022 | $143.75
 Code Generation Assistant     | 50,000           | gemini-1.5-pro   | $231.25 | gpt-4o                    | $725.00
 Content Creation Tool         | 10,000           | gemini-1.5-pro   | $78.75  | gpt-4o                    | $240.00
 Data Analysis Assistant       | 5,000            | gemini-1.5-pro   | $37.50  | claude-3-opus-20240229    | $525.00
-Real-time Translation Service | 200,000          | gemini-1.5-flash | $17.40  | gpt-3.5-turbo             | $68.00 
+Real-time Translation Service | 200,000          | gemini-1.5-flash | $17.40  | gpt-3.5-turbo             | $68.00
 ```

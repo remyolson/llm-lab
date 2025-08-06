@@ -154,7 +154,7 @@ python models/small-llms/inference.py --model smollm-360m --interactive
 ✓ Model loaded successfully (0.4s)
 🧠 Generating response...
 
-Machine learning is a type of artificial intelligence that allows computers 
+Machine learning is a type of artificial intelligence that allows computers
 to learn from data without being explicitly programmed...
 ✓ Response generated (1.5s, ~55 tokens/sec)
 ```
@@ -318,7 +318,7 @@ For small models on MacBook Pro, here's what to expect:
 **📊 Typical Performance Patterns:**
 - **Small local models**: 15-50 tokens/sec, $0 per call, 0.5-2s load time, offline capable
 - **Cloud models**: 1-3s total latency, $0.001-0.01 per call, internet required, higher quality
-- **Quality comparison**: 
+- **Quality comparison**:
   - SmolLM 135M ≈ 60% of GPT-3.5 quality
   - SmolLM 360M ≈ 65% of GPT-3.5 quality
   - Qwen 0.5B ≈ 70% of GPT-3.5 quality
@@ -421,7 +421,7 @@ model, tokenizer = load_model("qwen-0.5b-gguf")
 def chat_completions():
     data = request.json
     prompt = data["messages"][-1]["content"]
-    
+
     response = generate_response(model, tokenizer, prompt)
     return jsonify({
         "model": "qwen-0.5b-local",
@@ -533,7 +533,7 @@ python models/small-llms/batch_efficient.py \
 ### Common MacBook Pro Issues and Solutions
 
 #### Issue: "MPS backend out of memory"
-**Solution**: 
+**Solution**:
 ```bash
 # Use smaller batch size
 export PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
@@ -578,7 +578,7 @@ python models/small-llms/memory_check.py
 
 # These models use:
 # smollm-135m: ~500MB
-# smollm-360m: ~1.4GB  
+# smollm-360m: ~1.4GB
 # qwen-0.5b: ~2GB
 # qwen-0.5b-gguf: ~300MB
 ```
@@ -655,7 +655,7 @@ HuggingFace's ultra-efficient model:
 - **Quality**: Basic but functional responses
 - **Example Use**: "What is Python?" → Simple, direct answers
 
-### SmolLM-360M (360M Parameters) 
+### SmolLM-360M (360M Parameters)
 Larger SmolLM with better quality:
 - **Best for**: General chat, explanations, development
 - **Speed**: 30+ tokens/sec on MacBook Pro

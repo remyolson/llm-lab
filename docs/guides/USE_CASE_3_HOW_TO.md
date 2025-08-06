@@ -33,7 +33,7 @@ Running custom prompts with different providers:
 
 - **Anthropic**:
   - `claude-3-haiku`: ~$0.25 per 100 prompts
-  - `claude-3-sonnet`: ~$1.50 per 100 prompts  
+  - `claude-3-sonnet`: ~$1.50 per 100 prompts
   - **Free tier eligible**: Limited usage with API key
 
 - **Google**:
@@ -58,7 +58,7 @@ Choose the right approach based on what capability you want to test:
 ### 🎯 **Prompt Selection Guide:**
 
 - **🔍 For model comparison:** Start with simple prompts and `--parallel`
-- **🧮 For dynamic content:** Use template variables with JSON input  
+- **🧮 For dynamic content:** Use template variables with JSON input
 - **🎓 For complex scenarios:** Create template files with conditions
 - **🌍 For production planning:** Use batch processing with metrics
 - **📊 For comprehensive assessment:** Run all approaches with `--limit 5` first
@@ -146,7 +146,7 @@ You are {model_name}, a helpful AI assistant. Today's date is {date}.
 
 Requirements:
 - Use simple language
-- Provide concrete examples  
+- Provide concrete examples
 - Keep it under {max_words} words
 EOF
 
@@ -243,7 +243,7 @@ done
 ### Key Metrics Explained
 
 1. **Response Length**: Word count, sentence count, and average word length
-2. **Sentiment Analysis**: Positive/negative/neutral classification with confidence scores  
+2. **Sentiment Analysis**: Positive/negative/neutral classification with confidence scores
 3. **Coherence Score**: Measures logical flow and consistency (0.0-1.0, higher is better)
 4. **Response Diversity**: Variation across multiple model responses (when using multiple models)
 
@@ -277,7 +277,7 @@ Different prompts reveal different model strengths:
   "models_succeeded": ["gpt-4", "claude-3-sonnet"],
   "responses": [
     {
-      "model": "gpt-4", 
+      "model": "gpt-4",
       "success": true,
       "response": "Machine learning is like teaching computers to learn patterns...",
       "metrics": {
@@ -303,9 +303,9 @@ Results are saved as organized files in the `results/` directory:
 ls -la results/custom_prompts/*/
 
 # View results for specific dates
-ls -la results/custom_prompts/2024-*/   
+ls -la results/custom_prompts/2024-*/
 
-# View a specific result file  
+# View a specific result file
 cat results/custom_prompts/2024-12-04/20241204_143022_custom.json
 
 # View markdown report
@@ -319,7 +319,7 @@ cat results/custom_prompts/2024-12-04/20241204_143022_custom.md
 For development and testing purposes, use the `--limit` flag:
 
 ```bash
-# Test with just 1 execution (very quick) 
+# Test with just 1 execution (very quick)
 python scripts/run_benchmarks.py \
   --custom-prompt "Explain {concept}" \
   --prompt-variables '{"concept": "APIs"}' \
@@ -428,7 +428,7 @@ python scripts/run_benchmarks.py \
 ### Common Issues and Solutions
 
 #### Issue: "No API key found for provider"
-**Solution**: 
+**Solution**:
 ```bash
 # Check your environment variables
 echo $OPENAI_API_KEY
@@ -440,7 +440,7 @@ export OPENAI_API_KEY="your-key-here"
 ```
 
 #### Issue: "Rate limit exceeded"
-**Solution**: 
+**Solution**:
 - Remove `--parallel` flag for sequential execution
 - Use `--limit` to reduce the number of requests
 - Wait a few minutes before retrying
@@ -528,7 +528,7 @@ Show content only if a variable exists and is truthy:
 ### Built-in Variables
 Always available without specifying:
 - `{timestamp}` - Current ISO timestamp
-- `{date}` - Current date (YYYY-MM-DD)  
+- `{date}` - Current date (YYYY-MM-DD)
 - `{time}` - Current time (HH:MM:SS)
 - `{model_name}` - Name of the current model
 
@@ -560,9 +560,9 @@ This custom prompt system provides a foundation for:
 
 ## 📚 Additional Resources
 
-- **Provider Documentation**: 
+- **Provider Documentation**:
   - [OpenAI Guide](../providers/openai.md)
-  - [Anthropic Guide](../providers/anthropic.md)  
+  - [Anthropic Guide](../providers/anthropic.md)
   - [Google Guide](../providers/google.md)
 - **Examples**: [Custom Prompt Examples](../../examples/use_cases/)
 - **Troubleshooting**: [Full Troubleshooting Guide](../TROUBLESHOOTING.md)

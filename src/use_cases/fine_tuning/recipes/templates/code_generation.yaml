@@ -61,7 +61,7 @@ training:
   gradient_checkpointing: true
   deepspeed_config: null
   fsdp_config: null
-  
+
   # LoRA configuration
   use_lora: true
   lora_rank: 64  # Higher rank for code complexity
@@ -100,11 +100,11 @@ metadata:
   use_case: "Code completion, generation, and fill-in-the-middle tasks"
   notes: |
     This recipe supports multiple code formats:
-    
+
     1. Simple completion:
     {"prompt": "def fibonacci(n):", "completion": "\n    if n <= 1:\n        return n\n    return fibonacci(n-1) + fibonacci(n-2)"}
-    
+
     2. Fill-in-the-middle:
     {"prefix": "def sort_list(arr):\n    # Use quicksort algorithm\n    if len(arr) <= 1:\n        return arr\n    pivot = arr[0]\n    ", "suffix": "\n    return sort_list(left) + [pivot] + sort_list(right)", "middle": "left = [x for x in arr[1:] if x < pivot]\n    right = [x for x in arr[1:] if x >= pivot]"}
-    
+
     The model learns to generate syntactically correct and functional code.

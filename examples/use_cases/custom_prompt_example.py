@@ -11,7 +11,6 @@ installing dependencies with: pip install -r requirements.txt
 """
 
 import json
-from datetime import datetime
 
 # Example 1: CLI Usage Examples
 print("=" * 60)
@@ -66,7 +65,7 @@ print("\n2. Rendering with context:")
 example_context = {
     "model_name": "gpt-4",
     "question": "What causes rainbows?",
-    "context": "Consider the physics of light refraction"
+    "context": "Consider the physics of light refraction",
 }
 print(f"\nContext: {json.dumps(example_context, indent=2)}")
 
@@ -137,10 +136,10 @@ example_output = {
             "retry_count": 0,
             "metadata": {
                 "generation_params": {"temperature": 0.7, "max_tokens": 1000},
-                "template_variables": {"item1": "Python", "item2": "JavaScript"}
-            }
+                "template_variables": {"item1": "Python", "item2": "JavaScript"},
+            },
         }
-    ]
+    ],
 }
 
 print("\nExample execution result:")

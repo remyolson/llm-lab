@@ -49,33 +49,33 @@ jobs:
       python-versions: ${{ steps.setup.outputs.python-versions }}
       test-suite: ${{ steps.setup.outputs.test-suite }}
       providers: ${{ steps.setup.outputs.providers }}
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-pip-${{ hashFiles('requirements*.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-test.txt
         pip install pytest-html pytest-json-report pytest-cov
-    
+
     - name: Setup test configuration
       id: setup
       run: |
@@ -85,28 +85,28 @@ jobs:
         else
           echo "python-versions=[\"3.11\"]" >> $GITHUB_OUTPUT
         fi
-        
+
         # Determine test suite
         TEST_SUITE="${{ github.event.inputs.test_suite || 'all' }}"
         echo "test-suite=$TEST_SUITE" >> $GITHUB_OUTPUT
-        
+
         # Parse provider filter
         PROVIDERS="${{ github.event.inputs.provider_filter || 'openai,anthropic,google' }}"
         echo "providers=$PROVIDERS" >> $GITHUB_OUTPUT
-        
+
         echo "Configuration:"
         echo "  Test Suite: $TEST_SUITE"
         echo "  Providers: $PROVIDERS"
         echo "  Real API Tests: ${{ env.INTEGRATION_TESTS }}"
-    
+
     - name: Run Ruff linter
       run: |
         ruff check . --output-format=github
-    
+
     - name: Run Ruff formatter check
       run: |
         ruff format --check .
-    
+
     - name: Validate test examples
       run: |
         # Check that our test examples are valid Python
@@ -124,31 +124,31 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ${{ fromJSON(needs.setup-and-lint.outputs.python-versions) }}
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
-    
+
     - name: Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-${{ matrix.python-version }}-pip-${{ hashFiles('requirements*.txt') }}
         restore-keys: |
           ${{ runner.os }}-${{ matrix.python-version }}-pip-
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-test.txt
         pip install pytest-html pytest-json-report pytest-cov
-    
+
     - name: Run cross-provider unit tests
       run: |
         # Run the unit tests from our examples
@@ -160,7 +160,7 @@ jobs:
           --html=reports/unit-tests-${{ matrix.python-version }}.html \
           --json-report --json-report-file=reports/unit-tests-${{ matrix.python-version }}.json \
           -k "not integration"
-    
+
     - name: Run existing provider tests
       run: |
         # Run existing test suite
@@ -171,9 +171,9 @@ jobs:
           --cov-report=xml \
           --cov-report=html \
           -k "not integration"
-    
+
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: unit-test-results-${{ matrix.python-version }}
@@ -181,10 +181,10 @@ jobs:
           reports/
           htmlcov/
           coverage.xml
-    
+
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./coverage.xml
         flags: unit-tests
@@ -202,29 +202,29 @@ jobs:
       fail-fast: false
       matrix:
         provider: ['openai', 'anthropic', 'google']
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-integration-pip-${{ hashFiles('requirements*.txt') }}
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install -r requirements-test.txt
         pip install pytest-html pytest-json-report
-    
+
     - name: Run integration tests for ${{ matrix.provider }}
       env:
         OPENAI_API_KEY: ${{ matrix.provider == 'openai' && secrets.OPENAI_API_KEY || '' }}
@@ -253,9 +253,9 @@ jobs:
             fi
             ;;
         esac
-        
+
         echo "🚀 Running integration tests for ${{ matrix.provider }}"
-        
+
         # Run integration tests from examples
         pytest examples/use_cases/cross_llm_testing_examples.py::TestChatbotIntegration \
           -v \
@@ -264,7 +264,7 @@ jobs:
           -m integration \
           --tb=short \
           --durations=10
-        
+
         # Run existing integration tests
         pytest tests/integration/ \
           -v \
@@ -272,9 +272,9 @@ jobs:
           -k "${{ matrix.provider }}" \
           --tb=short \
           || echo "⚠️ Some existing integration tests failed (non-blocking)"
-    
+
     - name: Upload integration test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: integration-test-results-${{ matrix.provider }}
@@ -287,22 +287,22 @@ jobs:
     if: |
       contains(fromJSON('["all", "regression_tests"]'), needs.setup-and-lint.outputs.test-suite) ||
       github.event_name == 'schedule'
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-regression-pip-${{ hashFiles('requirements*.txt') }}
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -310,12 +310,12 @@ jobs:
         pip install -r requirements-test.txt
         pip install pytest-html pytest-json-report
         pip install scipy matplotlib seaborn  # Additional deps for regression suite
-    
+
     - name: Create regression database directory
       run: |
         mkdir -p regression_data
         chmod 755 regression_data
-    
+
     - name: Run regression test suite
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -324,7 +324,7 @@ jobs:
         INTEGRATION_TESTS: ${{ github.event.inputs.enable_real_api_tests || 'false' }}
       run: |
         echo "🔄 Running regression test suite"
-        
+
         # Run regression tests from examples
         pytest examples/use_cases/regression_testing_suite.py::TestRegressionSuite \
           -v \
@@ -332,20 +332,20 @@ jobs:
           --json-report --json-report-file=reports/regression-tests.json \
           --tb=short \
           --durations=10
-        
+
         echo "✅ Regression test suite completed"
-    
+
     - name: Generate regression report
       if: always()
       run: |
         python -c "
         import json
         from datetime import datetime
-        
+
         try:
             with open('reports/regression-tests.json', 'r') as f:
                 data = json.load(f)
-            
+
             print('\n📊 REGRESSION TEST SUMMARY')
             print('=' * 50)
             print(f'Total Tests: {data[\"summary\"][\"total\"]}')
@@ -353,21 +353,21 @@ jobs:
             print(f'Failed: {data[\"summary\"][\"failed\"]}')
             print(f'Skipped: {data[\"summary\"][\"skipped\"]}')
             print(f'Duration: {data[\"duration\"]:.2f}s')
-            
+
             if data['summary']['failed'] > 0:
                 print('\n❌ Failed Tests:')
                 for test in data['tests']:
                     if test['outcome'] == 'failed':
                         print(f'  - {test[\"nodeid\"]}: {test.get(\"call\", {}).get(\"longrepr\", \"Unknown error\")[:100]}...')
-            
+
         except FileNotFoundError:
             print('No regression test results found')
         except Exception as e:
             print(f'Error processing regression results: {e}')
         "
-    
+
     - name: Upload regression test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: regression-test-results
@@ -382,22 +382,22 @@ jobs:
     if: |
       contains(fromJSON('["all", "performance_tests"]'), needs.setup-and-lint.outputs.test-suite) ||
       github.event_name == 'schedule'
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
-    
+
     - name: Cache pip dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.cache/pip
         key: ${{ runner.os }}-performance-pip-${{ hashFiles('requirements*.txt') }}
-    
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -405,7 +405,7 @@ jobs:
         pip install -r requirements-test.txt
         pip install pytest-html pytest-json-report
         pip install numpy scipy matplotlib seaborn pandas psutil  # Performance testing deps
-    
+
     - name: Run performance benchmark tests
       env:
         OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -416,7 +416,7 @@ jobs:
       run: |
         echo "⚡ Running performance benchmark suite"
         echo "Performance test duration: $PERFORMANCE_DURATION minutes"
-        
+
         # Run performance tests from examples
         pytest examples/use_cases/performance_benchmark_suite.py::TestPerformanceBenchmark \
           -v \
@@ -425,7 +425,7 @@ jobs:
           --tb=short \
           --durations=20 \
           -s  # Don't capture output so we can see progress
-    
+
     - name: Generate performance comparison report
       if: always()
       run: |
@@ -433,19 +433,19 @@ jobs:
         import json
         import os
         from datetime import datetime
-        
+
         print('\n⚡ PERFORMANCE TEST SUMMARY')
         print('=' * 50)
-        
+
         try:
             with open('reports/performance-tests.json', 'r') as f:
                 data = json.load(f)
-            
+
             print(f'Total Tests: {data[\"summary\"][\"total\"]}')
             print(f'Passed: {data[\"summary\"][\"passed\"]}')
             print(f'Failed: {data[\"summary\"][\"failed\"]}')
             print(f'Duration: {data[\"duration\"]:.2f}s')
-            
+
             # Look for benchmark result files
             benchmark_dir = 'demo_benchmarks'
             if os.path.exists(benchmark_dir):
@@ -454,15 +454,15 @@ jobs:
                     print(f'\n📊 Generated {len(benchmark_files)} benchmark result files')
                     for f in benchmark_files:
                         print(f'  - {f}')
-                        
+
         except FileNotFoundError:
             print('No performance test results found')
         except Exception as e:
             print(f'Error processing performance results: {e}')
         "
-    
+
     - name: Upload performance test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: performance-test-results
@@ -476,16 +476,16 @@ jobs:
     needs: [setup-and-lint, unit-tests, integration-tests, regression-tests, performance-tests]
     runs-on: ubuntu-latest
     if: always()
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Download all test artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v4
       with:
         path: test-artifacts
-    
+
     - name: Generate comprehensive test report
       run: |
         python -c "
@@ -493,7 +493,7 @@ jobs:
         import os
         from datetime import datetime
         from pathlib import Path
-        
+
         print('📋 COMPREHENSIVE CROSS-LLM TEST REPORT')
         print('=' * 60)
         print(f'Generated: {datetime.now().isoformat()}')
@@ -501,10 +501,10 @@ jobs:
         print(f'Ref: ${{ github.ref }}')
         print(f'SHA: ${{ github.sha }}')
         print()
-        
+
         artifacts_dir = Path('test-artifacts')
         report_sections = []
-        
+
         # Process each test type
         test_types = {
             'Unit Tests': 'unit-test-results',
@@ -512,32 +512,32 @@ jobs:
             'Regression Tests': 'regression-test-results',
             'Performance Tests': 'performance-test-results'
         }
-        
+
         for test_name, artifact_pattern in test_types.items():
             print(f'📊 {test_name}')
             print('-' * (len(test_name) + 4))
-            
+
             # Find matching artifacts
-            matching_dirs = [d for d in artifacts_dir.iterdir() 
+            matching_dirs = [d for d in artifacts_dir.iterdir()
                            if d.is_dir() and artifact_pattern in d.name]
-            
+
             if not matching_dirs:
                 print(f'  ❌ No results found')
                 continue
-            
+
             for result_dir in matching_dirs:
                 json_files = list(result_dir.glob('*.json'))
                 if not json_files:
                     continue
-                
+
                 for json_file in json_files:
                     if 'report' in json_file.name.lower():
                         continue  # Skip report files
-                    
+
                     try:
                         with open(json_file) as f:
                             data = json.load(f)
-                        
+
                         if 'summary' in data:
                             summary = data['summary']
                             print(f'  📁 {json_file.parent.name}:')
@@ -545,19 +545,19 @@ jobs:
                             print(f'     Passed: {summary.get(\"passed\", 0)}')
                             print(f'     Failed: {summary.get(\"failed\", 0)}')
                             print(f'     Duration: {data.get(\"duration\", 0):.2f}s')
-                            
+
                             if summary.get('failed', 0) > 0:
                                 print(f'     ⚠️  {summary[\"failed\"]} test(s) failed')
-                    
+
                     except Exception as e:
                         print(f'  ❌ Error reading {json_file}: {e}')
-            
+
             print()
-        
+
         # Overall status
         print('🎯 OVERALL STATUS')
         print('-' * 16)
-        
+
         # Check if any critical tests failed
         failed_jobs = []
         if '${{ needs.unit-tests.result }}' == 'failure':
@@ -568,12 +568,12 @@ jobs:
             failed_jobs.append('Regression Tests')
         if '${{ needs.performance-tests.result }}' == 'failure':
             failed_jobs.append('Performance Tests')
-        
+
         if failed_jobs:
             print(f'❌ Failed Jobs: {', '.join(failed_jobs)}')
         else:
             print('✅ All test jobs completed successfully')
-        
+
         print()
         print('📝 RECOMMENDATIONS')
         print('-' * 17)
@@ -586,7 +586,7 @@ jobs:
             print('2. Consider running performance tests on main branch')
             print('3. Monitor regression trends in scheduled runs')
         "
-    
+
     - name: Comment PR with test results
       if: github.event_name == 'pull_request'
       uses: actions/github-script@v6
@@ -594,12 +594,12 @@ jobs:
         script: |
           const fs = require('fs');
           const path = require('path');
-          
+
           // Create a summary comment for the PR
           let comment = '## 🧪 Cross-LLM Test Results\\n\\n';
           comment += `**Trigger:** ${context.eventName}\\n`;
           comment += `**Commit:** ${context.sha.substring(0, 7)}\\n\\n`;
-          
+
           // Job status
           const jobs = {
             'Unit Tests': '${{ needs.unit-tests.result }}',
@@ -607,33 +607,33 @@ jobs:
             'Regression Tests': '${{ needs.regression-tests.result }}',
             'Performance Tests': '${{ needs.performance-tests.result }}'
           };
-          
+
           comment += '### Job Status\\n';
           for (const [job, status] of Object.entries(jobs)) {
             const icon = status === 'success' ? '✅' : status === 'failure' ? '❌' : status === 'skipped' ? '⏭️' : '⚠️';
             comment += `- ${icon} **${job}**: ${status}\\n`;
           }
-          
+
           comment += '\\n### Artifacts\\n';
           comment += 'Test reports and coverage data are available in the workflow artifacts.\\n\\n';
-          
+
           if (Object.values(jobs).includes('failure')) {
             comment += '⚠️ **Some tests failed.** Please review the logs and fix any issues before merging.\\n';
           } else {
             comment += '🎉 **All tests passed!** This PR is ready for review.\\n';
           }
-          
+
           // Find existing comment to update
           const { data: comments } = await github.rest.issues.listComments({
             owner: context.repo.owner,
             repo: context.repo.repo,
             issue_number: context.issue.number,
           });
-          
-          const existingComment = comments.find(comment => 
+
+          const existingComment = comments.find(comment =>
             comment.body.includes('Cross-LLM Test Results')
           );
-          
+
           if (existingComment) {
             await github.rest.issues.updateComment({
               owner: context.repo.owner,
@@ -649,9 +649,9 @@ jobs:
               body: comment
             });
           }
-    
+
     - name: Upload comprehensive report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: comprehensive-test-report
@@ -662,7 +662,7 @@ jobs:
     needs: [generate-report]
     runs-on: ubuntu-latest
     if: always() && github.event_name == 'schedule'
-    
+
     steps:
     - name: Send daily regression summary
       if: github.event_name == 'schedule'
@@ -673,7 +673,7 @@ jobs:
         echo "2. Generate trend analysis"
         echo "3. Send email/Slack notification with summary"
         echo "4. Update regression tracking dashboard"
-        
+
         # Example of what could be implemented:
         # curl -X POST -H 'Content-type: application/json' \
         #   --data '{"text":"Daily Cross-LLM Test Summary: ..."}' \

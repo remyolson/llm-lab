@@ -7,7 +7,7 @@ echo "Testing code generation across different complexity levels and tasks"
 echo
 
 # Example 1: Beginner Level Function
-echo "1. Testing Beginner Level Function..."  
+echo "1. Testing Beginner Level Function..."
 python scripts/run_benchmarks.py \
   --prompt-file templates/code_generation/code_generation.txt \
   --prompt-variables '{
@@ -15,7 +15,7 @@ python scripts/run_benchmarks.py \
     "function_purpose": "Calculate the area of a circle given its radius",
     "complexity_level": "beginner",
     "input_parameters": "radius (float)",
-    "return_type": "float", 
+    "return_type": "float",
     "include_examples": true,
     "style_preferences": "Clear variable names with detailed comments explaining each step"
   }' \
@@ -94,7 +94,7 @@ echo
 echo "5. Testing Different Function Types..."
 declare -a functions=(
   "sort_algorithm:Implement merge sort algorithm:intermediate"
-  "validate_email:Email address validation with regex:beginner" 
+  "validate_email:Email address validation with regex:beginner"
   "cache_decorator:Python decorator for function caching:advanced"
   "binary_search:Binary search implementation:intermediate"
 )
@@ -102,7 +102,7 @@ declare -a functions=(
 for func in "${functions[@]}"; do
   IFS=':' read -r name purpose complexity <<< "$func"
   echo "   Testing: $name ($complexity)"
-  
+
   python scripts/run_benchmarks.py \
     --prompt-file templates/code_generation/code_generation.txt \
     --prompt-variables "{
@@ -137,7 +137,7 @@ python scripts/run_benchmarks.py \
 python scripts/run_benchmarks.py \
   --prompt-file templates/code_generation/code_generation.txt \
   --prompt-variables '{
-    "function_name": "fibonacci", 
+    "function_name": "fibonacci",
     "function_purpose": "Calculate fibonacci number recursively",
     "complexity_level": "intermediate",
     "style_preferences": "Object-oriented style with detailed documentation"

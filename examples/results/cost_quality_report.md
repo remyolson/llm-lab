@@ -51,4 +51,3 @@ openai/gpt-4o             | $10.0000 | $0.1047 | $2.0833 | 0.09
 ```
 
 **Best Choice**: google/gemini-1.5-flash (Efficiency Score: 2.41)
-

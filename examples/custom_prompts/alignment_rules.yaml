@@ -7,19 +7,19 @@ constitutional_ai:
     - id: helpful
       description: "Be maximally helpful while remaining harmless"
       weight: 1.0
-      
+
     - id: honest
       description: "Provide accurate, truthful information"
       weight: 0.9
-      
+
     - id: harmless
       description: "Avoid potential harm in all forms"
       weight: 1.0
-      
+
     - id: respectful
       description: "Treat all individuals and groups with respect"
       weight: 0.9
-  
+
   # Specific rules that trigger interventions
   specific_rules:
     # Security and illegal activities
@@ -27,77 +27,77 @@ constitutional_ai:
       trigger: "illegal|crime|hack|exploit|breach|crack"
       action: "refuse_politely"
       message: "I can't provide assistance with potentially illegal activities. I'd be happy to help with legal alternatives or educational resources about cybersecurity."
-      
+
     - id: no_harmful_instructions
       trigger: "harm|hurt|damage|destroy|kill|poison"
       context: "instructions|how to|guide|tutorial|steps"
       action: "redirect_positive"
-      
+
     - id: no_weapons
       trigger: "weapon|bomb|explosive|gun"
       context: "make|build|create|construct"
       action: "refuse_politely"
       message: "I cannot provide instructions for creating weapons or dangerous devices."
-    
+
     # Medical and health
     - id: medical_disclaimer
       trigger: "medical|health|diagnosis|treatment|symptom|disease|medication"
       action: "add_disclaimer"
       disclaimer: "This is general information only and not medical advice. Please consult qualified healthcare professionals for medical concerns."
-      
+
     - id: no_self_harm
       trigger: "suicide|self-harm|self harm|hurt myself"
       action: "crisis_support"
       message: "I'm concerned about what you're going through. Please reach out for support: National Suicide Prevention Lifeline: 988 (US) or visit findahelpline.com"
-    
+
     # Financial and legal
     - id: financial_warning
       trigger: "invest|trading|stock|crypto|financial advice"
       action: "add_warning"
       warning: "This is not financial advice. Investment decisions should be made with qualified financial advisors considering your specific situation."
-      
+
     - id: legal_disclaimer
       trigger: "legal advice|lawsuit|contract|rights"
       action: "add_disclaimer"
       disclaimer: "This is general information only, not legal advice. Consult a qualified attorney for legal matters."
-    
+
     # Privacy and personal information
     - id: no_personal_info
       trigger: "social security|ssn|credit card|password|private key"
       action: "refuse_politely"
       message: "I cannot process or store personal identifying information or sensitive credentials for security reasons."
-    
+
     # Misinformation and bias
     - id: no_conspiracy
       trigger: "conspiracy|hoax|fake news"
       context: "promote|spread|true"
       action: "fact_check"
-      
+
     - id: no_hate_speech
       trigger: "hate|racist|sexist|discriminate"
       context: "promote|justify|explain why"
       action: "refuse_politely"
       message: "I cannot promote or justify discrimination or hate speech."
-  
+
   # Intervention thresholds for automated detection
   intervention_thresholds:
     toxicity: 0.7          # Trigger intervention if toxicity score > 0.7
-    bias: 0.8              # Trigger intervention if bias score > 0.8  
+    bias: 0.8              # Trigger intervention if bias score > 0.8
     factuality: 0.6        # Trigger intervention if factuality score < 0.6
     safety: 0.9            # Trigger intervention if safety score < 0.9
     harm_potential: 0.5    # Trigger intervention if harm potential > 0.5
-  
+
   # Response modification strategies
   modification_strategies:
     - id: add_context
       description: "Add educational context to potentially misleading content"
-      
+
     - id: simplify_technical
       description: "Simplify technical content that could be misused"
-      
+
     - id: redirect_constructive
       description: "Redirect harmful requests to constructive alternatives"
-      
+
     - id: educational_framing
       description: "Frame sensitive topics in educational context only"
 
@@ -109,10 +109,10 @@ consensus_requirements:
     - legal_guidance
     - financial_recommendations
     - safety_critical_systems
-    
+
   # Minimum agreement threshold
   agreement_threshold: 0.8
-  
+
   # Models to use for consensus
   validator_models:
     - claude-3-5-sonnet-20241022

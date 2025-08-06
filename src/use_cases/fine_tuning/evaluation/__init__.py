@@ -5,27 +5,26 @@ This module provides comprehensive evaluation tools for assessing model
 performance before and after fine-tuning.
 """
 
-from .suite import (
-    EvaluationSuite,
-    EvaluationConfig,
-    EvaluationResult,
-    BenchmarkResult,
-    MetricResult
-)
-
 from .custom_evaluations import (
     CustomEvaluationRegistry,
+    create_recipe_evaluation_function,
     get_custom_evaluation_function,
-    create_recipe_evaluation_function
+)
+from .suite import (
+    BenchmarkResult,
+    EvaluationConfig,
+    EvaluationResult,
+    EvaluationSuite,
+    MetricResult,
 )
 
 __all__ = [
-    "EvaluationSuite",
+    "BenchmarkResult",
+    "CustomEvaluationRegistry",
     "EvaluationConfig",
     "EvaluationResult",
-    "BenchmarkResult",
+    "EvaluationSuite",
     "MetricResult",
-    "CustomEvaluationRegistry",
+    "create_recipe_evaluation_function",
     "get_custom_evaluation_function",
-    "create_recipe_evaluation_function"
 ]

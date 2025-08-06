@@ -6,8 +6,9 @@ with the LLM Lab provider registry.
 """
 
 import logging
-from src.providers.registry import registry
+
 from .provider import LocalModelProvider
+from .providers.registry import registry
 
 logger = logging.getLogger(__name__)
 
@@ -17,23 +18,23 @@ def register_local_provider():
     try:
         # Register with all supported models
         supported_models = LocalModelProvider.SUPPORTED_MODELS
-        
+
         # Also register with generic "local" prefix for custom models
         extended_models = supported_models + [
             "local-llama-2-7b",
             "local-llama-2-13b",
             "local-mistral-7b",
             "local-phi-2",
-            "local-custom"
+            "local-custom",
         ]
-        
+
         registry.register(LocalModelProvider, extended_models)
         logger.info("Successfully registered LocalModelProvider")
-        
+
         return True
-        
+
     except Exception as e:
-        logger.error(f"Failed to register LocalModelProvider: {str(e)}")
+        logger.error(f"Failed to register LocalModelProvider: {e!s}")
         return False
 
 

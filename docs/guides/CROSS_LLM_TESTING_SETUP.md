@@ -183,7 +183,7 @@ testpaths = examples/use_cases tests
 python_files = test_*.py *_test.py *_tests.py
 python_functions = test_*
 python_classes = Test*
-addopts = 
+addopts =
     -v
     --tb=short
     --strict-markers
@@ -518,12 +518,12 @@ def generate_custom_report(results_file):
     """Generate custom test report."""
     with open(results_file) as f:
         data = json.load(f)
-    
+
     report = {
         'timestamp': datetime.now().isoformat(),
         'summary': data['summary'],
         'failed_tests': [
-            test for test in data['tests'] 
+            test for test in data['tests']
             if test['outcome'] == 'failed'
         ],
         'performance_metrics': {
@@ -531,7 +531,7 @@ def generate_custom_report(results_file):
             'avg_test_duration': data['duration'] / data['summary']['total']
         }
     }
-    
+
     with open('custom_report.json', 'w') as f:
         json.dump(report, f, indent=2)
 
@@ -563,28 +563,28 @@ from datetime import datetime, timedelta
 def check_performance_regression():
     """Check for performance regressions."""
     conn = sqlite3.connect('regression_results.db')
-    
+
     # Get recent results
     recent_query = """
     SELECT AVG(overall_score) as avg_score
-    FROM test_results 
+    FROM test_results
     WHERE timestamp >= datetime('now', '-7 days')
     """
-    
+
     baseline_query = """
-    SELECT baseline_value 
-    FROM baselines 
+    SELECT baseline_value
+    FROM baselines
     WHERE metric_name = 'overall_score'
     """
-    
+
     recent_score = conn.execute(recent_query).fetchone()[0]
     baseline_score = conn.execute(baseline_query).fetchone()[0]
-    
+
     if recent_score < baseline_score * 0.9:  # 10% degradation
         print(f"⚠️ Performance regression detected!")
         print(f"Recent: {recent_score:.3f}, Baseline: {baseline_score:.3f}")
         return False
-    
+
     print(f"✅ Performance within acceptable range")
     return True
 

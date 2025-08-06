@@ -9,12 +9,12 @@ from .hyperparam_optimizer import (
     HyperparameterOptimizer,
     OptimizationResult,
     SearchSpace,
-    get_default_search_space
+    get_default_search_space,
 )
 
 __all__ = [
     "HyperparameterOptimizer",
     "OptimizationResult",
     "SearchSpace",
-    "get_default_search_space"
+    "get_default_search_space",
 ]

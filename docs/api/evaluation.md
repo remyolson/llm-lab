@@ -16,7 +16,7 @@ from typing import Dict, Any, List
 
 class BaseEvaluator(ABC):
     """Base class for all evaluators."""
-    
+
     @abstractmethod
     def evaluate(
         self,
@@ -25,12 +25,12 @@ class BaseEvaluator(ABC):
         **kwargs
     ) -> Dict[str, float]:
         """Evaluate a response against expected output.
-        
+
         Args:
             response: Model response
             expected: Expected output or ground truth
             **kwargs: Additional evaluation parameters
-            
+
         Returns:
             Dictionary of metric names to scores
         """
@@ -225,10 +225,10 @@ from src.evaluation import BaseEvaluator
 
 class DomainSpecificEvaluator(BaseEvaluator):
     """Custom evaluator for domain-specific content."""
-    
+
     def __init__(self, domain_keywords: List[str]):
         self.domain_keywords = domain_keywords
-    
+
     def evaluate(
         self,
         response: str,
@@ -240,9 +240,9 @@ class DomainSpecificEvaluator(BaseEvaluator):
             1 for keyword in self.domain_keywords
             if keyword.lower() in response.lower()
         )
-        
+
         relevance = matches / len(self.domain_keywords)
-        
+
         return {
             "domain_relevance": relevance,
             "keyword_coverage": matches
@@ -259,24 +259,24 @@ evaluator = DomainSpecificEvaluator(
 ```python
 class CompositeEvaluator(BaseEvaluator):
     """Combine multiple evaluators."""
-    
+
     def __init__(self, evaluators: List[BaseEvaluator], weights: Dict[str, float]):
         self.evaluators = evaluators
         self.weights = weights
-    
+
     def evaluate(self, response: str, expected: Any, **kwargs) -> Dict[str, float]:
         all_scores = {}
-        
+
         for evaluator in self.evaluators:
             scores = evaluator.evaluate(response, expected, **kwargs)
             all_scores.update(scores)
-        
+
         # Calculate weighted average
         weighted_score = sum(
             score * self.weights.get(metric, 1.0)
             for metric, score in all_scores.items()
         ) / len(all_scores)
-        
+
         all_scores["weighted_average"] = weighted_score
         return all_scores
 ```
@@ -317,25 +317,25 @@ evaluation:
       config:
         threshold: 0.8
         strict_mode: true
-    
+
     - evaluator: safety
       config:
         filters:
           - toxicity
           - bias
           - pii
-    
+
     - evaluator: performance
       config:
         metrics:
           - latency
           - throughput
-  
+
   dataset:
     name: truthfulqa
     split: test
     sample_size: 500
-    
+
   output:
     format: json
     include_raw_responses: true
@@ -358,7 +358,7 @@ evaluation:
    def safe_evaluate(response, expected):
        if not response or not expected:
            return {"score": 0.0, "error": "Empty input"}
-       
+
        try:
            return evaluator.evaluate(response, expected)
        except Exception as e:
@@ -370,7 +370,7 @@ evaluation:
    # Always check statistical significance
    if results.sample_size < 30:
        logger.warning("Small sample size, results may not be significant")
-   
+
    # Use bootstrap for confidence intervals
    ci = analyzer.bootstrap_ci(results, n_iterations=1000)
    ```
@@ -378,7 +378,7 @@ evaluation:
 4. **Cache Evaluations**
    ```python
    from functools import lru_cache
-   
+
    @lru_cache(maxsize=1000)
    def cached_evaluate(response: str, expected: str) -> float:
        return evaluator.evaluate(response, expected)["score"]

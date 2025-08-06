@@ -153,7 +153,7 @@ training:
   learning_rate: 2e-4
   warmup_steps: 100
   max_length: 512         # Context length for training
-  
+
 # Optimization
 optimization:
   gradient_checkpointing: true
@@ -386,7 +386,7 @@ search_space:
   lora_r: [4, 8, 16, 32]
   lora_alpha: [16, 32, 64]
   batch_size: [2, 4, 8]
-  
+
 search_strategy: "grid"  # or "random" or "bayesian"
 max_trials: 20
 metric: "validation_loss"
@@ -621,7 +621,7 @@ Complete model parameter updating:
 - **Strengths**: Highest quality results, complete model specialization
 - **Example**: "Create a medical diagnosis model from a general language model"
 
-### PEFT (Parameter-Efficient Fine-Tuning) 
+### PEFT (Parameter-Efficient Fine-Tuning)
 General framework for efficient training:
 - **Best for**: Multi-task scenarios, rapid prototyping, research
 - **Strengths**: Supports multiple adapter types, task switching
@@ -638,7 +638,7 @@ This fine-tuning framework enables:
 
 ## 📚 Additional Resources
 
-- **Research Papers**: 
+- **Research Papers**:
   - [LoRA: Low-Rank Adaptation](https://arxiv.org/abs/2106.09685)
   - [QLoRA: Efficient Fine-tuning](https://arxiv.org/abs/2305.14314)
   - [PEFT: Parameter-Efficient Fine-tuning](https://arxiv.org/abs/2110.04366)

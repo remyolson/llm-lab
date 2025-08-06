@@ -14,15 +14,12 @@ Usage:
 """
 
 import argparse
-import json
-import os
+import shutil
 import sys
 import tempfile
 import urllib.request
 from pathlib import Path
-from typing import Dict, List, Optional
-import hashlib
-import shutil
+from typing import Dict, Optional
 
 
 class AssetDownloader:
@@ -126,9 +123,7 @@ class AssetDownloader:
             total_size = sum(f["size_mb"] for f in info["files"].values())
             print(f"  • {dataset_id}: {info['description']} ({total_size}MB)")
 
-        print(
-            f"\n💾 Total size if downloading everything: {self._calculate_total_size()}MB"
-        )
+        print(f"\n💾 Total size if downloading everything: {self._calculate_total_size()}MB")
 
     def _calculate_total_size(self) -> int:
         """Calculate total download size for all assets."""
@@ -203,19 +198,13 @@ class AssetDownloader:
             if destination.exists():
                 actual_size_mb = destination.stat().st_size / (1024 * 1024)
                 expected_size_mb = file_info["size_mb"]
-                if (
-                    abs(actual_size_mb - expected_size_mb) < expected_size_mb * 0.05
-                ):  # 5% tolerance
+                if abs(actual_size_mb - expected_size_mb) < expected_size_mb * 0.05:  # 5% tolerance
                     print(f"  ✅ {filename} already exists with correct size")
                     continue
                 else:
-                    print(
-                        f"  🔄 {filename} exists but size mismatch, re-downloading..."
-                    )
+                    print(f"  🔄 {filename} exists but size mismatch, re-downloading...")
 
-            if not self._download_file(
-                file_info["url"], destination, file_info["size_mb"]
-            ):
+            if not self._download_file(file_info["url"], destination, file_info["size_mb"]):
                 success = False
 
         return success
@@ -275,13 +264,8 @@ class AssetDownloader:
                         # Check file size
                         actual_size_mb = file_path.stat().st_size / (1024 * 1024)
                         expected_size_mb = file_info["size_mb"]
-                        if (
-                            abs(actual_size_mb - expected_size_mb)
-                            > expected_size_mb * 0.05
-                        ):
-                            print(
-                                f"  ⚠️  Size mismatch: {category}/{asset_id}/{filename}"
-                            )
+                        if abs(actual_size_mb - expected_size_mb) > expected_size_mb * 0.05:
+                            print(f"  ⚠️  Size mismatch: {category}/{asset_id}/{filename}")
                             print(
                                 f"      Expected: ~{expected_size_mb}MB, Actual: {actual_size_mb:.1f}MB"
                             )
@@ -306,9 +290,7 @@ def main():
     group.add_argument("--all", action="store_true", help="Download all assets")
     group.add_argument("--models", action="store_true", help="Download all models")
     group.add_argument("--datasets", action="store_true", help="Download all datasets")
-    group.add_argument(
-        "--model", type=str, help="Download specific model (e.g., qwen-0.5b)"
-    )
+    group.add_argument("--model", type=str, help="Download specific model (e.g., qwen-0.5b)")
     group.add_argument(
         "--dataset", type=str, help="Download specific dataset (e.g., truthfulqa-full)"
     )
@@ -325,9 +307,7 @@ def main():
 
     if args.verify:
         results = downloader.verify_assets()
-        all_valid = all(
-            all(asset_results.values()) for asset_results in results.values()
-        )
+        all_valid = all(all(asset_results.values()) for asset_results in results.values())
         sys.exit(0 if all_valid else 1)
 
     if args.all:

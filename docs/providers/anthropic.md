@@ -145,7 +145,7 @@ provider = AnthropicProvider(model_name="claude-3-5-sonnet-20241022")
 def analyze_long_document(document_path, analysis_prompt):
     with open(document_path, 'r') as f:
         document_content = f.read()
-    
+
     # Claude can handle up to 200K tokens
     full_prompt = f"""
 Please analyze the following document:
@@ -156,12 +156,12 @@ Please analyze the following document:
 
 Analysis request: {analysis_prompt}
 """
-    
+
     return provider.generate(full_prompt)
 
 # Usage
 analysis = analyze_long_document(
-    "research_paper.txt", 
+    "research_paper.txt",
     "Summarize the key findings and methodology"
 )
 ```
@@ -234,8 +234,8 @@ response = generate_with_retry("Your prompt here")
 ```python
 from llm_providers import AnthropicProvider
 from llm_providers.exceptions import (
-    RateLimitError, 
-    AuthenticationError, 
+    RateLimitError,
+    AuthenticationError,
     InvalidRequestError,
     ServerError
 )
@@ -246,18 +246,18 @@ def robust_generate(prompt, max_retries=3):
     for attempt in range(max_retries):
         try:
             return provider.generate(prompt)
-            
+
         except RateLimitError as e:
             if e.retry_after:
                 print(f"Rate limited, waiting {e.retry_after} seconds")
                 time.sleep(e.retry_after)
             else:
                 time.sleep(2 ** attempt)
-                
+
         except AuthenticationError as e:
             print(f"Authentication failed: {e}")
             raise  # Don't retry auth errors
-            
+
         except InvalidRequestError as e:
             print(f"Invalid request: {e}")
             # Check if it's a fixable issue
@@ -266,20 +266,20 @@ def robust_generate(prompt, max_retries=3):
                 provider.max_tokens = min(provider.max_tokens, 1000)
                 continue
             raise
-            
+
         except ServerError as e:
             print(f"Server error (attempt {attempt + 1}): {e}")
             if attempt < max_retries - 1:
                 time.sleep(2 ** attempt)
                 continue
             raise
-            
+
         except Exception as e:
             print(f"Unexpected error: {e}")
             if attempt == max_retries - 1:
                 raise
             time.sleep(2 ** attempt)
-    
+
     raise Exception("Max retries exceeded")
 ```
 
@@ -309,10 +309,10 @@ provider = AnthropicProvider(
 def create_efficient_prompt(task, context=None):
     """Create well-structured prompts for Claude"""
     prompt = f"<task>\n{task}\n</task>\n"
-    
+
     if context:
         prompt += f"\n<context>\n{context}\n</context>\n"
-    
+
     prompt += "\nPlease provide a clear, concise response:"
     return prompt
 
@@ -321,24 +321,24 @@ def optimize_for_long_context(text, max_context_tokens=150000):
     """Optimize text for Claude's long context window"""
     # Rough token estimation (1 token ≈ 0.75 words for Claude)
     estimated_tokens = len(text.split()) * 1.33
-    
+
     if estimated_tokens > max_context_tokens:
         # Truncate but preserve structure
         words = text.split()
         target_words = int(max_context_tokens * 0.75)
-        
+
         # Try to keep beginning and end
         keep_start = target_words // 2
         keep_end = target_words - keep_start
-        
+
         if len(words) > target_words:
             truncated = (
-                ' '.join(words[:keep_start]) + 
+                ' '.join(words[:keep_start]) +
                 '\n\n[... content truncated ...]\n\n' +
                 ' '.join(words[-keep_end:])
             )
             return truncated
-    
+
     return text
 ```
 
@@ -355,15 +355,15 @@ import time
 def run_claude_benchmark(dataset, model_name="claude-3-5-haiku-20241022"):
     provider = AnthropicProvider(model_name=model_name)
     results = []
-    
+
     for i, prompt_data in enumerate(dataset):
         print(f"Processing {i+1}/{len(dataset)} with {model_name}")
-        
+
         try:
             start_time = time.time()
             response = provider.generate(prompt_data['prompt'])
             end_time = time.time()
-            
+
             result = {
                 'prompt_id': prompt_data['id'],
                 'model_name': f'anthropic/{model_name}',
@@ -374,7 +374,7 @@ def run_claude_benchmark(dataset, model_name="claude-3-5-haiku-20241022"):
                 'success': True,
                 'provider': 'anthropic'
             }
-            
+
         except Exception as e:
             result = {
                 'prompt_id': prompt_data['id'],
@@ -386,18 +386,18 @@ def run_claude_benchmark(dataset, model_name="claude-3-5-haiku-20241022"):
                 'success': False,
                 'provider': 'anthropic'
             }
-        
+
         results.append(result)
-        
+
         # Rate limiting - Claude free tier is 5 RPM
         time.sleep(12)  # Wait 12 seconds between requests
-    
+
     return results
 
 # Compare multiple Claude models
 models = [
     "claude-3-haiku-20240307",
-    "claude-3-5-haiku-20241022", 
+    "claude-3-5-haiku-20241022",
     "claude-3-5-sonnet-20241022"
 ]
 
@@ -455,23 +455,23 @@ def generate_with_tools(prompt):
         tools=tools,
         max_tokens=2000
     )
-    
+
     # Handle tool use in response
     if hasattr(response, 'tool_calls') and response.tool_calls:
         for tool_call in response.tool_calls:
             tool_name = tool_call['name']
             tool_input = tool_call['input']
-            
+
             if tool_name == "calculator":
                 # Execute calculation
                 result = eval(tool_input['expression'])  # In production, use safer evaluation
                 print(f"Calculator: {tool_input['expression']} = {result}")
-                
+
             elif tool_name == "web_search":
                 # Execute web search
                 print(f"Searching for: {tool_input['query']}")
                 # result = perform_web_search(tool_input['query'])
-    
+
     return response.content
 
 # Usage
@@ -498,17 +498,17 @@ class CostOptimizedAnthropicProvider(AnthropicProvider):
         # Default to most cost-effective model
         if 'model_name' not in kwargs:
             kwargs['model_name'] = 'claude-3-5-haiku-20241022'
-        
+
         super().__init__(**kwargs)
         self.budget_per_day = budget_per_day
         self.daily_spend = 0.0
         self.last_reset = datetime.now().date()
-    
+
     def estimate_cost(self, prompt, response_length_estimate=500):
         """Estimate cost for a request"""
         input_tokens = len(prompt.split()) * 1.33
         output_tokens = response_length_estimate
-        
+
         # Cost per million tokens
         costs = {
             'claude-3-5-sonnet-20241022': {'input': 3.00, 'output': 15.00},
@@ -517,45 +517,45 @@ class CostOptimizedAnthropicProvider(AnthropicProvider):
             'claude-3-sonnet-20240229': {'input': 3.00, 'output': 15.00},
             'claude-3-haiku-20240307': {'input': 0.25, 'output': 1.25}
         }
-        
+
         model_costs = costs.get(self.model_name, costs['claude-3-5-haiku-20241022'])
-        
+
         input_cost = (input_tokens / 1_000_000) * model_costs['input']
         output_cost = (output_tokens / 1_000_000) * model_costs['output']
-        
+
         return input_cost + output_cost
-    
+
     def generate_with_budget_control(self, prompt, max_response_tokens=1000):
         # Reset daily spend if new day
         today = datetime.now().date()
         if today > self.last_reset:
             self.daily_spend = 0.0
             self.last_reset = today
-        
+
         # Estimate cost
         estimated_cost = self.estimate_cost(prompt, max_response_tokens)
-        
+
         if self.daily_spend + estimated_cost > self.budget_per_day:
             raise Exception(f"Request would exceed daily budget. Estimated cost: ${estimated_cost:.4f}")
-        
+
         # Set max_tokens to control output cost
         original_max_tokens = self.max_tokens
         self.max_tokens = min(self.max_tokens, max_response_tokens)
-        
+
         try:
             response = self.generate(prompt)
-            
+
             # Calculate actual cost (approximation)
             actual_cost = self.estimate_cost(prompt, len(response.split()) * 1.33)
             self.daily_spend += actual_cost
-            
+
             return {
                 'response': response,
                 'cost': actual_cost,
                 'daily_spend': self.daily_spend,
                 'budget_remaining': self.budget_per_day - self.daily_spend
             }
-            
+
         finally:
             # Restore original max_tokens
             self.max_tokens = original_max_tokens
@@ -572,14 +572,14 @@ def analyze_document(file_path, analysis_type="summary"):
     """Analyze documents using Claude's long context window"""
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
-    
+
     analysis_prompts = {
         "summary": "Provide a comprehensive summary of this document, highlighting key points and main arguments.",
         "questions": "Generate 10 thoughtful questions that this document answers or raises.",
         "critique": "Provide a balanced critique of the arguments and evidence presented in this document.",
         "extract": "Extract all important facts, figures, dates, and names from this document."
     }
-    
+
     prompt = f"""
 <document>
 {content}
@@ -587,7 +587,7 @@ def analyze_document(file_path, analysis_type="summary"):
 
 {analysis_prompts.get(analysis_type, analysis_prompts["summary"])}
 """
-    
+
     return provider.generate(prompt)
 
 # Usage
@@ -618,15 +618,15 @@ Extract:
 
 Format as JSON with these keys: people, organizations, dates, locations, facts.
 """
-    
+
     response = provider.generate(prompt)
-    
+
     # Claude often provides JSON wrapped in markdown code blocks
     if "```json" in response:
         json_str = response.split("```json")[1].split("```")[0].strip()
     else:
         json_str = response
-    
+
     try:
         return json.loads(json_str)
     except json.JSONDecodeError:
@@ -661,25 +661,25 @@ curl https://api.anthropic.com/v1/messages \
 def validate_claude_messages(messages):
     """Validate message format for Claude API"""
     valid_roles = {'user', 'assistant'}
-    
+
     for i, message in enumerate(messages):
         if 'role' not in message:
             raise ValueError(f"Message {i} missing 'role' field")
-        
+
         if message['role'] not in valid_roles:
             raise ValueError(f"Invalid role in message {i}: {message['role']}")
-        
+
         if 'content' not in message:
             raise ValueError(f"Message {i} missing 'content' field")
-        
+
         if not isinstance(message['content'], str):
             raise ValueError(f"Message {i} content must be string")
-    
+
     # Check alternating pattern
     for i in range(1, len(messages)):
         if messages[i]['role'] == messages[i-1]['role']:
             print(f"Warning: Non-alternating roles at messages {i-1} and {i}")
-    
+
     return True
 
 # Usage
@@ -697,24 +697,24 @@ validate_claude_messages(messages)
 ```python
 def manage_context_length(messages, max_tokens=180000):
     """Manage conversation length for Claude's context window"""
-    
+
     def estimate_tokens(text):
         return len(text.split()) * 1.33
-    
+
     total_tokens = sum(estimate_tokens(msg['content']) for msg in messages)
-    
+
     if total_tokens <= max_tokens:
         return messages
-    
+
     # Keep system message and recent messages
     result = []
     if messages and messages[0].get('role') == 'system':
         result.append(messages[0])
         messages = messages[1:]
-    
+
     # Keep most recent messages that fit
     current_tokens = sum(estimate_tokens(msg['content']) for msg in result)
-    
+
     for message in reversed(messages):
         msg_tokens = estimate_tokens(message['content'])
         if current_tokens + msg_tokens <= max_tokens:
@@ -722,7 +722,7 @@ def manage_context_length(messages, max_tokens=180000):
             current_tokens += msg_tokens
         else:
             break
-    
+
     return result
 ```
 
@@ -736,20 +736,20 @@ class ClaudeRateLimiter:
     def __init__(self, requests_per_minute=5):
         self.requests_per_minute = requests_per_minute
         self.requests = []
-    
+
     async def wait_if_needed(self):
         now = datetime.now()
         # Remove requests older than 1 minute
-        self.requests = [req_time for req_time in self.requests 
+        self.requests = [req_time for req_time in self.requests
                         if now - req_time < timedelta(minutes=1)]
-        
+
         if len(self.requests) >= self.requests_per_minute:
             # Wait until the oldest request is more than 1 minute old
             oldest_request = min(self.requests)
             wait_time = 60 - (now - oldest_request).total_seconds()
             if wait_time > 0:
                 await asyncio.sleep(wait_time)
-        
+
         self.requests.append(now)
 
 # Usage
@@ -767,25 +767,25 @@ async def rate_limited_generate(provider, prompt):
 ```python
 def safe_prompt_processing(prompt):
     """Process prompts safely for Claude"""
-    
+
     # Claude has built-in safety measures, but you can add your own
     sensitive_patterns = [
         r'\b(?:password|api_key|secret|token)\b',
         r'\b\d{4}[\s-]?\d{4}[\s-]?\d{4}[\s-]?\d{4}\b',  # Credit card pattern
         r'\b\d{3}-\d{2}-\d{4}\b'  # SSN pattern
     ]
-    
+
     import re
     for pattern in sensitive_patterns:
         if re.search(pattern, prompt, re.IGNORECASE):
             print("Warning: Potential sensitive information detected in prompt")
             break
-    
+
     return prompt
 
 def monitor_responses(response):
     """Monitor responses for quality and safety"""
-    
+
     # Check for refusals or safety concerns
     refusal_indicators = [
         "I can't help with that",
@@ -793,12 +793,12 @@ def monitor_responses(response):
         "I cannot assist with",
         "I'm not comfortable"
     ]
-    
+
     for indicator in refusal_indicators:
         if indicator.lower() in response.lower():
             print(f"Response indicates safety refusal: {indicator}")
             break
-    
+
     return response
 ```
 
@@ -811,7 +811,7 @@ from datetime import datetime
 class MonitoredAnthropicProvider(AnthropicProvider):
     def __init__(self, log_file='claude_usage.log', **kwargs):
         super().__init__(**kwargs)
-        
+
         logging.basicConfig(
             filename=log_file,
             level=logging.INFO,
@@ -819,24 +819,24 @@ class MonitoredAnthropicProvider(AnthropicProvider):
         )
         self.logger = logging.getLogger(__name__)
         self.request_count = 0
-    
+
     def generate(self, prompt, **kwargs):
         self.request_count += 1
         start_time = datetime.now()
-        
+
         # Log request details
         self.logger.info(f"Request #{self.request_count} - Model: {self.model_name}")
         self.logger.info(f"Prompt length: {len(prompt)} characters")
-        
+
         try:
             response = super().generate(prompt, **kwargs)
             duration = (datetime.now() - start_time).total_seconds()
-            
+
             self.logger.info(f"Request #{self.request_count} completed in {duration:.2f}s")
             self.logger.info(f"Response length: {len(response)} characters")
-            
+
             return response
-            
+
         except Exception as e:
             duration = (datetime.now() - start_time).total_seconds()
             self.logger.error(f"Request #{self.request_count} failed after {duration:.2f}s: {str(e)}")

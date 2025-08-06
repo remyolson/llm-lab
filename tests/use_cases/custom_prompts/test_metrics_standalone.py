@@ -2,15 +2,13 @@
 """Standalone test of evaluation metrics (no external dependencies)."""
 
 # Import paths fixed - sys.path manipulation removed
-import sys
-import os
-))
-
 # Import just the evaluation metrics module directly
 import importlib.util
+import os
+import sys
+
 spec = importlib.util.spec_from_file_location(
-    "evaluation_metrics",
-    "src/use_cases/custom_prompts/evaluation_metrics.py"
+    "evaluation_metrics", "src/use_cases/custom_prompts/evaluation_metrics.py"
 )
 evaluation_metrics = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(evaluation_metrics)
@@ -29,19 +27,19 @@ print("Testing Evaluation Metrics (Standalone)")
 print("=" * 60)
 
 # Test responses
-response1 = """This is a great example of a helpful response! I'm happy to assist you. 
-The solution works perfectly and provides excellent results. 
+response1 = """This is a great example of a helpful response! I'm happy to assist you.
+The solution works perfectly and provides excellent results.
 Thank you for asking such a wonderful question."""
 
-response2 = """Unfortunately, this approach has several problems and issues. 
-The results are terrible and the implementation failed completely. 
+response2 = """Unfortunately, this approach has several problems and issues.
+The results are terrible and the implementation failed completely.
 This is the worst possible outcome."""
 
-response3 = """The situation is okay. It's an average solution with normal results. 
+response3 = """The situation is okay. It's an average solution with normal results.
 The implementation is adequate and acceptable for standard use cases."""
 
-response4 = """To solve this problem, we need to consider multiple factors. 
-First, we analyze the requirements. Then, we implement the solution. 
+response4 = """To solve this problem, we need to consider multiple factors.
+First, we analyze the requirements. Then, we implement the solution.
 Finally, we test and validate the results. This ensures a comprehensive approach."""
 
 # Test 1: Response Length Metric
@@ -77,9 +75,12 @@ print(f"Diversity across 4 responses: {diversity_results[0].value}")
 # Test 5: Custom Metric
 print("\n5. Custom Metric Example")
 print("-" * 40)
+
+
 def question_count(response, **kwargs):
     """Count the number of questions in the response."""
-    return len([s for s in response.split('.') if '?' in s])
+    return len([s for s in response.split(".") if "?" in s])
+
 
 question_metric = CustomMetric("question_count", question_count)
 test_response = "How are you? What can I help with? I'm here to assist. Do you need anything?"
@@ -98,8 +99,8 @@ print("\n7. Batch Evaluation with Aggregation")
 print("-" * 40)
 batch_results = evaluate_responses([response1, response2, response3, response4])
 print("Aggregated results:")
-for metric_name, aggregated in batch_results['aggregated'].items():
-    if metric_name == 'diversity':
+for metric_name, aggregated in batch_results["aggregated"].items():
+    if metric_name == "diversity":
         print(f"  {metric_name}: diversity_score={aggregated['value']['diversity_score']}")
     else:
         print(f"  {metric_name}: {aggregated}")

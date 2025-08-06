@@ -9,12 +9,12 @@ from .distributed_trainer import (
     DistributedTrainer,
     DistributedTrainingConfig,
     estimate_memory_usage,
-    get_distributed_backend_recommendation
+    get_distributed_backend_recommendation,
 )
 
 __all__ = [
     "DistributedTrainer",
     "DistributedTrainingConfig",
     "estimate_memory_usage",
-    "get_distributed_backend_recommendation"
+    "get_distributed_backend_recommendation",
 ]

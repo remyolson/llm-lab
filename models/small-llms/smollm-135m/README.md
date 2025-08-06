@@ -27,7 +27,7 @@ base_model:
 
 ## Model Summary
 
-SmolLM2 is a family of compact language models available in three size: 135M, 360M, and 1.7B parameters. They are capable of solving a wide range of tasks while being lightweight enough to run on-device. More details in our paper https://arxiv.org/abs/2502.02737 
+SmolLM2 is a family of compact language models available in three size: 135M, 360M, and 1.7B parameters. They are capable of solving a wide range of tasks while being lightweight enough to run on-device. More details in our paper https://arxiv.org/abs/2502.02737
 
 SmolLM2 demonstrates significant advances over its predecessor SmolLM1, particularly in instruction following, knowledge, reasoning. The 135M model was trained on 2 trillion tokens using a diverse dataset combination: FineWeb-Edu, DCLM, The Stack, along with new filtered datasets we curated and will release soon.  We developed the instruct version through supervised fine-tuning (SFT) using a combination of public datasets and our own curated datasets. We then applied Direct Preference Optimization (DPO) using [UltraFeedback](https://huggingface.co/datasets/HuggingFaceH4/ultrafeedback_binarized).
 
@@ -126,12 +126,12 @@ SmolLM2 models primarily understand and generate content in English. They can pr
 ## Citation
 ```bash
 @misc{allal2025smollm2smolgoesbig,
-      title={SmolLM2: When Smol Goes Big -- Data-Centric Training of a Small Language Model}, 
+      title={SmolLM2: When Smol Goes Big -- Data-Centric Training of a Small Language Model},
       author={Loubna Ben Allal and Anton Lozhkov and Elie Bakouch and Gabriel Martín Blázquez and Guilherme Penedo and Lewis Tunstall and Andrés Marafioti and Hynek Kydlíček and Agustín Piqueres Lajarín and Vaibhav Srivastav and Joshua Lochner and Caleb Fahlgren and Xuan-Son Nguyen and Clémentine Fourrier and Ben Burtenshaw and Hugo Larcher and Haojun Zhao and Cyril Zakka and Mathieu Morlon and Colin Raffel and Leandro von Werra and Thomas Wolf},
       year={2025},
       eprint={2502.02737},
       archivePrefix={arXiv},
       primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2502.02737}, 
+      url={https://arxiv.org/abs/2502.02737},
 }
 ```

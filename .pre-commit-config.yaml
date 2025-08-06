@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -12,15 +12,31 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.1.8
+    rev: v0.12.7
     hooks:
       - id: ruff
-        args: [--fix]
+        args: [--fix, --select=I,F401]  # Focus on imports and unused imports
       - id: ruff-format
 
   - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.7.1
+    rev: v1.15.0
     hooks:
       - id: mypy
-        additional_dependencies: [types-requests]
+        additional_dependencies: [types-requests, types-PyYAML]
         args: [--ignore-missing-imports]
+
+  - repo: https://github.com/compilerla/conventional-pre-commit
+    rev: v3.0.0
+    hooks:
+      - id: conventional-pre-commit
+        stages: [commit-msg]
+        args: [--strict, --force-scope]
+
+  - repo: local
+    hooks:
+      - id: import-audit
+        name: Import Pattern Audit
+        entry: python3 scripts/audit_imports.py
+        language: system
+        pass_filenames: false
+        stages: [push]  # Only run on push, not every commit

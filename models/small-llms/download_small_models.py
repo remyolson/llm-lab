@@ -23,7 +23,7 @@ SMALL_MODELS = {
     },
     "phi-2": {
         "name": "microsoft/phi-2",
-        "size": "2.7B parameters", 
+        "size": "2.7B parameters",
         "description": "Microsoft's small but powerful model",
         "format": "transformers"
     },
@@ -40,7 +40,7 @@ SMALL_MODELS = {
         "format": "transformers"
     },
     "smollm-360m": {
-        "name": "HuggingFaceTB/SmolLM2-360M-Instruct", 
+        "name": "HuggingFaceTB/SmolLM2-360M-Instruct",
         "size": "360M parameters",
         "description": "Small model with better performance",
         "format": "transformers"
@@ -89,7 +89,7 @@ OLLAMA_MODELS = {
         "description": "High-quality 1B model, excellent for chat and code"
     },
     "gpt-oss-20b": {
-        "ollama_name": "gpt-oss:20b", 
+        "ollama_name": "gpt-oss:20b",
         "size": "~13GB",
         "description": "Large 20B model, GPT-3.5 level performance"
     }
@@ -98,9 +98,9 @@ OLLAMA_MODELS = {
 def download_transformers_model(model_id, model_name):
     """Download a transformers format model"""
     print(f"\n📥 Downloading {model_name} ({model_id})...")
-    
+
     local_dir = f"models/small-llms/{model_name}"
-    
+
     try:
         # Download model
         snapshot_download(
@@ -109,10 +109,10 @@ def download_transformers_model(model_id, model_name):
             local_dir_use_symlinks=False,
             ignore_patterns=["*.bin", "*.safetensors.index.json"]  # Skip unnecessary files
         )
-        
+
         print(f"✅ Downloaded {model_name} to {local_dir}")
         return True
-        
+
     except Exception as e:
         print(f"❌ Error downloading {model_name}: {e}")
         return False
@@ -120,10 +120,10 @@ def download_transformers_model(model_id, model_name):
 def download_gguf_model(model_info, model_name):
     """Download a GGUF format model"""
     print(f"\n📥 Downloading {model_name} (GGUF format)...")
-    
+
     local_dir = f"models/small-llms/{model_name}"
     os.makedirs(local_dir, exist_ok=True)
-    
+
     try:
         for filename in model_info["files"]:
             print(f"  Downloading {filename}...")
@@ -133,10 +133,10 @@ def download_gguf_model(model_info, model_name):
                 local_dir=local_dir,
                 local_dir_use_symlinks=False
             )
-        
+
         print(f"✅ Downloaded {model_name} to {local_dir}")
         return True
-        
+
     except Exception as e:
         print(f"❌ Error downloading {model_name}: {e}")
         return False
@@ -155,12 +155,12 @@ def install_ollama():
     try:
         # Check if Homebrew is available
         subprocess.run(["brew", "--version"], capture_output=True, check=True)
-        
+
         # Install Ollama
         result = subprocess.run(["brew", "install", "ollama"], capture_output=True, text=True)
         if result.returncode == 0:
             print("✅ Ollama installed successfully!")
-            
+
             # Start the service
             print("🚀 Starting Ollama service...")
             subprocess.run(["brew", "services", "start", "ollama"], capture_output=True)
@@ -169,7 +169,7 @@ def install_ollama():
         else:
             print(f"❌ Failed to install Ollama: {result.stderr}")
             return False
-            
+
     except FileNotFoundError:
         print("❌ Homebrew not found. Please install Homebrew first:")
         print("   /bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"")
@@ -184,9 +184,9 @@ def setup_ollama_models():
         print("⚠️  Ollama not found. Installing...")
         if not install_ollama():
             return False
-    
+
     print("\n🎯 Setting up recommended Ollama models...")
-    
+
     # Always install llama3.2:1b (small, high quality)
     print("\n📥 Downloading Llama3.2-1B (recommended)...")
     result = subprocess.run(["ollama", "pull", "llama3.2:1b"], capture_output=True, text=True)
@@ -194,7 +194,7 @@ def setup_ollama_models():
         print("✅ Llama3.2-1B downloaded successfully!")
     else:
         print(f"❌ Failed to download Llama3.2-1B: {result.stderr}")
-    
+
     # Ask about GPT-OSS-20B (large model)
     print("\n⚠️  GPT-OSS-20B is a large model (~13GB).")
     response = input("   Download GPT-OSS-20B? (y/N): ")
@@ -205,7 +205,7 @@ def setup_ollama_models():
             print("✅ GPT-OSS-20B downloaded successfully!")
         else:
             print(f"❌ Failed to download GPT-OSS-20B: {result.stderr}")
-    
+
     print("\n✅ Ollama setup complete!")
     print("🧪 Test with: python models/small-llms/run_small_model_demo.py --model llama3.2-1b \"Hello!\"")
     return True
@@ -223,7 +223,7 @@ def save_model_info():
             "metal": "These models can use Apple Metal for acceleration"
         }
     }
-    
+
     with open("models/small-llms/model_info.json", "w") as f:
         json.dump(info, f, indent=2)
 
@@ -236,33 +236,33 @@ def parse_arguments():
 Examples:
   # Download default set (all 6 small models)
   python download_small_models.py
-  
+
   # Download specific models
   python download_small_models.py --models pythia-70m,smollm-135m
-  
+
   # List available models without downloading
   python download_small_models.py --list
-  
+
   # Download only GGUF models
   python download_small_models.py --gguf-only
-  
+
   # Download all available models
   python download_small_models.py --all
-  
+
   # Download only small models (skip GPT-OSS-20B)
   python download_small_models.py --small-only
-  
+
   # Setup Ollama with recommended models (recommended)
   python download_small_models.py --setup-ollama
-  
+
   # Download a custom model from HuggingFace
   python download_small_models.py --custom microsoft/phi-1_5 --custom-name phi-1.5
-  
+
   # Download a custom GGUF model
   python download_small_models.py --custom TheBloke/Mistral-7B-v0.1-GGUF --custom-gguf --gguf-file mistral-7b-v0.1.Q4_K_M.gguf
 """
     )
-    
+
     parser.add_argument(
         "--models",
         type=str,
@@ -318,58 +318,58 @@ Examples:
         type=str,
         help="Specific GGUF file to download (e.g., model.Q4_K_M.gguf)"
     )
-    
+
     return parser.parse_args()
 
 def main():
     """Download selected small models"""
     args = parse_arguments()
-    
+
     print("🤖 Small LLM Downloader for MacBook Pro")
     print("=" * 50)
-    
+
     # Show available models
     print("\n📋 Available Transformers Models:")
     for key, info in SMALL_MODELS.items():
         print(f"  {key}: {info['name']} ({info['size']})")
         print(f"    → {info['description']}")
-    
+
     print("\n📋 Available GGUF Models (for llama.cpp):")
     for key, info in GGUF_MODELS.items():
         print(f"  {key}: {info['name']} ({info['size']})")
         print(f"    → {info['description']}")
-    
+
     print("\n📋 Available Ollama Models (recommended):")
     for key, info in OLLAMA_MODELS.items():
         print(f"  {key}: {info['ollama_name']} ({info['size']})")
         print(f"    → {info['description']}")
-    
+
     # If just listing, exit here
     if args.list:
         return
-    
+
     # Handle Ollama setup
     if args.setup_ollama:
         setup_ollama_models()
         return
-    
+
     # Handle custom model download
     if args.custom:
         print(f"\n🎯 Downloading custom model: {args.custom}")
-        
+
         # Determine local name
         if args.custom_name:
             custom_name = args.custom_name
         else:
             # Use the last part of the model ID as the name
             custom_name = args.custom.split('/')[-1].lower()
-        
+
         if args.custom_gguf:
             # Download as GGUF model
             if not args.gguf_file:
                 print("❌ Error: --gguf-file is required when using --custom-gguf")
                 return
-            
+
             custom_model_info = {
                 "name": args.custom,
                 "files": [args.gguf_file],
@@ -380,32 +380,32 @@ def main():
         else:
             # Download as transformers model
             download_transformers_model(args.custom, custom_name)
-        
+
         print(f"\n✨ Custom model downloaded to models/small-llms/{custom_name}")
         return
-    
+
     # Determine which models to download
     if args.models:
         # Download specific models requested
         requested = [m.strip() for m in args.models.split(",")]
         selected_models = [m for m in requested if m in SMALL_MODELS]
         selected_gguf = [m for m in requested if m in GGUF_MODELS]
-        
+
         # Warn about invalid model names
         invalid = [m for m in requested if m not in SMALL_MODELS and m not in GGUF_MODELS]
         if invalid:
             print(f"\n⚠️  Warning: Unknown models: {invalid}")
-    
+
     elif args.all:
         # Download all available models
         selected_models = list(SMALL_MODELS.keys())
         selected_gguf = list(GGUF_MODELS.keys()) if not args.no_gguf else []
-    
+
     elif args.gguf_only:
         # Download only GGUF models
         selected_models = []
         selected_gguf = ["qwen-0.5b-gguf"]
-    
+
     else:
         # Default: Download the standard set of models
         if args.small_only:
@@ -415,13 +415,13 @@ def main():
             # Include GPT-OSS-20B
             selected_models = ["pythia-70m", "pythia-160m", "smollm-135m", "smollm-360m", "qwen-0.5b", "gpt-oss-20b"]
         selected_gguf = ["qwen-0.5b-gguf"] if not args.no_gguf else []
-    
+
     # Skip GGUF if requested
     if args.no_gguf:
         selected_gguf = []
-    
+
     print(f"\n🎯 Downloading selected models: {selected_models + selected_gguf}")
-    
+
     # Check for large models and warn user
     large_models = [m for m in selected_models if m in ["gpt-oss-20b"]]
     if large_models:
@@ -433,22 +433,22 @@ def main():
         if response.lower() != 'y':
             print("   Skipping large models...")
             selected_models = [m for m in selected_models if m not in large_models]
-    
+
     # Download transformers models
     for model_key in selected_models:
         if model_key in SMALL_MODELS:
             model_info = SMALL_MODELS[model_key]
             download_transformers_model(model_info["name"], model_key)
-    
+
     # Download GGUF models
     for model_key in selected_gguf:
         if model_key in GGUF_MODELS:
             model_info = GGUF_MODELS[model_key]
             download_gguf_model(model_info, model_key)
-    
+
     # Save model information
     save_model_info()
-    
+
     print("\n✨ Download complete! Check models/small-llms/ for your models.")
     print("📖 See inference.py for usage examples.")
 

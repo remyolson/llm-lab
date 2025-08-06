@@ -67,7 +67,7 @@ api.run_server(host="0.0.0.0", port=8000)
 ```python
 import asyncio
 from src.use_cases.monitoring import (
-    DatabaseManager, BenchmarkScheduler, RegressionDetector, 
+    DatabaseManager, BenchmarkScheduler, RegressionDetector,
     AlertManager, MonitoringAPI
 )
 
@@ -75,18 +75,18 @@ async def setup_monitoring_system():
     # Initialize database
     db_manager = DatabaseManager('postgresql://user:pass@localhost/monitoring')
     db_manager.initialize_database()
-    
+
     # Set up scheduler with custom benchmark runner
     async def benchmark_runner(model_name, dataset_name, config, run_id):
         # Your benchmark implementation here
         return {'accuracy': 0.85, 'latency_ms': 250, 'cost': 0.001}
-    
+
     scheduler = BenchmarkScheduler(db_manager, benchmark_runner)
     await scheduler.start()
-    
+
     # Initialize regression detection
     regression_detector = RegressionDetector(db_manager)
-    
+
     # Set up alerting with notifications
     alert_manager = AlertManager(db_manager)
     alert_manager.configure_notification_channel(
@@ -100,10 +100,10 @@ async def setup_monitoring_system():
             'to_emails': ['team@yourcompany.com']
         }
     )
-    
+
     # Create comprehensive API
     api = MonitoringAPI(db_manager, scheduler, regression_detector, alert_manager)
-    
+
     return api
 
 # Run the setup
@@ -504,19 +504,19 @@ GET /dashboard/model-performance/1?days_back=30
 ```python
 async def custom_benchmark_runner(model_name, dataset_name, config, run_id):
     """Custom benchmark runner implementation."""
-    
+
     # Initialize your benchmark framework
     from your_benchmark_framework import BenchmarkRunner
-    
+
     runner = BenchmarkRunner(model_name)
-    
+
     try:
         # Execute benchmark
         results = await runner.run_benchmark(
             dataset=dataset_name,
             **config
         )
-        
+
         # Update database with progress
         db_manager.update_benchmark_run(run_id, {
             'status': 'completed',
@@ -525,7 +525,7 @@ async def custom_benchmark_runner(model_name, dataset_name, config, run_id):
             'total_cost': results.cost,
             'sample_count': results.samples_processed
         })
-        
+
         # Store detailed metrics
         metrics_data = []
         for metric_name, value in results.detailed_metrics.items():
@@ -536,11 +536,11 @@ async def custom_benchmark_runner(model_name, dataset_name, config, run_id):
                 'value': value,
                 'timestamp': datetime.utcnow()
             })
-        
+
         db_manager.create_metrics_batch(metrics_data)
-        
+
         return {'success': True, 'results': results}
-        
+
     except Exception as e:
         # Handle benchmark failure
         db_manager.update_benchmark_run(run_id, {
@@ -699,7 +699,7 @@ API_WORKERS=4
    # Check scheduler status
    if not scheduler._running:
        await scheduler.start()
-   
+
    # Verify jobs are scheduled
    jobs = scheduler.list_jobs()
    print(f"Active jobs: {len(jobs)}")
@@ -710,7 +710,7 @@ API_WORKERS=4
    # Check alert rules
    for rule_id, rule in alert_manager.alert_rules.items():
        print(f"Rule {rule_id}: enabled={rule.enabled}")
-   
+
    # Test notification channels
    test_alert = Alert(...)
    await alert_manager._send_alert_notifications(test_alert, rule)
@@ -723,7 +723,7 @@ API_WORKERS=4
    start = time.time()
    runs = db_manager.list_benchmark_runs(limit=100)
    print(f"Query took {time.time() - start:.2f} seconds")
-   
+
    # Add database indexes if needed
    # See models.py for existing indexes
    ```

@@ -12,7 +12,7 @@ safety_pipeline:
         - harmful_intent
         - personal_information
         - illegal_content
-      
+
     - filter: context_validation
       description: "Validate conversation context for safety"
       max_context_length: 10000
@@ -21,7 +21,7 @@ safety_pipeline:
         - repeated_harmful_requests
         - escalating_severity
         - circumvention_attempts
-  
+
   # During generation (real-time monitoring)
   during_generation:
     - filter: real_time_monitoring
@@ -32,12 +32,12 @@ safety_pipeline:
         - toxic_language_emergence
         - factual_drift
         - instruction_deviation
-      
+
     - filter: token_probability_analysis
       description: "Analyze token probabilities for safety signals"
       suspicious_threshold: 0.3
       check_alternatives: true
-  
+
   # Post-generation checks (after completion)
   post_generation:
     - filter: output_validation
@@ -49,14 +49,14 @@ safety_pipeline:
         - harm_potential_analysis
         - personal_info_detection
         - copyright_detection
-  
+
   # Individual filter configurations
   filters:
     # Toxicity detection using multiple methods
     toxicity_detection:
       model: "perspective-api"  # Or local classifier
       threshold: 0.7
-      categories: 
+      categories:
         - severe_toxicity
         - threat
         - insult
@@ -64,11 +64,11 @@ safety_pipeline:
         - identity_attack
       fallback_model: "local-toxicity-classifier"
       combine_scores: "max"  # max, average, weighted
-      
+
     # Bias detection across protected attributes
     bias_detection:
       model: "custom-classifier"
-      protected_attributes: 
+      protected_attributes:
         - race
         - gender
         - religion
@@ -78,11 +78,11 @@ safety_pipeline:
         - disability
       threshold: 0.8
       context_window: 100  # Tokens to consider for context
-      
+
     # Factual accuracy verification
     factuality_verification:
       method: "claim_detection"
-      verify_with: 
+      verify_with:
         - search_engine
         - knowledge_base
         - fact_checking_api
@@ -93,7 +93,7 @@ safety_pipeline:
         - legal
         - financial
         - scientific
-      
+
     # Harm potential analysis
     harm_potential_analysis:
       categories:
@@ -109,7 +109,7 @@ safety_pipeline:
         reputational_harm: 0.7
         societal_harm: 0.8
       threshold: 0.5
-      
+
     # Personal information detection
     personal_info_detection:
       patterns:
@@ -120,7 +120,7 @@ safety_pipeline:
         - address: '\d+\s+[\w\s]+\s+(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd)'
       action: "redact"
       log_detections: true
-      
+
     # Copyright and plagiarism detection
     copyright_detection:
       check_against:
@@ -129,26 +129,26 @@ safety_pipeline:
         - academic_papers
       similarity_threshold: 0.85
       min_match_length: 50  # characters
-      
+
 # Alert configuration for safety violations
 safety_alerts:
   channels:
     - type: log
       severity: ["info", "warning", "critical"]
-      
+
     - type: metric
       severity: ["warning", "critical"]
       metric_name: "safety_violations"
-      
+
     - type: webhook
       severity: ["critical"]
       url: "${SAFETY_WEBHOOK_URL}"
-      
+
   # Aggregation rules to prevent alert spam
   aggregation:
     window: 300  # 5 minutes
     threshold: 5  # Alert if > 5 violations in window
-    
+
 # Safety report configuration
 safety_reporting:
   # Automatic safety reports
@@ -160,7 +160,7 @@ safety_reporting:
         - violation_summary
         - trend_analysis
         - top_triggers
-        
+
     weekly_analysis:
       frequency: "weekly on sunday"
       recipients: ["safety-team@example.com", "compliance@example.com"]
@@ -168,7 +168,7 @@ safety_reporting:
         - detailed_violations
         - model_comparison
         - recommendation_updates
-        
+
 # Override configurations for different environments
 environments:
   development:
@@ -176,13 +176,13 @@ environments:
     toxicity_threshold: 0.8
     enable_logging: true
     enable_alerts: false
-    
+
   staging:
     # Production-like but with additional logging
     toxicity_threshold: 0.7
     enable_logging: true
     enable_alerts: true
-    
+
   production:
     # Strictest settings
     toxicity_threshold: 0.6

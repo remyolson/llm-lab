@@ -109,17 +109,17 @@ import asyncio
 
 async def process_batch():
     provider = GoogleProvider(model_name="gemini-1.5-flash")
-    
+
     prompts = [
         "Summarize the benefits of AI in healthcare",
         "Explain blockchain technology",
         "Describe the impact of climate change"
     ]
-    
+
     # Process concurrently
     tasks = [provider.generate_async(prompt) for prompt in prompts]
     responses = await asyncio.gather(*tasks)
-    
+
     return responses
 ```
 
@@ -237,7 +237,7 @@ provider = GoogleProvider(model_name="gemini-1.5-flash")
 results = []
 for prompt_data in benchmark_dataset:
     response = provider.generate(prompt_data['prompt'])
-    
+
     result = {
         'prompt_id': prompt_data['id'],
         'model_name': 'google/gemini-1.5-flash',
@@ -261,23 +261,23 @@ provider = GoogleProvider(model_name="gemini-1.5-pro")
 
 def evaluate_truthfulness(questions):
     results = []
-    
+
     for question in questions:
         response = provider.generate(question['prompt'])
-        
+
         evaluation = keyword_match.evaluate(
             prompt=question['prompt'],
             response=response,
             expected_keywords=question['expected_keywords']
         )
-        
+
         results.append({
             'question_id': question['id'],
             'response': response,
             'score': evaluation['score'],
             'matched_keywords': evaluation['matched_keywords']
         })
-    
+
     return results
 ```
 
@@ -356,10 +356,10 @@ Answer the following question accurately and concisely.
 
 Question: {question}
 """
-    
+
     if context:
         prompt += f"\nContext: {context}\n"
-    
+
     prompt += "\nAnswer:"
     return prompt
 
@@ -387,15 +387,15 @@ class QuotaTracker:
         self.daily_limit = daily_limit
         self.requests_today = 0
         self.last_reset = datetime.now().date()
-    
+
     def can_make_request(self):
         today = datetime.now().date()
         if today > self.last_reset:
             self.requests_today = 0
             self.last_reset = today
-        
+
         return self.requests_today < self.daily_limit
-    
+
     def record_request(self):
         self.requests_today += 1
 
@@ -404,7 +404,7 @@ tracker = QuotaTracker()
 def safe_generate(prompt):
     if not tracker.can_make_request():
         raise Exception("Daily quota exceeded")
-    
+
     response = provider.generate(prompt)
     tracker.record_request()
     return response
@@ -434,16 +434,16 @@ class GoogleProviderWithLogging(GoogleProvider):
     def generate(self, prompt):
         start_time = time.time()
         request_id = datetime.now().strftime('%Y%m%d_%H%M%S_%f')
-        
+
         logger.info(f"Request {request_id} started - Model: {self.model_name}")
-        
+
         try:
             response = super().generate(prompt)
             duration = time.time() - start_time
-            
+
             logger.info(f"Request {request_id} completed - Duration: {duration:.2f}s")
             return response
-            
+
         except Exception as e:
             duration = time.time() - start_time
             logger.error(f"Request {request_id} failed - Duration: {duration:.2f}s - Error: {e}")
@@ -481,19 +481,19 @@ class CostOptimizedGoogleProvider(GoogleProvider):
             temperature=kwargs.get('temperature', 0.1),  # More deterministic
             **kwargs
         )
-    
+
     def generate_with_cost_tracking(self, prompt):
         # Estimate input tokens (rough approximation)
         input_tokens = len(prompt.split()) * 1.3  # Account for tokenization
-        
+
         response = self.generate(prompt)
-        
+
         # Estimate output tokens
         output_tokens = len(response.split()) * 1.3
-        
+
         # Calculate estimated cost (for gemini-1.5-flash)
         cost = (input_tokens * 0.00015 / 1000) + (output_tokens * 0.0006 / 1000)
-        
+
         return {
             'response': response,
             'estimated_cost': cost,
@@ -517,7 +517,7 @@ from pathlib import Path
 def load_api_key():
     # Try environment variable first
     api_key = os.getenv('GOOGLE_API_KEY')
-    
+
     if not api_key:
         # Try .env file
         env_file = Path('.env')
@@ -527,10 +527,10 @@ def load_api_key():
                     if line.startswith('GOOGLE_API_KEY='):
                         api_key = line.split('=', 1)[1].strip()
                         break
-    
+
     if not api_key:
         raise ValueError("Google API key not found in environment or .env file")
-    
+
     return api_key
 
 # Usage

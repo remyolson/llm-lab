@@ -5,17 +5,16 @@ import json
 import os
 import tempfile
 from datetime import datetime
-from pathlib import Path
-
-import pytest
-
-from src.logging.results_logger import (
+from logging.results_logger import (
     CSVResultLogger,
     ResultRecord,
     clean_multiline_text,
     format_timestamp,
     truncate_text,
 )
+from pathlib import Path
+
+import pytest
 
 
 class TestHelperFunctions:
@@ -73,46 +72,43 @@ class TestResultRecord:
     def test_result_record_full_data(self):
         """Test creating ResultRecord with full data."""
         eval_data = {
-            'timestamp': '2024-01-15T10:30:45',
-            'model_name': 'test-model',
-            'benchmark_name': 'test-benchmark',
-            'prompt_id': 'test-001',
-            'prompt': 'Test prompt',
-            'response': 'Test response',
-            'expected_keywords': ['keyword1', 'keyword2'],
-            'matched_keywords': ['keyword1'],
-            'score': 0.5,
-            'success': True,
-            'evaluation_method': 'keyword_match',
-            'response_time_seconds': 1.234
+            "timestamp": "2024-01-15T10:30:45",
+            "model_name": "test-model",
+            "benchmark_name": "test-benchmark",
+            "prompt_id": "test-001",
+            "prompt": "Test prompt",
+            "response": "Test response",
+            "expected_keywords": ["keyword1", "keyword2"],
+            "matched_keywords": ["keyword1"],
+            "score": 0.5,
+            "success": True,
+            "evaluation_method": "keyword_match",
+            "response_time_seconds": 1.234,
         }
 
         record = ResultRecord(eval_data)
         csv_dict = record.to_csv_dict()
 
-        assert csv_dict['timestamp'] == eval_data['timestamp']
-        assert csv_dict['model_name'] == 'test-model'
-        assert csv_dict['score'] == '0.5000'
-        assert csv_dict['success'] == 'pass'
-        assert csv_dict['response_time_seconds'] == '1.234'
-        assert json.loads(csv_dict['expected_keywords']) == ['keyword1', 'keyword2']
-        assert json.loads(csv_dict['matched_keywords']) == ['keyword1']
+        assert csv_dict["timestamp"] == eval_data["timestamp"]
+        assert csv_dict["model_name"] == "test-model"
+        assert csv_dict["score"] == "0.5000"
+        assert csv_dict["success"] == "pass"
+        assert csv_dict["response_time_seconds"] == "1.234"
+        assert json.loads(csv_dict["expected_keywords"]) == ["keyword1", "keyword2"]
+        assert json.loads(csv_dict["matched_keywords"]) == ["keyword1"]
 
     def test_result_record_minimal_data(self):
         """Test creating ResultRecord with minimal data."""
-        eval_data = {
-            'prompt': 'Test prompt',
-            'response': 'Test response'
-        }
+        eval_data = {"prompt": "Test prompt", "response": "Test response"}
 
         record = ResultRecord(eval_data)
         csv_dict = record.to_csv_dict()
 
-        assert csv_dict['score'] == '0.0000'
-        assert csv_dict['success'] == 'fail'
-        assert csv_dict['expected_keywords'] == ''
-        assert csv_dict['matched_keywords'] == ''
-        assert csv_dict['error'] == ''
+        assert csv_dict["score"] == "0.0000"
+        assert csv_dict["success"] == "fail"
+        assert csv_dict["expected_keywords"] == ""
+        assert csv_dict["matched_keywords"] == ""
+        assert csv_dict["error"] == ""
 
 
 class TestCSVResultLogger:
@@ -121,7 +117,7 @@ class TestCSVResultLogger:
     def test_init_creates_directory(self):
         """Test that initialization creates output directory."""
         with tempfile.TemporaryDirectory() as tmpdir:
-            output_dir = Path(tmpdir) / 'test_results'
+            output_dir = Path(tmpdir) / "test_results"
             assert not output_dir.exists()
 
             logger = CSVResultLogger(str(output_dir))
@@ -130,14 +126,14 @@ class TestCSVResultLogger:
     def test_generate_filename(self):
         """Test filename generation."""
         logger = CSVResultLogger()
-        filename = logger.generate_filename('google', 'truthfulness')
+        filename = logger.generate_filename("google", "truthfulness")
 
-        assert filename.startswith('benchmark_google_truthfulness_')
-        assert filename.endswith('.csv')
+        assert filename.startswith("benchmark_google_truthfulness_")
+        assert filename.endswith(".csv")
         # Check timestamp format (YYYYMMDD_HHMMSS)
-        parts = filename.split('_')
+        parts = filename.split("_")
         assert len(parts) == 5  # benchmark, google, truthfulness, YYYYMMDD, HHMMSS.csv
-        assert parts[-1].endswith('.csv')
+        assert parts[-1].endswith(".csv")
 
     def test_write_results_success(self):
         """Test successful results writing."""
@@ -145,52 +141,48 @@ class TestCSVResultLogger:
             logger = CSVResultLogger(tmpdir)
 
             results = {
-                'provider': 'test-provider',
-                'dataset': 'test-dataset',
-                'evaluations': [
+                "provider": "test-provider",
+                "dataset": "test-dataset",
+                "evaluations": [
                     {
-                        'timestamp': '2024-01-15T10:30:45',
-                        'model_name': 'test-model',
-                        'prompt': 'Test prompt 1',
-                        'response': 'Test response 1',
-                        'score': 1.0,
-                        'success': True
+                        "timestamp": "2024-01-15T10:30:45",
+                        "model_name": "test-model",
+                        "prompt": "Test prompt 1",
+                        "response": "Test response 1",
+                        "score": 1.0,
+                        "success": True,
                     },
                     {
-                        'timestamp': '2024-01-15T10:30:46',
-                        'model_name': 'test-model',
-                        'prompt': 'Test prompt 2',
-                        'response': 'Test response 2',
-                        'score': 0.0,
-                        'success': False
-                    }
-                ]
+                        "timestamp": "2024-01-15T10:30:46",
+                        "model_name": "test-model",
+                        "prompt": "Test prompt 2",
+                        "response": "Test response 2",
+                        "score": 0.0,
+                        "success": False,
+                    },
+                ],
             }
 
             csv_path = logger.write_results(results)
             assert os.path.exists(csv_path)
 
             # Verify content
-            with open(csv_path, newline='') as f:
+            with open(csv_path, newline="") as f:
                 reader = csv.DictReader(f)
                 rows = list(reader)
 
             assert len(rows) == 2
-            assert rows[0]['prompt_text'] == 'Test prompt 1'
-            assert rows[0]['success'] == 'pass'
-            assert rows[1]['prompt_text'] == 'Test prompt 2'
-            assert rows[1]['success'] == 'fail'
+            assert rows[0]["prompt_text"] == "Test prompt 1"
+            assert rows[0]["success"] == "pass"
+            assert rows[1]["prompt_text"] == "Test prompt 2"
+            assert rows[1]["success"] == "fail"
 
     def test_write_results_no_evaluations(self):
         """Test writing with no evaluations."""
         with tempfile.TemporaryDirectory() as tmpdir:
             logger = CSVResultLogger(tmpdir)
 
-            results = {
-                'provider': 'test',
-                'dataset': 'test',
-                'evaluations': []
-            }
+            results = {"provider": "test", "dataset": "test", "evaluations": []}
 
             with pytest.raises(ValueError) as exc_info:
                 logger.write_results(results)
@@ -200,31 +192,23 @@ class TestCSVResultLogger:
         """Test appending single result."""
         with tempfile.TemporaryDirectory() as tmpdir:
             logger = CSVResultLogger(tmpdir)
-            csv_path = Path(tmpdir) / 'test_append.csv'
+            csv_path = Path(tmpdir) / "test_append.csv"
 
             # First append (should create file with header)
-            eval_data1 = {
-                'prompt': 'Test 1',
-                'response': 'Response 1',
-                'score': 1.0
-            }
+            eval_data1 = {"prompt": "Test 1", "response": "Response 1", "score": 1.0}
             logger.append_result(csv_path, eval_data1)
 
             # Second append (should not add header)
-            eval_data2 = {
-                'prompt': 'Test 2',
-                'response': 'Response 2',
-                'score': 0.5
-            }
+            eval_data2 = {"prompt": "Test 2", "response": "Response 2", "score": 0.5}
             logger.append_result(csv_path, eval_data2)
 
             # Verify content
-            with open(csv_path, newline='') as f:
+            with open(csv_path, newline="") as f:
                 lines = f.readlines()
 
             # Should have header + 2 data rows
             assert len(lines) == 3
-            assert lines[0].startswith('timestamp,')
+            assert lines[0].startswith("timestamp,")
 
     def test_context_manager(self):
         """Test context manager protocol."""
@@ -232,5 +216,5 @@ class TestCSVResultLogger:
             with CSVResultLogger(tmpdir) as logger:
                 assert isinstance(logger, CSVResultLogger)
                 # Should be able to use logger here
-                filename = logger.generate_filename('test', 'test')
+                filename = logger.generate_filename("test", "test")
                 assert filename
