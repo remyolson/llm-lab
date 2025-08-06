@@ -70,12 +70,29 @@ results/*.json
 .ruff_cache/
 
 # Large model files and datasets (downloaded via scripts)
-models/small-llms/*/model.safetensors
-models/small-llms/*/onnx/
-models/small-llms/*/*.gguf
-models/small-llms/*/runs/
-models/small-llms/*/vocab.json
-models/small-llms/*/merges.txt
+# Exclude entire model directories but keep Python scripts and docs
+models/small-llms/pythia-*/
+models/small-llms/qwen*/
+models/small-llms/smollm-*/
+models/small-llms/*/
+
+# Keep Python scripts and documentation in models/small-llms/
+!models/small-llms/*.py
+!models/small-llms/*.sh
+!models/small-llms/*.md
+!models/small-llms/*.json
+!models/small-llms/README.md
+
+# But still exclude specific large file types anywhere in models/
+models/**/*.safetensors
+models/**/*.bin
+models/**/pytorch_model.bin
+models/**/*.gguf
+models/**/onnx/
+models/**/runs/
+models/**/model*.safetensors*
+
+# Dataset directories
 datasets/benchmarking/raw/*/data/
 datasets/fine-tuning/raw/*/data/
 attack-library-system/final_expanded_attack_library.json
