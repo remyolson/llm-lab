@@ -199,7 +199,7 @@ class RegressionDetector:
 
         return recommendations
 
-    def get_trend_analysis(self, metric_name: str, lookback_hours: int = 24) -> Dict[str | Any]:
+    def get_trend_analysis(self, metric_name: str, lookback_hours: int = 24) -> Dict[str, Any]:
         """Analyze metric trends.
 
         Args:

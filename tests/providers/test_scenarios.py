@@ -11,8 +11,8 @@ from unittest.mock import patch
 
 import pytest
 
-from llm_providers.base import LLMProvider
-from llm_providers.exceptions import (
+from src.providers.base import LLMProvider
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ModelNotSupportedError,
     ProviderError,

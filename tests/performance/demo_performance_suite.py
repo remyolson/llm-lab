@@ -24,8 +24,8 @@ from typing import Any, Dict, List
 # Add the project root to the path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../../..")))
 
-from llm_providers.anthropic import AnthropicProvider
-from llm_providers.openai import OpenAIProvider
+from src.providers.anthropic import AnthropicProvider
+from src.providers.openai import OpenAIProvider
 from tests.performance import (
     BenchmarkConfig,
     BenchmarkMode,

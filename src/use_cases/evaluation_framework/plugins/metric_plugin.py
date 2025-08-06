@@ -115,7 +115,7 @@ class MetricResult:
     timestamp: datetime = field(default_factory=datetime.now)
 
     @final
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "metric_name": self.metric_name,

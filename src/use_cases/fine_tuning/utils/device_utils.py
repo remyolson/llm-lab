@@ -26,7 +26,7 @@ def get_device(device_preference: str = "auto") -> torch.device:
         return torch.device(device_preference)
 
 
-def get_device_properties(device: Optional[torch.device] = None) -> Dict[str | any]:
+def get_device_properties(device: Optional[torch.device] = None) -> Dict[str, any]:
     """
     Get properties of the specified device.
 
@@ -72,7 +72,7 @@ def get_device_properties(device: Optional[torch.device] = None) -> Dict[str | a
     return properties
 
 
-def get_available_gpus() -> List[Dict[str | any]]:
+def get_available_gpus() -> List[Dict[str, any]]:
     """
     Get information about all available GPUs.
 

@@ -4,8 +4,8 @@ from typing import Any, Dict
 
 import pytest
 
-from llm_providers.base import LLMProvider
-from llm_providers.registry import (
+from src.providers.base import LLMProvider
+from src.providers.registry import (
     ProviderRegistry,
     get_provider_for_model,
     register_provider,
@@ -254,7 +254,7 @@ class TestGlobalRegistry:
 
     def test_global_registry_is_singleton(self):
         """Test that the global registry is a singleton."""
-        from llm_providers.registry import (
+        from src.providers.registry import (
             registry as registry1,
             registry as registry2,
         )

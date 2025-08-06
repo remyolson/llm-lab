@@ -67,7 +67,7 @@ class ModelCardGenerator:
     def __init__(self):
         self.templates = self._load_templates()
 
-    def _load_templates(self) -> Dict[str | str]:
+    def _load_templates(self) -> Dict[str, str]:
         """Load model card templates"""
         return {
             "huggingface": self._get_huggingface_template(),

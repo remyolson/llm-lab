@@ -70,7 +70,7 @@ class ModelMetadata(Base):
             raise ValueError(f"Provider must be one of: {valid_providers}")
         return provider
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert model to dictionary."""
         return {
             "id": self.id,
@@ -143,7 +143,7 @@ class BenchmarkRun(Base):
             raise ValueError(f"Status must be one of: {valid_statuses}")
         return status
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert run to dictionary."""
         return {
             "id": self.id,
@@ -217,7 +217,7 @@ class PerformanceMetric(Base):
             raise ValueError(f"Metric type must be one of: {valid_types}")
         return metric_type
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert metric to dictionary."""
         return {
             "id": self.id,
@@ -297,7 +297,7 @@ class AlertHistory(Base):
             raise ValueError(f"Alert status must be one of: {valid_statuses}")
         return status
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert alert to dictionary."""
         return {
             "id": self.id,
@@ -390,7 +390,7 @@ class AggregatedStats(Base):
             raise ValueError(f"Period type must be one of: {valid_types}")
         return period_type
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert stats to dictionary."""
         return {
             "id": self.id,

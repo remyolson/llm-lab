@@ -193,7 +193,7 @@ class LocalBackend(ABC):
         pass
 
     @abstractmethod
-    def get_model_memory_usage(self, model_id: str) -> Dict[str | float]:
+    def get_model_memory_usage(self, model_id: str) -> Dict[str, float]:
         """
         Get memory usage of a loaded model.
 
@@ -238,7 +238,7 @@ class LocalBackend(ABC):
         """
         return self._model_metadata.get(model_id)
 
-    def get_total_memory_usage(self) -> Dict[str | float]:
+    def get_total_memory_usage(self) -> Dict[str, float]:
         """
         Get total memory usage across all loaded models.
 

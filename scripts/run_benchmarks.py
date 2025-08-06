@@ -22,8 +22,8 @@ from benchmarks import ExecutionMode, MultiModelBenchmarkRunner
 from config import MODEL_DEFAULTS, ConfigurationError, get_model_config
 from evaluation import keyword_match
 from evaluation.improved_evaluation import multi_method_evaluation
-from providers import get_provider_for_model, registry
-from providers.exceptions import InvalidCredentialsError
+from src.providers import get_provider_for_model, registry
+from src.providers.exceptions import InvalidCredentialsError
 from use_cases.custom_prompts import PromptTemplate
 from utils.logging_config import LogLevel, get_logger, log_execution_time, setup_logging
 from utils.progress import ProgressBar, progress_context, track_progress

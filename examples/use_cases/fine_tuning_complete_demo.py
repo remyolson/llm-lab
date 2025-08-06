@@ -42,7 +42,7 @@ import pandas as pd
 import yaml
 
 # Import from the main library
-from providers import get_provider
+from src.providers import get_provider
 from utils import setup_logging
 
 

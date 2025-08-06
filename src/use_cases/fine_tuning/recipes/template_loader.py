@@ -74,7 +74,7 @@ class TemplateLoader:
         self.templates_dir = Path(templates_dir)
         self._template_cache = {}
 
-    def list_templates(self) -> List[Dict[str | any]]:
+    def list_templates(self) -> List[Dict[str, any]]:
         """List all available templates with metadata.
 
         Returns:
@@ -93,7 +93,7 @@ class TemplateLoader:
 
         return templates
 
-    def load_template(self, template_id: str) -> Dict[str | any]:
+    def load_template(self, template_id: str) -> Dict[str, any]:
         """Load a specific template.
 
         Args:
@@ -119,7 +119,7 @@ class TemplateLoader:
         self._template_cache[template_id] = template_config
         return template_config.copy()
 
-    def get_template_info(self, template_id: str) -> Dict[str | any]:
+    def get_template_info(self, template_id: str) -> Dict[str, any]:
         """Get metadata about a template without loading it.
 
         Args:
@@ -203,7 +203,7 @@ class TemplateLoader:
 
     def create_custom_template(
         self, base_template_id: str, modifications: Dict[str, any], save_as: Optional[str] = None
-    ) -> Dict[str | any]:
+    ) -> Dict[str, any]:
         """Create a custom template based on an existing one.
 
         Args:
@@ -245,13 +245,13 @@ class TemplateLoader:
 
 
 # Convenience functions
-def list_available_templates() -> List[Dict[str | any]]:
+def list_available_templates() -> List[Dict[str, any]]:
     """List all available recipe templates."""
     loader = TemplateLoader()
     return loader.list_templates()
 
 
-def load_template(template_id: str) -> Dict[str | any]:
+def load_template(template_id: str) -> Dict[str, any]:
     """Load a specific recipe template."""
     loader = TemplateLoader()
     return loader.load_template(template_id)

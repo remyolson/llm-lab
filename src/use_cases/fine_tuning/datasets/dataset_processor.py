@@ -11,12 +11,14 @@ from __future__ import annotations  # Enable Python 3.9+ union syntax
 import os
 import json
 import logging
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any, Optional, Tuple, Union
 from pathlib import Path
 import pandas as pd
 from datasets import Dataset, DatasetDict, load_dataset
 from sklearn.model_selection import train_test_split
 import numpy as np
+
+from .dataset_registry import DatasetRegistry, DatasetInfo
 
 logger = logging.getLogger(__name__)
 
@@ -88,7 +90,94 @@ class DatasetProcessor:
 
         return dataset
 
-    def _load_json_data(self, file_path: Path) -> List[Dict[str | Any]]:
+    def load_dataset_from_registry(self,
+                                  dataset_name: str,
+                                  split: Optional[str] = None,
+                                  streaming: bool = False,
+                                  max_samples: Optional[int] = None) -> Union[Dataset, DatasetDict]:
+        """
+        Load a dataset from the registry.
+
+        Args:
+            dataset_name: Name of the dataset in registry
+            split: Specific split to load (e.g., "train", "test")
+            streaming: Whether to use streaming mode (recommended for large datasets)
+            max_samples: Maximum number of samples to load
+
+        Returns:
+            Loaded dataset or DatasetDict
+        """
+        # Get dataset info from registry
+        dataset_info = DatasetRegistry.get_dataset(dataset_name)
+        if not dataset_info:
+            available = list(DatasetRegistry.DATASETS.keys())
+            raise ValueError(f"Dataset '{dataset_name}' not found. Available datasets: {available}")
+
+        logger.info(f"Loading {dataset_info.name} from HuggingFace: {dataset_info.hf_path}")
+
+        # Prepare loading arguments
+        load_args = dataset_info.loading_args.copy()
+        load_args["streaming"] = streaming
+
+        # Handle special case for Nemotron with multiple splits
+        if dataset_name == "nemotron-post-training" and split:
+            # Nemotron has specific named splits
+            if split not in dataset_info.splits:
+                raise ValueError(f"Split '{split}' not available. Available splits: {dataset_info.splits}")
+            load_args["split"] = split
+        elif split:
+            load_args["split"] = split
+
+        # Load the dataset
+        dataset = load_dataset(dataset_info.hf_path, **load_args)
+
+        # Limit samples if requested
+        if max_samples and not streaming:
+            if isinstance(dataset, DatasetDict):
+                for split_name in dataset:
+                    if len(dataset[split_name]) > max_samples:
+                        dataset[split_name] = dataset[split_name].select(range(max_samples))
+            else:
+                if len(dataset) > max_samples:
+                    dataset = dataset.select(range(max_samples))
+
+        logger.info(f"Successfully loaded {dataset_info.name}")
+        if isinstance(dataset, DatasetDict):
+            for split_name, split_data in dataset.items():
+                if not streaming:
+                    logger.info(f"  {split_name}: {len(split_data)} examples")
+        elif not streaming:
+            logger.info(f"  Loaded {len(dataset)} examples")
+
+        return dataset
+
+    def load_nemotron_split(self,
+                           split: str = "chat",
+                           max_samples: Optional[int] = None,
+                           streaming: bool = True) -> Dataset:
+        """
+        Convenience method to load a specific Nemotron dataset split.
+
+        Args:
+            split: Which split to load (chat, code, math, stem, tool_calling)
+            max_samples: Maximum number of samples
+            streaming: Whether to use streaming mode
+
+        Returns:
+            Dataset for the specified split
+        """
+        valid_splits = ["chat", "code", "math", "stem", "tool_calling"]
+        if split not in valid_splits:
+            raise ValueError(f"Invalid split '{split}'. Must be one of: {valid_splits}")
+
+        return self.load_dataset_from_registry(
+            "nemotron-post-training",
+            split=split,
+            streaming=streaming,
+            max_samples=max_samples
+        )
+
+    def _load_json_data(self, file_path: Path) -> List[Dict[str, Any]]:
         """Load data from JSON/JSONL file."""
         data = []
 
@@ -106,12 +195,12 @@ class DatasetProcessor:
 
         return data
 
-    def _load_csv_data(self, file_path: Path) -> List[Dict[str | Any]]:
+    def _load_csv_data(self, file_path: Path) -> List[Dict[str, Any]]:
         """Load data from CSV file."""
         df = pd.read_csv(file_path)
         return df.to_dict('records')
 
-    def _load_parquet_data(self, file_path: Path) -> List[Dict[str | Any]]:
+    def _load_parquet_data(self, file_path: Path) -> List[Dict[str, Any]]:
         """Load data from Parquet file."""
         df = pd.read_parquet(file_path)
         return df.to_dict('records')
@@ -297,7 +386,7 @@ class DatasetProcessor:
 
         return tokenized_dataset
 
-    def validate_dataset(self, dataset: Dataset) -> Dict[str | Any]:
+    def validate_dataset(self, dataset: Dataset) -> Dict[str, Any]:
         """
         Validate dataset and return statistics.
 

@@ -5,8 +5,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 
-from llm_providers.base import LLMProvider, ProviderConfig
-from llm_providers.exceptions import (
+from src.providers.base import LLMProvider, ProviderConfig
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ModelNotSupportedError,
     ProviderConfigurationError,

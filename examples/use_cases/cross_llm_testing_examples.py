@@ -19,12 +19,12 @@ from unittest.mock import Mock
 
 import pytest
 
-from providers.anthropic import AnthropicProvider
+from src.providers.anthropic import AnthropicProvider
 
 # Import existing provider infrastructure
-from providers.base import LLMProvider
-from providers.google import GoogleProvider
-from providers.openai import OpenAIProvider
+from src.providers.base import LLMProvider
+from src.providers.google import GoogleProvider
+from src.providers.openai import OpenAIProvider
 
 # ===============================================================================
 # EXAMPLE 1: UNIT TESTS FOR CHATBOT WITH PYTEST FIXTURES

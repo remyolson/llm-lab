@@ -170,7 +170,7 @@ class CostTracker:
         # Callbacks
         self.callbacks: List[Callable] = []
 
-    def _get_hourly_rates(self) -> Dict[str | float]:
+    def _get_hourly_rates(self) -> Dict[str, float]:
         """Get hourly rates for cost calculation."""
         # This would typically load from pricing data
         # For now, use simple estimates
@@ -365,7 +365,7 @@ class CostTracker:
         """Add a callback function for real-time updates."""
         self.callbacks.append(callback)
 
-    def get_current_stats(self) -> Dict[str | Any]:
+    def get_current_stats(self) -> Dict[str, Any]:
         """Get current tracking statistics."""
         if not self.resource_usage:
             return {}
@@ -417,7 +417,7 @@ class CostTracker:
             optimization_opportunities=optimization_opportunities,
         )
 
-    def _identify_optimizations(self) -> List[Dict[str | Any]]:
+    def _identify_optimizations(self) -> List[Dict[str, Any]]:
         """Identify cost optimization opportunities."""
         if not self.resource_usage:
             return []
@@ -508,7 +508,7 @@ def create_tracking_session(
 
 def load_session_data(
     session_id: str, data_dir: str = "./cost_tracking"
-) -> Optional[Dict[str | Any]]:
+) -> Optional[Dict[str, Any]]:
     """Load session data from disk."""
     data_dir = Path(data_dir)
     session_file = data_dir / f"session_{session_id}.json"

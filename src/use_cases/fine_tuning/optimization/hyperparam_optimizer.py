@@ -83,7 +83,7 @@ class OptimizationResult:
     study_name: Optional[str] = None
     duration_seconds: Optional[float] = None
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -145,7 +145,7 @@ class SearchSpace:
                 ):
                     raise ValueError(f"Parameter '{param_name}' requires 'low', 'high', and 'q'")
 
-    def sample_optuna(self, trial: Trial) -> Dict[str | Any]:
+    def sample_optuna(self, trial: Trial) -> Dict[str, Any]:
         """Sample parameters using Optuna trial.
 
         Args:
@@ -185,7 +185,7 @@ class SearchSpace:
 
         return params
 
-    def get_grid(self) -> List[Dict[str | Any]]:
+    def get_grid(self) -> List[Dict[str, Any]]:
         """Get all parameter combinations for grid search.
 
         Returns:
@@ -306,7 +306,7 @@ class HyperparameterOptimizer:
     def optimize(
         self,
         train_function: Callable,
-        search_space: SearchSpace | Dict[str | Dict[str | Any]],
+        search_space: SearchSpace | Dict[str | Dict[str, Any]],
         n_trials: int = 20,
         n_jobs: int = 1,
         timeout: Optional[float] = None,
@@ -622,7 +622,7 @@ class HyperparameterOptimizer:
     def resume_optimization(
         self,
         train_function: Callable,
-        search_space: SearchSpace | Dict[str | Dict[str | Any]],
+        search_space: SearchSpace | Dict[str | Dict[str, Any]],
         n_additional_trials: int = 10,
         **kwargs,
     ) -> OptimizationResult:
@@ -673,7 +673,7 @@ class HyperparameterOptimizer:
 
 
 # Utility functions for common search spaces
-def get_default_search_space(model_type: str = "transformer") -> Dict[str | Dict[str | Any]]:
+def get_default_search_space(model_type: str = "transformer") -> Dict[str | Dict[str, Any]]:
     """Get default search space for common model types.
 
     Args:
@@ -712,7 +712,7 @@ if __name__ == "__main__":
     search_space = get_default_search_space("lora")
 
     # Mock training function
-    def train_model(params: Dict[str, Any], trial=None) -> Dict[str | float]:
+    def train_model(params: Dict[str, Any], trial=None) -> Dict[str, float]:
         """Mock training function for testing."""
         # Simulate training
         import random

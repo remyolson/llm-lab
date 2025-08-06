@@ -12,8 +12,8 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from llm_providers.anthropic import ANTHROPIC_AVAILABLE, AnthropicProvider
-from llm_providers.exceptions import (
+from src.providers.anthropic import ANTHROPIC_AVAILABLE, AnthropicProvider
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ProviderConfigurationError,
     ProviderResponseError,

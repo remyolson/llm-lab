@@ -32,11 +32,11 @@ import numpy as np
 import psutil
 import pytest
 
-from providers.anthropic import AnthropicProvider
+from src.providers.anthropic import AnthropicProvider
 
 # Import existing infrastructure
-from providers.base import LLMProvider
-from providers.openai import OpenAIProvider
+from src.providers.base import LLMProvider
+from src.providers.openai import OpenAIProvider
 
 # ===============================================================================
 # PERFORMANCE METRICS DATA STRUCTURES

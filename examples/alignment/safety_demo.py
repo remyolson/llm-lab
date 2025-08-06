@@ -4,7 +4,7 @@ import asyncio
 import uuid
 from typing import Any, Dict
 
-from providers import OpenAIProvider
+from src.providers import OpenAIProvider
 from use_cases.alignment.safety import (
     ChildSafetyFilter,
     Feedback,

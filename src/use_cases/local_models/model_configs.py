@@ -84,7 +84,7 @@ PROMPT_TEMPLATES = {
 }
 
 
-def get_model_config(model_name: str) -> Dict[str | Any]:
+def get_model_config(model_name: str) -> Dict[str, Any]:
     """
     Get configuration for a specific model.
 
@@ -97,7 +97,7 @@ def get_model_config(model_name: str) -> Dict[str | Any]:
     return MODEL_REGISTRY.get(model_name, {})
 
 
-def get_prompt_template(model_name: str) -> Dict[str | str]:
+def get_prompt_template(model_name: str) -> Dict[str, str]:
     """
     Get the appropriate prompt template for a model.
 

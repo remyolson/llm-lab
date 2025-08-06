@@ -54,7 +54,7 @@ class EmailDelivery:
         report_path: str,
         template_name: str = "daily_summary",
         additional_context: Optional[Dict[str, Any]] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Send a report via email.
 
@@ -102,7 +102,7 @@ class EmailDelivery:
         recipients: List[str],
         alert_data: Dict[str, Any],
         additional_alerts: Optional[List[Dict[str, Any]]] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Send an alert notification email.
 
@@ -141,7 +141,7 @@ class EmailDelivery:
 
     def send_summary_email(
         self, recipients: List[str], summary_data: Dict[str, Any], period: str = "daily"
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Send a summary email.
 
@@ -181,7 +181,7 @@ class EmailDelivery:
             self.logger.error(f"Failed to send summary email: {e}")
             return {"status": "failed", "error": str(e), "timestamp": datetime.utcnow().isoformat()}
 
-    def test_connection(self) -> Dict[str | Any]:
+    def test_connection(self) -> Dict[str, Any]:
         """Test SMTP connection."""
         try:
             server = smtplib.SMTP(self.smtp_config["host"], self.smtp_config["port"])
@@ -211,7 +211,7 @@ class EmailDelivery:
         html_body: str,
         text_body: str,
         attachments: Optional[List[str]] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Send email via SMTP."""
         try:
             # Create message

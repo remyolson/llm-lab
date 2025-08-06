@@ -51,6 +51,25 @@ class ProviderRegistry(GenericRepository[str, Type[LLMProvider]]):
         if key not in self._providers:
             self._providers[key] = item
 
+    def get(self, id_: str) -> Optional[Type[LLMProvider]]:
+        """Get provider by ID (implements abstract method).
+
+        Args:
+            id_: Provider name
+
+        Returns:
+            Provider class if found, None otherwise
+        """
+        return self._providers.get(id_)
+
+    def list_all(self) -> List[Type[LLMProvider]]:
+        """List all registered providers (implements abstract method).
+
+        Returns:
+            List of all provider classes
+        """
+        return list(self._providers.values())
+
     def get_by_id(self, key: str) -> Optional[Type[LLMProvider]]:
         """Generic get method for repository pattern.
 
@@ -199,9 +218,6 @@ class ProviderRegistry(GenericRepository[str, Type[LLMProvider]]):
 # Global registry instance
 registry = ProviderRegistry()
 
-# Global provider factory
-provider_factory = GenericProviderFactory(registry)
-
 
 def register_provider(models: List[str]):
     """
@@ -298,7 +314,7 @@ def get_provider_for_model(model_name: str) -> Type[LLMProvider]:
     return provider_class
 
 
-class GenericProviderFactory(GenericFactory[str, LLMProvider]):
+class GenericProviderFactory(GenericFactory[LLMProvider]):
     """Generic factory for creating LLM provider instances.
 
     Implements the GenericFactory pattern with type-safe provider creation.
@@ -347,6 +363,17 @@ class GenericProviderFactory(GenericFactory[str, LLMProvider]):
         """
         self._provider_configs[provider_name] = config
 
+    def supports_type(self, type_name: str) -> bool:
+        """Check if factory supports creating given type.
+
+        Args:
+            type_name: Provider type name
+
+        Returns:
+            True if provider type is supported
+        """
+        return type_name in self.registry._providers
+
     def get_available_types(self) -> List[str]:
         """Get list of available provider types.
 
@@ -374,3 +401,7 @@ class GenericProviderFactory(GenericFactory[str, LLMProvider]):
                 return identifier[len(provider_name) + 1 :]
 
         return identifier
+
+
+# Global provider factory (created after the class definition)
+provider_factory = GenericProviderFactory(registry)

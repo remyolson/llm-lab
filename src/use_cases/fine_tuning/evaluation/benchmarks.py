@@ -234,7 +234,7 @@ class BenchmarkRunner:
         benchmark: str,
         tasks: Optional[List[str]] = None,
         config: Optional[BenchmarkConfig] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Run a benchmark suite on the model.
 
         Args:
@@ -283,7 +283,7 @@ class BenchmarkRunner:
         tokenizer: PreTrainedTokenizer,
         task_name: str,
         config: Optional[BenchmarkConfig] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Run a single benchmark task.
 
         Args:
@@ -348,7 +348,7 @@ class BenchmarkRunner:
         dataset,
         task_info: Dict[str, Any],
         config: Optional[BenchmarkConfig] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Evaluate classification task."""
 
         # Prepare data
@@ -428,7 +428,7 @@ class BenchmarkRunner:
         dataset,
         task_info: Dict[str, Any],
         config: Optional[BenchmarkConfig] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Evaluate question answering task."""
         # Simplified QA evaluation
         model.eval()
@@ -484,7 +484,7 @@ class BenchmarkRunner:
         dataset,
         task_info: Dict[str, Any],
         config: Optional[BenchmarkConfig] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Evaluate summarization task."""
         model.eval()
         predictions = []
@@ -547,7 +547,7 @@ class BenchmarkRunner:
         dataset,
         task_info: Dict[str, Any],
         config: Optional[BenchmarkConfig] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Evaluate code generation task."""
         # Simplified code generation evaluation
         # In practice, would need to execute code and check test cases

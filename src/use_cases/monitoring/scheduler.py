@@ -192,7 +192,7 @@ class BenchmarkScheduler:
             logger.error(f"Failed to resume job {job_id}: {e}")
             return False
 
-    def get_job_status(self, job_id: str) -> Optional[Dict[str | Any]]:
+    def get_job_status(self, job_id: str) -> Optional[Dict[str, Any]]:
         """Get status information for a job."""
         job = self.scheduler.get_job(job_id)
         if not job:
@@ -208,7 +208,7 @@ class BenchmarkScheduler:
             "coalesce": job.coalesce,
         }
 
-    def list_jobs(self) -> List[Dict[str | Any]]:
+    def list_jobs(self) -> List[Dict[str, Any]]:
         """List all scheduled jobs and their status."""
         jobs = []
         for job in self.scheduler.get_jobs():
@@ -285,7 +285,7 @@ class BenchmarkScheduler:
 
     async def _run_benchmark_safely(
         self, job_config: BenchmarkJobConfig, run_id: int
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Run benchmark with error handling and timeout."""
         try:
             # Create timeout based on job config or default to 1 hour
@@ -473,7 +473,7 @@ class BenchmarkScheduler:
         logger.info(f"Created monitoring suite with {len(created_jobs)} jobs")
         return created_jobs
 
-    def get_scheduler_stats(self) -> Dict[str | Any]:
+    def get_scheduler_stats(self) -> Dict[str, Any]:
         """Get scheduler statistics and status."""
         return {
             "running": self._running,

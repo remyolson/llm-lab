@@ -2,7 +2,7 @@
 
 import pytest
 
-from llm_providers.exceptions import (
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ModelNotSupportedError,
     ProviderConfigurationError,

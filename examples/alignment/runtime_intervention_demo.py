@@ -3,7 +3,7 @@
 import asyncio
 from typing import Any, Dict
 
-from providers import OpenAIProvider
+from src.providers import OpenAIProvider
 from use_cases.alignment.runtime import (
     AlignmentContext,
     InstructionClarifier,

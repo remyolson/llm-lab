@@ -507,7 +507,7 @@ class ModelTestSuite:
 
         return len(intersection) / len(union)
 
-    def _calculate_metrics(self, test_cases: List[TestCase]) -> Dict[str | Any]:
+    def _calculate_metrics(self, test_cases: List[TestCase]) -> Dict[str, Any]:
         """Calculate overall metrics from test cases"""
         latency_tests = [tc for tc in test_cases if tc.test_type == TestType.LATENCY]
         quality_tests = [tc for tc in test_cases if tc.test_type == TestType.QUALITY]

@@ -52,9 +52,9 @@ from src.di.services import (
     ProviderFactory,
 )
 from src.di.testing import (
+    ContainerTestContext,
     MockConfigurationService,
     MockLoggerFactory,
-    TestContainerContext,
     create_test_container,
     inject_mock,
 )
@@ -303,8 +303,8 @@ class TestTestingUtilities:
     """Test the DI testing utilities."""
 
     def test_test_container_context(self):
-        """Test TestContainerContext."""
-        with TestContainerContext() as container:
+        """Test ContainerTestContext."""
+        with ContainerTestContext() as container:
             # Should have mock services registered
             config = container.get(IConfigurationService)
             assert isinstance(config, MockConfigurationService)
@@ -436,7 +436,7 @@ class TestFactoriesAndDecorators:
         # Configure services
         test_instance = Mock()
 
-        builder.configure(Mock).implemented_by(lambda: test_instance).as_singleton()
+        builder.configure(Mock).implemented_by(lambda: test_instance).as_singleton().build()
         builder.build()
 
         # Resolve service
@@ -598,8 +598,10 @@ class TestPerformance:
         container = DIContainer()
 
         # Register multiple services
+        service_classes = []
         for i in range(100):
             service_class = type(f"Service{i}", (), {})
+            service_classes.append(service_class)
             container.register_singleton(service_class, service_class)
 
         # Resolution should be fast
@@ -607,8 +609,7 @@ class TestPerformance:
 
         start_time = time.time()
 
-        for i in range(100):
-            service_class = type(f"Service{i}", (), {})
+        for service_class in service_classes:
             container.get(service_class)
 
         end_time = time.time()

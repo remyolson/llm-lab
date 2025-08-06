@@ -8,7 +8,7 @@ that make dependency injection more powerful and convenient to use.
 import inspect
 import logging
 from functools import wraps
-from typing import Any, Callable, Dict, Optional, Type, TypeVar
+from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union
 
 from .container import DIContainer, ServiceLifetime
 from .interfaces import IConfigurationService, ILogger, ILoggerFactory
@@ -60,7 +60,7 @@ def factory(interface: Type[T], lifetime: ServiceLifetime = ServiceLifetime.TRAN
             return MyService(config.get_setting('my_service.config'))
     """
 
-    def decorator(func: Callable[..., T]) -> Callable[... | T]:
+    def decorator(func: Callable[..., T]) -> Callable[..., T]:
         func._di_interface = interface
         func._di_lifetime = lifetime
         func._di_is_factory = True
@@ -276,7 +276,9 @@ class ServiceConfiguration:
         self._interface = interface
         self._config: Dict[str, Any] = {}
 
-    def implemented_by(self, implementation: Type[T, Callable[[], T]]) -> "ServiceConfiguration[T]":
+    def implemented_by(
+        self, implementation: Union[Type[T], Callable[[], T]]
+    ) -> "ServiceConfiguration[T]":
         """
         Specify the implementation for this service.
 

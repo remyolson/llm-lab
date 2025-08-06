@@ -101,7 +101,7 @@ class CostEstimator:
         self.pricing_data = self._load_pricing_data(pricing_data_path)
         self.instance_types = self._load_instance_types()
 
-    def _load_pricing_data(self, path: Optional[str]) -> Dict[str | Any]:
+    def _load_pricing_data(self, path: Optional[str]) -> Dict[str, Any]:
         """Load pricing data from file or use defaults."""
         if path and Path(path).exists():
             with open(path) as f:
@@ -160,7 +160,7 @@ class CostEstimator:
             },
         }
 
-    def _load_instance_types(self) -> Dict[str | InstanceType]:
+    def _load_instance_types(self) -> Dict[str, InstanceType]:
         """Load available instance types."""
         instances = {}
 
@@ -418,7 +418,7 @@ class CostEstimator:
 
     def get_cost_optimization_recommendations(
         self, estimate: TrainingCostEstimate, model_params: int, use_lora: bool = False
-    ) -> List[Dict[str | Any]]:
+    ) -> List[Dict[str, Any]]:
         """Generate cost optimization recommendations."""
         recommendations = []
 
@@ -502,7 +502,7 @@ class CostOptimizer:
         num_epochs: int,
         max_training_hours: Optional[float] = None,
         use_spot_instances: bool = True,
-    ) -> List[Tuple[TrainingCostEstimate | Dict[str | Any]]]:
+    ) -> List[Tuple[TrainingCostEstimate | Dict[str, Any]]]:
         """Find the cheapest training configurations."""
 
         configurations = []
@@ -561,7 +561,7 @@ class CostOptimizer:
         model_name: str,
         dataset_path: str,
         num_epochs: int,
-    ) -> List[Tuple[TrainingCostEstimate | Dict[str | Any]]]:
+    ) -> List[Tuple[TrainingCostEstimate | Dict[str, Any]]]:
         """Find configurations within budget."""
 
         all_configs = self.find_cheapest_configuration(
@@ -585,7 +585,7 @@ class CostOptimizer:
         model_name: str,
         dataset_path: str,
         num_epochs: int,
-    ) -> List[Tuple[TrainingCostEstimate | Dict[str | Any]]]:
+    ) -> List[Tuple[TrainingCostEstimate | Dict[str, Any]]]:
         """Find fastest configurations within time limit."""
 
         all_configs = self.find_cheapest_configuration(

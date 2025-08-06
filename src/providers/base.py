@@ -363,7 +363,7 @@ class LLMProvider(Generic[ResponseType], ABC):
         """Detailed representation of the provider."""
         return f"{self.__class__.__name__}(model_name='{self.model_name}')"
 
-    def _load_config_from_manager(self, model_name: str) -> Dict[str | Any]:
+    def _load_config_from_manager(self, model_name: str) -> Dict[str, Any]:
         """
         Load configuration from the configuration manager.
 

@@ -41,6 +41,18 @@
       "size": "160M parameters",
       "description": "Small GPT-NeoX model",
       "format": "transformers"
+    },
+    "qwen3-4b-instruct": {
+      "name": "Qwen/Qwen3-4B-Instruct-2507",
+      "size": "4B parameters",
+      "description": "Advanced instruction-tuned model with strong capabilities",
+      "format": "transformers"
+    },
+    "qwen3-4b-thinking": {
+      "name": "Qwen/Qwen3-4B-Thinking-2507",
+      "size": "4B parameters",
+      "description": "Reasoning-focused model optimized for complex thinking",
+      "format": "transformers"
     }
   },
   "gguf_models": {

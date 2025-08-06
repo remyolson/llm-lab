@@ -294,7 +294,7 @@ if OPENAI_AVAILABLE:
             provider_name=self.provider_name, details="Max retries exceeded"
         )
 
-    def get_model_info(self) -> Dict[str | Any]:
+    def get_model_info(self) -> Dict[str, Any]:
         """
         Get information about the current model.
 

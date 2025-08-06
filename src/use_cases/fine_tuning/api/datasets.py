@@ -304,7 +304,7 @@ async def validate_dataset(file_path: str, format: str) -> DatasetValidation:
     )
 
 
-async def analyze_dataset_content(file_path: str, format: str) -> Dict[str | Any]:
+async def analyze_dataset_content(file_path: str, format: str) -> Dict[str, Any]:
     """Analyze dataset content for detailed statistics"""
 
     analysis = {"text_stats": {}, "field_analysis": {}, "sample_distribution": {}}

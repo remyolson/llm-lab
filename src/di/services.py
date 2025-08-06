@@ -195,7 +195,7 @@ class ConfigurationService(IConfigurationService):
         """
         return os.getenv(key, default)
 
-    def get_provider_config(self, provider_name: str) -> Dict[str | Any]:
+    def get_provider_config(self, provider_name: str) -> Dict[str, Any]:
         """
         Get configuration for a specific provider.
 
@@ -223,7 +223,7 @@ class ConfigurationService(IConfigurationService):
             self._logger.debug(f"Failed to get provider config for '{provider_name}': {e}")
             return {}
 
-    def get_model_parameters(self, model_name: Optional[str] = None) -> Dict[str | Any]:
+    def get_model_parameters(self, model_name: Optional[str] = None) -> Dict[str, Any]:
         """
         Get model parameters configuration.
 
@@ -254,7 +254,7 @@ class ConfigurationService(IConfigurationService):
                 "top_p": 1.0,
             }
 
-    def get_network_config(self) -> Dict[str | Any]:
+    def get_network_config(self) -> Dict[str, Any]:
         """
         Get network-related configuration.
 
@@ -512,7 +512,7 @@ class ProviderFactory(IProviderFactory):
         else:
             return []
 
-    def _get_providers(self) -> Dict[str | Any]:
+    def _get_providers(self) -> Dict[str, Any]:
         """Get dictionary of available providers."""
         if self._providers_cache is None:
             try:

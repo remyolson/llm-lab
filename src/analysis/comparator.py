@@ -160,7 +160,7 @@ class ResultsComparator:
         model_names: List[str | None] = None,
         dataset: str | None = None,
         file_format: str = "json",
-    ) -> Dict[str | ModelResult]:
+    ) -> Dict[str, ModelResult]:
         """
         Load results for specified models and dataset.
 
@@ -208,7 +208,7 @@ class ResultsComparator:
 
         return self.model_results
 
-    def align_results_by_prompt(self) -> Dict[str | Dict[str | Any]]:
+    def align_results_by_prompt(self) -> Dict[str, Dict[str, Any]]:
         """
         Align results by prompt ID to enable direct comparison.
 
@@ -242,7 +242,7 @@ class ResultsComparator:
 
     def calculate_metrics(
         self, aligned_results: Dict[str, Dict[str, Any | None]] = None
-    ) -> Dict[str | Dict[str | float]]:
+    ) -> Dict[str | Dict[str, float]]:
         """
         Calculate comparative metrics for all models.
 
@@ -493,7 +493,7 @@ class ResultsComparator:
         else:
             raise ValueError(f"Unsupported metric for CI: {metric}")
 
-    def perform_statistical_tests(self) -> Dict[str | Any]:
+    def perform_statistical_tests(self) -> Dict[str, Any]:
         """
         Perform comprehensive statistical tests on all model pairs.
 
@@ -1086,7 +1086,7 @@ class ResultsComparator:
 
         return recommendations
 
-    def _calculate_efficiency_scores(self) -> Dict[str | float]:
+    def _calculate_efficiency_scores(self) -> Dict[str, float]:
         """Calculate efficiency scores (accuracy / response_time)."""
         if (
             "overall_accuracy" not in self.comparison_result.metrics

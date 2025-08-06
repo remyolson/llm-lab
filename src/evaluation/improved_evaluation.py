@@ -97,7 +97,7 @@ def fuzzy_keyword_match(
     )
 
 
-def _create_empty_fuzzy_result(error_message: str) -> Dict[str | Any]:
+def _create_empty_fuzzy_result(error_message: str) -> Dict[str, Any]:
     """Create an empty result for fuzzy matching when validation fails."""
     return {
         "success": False,
@@ -184,7 +184,7 @@ def _calculate_fuzzy_results(
     similarity_scores: List[float],
     threshold: float,
     partial_threshold: float,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """Calculate final fuzzy matching results."""
     exact_matches = len(matched_keywords)
     partial_match_count = len(partial_matches)
@@ -220,7 +220,7 @@ def _calculate_fuzzy_results(
 
 def semantic_phrase_match(
     response: str, expected_keywords: List[str], similarity_threshold: float = 0.6
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Semantic matching that breaks down phrases and looks for conceptual similarity.
 
@@ -384,7 +384,7 @@ def find_concept_in_text(concept: str, text: str) -> bool:
 
 def multi_method_evaluation(
     response: str, expected_keywords: List[str], methods: List[str | None] = None
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Combine multiple evaluation methods for more robust assessment.
 
@@ -411,7 +411,7 @@ def multi_method_evaluation(
 
 def _execute_evaluation_methods(
     response: str, expected_keywords: List[str], methods: List[str]
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """Execute specified evaluation methods and return individual results."""
     results = {}
 
@@ -429,7 +429,7 @@ def _execute_evaluation_methods(
     return results
 
 
-def _combine_method_results(individual_results: Dict[str, Any]) -> Dict[str | Any]:
+def _combine_method_results(individual_results: Dict[str, Any]) -> Dict[str, Any]:
     """Combine individual method results using weighted voting."""
     method_weights = {"fuzzy": 0.4, "semantic": 0.4, "original": 0.2}
 
@@ -459,7 +459,7 @@ def _combine_method_results(individual_results: Dict[str, Any]) -> Dict[str | An
 
 def _aggregate_method_scores(
     individual_results: Dict[str, Any], method_weights: Dict[str, float]
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """Aggregate scores and votes from individual method results."""
     total_score = 0.0
     total_weight = 0.0

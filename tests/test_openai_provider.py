@@ -7,7 +7,7 @@ import openai
 import pytest
 from openai import OpenAI
 
-from llm_providers.exceptions import (
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ModelNotSupportedError,
     ProviderConfigurationError,
@@ -15,7 +15,7 @@ from llm_providers.exceptions import (
     ProviderTimeoutError,
     RateLimitError,
 )
-from llm_providers.openai import OpenAIProvider
+from src.providers.openai import OpenAIProvider
 
 
 class TestOpenAIProvider:

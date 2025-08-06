@@ -372,7 +372,7 @@ class StructuredLogger:
         """Log a custom event."""
         self._log(level, EventType.CUSTOM, message, context)
 
-    def get_summary(self) -> Dict[str | Any]:
+    def get_summary(self) -> Dict[str, Any]:
         """Get logging summary statistics."""
         # Read log file and analyze
         if not self.log_file.exists():

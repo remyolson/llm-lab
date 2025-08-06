@@ -94,7 +94,7 @@ class ResponseComparison:
     response1_tokens: Optional[int] = None
     response2_tokens: Optional[int] = None
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "prompt": self.prompt,
@@ -336,7 +336,7 @@ class ResponseComparisonView:
             logger.warning(f"Failed to calculate semantic similarity: {e}")
             return 0.0
 
-    def _generate_diff_segments(self, text1: str, text2: str) -> List[Dict[str | Any]]:
+    def _generate_diff_segments(self, text1: str, text2: str) -> List[Dict[str, Any]]:
         """Generate diff segments for visualization.
 
         Args:

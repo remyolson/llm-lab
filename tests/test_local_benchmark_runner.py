@@ -26,7 +26,7 @@ from evaluation.local_model_metrics import (
     LocalModelBenchmarkResult,
     LocalModelPerformanceMetrics,
 )
-from providers.local import ResourceManager, UnifiedLocalProvider
+from src.providers.local import ResourceManager, UnifiedLocalProvider
 
 
 class TestResourceMonitor(unittest.TestCase):

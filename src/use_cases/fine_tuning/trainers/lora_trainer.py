@@ -352,7 +352,7 @@ class LoRATrainer(BaseTrainer):
                 self.model.get_base_model(), adapter_dir, is_trainable=True
             )
 
-    def estimate_memory_usage(self) -> Dict[str | float]:
+    def estimate_memory_usage(self) -> Dict[str, float]:
         """
         Estimate memory usage for LoRA training.
 

@@ -15,8 +15,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Callable, Dict, List, Optional
 
-from providers import get_provider_for_model
-from providers.exceptions import ProviderError
+from src.providers import get_provider_for_model
+from src.providers.exceptions import ProviderError
 
 logger = logging.getLogger(__name__)
 

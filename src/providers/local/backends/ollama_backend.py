@@ -325,7 +325,7 @@ class OllamaBackend(LocalBackend):
             logger.error(f"Streaming error: {e}")
             raise RuntimeError(f"Streaming failed: {e}")
 
-    def get_model_memory_usage(self, model_id: str) -> Dict[str | float]:
+    def get_model_memory_usage(self, model_id: str) -> Dict[str, float]:
         """Get memory usage of a loaded model."""
         if model_id not in self._loaded_models:
             return {"ram": 0.0, "vram": 0.0}

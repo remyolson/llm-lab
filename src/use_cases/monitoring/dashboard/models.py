@@ -78,7 +78,7 @@ class MetricSnapshot(Base):
         """Set metadata dictionary."""
         self.metadata_dict = value or {}
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for API responses."""
         return {
             "id": self.id,
@@ -167,7 +167,7 @@ class Alert(Base):
         self.resolved_at = datetime.utcnow()
         self.resolved_by = user
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for API responses."""
         return {
             "id": self.id,
@@ -243,7 +243,7 @@ class RequestLog(Base):
         """Set metadata dictionary."""
         self.metadata_dict = value or {}
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for API responses."""
         return {
             "id": self.id,
@@ -287,7 +287,7 @@ class DashboardConfig(Base):
     created_by = Column(String(100))
     description = Column(Text)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for API responses."""
         return {
             "id": self.id,
@@ -329,7 +329,7 @@ class DatabaseManager:
         """Get database session."""
         return self.SessionLocal()
 
-    def get_metrics_summary(self, hours: int = 24) -> Dict[str | Any]:
+    def get_metrics_summary(self, hours: int = 24) -> Dict[str, Any]:
         """Get summary metrics for the dashboard."""
         session = self.get_session()
         try:
@@ -378,7 +378,7 @@ class DatabaseManager:
 
     def get_performance_data(
         self, hours: int = 24, provider: str = None, model: str = None
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Get performance data for charts."""
         session = self.get_session()
         try:
@@ -406,7 +406,7 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def get_cost_breakdown(self, hours: int = 24) -> Dict[str | Any]:
+    def get_cost_breakdown(self, hours: int = 24) -> Dict[str, Any]:
         """Get cost breakdown by provider."""
         session = self.get_session()
         try:
@@ -448,7 +448,7 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def get_active_alerts(self, limit: int = 50) -> List[Dict[str | Any]]:
+    def get_active_alerts(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Get active alerts."""
         session = self.get_session()
         try:

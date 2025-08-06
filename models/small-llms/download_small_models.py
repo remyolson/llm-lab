@@ -62,6 +62,18 @@ SMALL_MODELS = {
         "size": "20B parameters (~40GB)",
         "description": "OpenAI's open-source 20B model (VERY LARGE - requires significant RAM)",
         "format": "transformers"
+    },
+    "qwen3-4b-instruct": {
+        "name": "Qwen/Qwen3-4B-Instruct-2507",
+        "size": "4B parameters (~8GB)",
+        "description": "Advanced instruction-tuned model with strong capabilities",
+        "format": "transformers"
+    },
+    "qwen3-4b-thinking": {
+        "name": "Qwen/Qwen3-4B-Thinking-2507",
+        "size": "4B parameters (~8GB)",
+        "description": "Reasoning-focused model optimized for complex thinking",
+        "format": "transformers"
     }
 }
 

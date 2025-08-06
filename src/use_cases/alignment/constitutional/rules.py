@@ -110,7 +110,7 @@ class ConstitutionalRule:
             return func(context)
         return True
 
-    def get_actions(self) -> List[Dict[str | Any]]:
+    def get_actions(self) -> List[Dict[str, Any]]:
         """Get actions to take when rule is triggered."""
         return self.actions if self.enabled else []
 
@@ -150,7 +150,7 @@ class RuleSet:
                 return rule
         return None
 
-    def evaluate(self, context: Dict[str, Any]) -> Dict[str | Any]:
+    def evaluate(self, context: Dict[str, Any]) -> Dict[str, Any]:
         """Evaluate all rules against context."""
         results = {"passed": [], "failed": [], "triggered": [], "actions": []}
 

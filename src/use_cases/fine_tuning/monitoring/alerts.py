@@ -93,7 +93,7 @@ class AlertEvent:
     message: str
     context: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "alert_name": self.alert_name,
@@ -714,7 +714,7 @@ class AlertSystem:
             except Exception as e:
                 logger.error(f"Notifier {type(notifier).__name__} failed: {e}")
 
-    def get_alert_summary(self) -> Dict[str | Any]:
+    def get_alert_summary(self) -> Dict[str, Any]:
         """Get summary of alert activity."""
         if not self.alert_history:
             return {"total_alerts": 0, "by_severity": {}, "by_alert": {}, "recent_alerts": []}

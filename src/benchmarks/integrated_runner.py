@@ -64,7 +64,7 @@ def run_integrated_benchmark(
     enable_resource_monitoring: bool = True,
     progress_callback: Optional[Callable[[int, int], None]] = None,
     **generation_kwargs,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Run benchmark with automatic local model detection and appropriate handling.
 
@@ -120,7 +120,7 @@ def run_local_model_benchmark(
     enable_resource_monitoring: bool = True,
     progress_callback: Optional[Callable[[int, int], None]] = None,
     **generation_kwargs,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Run benchmark specifically for local models with full monitoring.
 
@@ -234,7 +234,7 @@ def run_cloud_model_benchmark(
     evaluation_method: str = "multi_method",
     progress_callback: Optional[Callable[[int, int], None]] = None,
     **generation_kwargs,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Run benchmark for cloud models using existing evaluation methods.
 

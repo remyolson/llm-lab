@@ -14,8 +14,8 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
 
-from llm_providers.base import LLMProvider
-from llm_providers.exceptions import ProviderError, RateLimitError
+from src.providers.base import LLMProvider
+from src.providers.exceptions import ProviderError, RateLimitError
 
 from .benchmark_config import BenchmarkConfig, rate_performance
 from .benchmark_suite import BenchmarkMetrics

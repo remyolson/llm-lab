@@ -10,7 +10,7 @@ from unittest.mock import Mock, patch
 import pytest
 
 from llm_providers import AnthropicProvider, GoogleProvider, OpenAIProvider
-from llm_providers.exceptions import ProviderError
+from src.providers.exceptions import ProviderError
 
 from .fixtures import (
     mock_anthropic_provider,

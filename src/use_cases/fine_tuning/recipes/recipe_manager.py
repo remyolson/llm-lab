@@ -39,7 +39,7 @@ class ModelConfig:
     load_in_4bit: bool = False
     use_flash_attention: bool = True
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation."""
         return asdict(self)
 
@@ -60,7 +60,7 @@ class DatasetConfig:
         default_factory=lambda: {"max_length": 512, "padding": "max_length", "truncation": True}
     )
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation."""
         return asdict(self)
 
@@ -95,7 +95,7 @@ class TrainingConfig:
         default_factory=lambda: ["q_proj", "v_proj", "k_proj", "o_proj"]
     )
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation."""
         return asdict(self)
 
@@ -113,7 +113,7 @@ class EvaluationConfig:
     top_k: int = 50
     top_p: float = 0.95
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation."""
         return asdict(self)
 
@@ -136,7 +136,7 @@ class Recipe:
 
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert recipe to dictionary representation."""
         return {
             "name": self.name,
@@ -396,7 +396,7 @@ class RecipeManager:
 
         return sorted(set(recipes))
 
-    def list_templates(self) -> List[Dict[str | Any]]:
+    def list_templates(self) -> List[Dict[str, Any]]:
         """List available recipe templates with metadata.
 
         Returns:
@@ -406,7 +406,7 @@ class RecipeManager:
             return list(self._template_info.values())
         return []
 
-    def get_template_info(self, template_id: str) -> Dict[str | Any]:
+    def get_template_info(self, template_id: str) -> Dict[str, Any]:
         """Get information about a specific template.
 
         Args:
@@ -419,7 +419,7 @@ class RecipeManager:
             return self._template_info.get(template_id)
         return None
 
-    def get_recipe_info(self, recipe_name: str) -> Dict[str | Any]:
+    def get_recipe_info(self, recipe_name: str) -> Dict[str, Any]:
         """Get basic information about a recipe without full loading.
 
         Args:

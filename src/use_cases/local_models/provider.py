@@ -331,7 +331,7 @@ class LocalModelProvider(LLMProvider):
                 details=f"Failed during streaming: {e!s}",
             )
 
-    def get_model_info(self) -> Dict[str | Any]:
+    def get_model_info(self) -> Dict[str, Any]:
         """Get information about the loaded model."""
         info = {
             "model_name": self.model_name,
@@ -359,7 +359,7 @@ class LocalModelProvider(LLMProvider):
 
         return info
 
-    def _get_hardware_info(self) -> Dict[str | Any]:
+    def _get_hardware_info(self) -> Dict[str, Any]:
         """Get hardware acceleration information."""
         hardware = {
             "cpu_threads": self.config.n_threads or "auto",
@@ -420,7 +420,7 @@ class LocalModelProvider(LLMProvider):
             logger.error("llama-cpp-python is not installed")
             return False
 
-    def get_memory_usage(self) -> Dict[str | float]:
+    def get_memory_usage(self) -> Dict[str, float]:
         """
         Get current memory usage of the model.
 

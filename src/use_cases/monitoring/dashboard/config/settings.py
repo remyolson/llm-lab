@@ -206,7 +206,7 @@ class DashboardConfig:
 
         return config
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert configuration to dictionary."""
         return {
             "database": self.database.__dict__,

@@ -27,7 +27,7 @@ class MetricResult:
     unit: Optional[str] = None
     metadata: Optional[Dict[str, Any]] = None
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation."""
         result = {"name": self.name, "value": self.value}
         if self.unit:
@@ -428,7 +428,7 @@ class MetricSuite:
         """Add a metric to the suite."""
         self.metrics.append(metric)
 
-    def evaluate(self, response: str, **kwargs) -> Dict[str | Any]:
+    def evaluate(self, response: str, **kwargs) -> Dict[str, Any]:
         """Evaluate a single response with all metrics.
 
         Args:
@@ -448,7 +448,7 @@ class MetricSuite:
 
         return results
 
-    def evaluate_batch(self, responses: List[str], **kwargs) -> Dict[str | Any]:
+    def evaluate_batch(self, responses: List[str], **kwargs) -> Dict[str, Any]:
         """Evaluate multiple responses with all metrics.
 
         Args:
@@ -474,7 +474,7 @@ class MetricSuite:
 
         return {"individual": individual_results, "aggregated": aggregated}
 
-    def _aggregate_results(self, results: List[Dict[str, Any]]) -> Dict[str | Any]:
+    def _aggregate_results(self, results: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Aggregate results across multiple responses."""
         if not results:
             return {}
@@ -525,7 +525,7 @@ class MetricSuite:
 
 
 # Convenience functions
-def evaluate_response(response: str, metrics: Optional[List[BaseMetric]] = None) -> Dict[str | Any]:
+def evaluate_response(response: str, metrics: Optional[List[BaseMetric]] = None) -> Dict[str, Any]:
     """Evaluate a single response with the specified metrics.
 
     Args:
@@ -541,7 +541,7 @@ def evaluate_response(response: str, metrics: Optional[List[BaseMetric]] = None)
 
 def evaluate_responses(
     responses: List[str], metrics: Optional[List[BaseMetric]] = None
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """Evaluate multiple responses with aggregation.
 
     Args:

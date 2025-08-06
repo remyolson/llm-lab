@@ -90,7 +90,7 @@ class LocalModelEvaluator:
 
     def evaluate_response_quality(
         self, response: str, expected_answer: str, prompt: str
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Evaluate response quality with local model-specific considerations.
 
@@ -326,7 +326,7 @@ def evaluate_local_model_response(
     )
 
 
-def generate_local_model_report(results: List[LocalModelBenchmarkResult]) -> Dict[str | Any]:
+def generate_local_model_report(results: List[LocalModelBenchmarkResult]) -> Dict[str, Any]:
     """
     Generate a comprehensive report for local model benchmark results.
 

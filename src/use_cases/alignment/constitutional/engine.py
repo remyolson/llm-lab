@@ -37,7 +37,7 @@ class ConstitutionalContext:
     session_id: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert context to dictionary for rule evaluation."""
         return {
             "prompt": self.prompt,
@@ -100,7 +100,7 @@ class ConstitutionalAIEngine:
         prompt: str,
         context: Optional[ConstitutionalContext] = None,
         ruleset_ids: Optional[List[str]] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Evaluate a prompt against constitutional rules.
 
@@ -125,7 +125,7 @@ class ConstitutionalAIEngine:
         prompt: str,
         context: Optional[ConstitutionalContext] = None,
         ruleset_ids: Optional[List[str]] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Evaluate a response against constitutional rules.
 
@@ -148,7 +148,7 @@ class ConstitutionalAIEngine:
 
     def _evaluate(
         self, context: ConstitutionalContext, ruleset_ids: Optional[List[str]], evaluation_type: str
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Internal evaluation method."""
         # Determine which rulesets to use
         if ruleset_ids:
@@ -225,7 +225,7 @@ class ConstitutionalAIEngine:
         rule: ConstitutionalRule,
         context: ConstitutionalContext,
         results: Dict[str, Any],
-    ) -> Optional[Dict[str | Any]]:
+    ) -> Optional[Dict[str, Any]]:
         """Process a single action from a rule."""
         action_type = action.get("type")
 
@@ -325,7 +325,7 @@ class ConstitutionalAIEngine:
 
         return modified_text
 
-    def get_rule_stats(self) -> Dict[str | Any]:
+    def get_rule_stats(self) -> Dict[str, Any]:
         """Get statistics about rule evaluations."""
         if not self.evaluation_history:
             return {

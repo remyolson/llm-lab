@@ -263,7 +263,7 @@ class ModelRegistry:
         # Return first compatible if no preferred match
         return compatible[0]
 
-    def get_models_summary(self) -> Dict[str | any]:
+    def get_models_summary(self) -> Dict[str, any]:
         """Get summary statistics about discovered models."""
         total_models = len(self._models)
         backend_counts = {name: len(models) for name, models in self._backend_models.items()}

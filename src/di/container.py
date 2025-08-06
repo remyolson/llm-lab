@@ -10,7 +10,7 @@ import logging
 from enum import Enum
 from functools import wraps
 from threading import Lock
-from typing import Any, Callable, Dict, Optional, Type, TypeVar, get_type_hints
+from typing import Any, Callable, Dict, Optional, Type, TypeVar, Union, get_type_hints
 
 logger = logging.getLogger(__name__)
 
@@ -31,7 +31,7 @@ class ServiceRegistration:
     def __init__(
         self,
         service_type: Type[T],
-        implementation: Type[T, Callable[[], T], T],
+        implementation: Union[Type[T], Callable[[], T], T],
         lifetime: ServiceLifetime = ServiceLifetime.TRANSIENT,
     ):
         self.service_type = service_type
@@ -59,13 +59,13 @@ class ServiceRegistration:
 
     def _create_instance(self, container: "DIContainer") -> T:
         """Create a new instance of the service."""
-        # If it's already an instance, return it
-        if not (inspect.isclass(self.implementation) or callable(self.implementation)):
+        # If it's already an instance (not a class), return it
+        if not inspect.isclass(self.implementation):
+            # Check if it's a factory function - functions have __code__ attribute
+            if callable(self.implementation) and hasattr(self.implementation, "__code__"):
+                return self.implementation()
+            # Otherwise it's an instance, return as-is
             return self.implementation
-
-        # If it's a factory function, call it
-        if callable(self.implementation) and not inspect.isclass(self.implementation):
-            return self.implementation()
 
         # If it's a class, instantiate with dependency injection
         return container._create_instance(self.implementation)
@@ -85,7 +85,7 @@ class DIContainer:
         self._resolution_stack: list = []  # For circular dependency detection
 
     def register_singleton(
-        self, service_type: Type[T], implementation: Type[T, Callable[[], T], T]
+        self, service_type: Type[T], implementation: Union[Type[T], Callable[[], T], T]
     ) -> "DIContainer":
         """
         Register a service with singleton lifetime.
@@ -100,7 +100,7 @@ class DIContainer:
         return self._register(service_type, implementation, ServiceLifetime.SINGLETON)
 
     def register_transient(
-        self, service_type: Type[T], implementation: Type[T, Callable[[], T]]
+        self, service_type: Type[T], implementation: Union[Type[T], Callable[[], T]]
     ) -> "DIContainer":
         """
         Register a service with transient lifetime.
@@ -215,7 +215,7 @@ class DIContainer:
     def _register(
         self,
         service_type: Type[T],
-        implementation: Type[T, Callable[[], T], T],
+        implementation: Union[Type[T], Callable[[], T], T],
         lifetime: ServiceLifetime,
     ) -> "DIContainer":
         """Internal method to register a service."""
@@ -235,7 +235,32 @@ class DIContainer:
         try:
             # Get constructor signature and type hints
             signature = inspect.signature(cls.__init__)
-            type_hints = get_type_hints(cls.__init__)
+            try:
+                type_hints = get_type_hints(cls.__init__)
+            except NameError:
+                # Handle forward references that can't be resolved
+                # Try with the class's module namespace
+                try:
+                    type_hints = get_type_hints(
+                        cls.__init__,
+                        globalns=cls.__module__.__dict__ if hasattr(cls, "__module__") else {},
+                    )
+                except:
+                    # Last resort: use raw annotations and resolve manually
+                    type_hints = {}
+                    raw_annotations = getattr(cls.__init__, "__annotations__", {})
+                    for name, annotation in raw_annotations.items():
+                        if isinstance(annotation, str):
+                            # Try to resolve the string annotation to a registered type
+                            for registered_type in self._services.keys():
+                                if registered_type.__name__ == annotation:
+                                    type_hints[name] = registered_type
+                                    break
+                            else:
+                                # If we can't resolve it, skip this parameter
+                                continue
+                        else:
+                            type_hints[name] = annotation
 
             # Prepare constructor arguments
             kwargs = {}
@@ -259,6 +284,9 @@ class DIContainer:
                 try:
                     dependency = self.get(param_type)
                     kwargs[param_name] = dependency
+                except CircularDependencyError:
+                    # Let circular dependency errors bubble up
+                    raise
                 except ServiceNotRegisteredError:
                     # If dependency not registered, check for default value
                     if param.default is not inspect.Parameter.empty:
@@ -276,6 +304,9 @@ class DIContainer:
             )
             return instance
 
+        except CircularDependencyError:
+            # Let circular dependency errors bubble up unchanged
+            raise
         except Exception as e:
             logger.error(f"Failed to create instance of {cls.__name__}: {e}")
             raise ServiceCreationError(f"Failed to create instance of {cls.__name__}: {e}")
@@ -306,6 +337,8 @@ def inject(func: Callable) -> Callable:
         # Inject dependencies for parameters not provided
         bound_args = signature.bind_partial(*args, **kwargs)
 
+        missing_required_deps = []
+
         for param_name, param in signature.parameters.items():
             if param_name in bound_args.arguments:
                 continue  # Already provided
@@ -319,10 +352,18 @@ def inject(func: Callable) -> Callable:
                 bound_args.arguments[param_name] = dependency
             except ServiceNotRegisteredError:
                 if param.default is inspect.Parameter.empty:
+                    missing_required_deps.append(param_name)
                     logger.warning(
                         f"Cannot inject dependency '{param_name}: {param_type.__name__}' for {func.__name__}"
                     )
                 continue
+
+        # If there are missing required dependencies, don't call the function
+        if missing_required_deps:
+            logger.error(
+                f"Cannot call {func.__name__} due to missing required dependencies: {missing_required_deps}"
+            )
+            return None
 
         bound_args.apply_defaults()
         return func(*bound_args.args, **bound_args.kwargs)

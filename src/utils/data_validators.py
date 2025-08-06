@@ -181,7 +181,7 @@ def validate_model_name(model_name: Any, supported_models: List[str | None] = No
     return model_name
 
 
-def validate_generation_params(params: Dict[str, Any]) -> Dict[str | Any]:
+def validate_generation_params(params: Dict[str, Any]) -> Dict[str, Any]:
     """
     Validate common generation parameters across providers.
 

@@ -259,7 +259,7 @@ class ProviderConfigManager:
 
         return None
 
-    def get_model_config(self, model_name: str) -> Dict[str | Any]:
+    def get_model_config(self, model_name: str) -> Dict[str, Any]:
         """
         Get the configuration for a specific model.
 
@@ -293,7 +293,7 @@ class ProviderConfigManager:
 
         return config
 
-    def _get_env_overrides(self, model_name: str) -> Dict[str | Any]:
+    def _get_env_overrides(self, model_name: str) -> Dict[str, Any]:
         """Get parameter overrides from environment variables."""
         overrides = {}
 
@@ -320,7 +320,7 @@ class ProviderConfigManager:
 
         return overrides
 
-    def validate_credentials(self, provider_name: str | None = None) -> Dict[str | bool]:
+    def validate_credentials(self, provider_name: str | None = None) -> Dict[str, bool]:
         """
         Validate that required credentials are present.
 

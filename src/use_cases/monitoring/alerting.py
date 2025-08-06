@@ -728,12 +728,12 @@ class AlertManager:
             logger.error(f"Failed to resolve alert {alert_id}: {e}")
             return False
 
-    def get_active_alerts(self, model_id: Optional[int] = None) -> List[Dict[str | Any]]:
+    def get_active_alerts(self, model_id: Optional[int] = None) -> List[Dict[str, Any]]:
         """Get active alerts."""
         alerts = self.db_manager.get_active_alerts(model_id=model_id)
         return [alert.to_dict() for alert in alerts]
 
-    def get_alert_statistics(self, days_back: int = 7) -> Dict[str | Any]:
+    def get_alert_statistics(self, days_back: int = 7) -> Dict[str, Any]:
         """Get alert statistics for the specified period."""
         start_date = datetime.utcnow() - timedelta(days=days_back)
 

@@ -17,7 +17,7 @@ class RuleYAMLParser:
     def __init__(self):
         self.loaded_rulesets: Dict[str, RuleSet] = {}
 
-    def load_rule(self, yaml_content: str | Dict[str | Any]) -> ConstitutionalRule:
+    def load_rule(self, yaml_content: str | Dict[str, Any]) -> ConstitutionalRule:
         """Load a single rule from YAML content."""
         if isinstance(yaml_content, str):
             rule_data = yaml.safe_load(yaml_content)
@@ -85,7 +85,7 @@ class RuleYAMLParser:
 
         return ruleset
 
-    def load_directory(self, directory: str | Path) -> Dict[str | RuleSet]:
+    def load_directory(self, directory: str | Path) -> Dict[str, RuleSet]:
         """Load all rulesets from a directory."""
         directory = Path(directory)
         rulesets = {}
@@ -171,7 +171,7 @@ class RuleYAMLParser:
         with open(path, "w") as f:
             yaml.dump(ruleset_data, f, default_flow_style=False, sort_keys=False)
 
-    def validate_rule_yaml(self, yaml_content: str) -> Dict[str | Any]:
+    def validate_rule_yaml(self, yaml_content: str) -> Dict[str, Any]:
         """Validate YAML content for a rule."""
         try:
             rule_data = yaml.safe_load(yaml_content)

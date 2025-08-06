@@ -206,7 +206,7 @@ class AnthropicProvider(LLMProvider):
                 config_issue=f"Failed to initialize Anthropic client: {e!s}",
             )
 
-    def _convert_to_messages_format(self, prompt: str) -> List[Dict[str | str]]:
+    def _convert_to_messages_format(self, prompt: str) -> List[Dict[str, str]]:
         """
         Convert a simple prompt to Anthropic's messages format.
 
@@ -368,7 +368,7 @@ class AnthropicProvider(LLMProvider):
                 # Use generic exception mapping for unknown errors
                 raise map_provider_exception(self.provider_name, e)
 
-    def get_model_info(self) -> Dict[str | Any]:
+    def get_model_info(self) -> Dict[str, Any]:
         """
         Get information about the current model.
 
@@ -389,7 +389,7 @@ class AnthropicProvider(LLMProvider):
             "version": self.model_name.split("-")[-1] if "-" in self.model_name else "unknown",
         }
 
-    def get_default_parameters(self) -> Dict[str | Any]:
+    def get_default_parameters(self) -> Dict[str, Any]:
         """
         Get default generation parameters for Anthropic models.
 

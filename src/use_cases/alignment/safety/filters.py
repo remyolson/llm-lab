@@ -127,7 +127,7 @@ class MLBasedFilter:
         # In production, this would load an actual ML model
         self.threshold = 0.5
 
-    def predict(self, text: str) -> Dict[ContentCategory | float]:
+    def predict(self, text: str) -> Dict[ContentCategory, float]:
         """Predict risk scores for each category."""
         # Placeholder implementation
         # In production, this would use a trained model
@@ -373,7 +373,7 @@ class SafetyFilter:
         """Clear the safety check cache."""
         self._cache.clear()
 
-    def get_statistics(self) -> Dict[str | Any]:
+    def get_statistics(self) -> Dict[str, Any]:
         """Get statistics about safety checks."""
         return {
             "cache_size": len(self._cache),

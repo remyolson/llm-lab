@@ -294,7 +294,7 @@ async def run_ab_test(test_id: str, config: ABTestConfig):
             test.status = "failed"
 
 
-def generate_sample_results() -> Dict[str | Any]:
+def generate_sample_results() -> Dict[str, Any]:
     """Generate sample A/B test results"""
 
     return {

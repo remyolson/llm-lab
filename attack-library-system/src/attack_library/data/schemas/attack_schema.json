@@ -1,0 +1,218 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://llm-lab.com/schemas/attack-library-v1.0.json",
+  "title": "Attack Library Schema",
+  "description": "Schema for Attack Library System data format",
+  "type": "object",
+  "required": ["version", "schema", "attacks"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+      "description": "Schema version"
+    },
+    "schema": {
+      "type": "string",
+      "const": "attack-library-v1.0",
+      "description": "Schema identifier"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Library creation timestamp"
+    },
+    "last_updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "total_attacks": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of attacks"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Library metadata",
+      "properties": {
+        "description": {"type": "string"},
+        "author": {"type": "string"},
+        "license": {"type": "string"},
+        "total_by_category": {"type": "object"},
+        "total_by_severity": {"type": "object"},
+        "statistics": {"type": "object"}
+      }
+    },
+    "attacks": {
+      "type": "array",
+      "description": "Collection of attacks",
+      "items": {
+        "$ref": "#/definitions/attack"
+      }
+    }
+  },
+  "definitions": {
+    "attack": {
+      "type": "object",
+      "required": ["id", "title", "content", "category", "severity", "sophistication"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 50,
+          "pattern": "^[a-zA-Z0-9_-]+$",
+          "description": "Unique attack identifier"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200,
+          "description": "Attack title"
+        },
+        "content": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 10000,
+          "description": "Attack prompt content"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["jailbreak", "injection", "extraction", "manipulation", "evasion"],
+          "description": "Attack category"
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Attack severity level"
+        },
+        "sophistication": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Sophistication level from 1 (basic) to 5 (advanced)"
+        },
+        "target_models": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "description": "Target model types or names"
+        },
+        "metadata": {
+          "$ref": "#/definitions/attack_metadata"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+(\\.\\d+)?$",
+          "default": "1.0",
+          "description": "Attack version"
+        },
+        "parent_id": {
+          "type": ["string", "null"],
+          "description": "Parent attack ID for variants"
+        },
+        "variant_type": {
+          "type": ["string", "null"],
+          "description": "Type of variant if applicable"
+        },
+        "is_active": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether attack is active"
+        },
+        "is_verified": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether attack is verified"
+        },
+        "verification_date": {
+          "type": ["string", "null"],
+          "format": "date-time",
+          "description": "Verification timestamp"
+        }
+      }
+    },
+    "attack_metadata": {
+      "type": "object",
+      "required": ["source"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Source of the attack"
+        },
+        "effectiveness_score": {
+          "type": ["number", "null"],
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Effectiveness score from 0.0 to 1.0"
+        },
+        "creation_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Creation timestamp"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last update timestamp"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50
+          },
+          "uniqueItems": true,
+          "description": "Searchable tags"
+        },
+        "author": {
+          "type": ["string", "null"],
+          "description": "Author or creator"
+        },
+        "references": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": "Research references"
+        },
+        "tested_models": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true,
+          "description": "Models tested against"
+        },
+        "success_rate": {
+          "type": ["number", "null"],
+          "minimum": 0.0,
+          "maximum": 1.0,
+          "description": "Success rate in testing"
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+          "default": "en",
+          "description": "Language code (ISO 639-1)"
+        },
+        "character_count": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Character count of content"
+        },
+        "word_count": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "Word count of content"
+        }
+      }
+    }
+  }
+}

@@ -68,7 +68,7 @@ class EvaluationTemplate:
     tags: List[str] = field(default_factory=list)
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert template to dictionary."""
         return {
             "name": self.name,

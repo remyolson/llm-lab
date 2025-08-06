@@ -39,7 +39,7 @@ class DataExporter:
         filters: Optional[Dict[str, Any]] = None,
         aggregation: Optional[str] = None,
         filename: Optional[str] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Export monitoring data in specified format.
 
@@ -111,7 +111,7 @@ class DataExporter:
 
     def export_custom_query(
         self, query_config: Dict[str, Any], format: str = "csv", filename: Optional[str] = None
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Export data based on custom query configuration.
 
@@ -158,7 +158,7 @@ class DataExporter:
             self.logger.error(f"Custom query export failed: {e}")
             return {"status": "failed", "error": str(e), "timestamp": datetime.utcnow().isoformat()}
 
-    def get_export_templates(self) -> List[Dict[str | Any]]:
+    def get_export_templates(self) -> List[Dict[str, Any]]:
         """Get predefined export templates."""
         return [
             {
@@ -202,7 +202,7 @@ class DataExporter:
         data_type: str,
         date_range: Optional[tuple] = None,
         filters: Optional[Dict[str, Any]] = None,
-    ) -> List[Dict | Dict[str | Any]]:
+    ) -> List[Dict | Dict[str, Any]]:
         """Gather data for export based on type."""
         if not self.data_service:
             return self._get_mock_export_data(data_type, date_range)
@@ -247,7 +247,7 @@ class DataExporter:
 
     def _get_mock_export_data(
         self, data_type: str, date_range: Optional[tuple] = None
-    ) -> List[Dict | Dict[str | Any]]:
+    ) -> List[Dict | Dict[str, Any]]:
         """Generate mock data for export testing."""
         if date_range:
             start_date, end_date = date_range
@@ -336,7 +336,7 @@ class DataExporter:
 
     def _apply_aggregation(
         self, data: List[Dict, Dict[str, Any]], aggregation: str, data_type: str
-    ) -> List[Dict | Dict[str | Any]]:
+    ) -> List[Dict | Dict[str, Any]]:
         """Apply aggregation to time series data."""
         if not isinstance(data, list):
             return data
@@ -407,7 +407,7 @@ class DataExporter:
 
     def _format_for_export(
         self, data: List[Dict, Dict[str, Any]], data_type: str
-    ) -> List[Dict[str | Any]]:
+    ) -> List[Dict[str, Any]]:
         """Format data for export."""
         if isinstance(data, dict):
             if data_type == "costs" and "daily_costs" in data:

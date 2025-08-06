@@ -249,7 +249,7 @@ class TrainingConfig:
             if not self.lora_config:
                 raise ValueError("QLoRA requires LoRA configuration")
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert configuration to dictionary."""
         config_dict = asdict(self)
 

@@ -68,7 +68,7 @@ class MockLogger(ILogger):
         formatted_message = message % args if args else str(message)
         self.exception_messages.append(formatted_message)
 
-    def get_all_messages(self) -> Dict[str | list]:
+    def get_all_messages(self) -> Dict[str, list]:
         """Get all captured messages."""
         return {
             "debug": self.debug_messages,
@@ -110,7 +110,7 @@ class MockLoggerFactory(ILoggerFactory):
         """Mock implementation - does nothing."""
         pass
 
-    def get_all_loggers(self) -> Dict[str | MockLogger]:
+    def get_all_loggers(self) -> Dict[str, MockLogger]:
         """Get all created loggers for testing."""
         return self._loggers.copy()
 
@@ -137,11 +137,11 @@ class MockConfigurationService(IConfigurationService):
         """Get a mock environment variable."""
         return self._env_vars.get(key, default)
 
-    def get_provider_config(self, provider_name: str) -> Dict[str | Any]:
+    def get_provider_config(self, provider_name: str) -> Dict[str, Any]:
         """Get mock provider configuration."""
         return self._config.get("providers", {}).get(provider_name, {})
 
-    def get_model_parameters(self, model_name: Optional[str] = None) -> Dict[str | Any]:
+    def get_model_parameters(self, model_name: Optional[str] = None) -> Dict[str, Any]:
         """Get mock model parameters."""
         return self._config.get(
             "model_parameters",
@@ -152,7 +152,7 @@ class MockConfigurationService(IConfigurationService):
             },
         )
 
-    def get_network_config(self) -> Dict[str | Any]:
+    def get_network_config(self) -> Dict[str, Any]:
         """Get mock network configuration."""
         return self._config.get(
             "network",
@@ -249,7 +249,7 @@ class MockProvider(ILLMProvider):
         """Mock batch generation."""
         return [self.generate(prompt, **kwargs) for prompt in prompts]
 
-    def get_model_info(self) -> Dict[str | Any]:
+    def get_model_info(self) -> Dict[str, Any]:
         """Mock model info."""
         return {
             "model_name": self._model_name,
@@ -319,7 +319,7 @@ def create_mock_service(interface: Type[T], **kwargs: Any) -> T:
     return mock
 
 
-class TestContainerContext:
+class ContainerTestContext:
     """
     Context manager for testing with a DI container.
 
@@ -327,7 +327,7 @@ class TestContainerContext:
     making it easy to write tests that use dependency injection.
 
     Usage:
-        with TestContainerContext() as container:
+        with ContainerTestContext() as container:
             # Test code here
             service = container.get(IConfigurationService)
     """

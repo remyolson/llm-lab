@@ -76,7 +76,7 @@ class Variant:
             return 0.0
         return self.conversions / self.exposures
 
-    def get_metric_stats(self, metric_name: str) -> Dict[str | float]:
+    def get_metric_stats(self, metric_name: str) -> Dict[str, float]:
         """Get statistics for a specific metric."""
         values = self.metrics.get(metric_name, [])
 
@@ -316,7 +316,7 @@ class ABTestingFramework:
 
         return False
 
-    def get_experiment_results(self, experiment_id: str) -> Dict[str | Any]:
+    def get_experiment_results(self, experiment_id: str) -> Dict[str, Any]:
         """Get results for an experiment."""
         experiment = self.get_experiment(experiment_id)
         if not experiment:
@@ -361,7 +361,7 @@ class ABTestingFramework:
 
         return results
 
-    def _calculate_significance(self, experiment: Experiment) -> Dict[str | Any]:
+    def _calculate_significance(self, experiment: Experiment) -> Dict[str, Any]:
         """Calculate statistical significance for two-variant experiment."""
         if len(experiment.variants) != 2:
             return {}

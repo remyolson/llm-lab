@@ -6,7 +6,7 @@ import psutil
 import torch
 
 
-def get_memory_stats() -> Dict[str | float]:
+def get_memory_stats() -> Dict[str, float]:
     """
     Get current memory statistics.
 

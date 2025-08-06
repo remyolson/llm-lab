@@ -13,7 +13,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 
 from llm_providers import AnthropicProvider, GoogleProvider, OpenAIProvider
-from llm_providers.exceptions import (
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ModelNotSupportedError,
     ProviderError,

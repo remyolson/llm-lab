@@ -47,7 +47,7 @@ from apscheduler.triggers.cron import CronTrigger
 from flask import Flask, jsonify
 
 # Import from the main library
-from providers import get_provider
+from src.providers import get_provider
 from utils import setup_logging
 
 

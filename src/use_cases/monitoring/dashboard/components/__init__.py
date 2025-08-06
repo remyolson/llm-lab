@@ -113,7 +113,7 @@ def create_components_blueprint(config: DashboardConfig) -> Blueprint:
     return components_bp
 
 
-def _format_performance_chart_data(data: Dict[str, Any]) -> Dict[str | Any]:
+def _format_performance_chart_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """Format performance data for Chart.js."""
     return {
         "type": "line",
@@ -165,7 +165,7 @@ def _format_performance_chart_data(data: Dict[str, Any]) -> Dict[str | Any]:
     }
 
 
-def _format_cost_chart_data(data: Dict[str, Any]) -> Dict[str | Any]:
+def _format_cost_chart_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """Format cost data for Chart.js."""
     daily_costs = data.get("daily_costs", [])
     provider_breakdown = data.get("provider_breakdown", {})
@@ -231,7 +231,7 @@ def _format_cost_chart_data(data: Dict[str, Any]) -> Dict[str | Any]:
     }
 
 
-def _format_model_comparison_data(data: Dict[str, Any]) -> Dict[str | Any]:
+def _format_model_comparison_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """Format model comparison data for Chart.js."""
     models = data.get("models", [])
 
@@ -265,7 +265,7 @@ def _format_model_comparison_data(data: Dict[str, Any]) -> Dict[str | Any]:
     }
 
 
-def _format_alert_timeline_data(alerts: list) -> Dict[str | Any]:
+def _format_alert_timeline_data(alerts: list) -> Dict[str, Any]:
     """Format alert data for timeline visualization."""
     severity_colors = {
         "critical": "rgb(255, 99, 132)",
@@ -320,7 +320,7 @@ def _format_alert_timeline_data(alerts: list) -> Dict[str | Any]:
     }
 
 
-def _format_latency_distribution_data(data: Dict[str, Any]) -> Dict[str | Any]:
+def _format_latency_distribution_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """Format latency distribution data for Chart.js."""
     time_series = data.get("time_series", [])
     latencies = [item["avg_latency"] * 1000 for item in time_series]  # Convert to ms
@@ -365,7 +365,7 @@ def _format_latency_distribution_data(data: Dict[str, Any]) -> Dict[str | Any]:
     }
 
 
-def _format_success_rate_data(data: Dict[str, Any]) -> Dict[str | Any]:
+def _format_success_rate_data(data: Dict[str, Any]) -> Dict[str, Any]:
     """Format success rate data for Chart.js."""
     time_series = data.get("time_series", [])
 

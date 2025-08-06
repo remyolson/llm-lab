@@ -195,6 +195,53 @@ def demo_dataset_processing():
     os.remove("prompt_data.csv")
 
 
+def demo_nemotron_dataset():
+    """Demo: Using the NVIDIA Nemotron Post-Training Dataset."""
+    print("\n=== Nemotron Dataset Demo ===\n")
+
+    from use_cases.fine_tuning.datasets.dataset_registry import DatasetRegistry
+
+    # Get dataset info
+    nemotron_info = DatasetRegistry.get_dataset("nemotron-post-training")
+    print(f"Dataset: {nemotron_info.name}")
+    print(f"Description: {nemotron_info.description}")
+    print(f"Size: {nemotron_info.size}")
+    print(f"Splits: {', '.join(nemotron_info.splits)}")
+    print(f"License: {nemotron_info.license}")
+
+    # Create processor
+    processor = DatasetProcessor(max_length=2048)
+
+    print("\nLoading Nemotron 'math' split (streaming mode)...")
+    math_dataset = processor.load_nemotron_split(
+        split="math",
+        streaming=True,
+        max_samples=100,  # Limit for demo
+    )
+
+    print("Preview of math examples:")
+    for i, example in enumerate(math_dataset.take(3)):
+        print(f"\nExample {i + 1}:")
+        for key in list(example.keys())[:3]:  # Show first 3 fields
+            value = (
+                str(example[key])[:100] + "..."
+                if len(str(example[key])) > 100
+                else str(example[key])
+            )
+            print(f"  {key}: {value}")
+
+    print("\nAvailable splits for different use cases:")
+    print("  - chat: General conversation and instruction-following")
+    print("  - code: Programming and code generation")
+    print("  - math: Mathematical reasoning")
+    print("  - stem: Science and technical Q&A")
+    print("  - tool_calling: Function calling examples")
+
+    print("\nTo use with fine-tuning:")
+    print("  config.data_config.dataset_name = 'nemotron-post-training'")
+    print("  config.data_config.dataset_split = 'chat'  # or any other split")
+
+
 def demo_training_monitoring():
     """Demo: Training monitoring with TensorBoard/W&B."""
     print("\n=== Training Monitoring Demo ===\n")
@@ -256,7 +303,7 @@ def main():
     parser = argparse.ArgumentParser(description="Fine-tuning framework demo")
     parser.add_argument(
         "--demo",
-        choices=["all", "basic", "qlora", "dataset", "monitoring", "benchmark"],
+        choices=["all", "basic", "qlora", "dataset", "nemotron", "monitoring", "benchmark"],
         default="all",
         help="Which demo to run",
     )
@@ -270,6 +317,7 @@ def main():
         "basic": demo_basic_fine_tuning,
         "qlora": demo_qlora_training,
         "dataset": demo_dataset_processing,
+        "nemotron": demo_nemotron_dataset,
         "monitoring": demo_training_monitoring,
         "benchmark": demo_benchmark_integration,
     }

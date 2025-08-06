@@ -19,7 +19,7 @@ import re
 from typing import Any, Dict, List
 
 
-def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str | Any]:
+def keyword_match(response: str, expected_keywords: List[str]) -> Dict[str, Any]:
     """
     Evaluate if a response contains expected keywords.
 

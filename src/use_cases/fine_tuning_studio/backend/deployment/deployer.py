@@ -54,7 +54,7 @@ class ModelDeployer:
         self.deployment_id = None
         self.status = "initialized"
 
-    async def deploy(self) -> Dict[str | Any]:
+    async def deploy(self) -> Dict[str, Any]:
         """Deploy the model"""
         raise NotImplementedError
 
@@ -62,11 +62,11 @@ class ModelDeployer:
         """Rollback deployment"""
         raise NotImplementedError
 
-    async def health_check(self) -> Dict[str | Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Check deployment health"""
         raise NotImplementedError
 
-    async def get_metrics(self) -> Dict[str | Any]:
+    async def get_metrics(self) -> Dict[str, Any]:
         """Get deployment metrics"""
         raise NotImplementedError
 
@@ -82,7 +82,7 @@ class HuggingFaceDeployer(ModelDeployer):
         super().__init__(config)
         self.hub_token = os.getenv("HUGGINGFACE_TOKEN")
 
-    async def deploy(self) -> Dict[str | Any]:
+    async def deploy(self) -> Dict[str, Any]:
         """Deploy model to HuggingFace Hub"""
         try:
             self.status = "deploying"
@@ -183,7 +183,7 @@ See the evaluation results in the model files.
             logger.error(f"Rollback failed: {e}")
             return False
 
-    async def health_check(self) -> Dict[str | Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Check HuggingFace deployment health"""
         return {
             "healthy": self.status == "deployed",
@@ -192,7 +192,7 @@ See the evaluation results in the model files.
             "timestamp": datetime.utcnow().isoformat(),
         }
 
-    async def get_metrics(self) -> Dict[str | Any]:
+    async def get_metrics(self) -> Dict[str, Any]:
         """Get deployment metrics from HuggingFace"""
         return {"downloads": 0, "likes": 0, "usage": "N/A"}
 
@@ -209,7 +209,7 @@ class LocalVLLMDeployer(ModelDeployer):
         self.process = None
         self.port = 8000
 
-    async def deploy(self) -> Dict[str | Any]:
+    async def deploy(self) -> Dict[str, Any]:
         """Deploy model using vLLM"""
         try:
             self.status = "deploying"
@@ -271,7 +271,7 @@ class LocalVLLMDeployer(ModelDeployer):
             return True
         return False
 
-    async def health_check(self) -> Dict[str | Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Check vLLM server health"""
         try:
             import aiohttp
@@ -294,7 +294,7 @@ class LocalVLLMDeployer(ModelDeployer):
                 "timestamp": datetime.utcnow().isoformat(),
             }
 
-    async def get_metrics(self) -> Dict[str | Any]:
+    async def get_metrics(self) -> Dict[str, Any]:
         """Get vLLM server metrics"""
         try:
             import aiohttp
@@ -319,7 +319,7 @@ class AWSSageMakerDeployer(ModelDeployer):
         super().__init__(config)
         self.endpoint_name = None
 
-    async def deploy(self) -> Dict[str | Any]:
+    async def deploy(self) -> Dict[str, Any]:
         """Deploy model to SageMaker"""
         try:
             self.status = "deploying"
@@ -366,7 +366,7 @@ class AWSSageMakerDeployer(ModelDeployer):
         except:
             return False
 
-    async def health_check(self) -> Dict[str | Any]:
+    async def health_check(self) -> Dict[str, Any]:
         """Check SageMaker endpoint health"""
         return {
             "healthy": self.status == "deployed",
@@ -375,7 +375,7 @@ class AWSSageMakerDeployer(ModelDeployer):
             "timestamp": datetime.utcnow().isoformat(),
         }
 
-    async def get_metrics(self) -> Dict[str | Any]:
+    async def get_metrics(self) -> Dict[str, Any]:
         """Get SageMaker endpoint metrics from CloudWatch"""
         return {"invocations": 0, "modelLatency": 0, "overhead": 0, "errors": 0}
 
@@ -408,7 +408,7 @@ class DeploymentPipeline:
         experiment_id: str,
         checkpoint: str,
         **kwargs,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Deploy a model to specified provider"""
 
         try:
@@ -454,7 +454,7 @@ class DeploymentPipeline:
             logger.error(f"Deployment pipeline error: {e}")
             return {"success": False, "error": str(e)}
 
-    async def _pre_deployment_checks(self, config: DeploymentConfig) -> Dict[str | Any]:
+    async def _pre_deployment_checks(self, config: DeploymentConfig) -> Dict[str, Any]:
         """Run pre-deployment validation checks"""
         checks = {
             "model_exists": Path(config.model_path).exists(),
@@ -510,7 +510,7 @@ class DeploymentPipeline:
 
         return success
 
-    async def get_deployment_status(self, deployment_id: str) -> Dict[str | Any]:
+    async def get_deployment_status(self, deployment_id: str) -> Dict[str, Any]:
         """Get deployment status and metrics"""
         if deployment_id not in self.active_deployments:
             return {"error": "Deployment not found"}

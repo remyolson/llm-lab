@@ -193,7 +193,7 @@ if GOOGLE_AVAILABLE:
                     # Use generic exception mapping
                     raise map_provider_exception(self.provider_name, e)
 
-        def get_model_info(self) -> Dict[str | Any]:
+        def get_model_info(self) -> Dict[str, Any]:
             """
             Get information about the current model.
 

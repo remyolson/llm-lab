@@ -527,7 +527,7 @@ class ResourceMonitor:
             return self.history[-1]
         return None
 
-    def get_metrics_summary(self) -> Dict[str | Any]:
+    def get_metrics_summary(self) -> Dict[str, Any]:
         """Get summary statistics of collected metrics."""
         if not self.history:
             return {}
@@ -716,7 +716,7 @@ class AlertManager:
             callback=anomaly_callback,
         )
 
-    def get_alert_history(self) -> List[Dict[str | Any]]:
+    def get_alert_history(self) -> List[Dict[str, Any]]:
         """Get alert history."""
         return self.alert_history.copy()
 
@@ -872,11 +872,11 @@ class MonitoringIntegration:
         """Add anomaly detection for a metric."""
         self.alert_manager.add_anomaly_detection(metric, **kwargs)
 
-    def get_resource_summary(self) -> Dict[str | Any]:
+    def get_resource_summary(self) -> Dict[str, Any]:
         """Get resource usage summary."""
         return self.resource_monitor.get_metrics_summary()
 
-    def get_alert_history(self) -> List[Dict[str | Any]]:
+    def get_alert_history(self) -> List[Dict[str, Any]]:
         """Get alert history."""
         return self.alert_manager.get_alert_history()
 

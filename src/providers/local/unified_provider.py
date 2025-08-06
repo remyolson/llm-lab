@@ -296,7 +296,7 @@ class UnifiedLocalProvider(LLMProvider):
                 details=f"Failed to generate response: {e}",
             )
 
-    def get_model_info(self) -> Dict[str | Any]:
+    def get_model_info(self) -> Dict[str, Any]:
         """Get information about the current model."""
         base_info = {
             "model_name": self.model_name,
@@ -355,7 +355,7 @@ class UnifiedLocalProvider(LLMProvider):
             logger.error(f"Error validating local model setup: {e}")
             return False
 
-    def get_memory_usage(self) -> Dict[str | float]:
+    def get_memory_usage(self) -> Dict[str, float]:
         """Get current memory usage across all loaded models."""
         total_usage = {"ram": 0.0, "vram": 0.0}
 
@@ -418,7 +418,7 @@ class UnifiedLocalProvider(LLMProvider):
                 except Exception as e:
                     logger.warning(f"Failed to unload model {model_id}: {e}")
 
-    def list_available_models(self) -> List[Dict[str | Any]]:
+    def list_available_models(self) -> List[Dict[str, Any]]:
         """List all available local models."""
         models = []
         for model_info in self.registry.list_models():

@@ -324,7 +324,7 @@ class ComparisonView:
 
         return pd.DataFrame(table_data)
 
-    def create_statistical_summary(self) -> Dict[str | Any]:
+    def create_statistical_summary(self) -> Dict[str, Any]:
         """Create statistical summary of improvements.
 
         Returns:
@@ -351,7 +351,7 @@ class ComparisonView:
 
         return summary
 
-    def create_cost_benefit_summary(self) -> Dict[str | Any]:
+    def create_cost_benefit_summary(self) -> Dict[str, Any]:
         """Create cost/benefit summary.
 
         Returns:

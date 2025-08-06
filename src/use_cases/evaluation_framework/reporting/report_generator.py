@@ -249,7 +249,7 @@ class ReportGenerator:
         else:
             raise ValueError(f"Unsupported format: {format}")
 
-    def _generate_sections(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_sections(self, content: ReportContent) -> Dict[str, Any]:
         """Generate report sections.
 
         Args:
@@ -293,7 +293,7 @@ class ReportGenerator:
 
         return sections
 
-    def _generate_executive_summary(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_executive_summary(self, content: ReportContent) -> Dict[str, Any]:
         """Generate executive summary.
 
         Args:
@@ -352,7 +352,7 @@ class ReportGenerator:
             "recommendation": self._get_overall_recommendation(avg_improvement, num_regressions),
         }
 
-    def _generate_performance_metrics(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_performance_metrics(self, content: ReportContent) -> Dict[str, Any]:
         """Generate performance metrics section.
 
         Args:
@@ -393,7 +393,7 @@ class ReportGenerator:
             },
         }
 
-    def _generate_cost_analysis(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_cost_analysis(self, content: ReportContent) -> Dict[str, Any]:
         """Generate cost analysis section.
 
         Args:
@@ -415,7 +415,7 @@ class ReportGenerator:
             "recommendation": cost_analysis.get("recommendation"),
         }
 
-    def _generate_detailed_benchmarks(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_detailed_benchmarks(self, content: ReportContent) -> Dict[str, Any]:
         """Generate detailed benchmark analysis.
 
         Args:
@@ -469,7 +469,7 @@ class ReportGenerator:
 
         return {"detailed_results": detailed_results}
 
-    def _generate_recommendations(self, content: ReportContent) -> List[Dict[str | str]]:
+    def _generate_recommendations(self, content: ReportContent) -> List[Dict[str, str]]:
         """Generate actionable recommendations.
 
         Args:
@@ -543,7 +543,7 @@ class ReportGenerator:
 
         return recommendations
 
-    def _generate_technical_details(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_technical_details(self, content: ReportContent) -> Dict[str, Any]:
         """Generate technical details section.
 
         Args:
@@ -574,7 +574,7 @@ class ReportGenerator:
             },
         }
 
-    def _generate_appendix(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_appendix(self, content: ReportContent) -> Dict[str, Any]:
         """Generate appendix with raw data.
 
         Args:
@@ -596,7 +596,7 @@ class ReportGenerator:
 
         return appendix
 
-    def _generate_visualizations(self, content: ReportContent) -> Dict[str | Any]:
+    def _generate_visualizations(self, content: ReportContent) -> Dict[str, Any]:
         """Generate visualizations for report.
 
         Args:

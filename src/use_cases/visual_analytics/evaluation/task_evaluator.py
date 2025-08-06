@@ -91,7 +91,7 @@ class EvaluationResult:
     evaluation_time_seconds: float = 0.0
     metadata: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "task_type": self.task_type.value,
@@ -506,7 +506,7 @@ class TaskEvaluationPanel:
 
     def _compute_rouge(
         self, predictions: List[str], references: List[str], **kwargs
-    ) -> Dict[str | float]:
+    ) -> Dict[str, float]:
         """Compute ROUGE scores."""
         # Simplified ROUGE-L calculation
         scores = []
@@ -528,7 +528,7 @@ class TaskEvaluationPanel:
 
     def _compute_distinct(
         self, predictions: List[str], references: List[str], **kwargs
-    ) -> Dict[str | float]:
+    ) -> Dict[str, float]:
         """Compute distinct n-grams."""
         all_unigrams = []
         all_bigrams = []

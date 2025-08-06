@@ -166,7 +166,7 @@ class ABTestResults:
     winner: Optional[str] = None
     recommendation: Optional[str] = None
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "test_config": {
@@ -345,7 +345,7 @@ class ABTestRunner:
             segment_key = f"{metric_name}_{sample.segment}"
             metrics_dict[segment_key].append(value)
 
-    def check_guardrails(self) -> List[Dict[str | Any]]:
+    def check_guardrails(self) -> List[Dict[str, Any]]:
         """Check for guardrail violations.
 
         Returns:
@@ -966,7 +966,7 @@ class MultiVariateTestRunner:
 
     async def run_tests(
         self, duration_hours: float = 24, simulate: bool = True
-    ) -> Dict[str | ABTestResults]:
+    ) -> Dict[str, ABTestResults]:
         """Run all tests.
 
         Args:

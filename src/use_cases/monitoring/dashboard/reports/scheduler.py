@@ -173,11 +173,11 @@ class ReportScheduler:
             self.logger.error(f"Failed to update scheduled report {report_id}: {e}")
             return False
 
-    def get_scheduled_reports(self) -> List[Dict[str | Any]]:
+    def get_scheduled_reports(self) -> List[Dict[str, Any]]:
         """Get all scheduled reports."""
         return [asdict(report) for report in self.scheduled_reports.values()]
 
-    def get_scheduled_report(self, report_id: str) -> Optional[Dict[str | Any]]:
+    def get_scheduled_report(self, report_id: str) -> Optional[Dict[str, Any]]:
         """Get a specific scheduled report."""
         if report_id in self.scheduled_reports:
             return asdict(self.scheduled_reports[report_id])
@@ -202,7 +202,7 @@ class ReportScheduler:
 
         self.logger.info("Report scheduler stopped")
 
-    def run_report_now(self, report_id: str) -> Dict[str | Any]:
+    def run_report_now(self, report_id: str) -> Dict[str, Any]:
         """Run a scheduled report immediately."""
         if report_id not in self.scheduled_reports:
             return {"status": "error", "message": "Report not found"}
@@ -342,7 +342,7 @@ class ReportScheduler:
 
         return False
 
-    def _execute_report(self, scheduled_report: ScheduledReport) -> Dict[str | Any]:
+    def _execute_report(self, scheduled_report: ScheduledReport) -> Dict[str, Any]:
         """Execute a scheduled report."""
         try:
             self.logger.info(f"Executing scheduled report: {scheduled_report.name}")

@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, Mock, patch
 import pytest
 
 from llm_providers import OpenAIProvider
-from llm_providers.exceptions import ProviderError, RateLimitError
+from src.providers.exceptions import ProviderError, RateLimitError
 
 from .integration_runner import (
     STANDARD_INTEGRATION_TESTS,

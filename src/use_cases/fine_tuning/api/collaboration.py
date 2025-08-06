@@ -361,7 +361,7 @@ class CollaborationManager:
 
     def use_share_link(
         self, link_id: str, password: Optional[str] = None
-    ) -> Optional[Dict[str | Any]]:
+    ) -> Optional[Dict[str, Any]]:
         """Use a share link to access an experiment"""
 
         if link_id not in self.share_links_db:
@@ -569,7 +569,7 @@ class CollaborationManager:
 
     def get_activity_feed(
         self, user_id: str, workspace_id: Optional[str] = None, limit: int = 50
-    ) -> List[Dict[str | Any]]:
+    ) -> List[Dict[str, Any]]:
         """Get activity feed for a user or workspace"""
 
         activities = []

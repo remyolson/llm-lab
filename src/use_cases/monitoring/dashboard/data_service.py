@@ -541,21 +541,21 @@ class DataService:
         self.updater.stop()
         self.logger.info("All data services stopped")
 
-    def get_metrics_summary(self, hours: int = 24) -> Dict[str | Any]:
+    def get_metrics_summary(self, hours: int = 24) -> Dict[str, Any]:
         """Get summary metrics."""
         return self.db_manager.get_metrics_summary(hours)
 
     def get_performance_data(
         self, hours: int = 24, provider: str = None, model: str = None
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Get performance data."""
         return self.db_manager.get_performance_data(hours, provider, model)
 
-    def get_cost_breakdown(self, hours: int = 24) -> Dict[str | Any]:
+    def get_cost_breakdown(self, hours: int = 24) -> Dict[str, Any]:
         """Get cost breakdown."""
         return self.db_manager.get_cost_breakdown(hours)
 
-    def get_active_alerts(self, limit: int = 50) -> List[Dict[str | Any]]:
+    def get_active_alerts(self, limit: int = 50) -> List[Dict[str, Any]]:
         """Get active alerts."""
         return self.db_manager.get_active_alerts(limit)
 

@@ -42,7 +42,7 @@ class ModelResponse:
     retry_count: int
     metadata: Dict[str, Any]
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary with JSON-serializable values."""
         result = asdict(self)
         result["start_time"] = self.start_time.isoformat()
@@ -63,7 +63,7 @@ class ExecutionResult:
     responses: List[ModelResponse]
     execution_mode: str  # 'sequential' or 'parallel'
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary with JSON-serializable values."""
         return {
             "prompt_template": self.prompt_template,

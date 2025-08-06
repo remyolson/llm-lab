@@ -26,8 +26,8 @@ from typing import Any, Dict, List, Optional, Tuple
 import pytest
 
 # Import existing infrastructure
-from providers.base import LLMProvider
-from providers.openai import OpenAIProvider
+from src.providers.base import LLMProvider
+from src.providers.openai import OpenAIProvider
 
 # ===============================================================================
 # DATA STRUCTURES FOR REGRESSION TESTING

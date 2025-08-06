@@ -16,7 +16,7 @@ class TestProviderInitialization:
 
     def test_openai_provider_init(self, mock_env):
         """Test OpenAI provider initialization with mock environment."""
-        from providers.openai import OpenAIProvider
+        from src.providers.openai import OpenAIProvider
 
         with patch("openai.OpenAI"):
             provider = OpenAIProvider(api_key="test-key", model="gpt-4", temperature=0.7)
@@ -26,7 +26,7 @@ class TestProviderInitialization:
 
     def test_anthropic_provider_init(self, mock_env):
         """Test Anthropic provider initialization."""
-        from providers.anthropic import AnthropicProvider
+        from src.providers.anthropic import AnthropicProvider
 
         with patch("anthropic.Anthropic"):
             provider = AnthropicProvider(api_key="test-key", model="claude-3")
@@ -35,7 +35,7 @@ class TestProviderInitialization:
 
     def test_google_provider_init(self, mock_env):
         """Test Google provider initialization."""
-        from providers.google import GoogleProvider
+        from src.providers.google import GoogleProvider
 
         with patch("google.generativeai.configure"):
             with patch("google.generativeai.GenerativeModel"):
@@ -86,7 +86,7 @@ class TestProviderErrorHandling:
 
     def test_invalid_api_key_handling(self):
         """Test handling of invalid API keys."""
-        from providers.openai import OpenAIProvider
+        from src.providers.openai import OpenAIProvider
 
         with patch("openai.OpenAI") as mock_client:
             mock_client.side_effect = Exception("Invalid API key")
@@ -124,7 +124,7 @@ class TestProviderConfiguration:
 
     def test_temperature_bounds(self):
         """Test that temperature is bounded correctly."""
-        from utils.validation import validate_temperature
+        from src.utils.validation import validate_temperature
 
         assert validate_temperature(0.0) == 0.0
         assert validate_temperature(1.0) == 1.0
@@ -138,7 +138,7 @@ class TestProviderConfiguration:
 
     def test_max_tokens_validation(self):
         """Test max tokens validation."""
-        from utils.validation import validate_max_tokens
+        from src.utils.validation import validate_max_tokens
 
         assert validate_max_tokens(100) == 100
         assert validate_max_tokens(4096) == 4096
@@ -151,7 +151,7 @@ class TestProviderConfiguration:
 
     def test_model_name_validation(self):
         """Test model name validation."""
-        from utils.validation import validate_model_name
+        from src.utils.validation import validate_model_name
 
         valid_models = ["gpt-4", "gpt-3.5-turbo", "claude-3-opus-20240229", "gemini-pro"]
 

@@ -455,7 +455,7 @@ class EvaluationDashboard:
             {"timestamp": datetime.now(), metric_name: value, **(metadata or {})}
         )
 
-    def create_drill_down_view(self, model_id: str, benchmark: str) -> Dict[str | Any]:
+    def create_drill_down_view(self, model_id: str, benchmark: str) -> Dict[str, Any]:
         """Create detailed drill-down view for specific model/benchmark.
 
         Args:

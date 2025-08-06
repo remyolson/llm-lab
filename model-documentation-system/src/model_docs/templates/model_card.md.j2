@@ -1,0 +1,112 @@
+# Model Card: {{ metadata.name }}
+
+## Model Details
+
+- **Version**: {{ metadata.version }}
+- **Framework**: {{ metadata.framework }}
+- **Architecture**: {{ metadata.architecture }}
+- **Created**: {{ metadata.created_date }}
+- **Last Modified**: {{ metadata.last_modified }}
+
+### Model Description
+{{ metadata.description | default("No description provided.") }}
+
+### Model Architecture
+- **Total Parameters**: {{ "{:,}".format(metadata.total_parameters) }}
+- **Trainable Parameters**: {{ "{:,}".format(metadata.trainable_parameters) }}
+{% if metadata.input_shape %}
+- **Input Shape**: {{ metadata.input_shape }}
+{% endif %}
+{% if metadata.output_shape %}
+- **Output Shape**: {{ metadata.output_shape }}
+{% endif %}
+
+## Training Configuration
+{% if training_config %}
+- **Dataset**: {{ training_config.dataset_name | default("Not specified") }}
+- **Dataset Size**: {{ training_config.dataset_size | default("Not specified") }}
+- **Batch Size**: {{ training_config.batch_size | default("Not specified") }}
+- **Learning Rate**: {{ training_config.learning_rate | default("Not specified") }}
+- **Epochs**: {{ training_config.epochs | default("Not specified") }}
+- **Optimizer**: {{ training_config.optimizer | default("Not specified") }}
+- **Loss Function**: {{ training_config.loss_function | default("Not specified") }}
+- **Hardware**: {{ training_config.hardware | default("Not specified") }}
+- **Training Time**: {{ training_config.training_time_hours | default("Not specified") }} hours
+{% else %}
+Training configuration not available.
+{% endif %}
+
+## Performance Metrics
+{% if performance %}
+### Primary Metrics
+{% if performance.accuracy %}
+- **Accuracy**: {{ "%.4f" | format(performance.accuracy) }}
+{% endif %}
+{% if performance.precision %}
+- **Precision**: {{ "%.4f" | format(performance.precision) }}
+{% endif %}
+{% if performance.recall %}
+- **Recall**: {{ "%.4f" | format(performance.recall) }}
+{% endif %}
+{% if performance.f1_score %}
+- **F1 Score**: {{ "%.4f" | format(performance.f1_score) }}
+{% endif %}
+
+### Additional Metrics
+{% for metric, value in performance.custom_metrics.items() %}
+- **{{ metric }}**: {{ value }}
+{% endfor %}
+
+**Evaluation Dataset**: {{ performance.evaluation_dataset | default("Not specified") }}
+**Evaluation Date**: {{ performance.evaluation_date }}
+{% else %}
+Performance metrics not available.
+{% endif %}
+
+## Ethical Considerations
+{% if ethical_considerations %}
+### Intended Use
+{{ ethical_considerations.intended_use | default("Not specified") }}
+
+### Limitations
+{% for limitation in ethical_considerations.limitations %}
+- {{ limitation }}
+{% endfor %}
+
+### Potential Biases
+{% for bias in ethical_considerations.potential_biases %}
+- {{ bias }}
+{% endfor %}
+
+### Privacy Considerations
+{% for privacy in ethical_considerations.privacy_considerations %}
+- {{ privacy }}
+{% endfor %}
+
+### Environmental Impact
+{{ ethical_considerations.environmental_impact | default("Not assessed") }}
+{% else %}
+Ethical considerations not documented.
+{% endif %}
+
+## Usage Guidelines
+{{ usage_guidelines | default("No specific usage guidelines provided.") }}
+
+## License
+{{ license | default("Not specified") }}
+
+## Citation
+```
+{{ citation | default("Citation information not available.") }}
+```
+
+## Contact
+{{ contact_info | default("Contact information not provided.") }}
+
+## References
+{% for ref in references %}
+- {{ ref }}
+{% endfor %}
+
+---
+*This model card was automatically generated on {{ datetime.now().isoformat() }}*

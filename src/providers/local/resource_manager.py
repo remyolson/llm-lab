@@ -110,7 +110,7 @@ class ResourceManager:
         self._last_system_check = current_time
         return self._system_info
 
-    def _get_ram_info(self) -> Dict[str | float]:
+    def _get_ram_info(self) -> Dict[str, float]:
         """Get RAM usage information."""
         try:
             import psutil
@@ -133,7 +133,7 @@ class ResourceManager:
                 "ram_percent": 50.0,
             }
 
-    def _get_gpu_info(self) -> Dict[str | any]:
+    def _get_gpu_info(self) -> Dict[str, any]:
         """Get GPU information and usage."""
         gpu_info = {
             "total_vram_mb": 0.0,
@@ -186,7 +186,7 @@ class ResourceManager:
 
         return gpu_info
 
-    def _get_cpu_info(self) -> Dict[str | any]:
+    def _get_cpu_info(self) -> Dict[str, any]:
         """Get CPU information."""
         try:
             import psutil
@@ -368,7 +368,7 @@ class ResourceManager:
 
         return True
 
-    def get_resource_summary(self) -> Dict[str | any]:
+    def get_resource_summary(self) -> Dict[str, any]:
         """Get a summary of current resource usage."""
         resources = self.get_system_resources()
         model_ram, model_vram = self.get_total_model_usage()

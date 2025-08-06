@@ -17,7 +17,7 @@ from benchmarks import (
     MultiModelBenchmarkRunner,
 )
 from benchmarks.runners.multi_runner import ProgressTracker
-from providers.exceptions import ProviderError, RateLimitError
+from src.providers.exceptions import ProviderError, RateLimitError
 
 
 class TestModelBenchmarkResult:

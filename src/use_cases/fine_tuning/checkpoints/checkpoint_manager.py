@@ -66,7 +66,7 @@ class CheckpointMetadata:
     recipe_name: Optional[str] = None
     notes: Optional[str] = None
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -608,7 +608,7 @@ class CheckpointManager:
 
     def load_checkpoint(
         self, checkpoint_id: str, model=None, optimizer=None, scheduler=None, map_location=None
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Load a specific checkpoint.
 
         Args:
@@ -689,7 +689,7 @@ class CheckpointManager:
             "global_step": metadata.global_step,
         }
 
-    def load_best_checkpoint(self, **kwargs) -> Dict[str | Any]:
+    def load_best_checkpoint(self, **kwargs) -> Dict[str, Any]:
         """Load the best checkpoint based on metric.
 
         Args:
@@ -707,7 +707,7 @@ class CheckpointManager:
 
         return self.load_checkpoint(best_checkpoint.checkpoint_id, **kwargs)
 
-    def load_latest_checkpoint(self, **kwargs) -> Dict[str | Any]:
+    def load_latest_checkpoint(self, **kwargs) -> Dict[str, Any]:
         """Load the most recent checkpoint.
 
         Args:
@@ -768,7 +768,7 @@ class CheckpointManager:
 
         return checkpoints
 
-    def compare_checkpoints(self, checkpoint_id1: str, checkpoint_id2: str) -> Dict[str | Any]:
+    def compare_checkpoints(self, checkpoint_id1: str, checkpoint_id2: str) -> Dict[str, Any]:
         """Compare two checkpoints.
 
         Args:

@@ -4,10 +4,11 @@ This directory contains very small language models that can run efficiently on M
 
 ## 🎯 Default Model Set
 
-The repository includes 8 models (6 small + 2 large):
+The repository includes 10 models (8 small/medium + 2 large):
 - **Pythia-70M & Pythia-160M**: Fastest inference speeds (50-70 tokens/sec)
 - **SmolLM-135M & SmolLM-360M**: Great balance of speed and quality
 - **Qwen-0.5B**: Best quality among tiny models
+- **Qwen3-4B-Instruct & Qwen3-4B-Thinking**: Advanced 4B models with strong capabilities
 - **Qwen-0.5B-GGUF**: Quantized version for production efficiency
 - **Llama3.2-1B**: High-quality 1B model via Ollama
 - **GPT-OSS-20B**: OpenAI's powerful 20B model via Ollama (⚠️ LARGE)
@@ -56,6 +57,20 @@ The repository includes 8 models (6 small + 2 large):
 - **Use case**: High-quality chat, code generation, reasoning
 - **Quality**: Excellent balance of size and capability
 - **Format**: Ollama optimized (automatically quantized)
+
+### Qwen3-4B-Instruct-2507
+- **Size**: 4B parameters (~8GB)
+- **Speed**: ~5-10 tokens/sec on M-series
+- **Use case**: Advanced instruction following, code generation, analysis
+- **Quality**: Strong capabilities for complex tasks
+- **Format**: Transformers (supports Metal acceleration)
+
+### Qwen3-4B-Thinking-2507
+- **Size**: 4B parameters (~8GB)
+- **Speed**: ~5-10 tokens/sec on M-series
+- **Use case**: Complex reasoning, problem-solving, chain-of-thought
+- **Quality**: Optimized for step-by-step reasoning
+- **Format**: Transformers (supports Metal acceleration)
 
 ### GPT-OSS-20B ⚠️ (Large Model via Ollama)
 - **Size**: 20B parameters (~13GB via Ollama)

@@ -13,7 +13,7 @@ import pytest
 # Import providers
 try:
     from llm_providers import AnthropicProvider, GoogleProvider, OpenAIProvider
-    from llm_providers.exceptions import ModelNotSupportedError, ProviderError
+    from src.providers.exceptions import ModelNotSupportedError, ProviderError
 
     PROVIDERS_AVAILABLE = True
 except ImportError:

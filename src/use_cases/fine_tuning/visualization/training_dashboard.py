@@ -104,12 +104,12 @@ class MetricsCollector:
 
             return pd.DataFrame(data)
 
-    def get_all_metrics(self) -> Dict[str | pd.DataFrame]:
+    def get_all_metrics(self) -> Dict[str, pd.DataFrame]:
         """Get all metrics as DataFrames."""
         with self._lock:
             return {name: self.get_metric_history(name) for name in self.metrics_history.keys()}
 
-    def get_latest_metrics(self) -> Dict[str | float]:
+    def get_latest_metrics(self) -> Dict[str, float]:
         """Get the latest value for each metric."""
         with self._lock:
             latest = {}
@@ -356,7 +356,7 @@ class TrainingDashboard:
 
         return pd.DataFrame(formatted_metrics)
 
-    def create_progress_indicators(self, total_steps: int) -> Dict[str | Any]:
+    def create_progress_indicators(self, total_steps: int) -> Dict[str, Any]:
         """Create progress indicators."""
         current_step = self.metrics_collector.current_step
         current_epoch = self.metrics_collector.current_epoch

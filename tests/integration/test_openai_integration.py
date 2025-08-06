@@ -19,7 +19,7 @@ from typing import List
 import pytest
 
 from llm_providers import OpenAIProvider
-from llm_providers.exceptions import (
+from src.providers.exceptions import (
     InvalidCredentialsError,
     ModelNotSupportedError,
     ProviderError,

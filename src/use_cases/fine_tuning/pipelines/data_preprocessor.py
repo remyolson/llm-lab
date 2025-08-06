@@ -50,7 +50,7 @@ class DataQualityReport:
     token_statistics: Dict[str, Any] = field(default_factory=dict)
     label_distribution: Dict[str, int] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert report to dictionary."""
         return {
             "total_samples": self.total_samples,
@@ -102,7 +102,7 @@ class DataPreprocessor:
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self._format_detectors = self._setup_format_detectors()
 
-    def _setup_format_detectors(self) -> Dict[str | Callable]:
+    def _setup_format_detectors(self) -> Dict[str, Callable]:
         """Setup format detection functions."""
         return {
             "alpaca": self._detect_alpaca_format,
@@ -682,7 +682,7 @@ class DataPreprocessor:
 
         return dataset
 
-    def _remove_html_tags(self, example: Dict[str, Any]) -> Dict[str | Any]:
+    def _remove_html_tags(self, example: Dict[str, Any]) -> Dict[str, Any]:
         """Remove HTML tags from text fields."""
         html_pattern = re.compile("<.*?>")
 
@@ -692,7 +692,7 @@ class DataPreprocessor:
 
         return example
 
-    def _normalize_whitespace(self, example: Dict[str, Any]) -> Dict[str | Any]:
+    def _normalize_whitespace(self, example: Dict[str, Any]) -> Dict[str, Any]:
         """Normalize whitespace in text fields."""
         for key, value in example.items():
             if isinstance(value, str):
@@ -790,7 +790,7 @@ class DataPreprocessor:
         tokenizer: Optional[PreTrainedTokenizer] = None,
         custom_preprocessor: Optional[Callable] = None,
         cache: bool = True,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Complete dataset preparation pipeline.
 
         Args:

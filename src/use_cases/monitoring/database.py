@@ -112,7 +112,7 @@ class DatabaseManager:
         finally:
             session.close()
 
-    def health_check(self) -> Dict[str | Any]:
+    def health_check(self) -> Dict[str, Any]:
         """
         Check database health and return status information.
 
@@ -425,7 +425,7 @@ class DatabaseManager:
                 return stats
 
     # Utility Methods
-    def cleanup_old_data(self, days_to_keep: int = 90) -> Dict[str | int]:
+    def cleanup_old_data(self, days_to_keep: int = 90) -> Dict[str, int]:
         """
         Clean up old data beyond the retention period.
 
@@ -467,7 +467,7 @@ class DatabaseManager:
         logger.info(f"Cleanup completed: {deleted_counts}")
         return deleted_counts
 
-    def get_database_size(self) -> Dict[str | Any]:
+    def get_database_size(self) -> Dict[str, Any]:
         """Get database size information."""
         with self.get_session() as session:
             if self.database_url.startswith("sqlite"):

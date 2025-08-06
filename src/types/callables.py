@@ -34,12 +34,14 @@ from .custom import (
     BenchmarkName,
     EvaluationMethod,
     ModelName,
-    PriorityLevelType,
-    ProcessingStatusType,
     ProviderName,
-    QualityLevelType,
 )
 from .evaluation import BenchmarkResult, EvaluationResult, MetricResult
+from .protocols import (
+    PriorityLevelType,
+    ProcessingStatusType,
+    QualityLevelType,
+)
 
 # ParamSpec and TypeVar definitions for callable signatures
 P = ParamSpec("P")

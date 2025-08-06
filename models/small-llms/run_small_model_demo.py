@@ -9,6 +9,8 @@ Available models:
 - Pythia-70M: Research model, very lightweight
 - Pythia-160M: Research model, lightweight
 - Qwen-0.5B: Instruction-tuned, good for chat
+- Qwen3-4B-Instruct: Advanced instruction-tuned model
+- Qwen3-4B-Thinking: Reasoning-focused model
 
 Usage:
     python run_small_model_demo.py
@@ -366,6 +368,8 @@ def list_available_models():
         "pythia-70m": "Pythia 70M - Very lightweight research model",
         "pythia-160m": "Pythia 160M - Lightweight research model",
         "qwen-0.5b": "Qwen 0.5B - Instruction-tuned chat model",
+        "qwen3-4b-instruct": "Qwen3 4B Instruct - Advanced instruction-tuned model",
+        "qwen3-4b-thinking": "Qwen3 4B Thinking - Reasoning-focused model",
     }
 
     for model_name, description in model_descriptions.items():
@@ -419,6 +423,8 @@ def main():
             "pythia-70m",
             "pythia-160m",
             "qwen-0.5b",
+            "qwen3-4b-instruct",
+            "qwen3-4b-thinking",
             "gpt-oss-20b",
             "llama3.2-1b",
         ],

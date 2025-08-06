@@ -15,8 +15,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Callable, Dict, List, Optional, Type
 
-from llm_providers.base import LLMProvider
-from llm_providers.exceptions import InvalidCredentialsError, ProviderError, RateLimitError
+from src.providers.base import LLMProvider
+from src.providers.exceptions import InvalidCredentialsError, ProviderError, RateLimitError
 
 logger = logging.getLogger(__name__)
 

@@ -11,7 +11,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from providers.exceptions import ModelNotFoundError, ProviderConfigurationError, ProviderError
+from src.providers.exceptions import ModelNotFoundError, ProviderConfigurationError, ProviderError
 from use_cases.local_models.download_helper import ModelDownloader
 from use_cases.local_models.provider import LocalModelProvider
 

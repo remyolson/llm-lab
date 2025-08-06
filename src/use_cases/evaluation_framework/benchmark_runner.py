@@ -97,7 +97,7 @@ class ModelVersion:
         if isinstance(self.created_at, str):
             self.created_at = datetime.fromisoformat(self.created_at)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "version_id": self.version_id,
@@ -121,7 +121,7 @@ class BenchmarkResult:
     system_info: Dict[str, Any] = field(default_factory=dict)
     errors: List[str] = field(default_factory=list)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "model_version": self.model_version.to_dict(),
@@ -144,7 +144,7 @@ class ComparisonResult:
     regressions: List[Dict[str, Any]] = field(default_factory=list)
     statistical_analysis: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "base_result": self.base_result.to_dict(),
@@ -605,7 +605,7 @@ class AutoBenchmarkRunner(GenericEvaluator[Tuple[str, str], ComparisonResult]):
 
     def _perform_statistical_analysis(
         self, base_result: BenchmarkResult, ft_result: BenchmarkResult, improvements: Dict[str, Any]
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Perform statistical analysis on results.
 
         Args:
@@ -948,7 +948,7 @@ class ModelVersionTracker(GenericProcessor[ModelVersion, Dict[str, Any]]):
 
         return schedule_id
 
-    def get_evaluation_state(self, eval_id: str) -> Dict[str | Any]:
+    def get_evaluation_state(self, eval_id: str) -> Dict[str, Any]:
         """Get current state of an evaluation.
 
         Args:
@@ -1070,7 +1070,7 @@ class ModelVersionTracker(GenericProcessor[ModelVersion, Dict[str, Any]]):
         except Exception as e:
             logger.warning(f"Failed to cache result: {e}")
 
-    def _get_system_info(self) -> Dict[str | Any]:
+    def _get_system_info(self) -> Dict[str, Any]:
         """Get system information."""
         info = {
             "platform": os.uname().sysname,

@@ -105,7 +105,7 @@ class ResourceMonitor:
             except Exception as e:
                 logger.warning(f"Error collecting resource snapshot: {e}")
 
-    def get_peak_usage(self) -> Dict[str | float]:
+    def get_peak_usage(self) -> Dict[str, float]:
         """Get peak resource usage from collected snapshots."""
         if not self.snapshots:
             return {}

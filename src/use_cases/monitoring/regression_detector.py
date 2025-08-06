@@ -564,7 +564,7 @@ class RegressionDetector:
 
         return "info"
 
-    def analyze_model_trends(self, model_id: int, days_back: int = 30) -> Dict[str | Any]:
+    def analyze_model_trends(self, model_id: int, days_back: int = 30) -> Dict[str, Any]:
         """
         Analyze overall trends for a model across all metrics.
 
@@ -645,7 +645,7 @@ class RegressionDetector:
 
     def get_regression_summary(
         self, model_ids: Optional[List[int]] = None, days_back: int = 7
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Get a summary of detected regressions across models.
 

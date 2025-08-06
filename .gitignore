@@ -74,8 +74,11 @@ models/small-llms/*/model.safetensors
 models/small-llms/*/onnx/
 models/small-llms/*/*.gguf
 models/small-llms/*/runs/
+models/small-llms/*/vocab.json
+models/small-llms/*/merges.txt
 datasets/benchmarking/raw/*/data/
 datasets/fine-tuning/raw/*/data/
+attack-library-system/final_expanded_attack_library.json
 
 # System assessment files (machine-specific)
 models/small-llms/assessments/

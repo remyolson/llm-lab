@@ -19,7 +19,7 @@ class DailySummaryTemplate(ReportTemplate):
             name="daily_summary", description="Daily monitoring summary with key metrics and alerts"
         )
 
-    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str | Any]:
+    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """Get context for daily summary template."""
         context = super().get_context(data, **kwargs)
 
@@ -104,7 +104,7 @@ class DailySummaryTemplate(ReportTemplate):
 
         return recent_alerts
 
-    def _calculate_trends(self, performance_data: Dict[str, Any]) -> Dict[str | str]:
+    def _calculate_trends(self, performance_data: Dict[str, Any]) -> Dict[str, str]:
         """Calculate performance trends."""
         time_series = performance_data.get("time_series", [])
         if len(time_series) < 2:
@@ -148,7 +148,7 @@ class WeeklyPerformanceTemplate(ReportTemplate):
             description="Weekly performance analysis with trends and comparisons",
         )
 
-    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str | Any]:
+    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """Get context for weekly performance template."""
         context = super().get_context(data, **kwargs)
 
@@ -172,7 +172,7 @@ class WeeklyPerformanceTemplate(ReportTemplate):
 
         return context
 
-    def _calculate_weekly_stats(self, performance_data: Dict[str, Any]) -> Dict[str | Any]:
+    def _calculate_weekly_stats(self, performance_data: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate weekly performance statistics."""
         time_series = performance_data.get("time_series", [])
         if not time_series:
@@ -267,7 +267,7 @@ class WeeklyPerformanceTemplate(ReportTemplate):
 
         return breakdown
 
-    def _calculate_sla_compliance(self, performance_data: Dict[str, Any]) -> Dict[str | Any]:
+    def _calculate_sla_compliance(self, performance_data: Dict[str, Any]) -> Dict[str, Any]:
         """Calculate SLA compliance metrics."""
         time_series = performance_data.get("time_series", [])
         if not time_series:
@@ -333,7 +333,7 @@ class MonthlyAnalysisTemplate(ReportTemplate):
             description="Comprehensive monthly analysis with cost optimization and trends",
         )
 
-    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str | Any]:
+    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """Get context for monthly analysis template."""
         context = super().get_context(data, **kwargs)
 
@@ -358,7 +358,7 @@ class MonthlyAnalysisTemplate(ReportTemplate):
 
         return context
 
-    def _analyze_monthly_costs(self, cost_data: Dict[str, Any]) -> Dict[str | Any]:
+    def _analyze_monthly_costs(self, cost_data: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze monthly cost data."""
         daily_costs = cost_data.get("daily_costs", [])
         provider_breakdown = cost_data.get("provider_breakdown", {})
@@ -380,7 +380,7 @@ class MonthlyAnalysisTemplate(ReportTemplate):
 
     def _calculate_roi(
         self, cost_data: Dict[str, Any], performance_data: Dict[str, Any]
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Calculate return on investment metrics."""
         total_cost = cost_data.get("total_cost", 0)
         time_series = performance_data.get("time_series", [])
@@ -403,7 +403,7 @@ class MonthlyAnalysisTemplate(ReportTemplate):
             "successful_requests": int(successful_requests),
         }
 
-    def _analyze_usage_patterns(self, performance_data: Dict[str, Any]) -> Dict[str | Any]:
+    def _analyze_usage_patterns(self, performance_data: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze usage patterns."""
         time_series = performance_data.get("time_series", [])
         if not time_series:
@@ -488,7 +488,7 @@ class MonthlyAnalysisTemplate(ReportTemplate):
 
         return opportunities
 
-    def _create_executive_summary(self, data: Dict[str, Any]) -> Dict[str | str]:
+    def _create_executive_summary(self, data: Dict[str, Any]) -> Dict[str, str]:
         """Create executive summary."""
         metrics = data.get("metrics_summary", {})
         costs = data.get("cost_breakdown", {})
@@ -518,7 +518,7 @@ class CustomReportTemplate(ReportTemplate):
             description=config.get("description", "Custom report template"),
         )
 
-    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str | Any]:
+    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """Get context for custom template."""
         context = super().get_context(data, **kwargs)
 
@@ -538,7 +538,7 @@ class CustomReportTemplate(ReportTemplate):
 
         return context
 
-    def _extract_metrics(self, data: Dict[str, Any], config: Dict[str, Any]) -> Dict[str | Any]:
+    def _extract_metrics(self, data: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
         """Extract specific metrics based on configuration."""
         metrics = {}
         fields = config.get("fields", [])
@@ -556,7 +556,7 @@ class CustomReportTemplate(ReportTemplate):
 
         return metrics
 
-    def _prepare_chart_data(self, data: Dict[str, Any], config: Dict[str, Any]) -> Dict[str | Any]:
+    def _prepare_chart_data(self, data: Dict[str, Any], config: Dict[str, Any]) -> Dict[str, Any]:
         """Prepare data for charts."""
         chart_type = config.get("chart_type", "line")
         data_source = config.get("data_source", "performance_data.time_series")

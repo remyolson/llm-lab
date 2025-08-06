@@ -132,7 +132,7 @@ class ConfigurationManager:
                 warnings.warn(error_msg)
                 return Settings()  # Return default settings
 
-    def _load_from_file(self) -> Dict[str | Any | None]:
+    def _load_from_file(self) -> Dict[str | Any, None]:
         """Load configuration from file."""
         config_file = self._find_config_file()
         if not config_file:
@@ -167,7 +167,7 @@ class ConfigurationManager:
 
         return None
 
-    def _parse_config_file(self, config_path: Path) -> Dict[str | Any]:
+    def _parse_config_file(self, config_path: Path) -> Dict[str, Any]:
         """Parse configuration file based on extension."""
         suffix = config_path.suffix.lower()
 
@@ -180,7 +180,7 @@ class ConfigurationManager:
         else:
             raise ConfigurationError(f"Unsupported config file format: {suffix}")
 
-    def _parse_yaml(self, config_path: Path) -> Dict[str | Any]:
+    def _parse_yaml(self, config_path: Path) -> Dict[str, Any]:
         """Parse YAML configuration file."""
         try:
             import yaml
@@ -194,7 +194,7 @@ class ConfigurationManager:
 
         return data if isinstance(data, dict) else {}
 
-    def _parse_toml(self, config_path: Path) -> Dict[str | Any]:
+    def _parse_toml(self, config_path: Path) -> Dict[str, Any]:
         """Parse TOML configuration file."""
         try:
             import tomllib
@@ -211,7 +211,7 @@ class ConfigurationManager:
 
         return data if isinstance(data, dict) else {}
 
-    def _parse_json(self, config_path: Path) -> Dict[str | Any]:
+    def _parse_json(self, config_path: Path) -> Dict[str, Any]:
         """Parse JSON configuration file."""
         import json
 
@@ -220,7 +220,7 @@ class ConfigurationManager:
 
         return data if isinstance(data, dict) else {}
 
-    def _load_from_environment(self, env_override: Dict[str, str | None] = None) -> Dict[str | Any]:
+    def _load_from_environment(self, env_override: Dict[str, str | None] = None) -> Dict[str, Any]:
         """Load configuration from environment variables."""
         env_config = {}
 
@@ -288,7 +288,7 @@ class ConfigurationManager:
 
         config_dict[path[-1]] = value
 
-    def _load_profile_config(self, profile: str) -> Dict[str | Any | None]:
+    def _load_profile_config(self, profile: str) -> Dict[str | Any, None]:
         """Load profile-specific configuration."""
         profile_configs = {
             "development": {
@@ -446,7 +446,7 @@ class ConfigurationManager:
 
         return parser
 
-    def parse_cli_args(self, args: List[str | None] = None) -> Dict[str | Any]:
+    def parse_cli_args(self, args: List[str | None] = None) -> Dict[str, Any]:
         """Parse CLI arguments into configuration dictionary."""
         parser = self.create_cli_parser()
         parsed_args = parser.parse_args(args)
@@ -481,7 +481,7 @@ class ConfigurationManager:
 
         return cli_config
 
-    def get_config_summary(self) -> Dict[str | str]:
+    def get_config_summary(self) -> Dict[str, str]:
         """Get a summary of configuration sources and key values."""
         settings = self.get_settings()
 

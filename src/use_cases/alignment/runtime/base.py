@@ -82,7 +82,7 @@ class InterventionStrategy(ABC):
         pass
 
     @abstractmethod
-    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str | Any]]:
+    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str, Any]]:
         """
         Apply the intervention.
 
@@ -123,7 +123,7 @@ class OutputFilter(InterventionStrategy):
         """
         pass
 
-    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str | Any]]:
+    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str, Any]]:
         """Apply output filtering."""
         if not isinstance(value, str):
             return value, {"error": "OutputFilter requires string input"}
@@ -142,7 +142,7 @@ class ResponseModifier(InterventionStrategy):
     @abstractmethod
     def modify_generation_params(
         self, params: Dict[str, Any], context: AlignmentContext
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Modify generation parameters to steer response.
 
@@ -155,7 +155,7 @@ class ResponseModifier(InterventionStrategy):
         """
         pass
 
-    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str | Any]]:
+    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str, Any]]:
         """Apply response modification."""
         if not isinstance(value, dict):
             return value, {"error": "ResponseModifier requires dict input"}
@@ -191,7 +191,7 @@ class PromptModifier(InterventionStrategy):
         """
         pass
 
-    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str | Any]]:
+    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str, Any]]:
         """Apply prompt modification."""
         if not isinstance(value, str):
             return value, {"error": "PromptModifier requires string input"}
@@ -232,7 +232,7 @@ class SafetyChecker(InterventionStrategy):
         is_safe, _ = self.check_safety(value, context)
         return not is_safe
 
-    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str | Any]]:
+    def apply(self, value: Any, context: AlignmentContext) -> Tuple[Any | Dict[str, Any]]:
         """Apply safety check and potentially block content."""
         if not isinstance(value, str):
             return value, {"error": "SafetyChecker requires string input"}

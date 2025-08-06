@@ -276,7 +276,7 @@ def validate_prompt(prompt: str, max_length: int = 10000) -> NormalizedString:
 
 def validate_config_dict(
     config: Dict[str, Any], required_keys: List[str], optional_keys: List[str | None] = None
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Validate configuration dictionary.
 

@@ -50,7 +50,7 @@ def create_error_response(
     error_code: str | None = None,
     details: Dict[str, Any | None] = None,
     status_code: int = 500,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Create a standardized error response.
 
@@ -92,7 +92,7 @@ def create_evaluation_result(
     matched_keywords: List[str | None] = None,
     details: Dict[str, Any | None] = None,
     metadata: Dict[str, Any | None] = None,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Create a standardized evaluation result format.
 
@@ -133,7 +133,7 @@ def create_provider_response(
     usage_stats: Dict[str, Any | None] = None,
     generation_time: float | None = None,
     metadata: Dict[str, Any | None] = None,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Create a standardized provider response format.
 
@@ -173,7 +173,7 @@ def create_batch_response(
     success_count: int | None = None,
     error_count: int | None = None,
     metadata: Dict[str, Any | None] = None,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Create a standardized batch operation response.
 
@@ -219,7 +219,7 @@ def create_comparison_result(
     rankings: List[Dict[str, Any | None]] = None,
     summary: str | None = None,
     metadata: Dict[str, Any | None] = None,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Create a standardized model comparison result format.
 
@@ -262,7 +262,7 @@ def format_model_info(
     max_tokens: int | None = None,
     context_window: int | None = None,
     additional_info: Dict[str, Any | None] = None,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Format model information in a standardized structure.
 
@@ -301,7 +301,7 @@ def format_usage_stats(
     total_tokens: int | None = None,
     requests_made: int | None = None,
     cost_estimate: float | None = None,
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Format usage statistics in a standardized structure.
 
@@ -339,7 +339,7 @@ def format_usage_stats(
 
 def paginate_results(
     items: List[Any], page: int = 1, page_size: int = 20, total_count: int | None = None
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Create a paginated response structure.
 
@@ -399,7 +399,7 @@ class ResponseTimer:
         end = self.end_time or time.time()
         return end - self.start_time
 
-    def add_timing_to_response(self, response: Dict[str, Any]) -> Dict[str | Any]:
+    def add_timing_to_response(self, response: Dict[str, Any]) -> Dict[str, Any]:
         """Add timing information to a response dictionary."""
         response["execution_time"] = self.elapsed_time
         return response

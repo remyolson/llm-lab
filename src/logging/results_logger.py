@@ -126,7 +126,7 @@ class ResultRecord:
         self.error = eval_data.get("error", "")
         self.error_type = eval_data.get("error_type", "")
 
-    def to_csv_dict(self) -> Dict[str | Any]:
+    def to_csv_dict(self) -> Dict[str, Any]:
         """Convert to dictionary suitable for CSV writing."""
         return {
             "timestamp": format_timestamp(self.timestamp),

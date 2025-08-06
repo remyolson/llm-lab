@@ -76,7 +76,7 @@ class ReviewRequest:
             return datetime.now() > self.expires_at
         return False
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary for serialization."""
         return {
             "request_id": self.request_id,

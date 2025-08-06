@@ -38,7 +38,7 @@ import numpy as np
 import yaml
 
 # Import from use case examples
-from providers import get_provider
+from src.providers import get_provider
 from utils import setup_logging
 
 # Import components from other demos

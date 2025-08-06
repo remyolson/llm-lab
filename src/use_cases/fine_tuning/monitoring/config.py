@@ -105,7 +105,7 @@ class MonitoringSetup:
         self.logger = None
         self.alert_system = None
 
-    def setup(self) -> Dict[str | Any]:
+    def setup(self) -> Dict[str, Any]:
         """Set up all monitoring components."""
         components = {}
 
@@ -136,7 +136,7 @@ class MonitoringSetup:
 
         return components
 
-    def _get_platform_configs(self) -> Dict[str | Any]:
+    def _get_platform_configs(self) -> Dict[str, Any]:
         """Get platform-specific configurations."""
         configs = {}
 
@@ -254,7 +254,7 @@ def create_default_config(
     return config
 
 
-def setup_monitoring_from_env() -> Optional[Dict[str | Any]]:
+def setup_monitoring_from_env() -> Optional[Dict[str, Any]]:
     """Set up monitoring from environment variables."""
     config_file = os.getenv("LLLM_MONITORING_CONFIG")
 
@@ -284,7 +284,7 @@ def setup_monitoring_from_env() -> Optional[Dict[str | Any]]:
     return setup.setup()
 
 
-def get_monitoring_status(monitoring: MonitoringIntegration) -> Dict[str | Any]:
+def get_monitoring_status(monitoring: MonitoringIntegration) -> Dict[str, Any]:
     """Get current monitoring status."""
     status = {
         "platforms": monitoring.platforms,

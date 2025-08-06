@@ -29,7 +29,7 @@ from typing import Any, Dict, Optional
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent.parent))
 
-from providers import AnthropicProvider, GoogleProvider, OpenAIProvider
+from src.providers import AnthropicProvider, GoogleProvider, OpenAIProvider
 
 
 @dataclass

@@ -39,7 +39,7 @@ from logging import ResultsLogger
 from analysis import ResultsComparator
 from config import ConfigManager
 from evaluation import TruthfulnessEvaluator
-from providers import ProviderRegistry
+from src.providers import ProviderRegistry
 
 
 def print_header(text: str) -> None:

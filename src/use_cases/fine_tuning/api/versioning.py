@@ -337,7 +337,7 @@ class VersioningSystem:
                 return v
         return None
 
-    def compare_versions(self, experiment_id: str, version1: str, version2: str) -> Dict[str | Any]:
+    def compare_versions(self, experiment_id: str, version1: str, version2: str) -> Dict[str, Any]:
         """Compare two versions of an experiment"""
 
         v1 = self.get_version(experiment_id, version1)
@@ -365,7 +365,7 @@ class VersioningSystem:
             "timestamps": {"v1": v1.created_at, "v2": v2.created_at},
         }
 
-    def _diff_configs(self, config1: Dict, config2: Dict) -> Dict[str | Any]:
+    def _diff_configs(self, config1: Dict, config2: Dict) -> Dict[str, Any]:
         """Find differences between two configurations"""
         diff = {}
 
@@ -380,7 +380,7 @@ class VersioningSystem:
 
         return diff
 
-    def _diff_metrics(self, metrics1: Dict, metrics2: Dict) -> Dict[str | Any]:
+    def _diff_metrics(self, metrics1: Dict, metrics2: Dict) -> Dict[str, Any]:
         """Compare metrics between versions"""
         diff = {}
 

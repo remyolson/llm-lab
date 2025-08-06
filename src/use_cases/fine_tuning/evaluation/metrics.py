@@ -113,7 +113,7 @@ class MetricsCalculator:
         predictions: List[str],
         references: List[str | List[str]],
         metric_names: Optional[List[str]] = None,
-    ) -> Dict[str | MetricResult]:
+    ) -> Dict[str, MetricResult]:
         """Calculate all requested metrics.
 
         Args:
@@ -482,7 +482,7 @@ class MetricsCalculator:
 
     def calculate_diversity_metrics(
         self, generated_texts: List[str], n_gram_sizes: List[int] = [1, 2, 3]
-    ) -> Dict[str | MetricResult]:
+    ) -> Dict[str, MetricResult]:
         """Calculate diversity metrics for generated texts.
 
         Args:
@@ -536,7 +536,7 @@ class MetricsCalculator:
 
     def calculate_task_specific_metrics(
         self, task_type: str, predictions: List[Any], references: List[Any], **kwargs
-    ) -> Dict[str | MetricResult]:
+    ) -> Dict[str, MetricResult]:
         """Calculate task-specific metrics.
 
         Args:

@@ -429,7 +429,7 @@ class SystemAssessment:
                 )
         else:
             print("   ❌ Your system cannot safely run GPT-OSS 20B. Consider:")
-            print("      • Using smaller models (llama3.2:1b, qwen-0.5b)")
+            print("      • Using smaller models (llama3.2:1b, qwen-0.5b, qwen3-4b-instruct)")
             print("      • Cloud solutions (Google Colab, AWS, etc.)")
             print("      • Upgrading hardware (more RAM)")
 

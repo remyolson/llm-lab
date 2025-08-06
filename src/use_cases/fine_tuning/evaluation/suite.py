@@ -107,7 +107,7 @@ class EvaluationResult:
     total_runtime_seconds: float = 0.0
     hardware_info: Dict[str, Any] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary representation."""
         return {
             "model_name": self.model_name,
@@ -429,7 +429,7 @@ class EvaluationSuite:
         tokenizer: PreTrainedTokenizer,
         dataset: Dataset,
         benchmark_info: Dict[str, Any],
-    ) -> Dict[str | float]:
+    ) -> Dict[str, float]:
         """Evaluate multiple choice task.
 
         Args:
@@ -502,7 +502,7 @@ class EvaluationSuite:
         tokenizer: PreTrainedTokenizer,
         dataset: Dataset,
         benchmark_info: Dict[str, Any],
-    ) -> Dict[str | float]:
+    ) -> Dict[str, float]:
         """Evaluate generation task.
 
         Args:
@@ -655,7 +655,7 @@ class EvaluationSuite:
         fine_tuned_model: PreTrainedModel | str,
         tokenizer: PreTrainedTokenizer,
         benchmarks: Optional[List[str]] = None,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Compare base and fine-tuned models.
 
         Args:
@@ -734,7 +734,7 @@ class EvaluationSuite:
         current_results: EvaluationResult,
         baseline_results: EvaluationResult,
         threshold: Optional[float] = None,
-    ) -> List[Dict[str | Any]]:
+    ) -> List[Dict[str, Any]]:
         """Detect performance regressions.
 
         Args:
@@ -882,7 +882,7 @@ class EvaluationSuite:
 
         logger.info(f"Results saved to {json_path} and {report_path}")
 
-    def _get_hardware_info(self) -> Dict[str | Any]:
+    def _get_hardware_info(self) -> Dict[str, Any]:
         """Get hardware information."""
         info = {"device": str(self.config.device), "cpu_count": os.cpu_count()}
 

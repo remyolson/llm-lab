@@ -339,7 +339,7 @@ class RuntimeInterventionSystem:
             self.intervention_history.append(log_entry)
             logger.info(f"Intervention applied: {json.dumps(log_entry)}")
 
-    def get_intervention_stats(self) -> Dict[str | Any]:
+    def get_intervention_stats(self) -> Dict[str, Any]:
         """Get statistics about interventions."""
         if not self.intervention_history:
             return {"total_interventions": 0}

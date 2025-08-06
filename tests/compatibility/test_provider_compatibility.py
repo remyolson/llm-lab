@@ -12,8 +12,8 @@ from typing import Any, Dict, List, Optional
 
 import pytest
 
-from llm_providers.base import LLMProvider
-from llm_providers.exceptions import ProviderError, RateLimitError
+from src.providers.base import LLMProvider
+from src.providers.exceptions import ProviderError, RateLimitError
 from tests.providers.fixtures import get_available_providers
 
 logger = logging.getLogger(__name__)

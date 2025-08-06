@@ -71,7 +71,7 @@ class TrainingMetrics:
     memory_usage_gb: Optional[float] = None
     custom_metrics: Dict[str, float] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return {
             "step": self.step,

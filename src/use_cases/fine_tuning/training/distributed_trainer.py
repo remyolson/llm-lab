@@ -119,7 +119,7 @@ class DistributedTrainingConfig:
     init_method: str = "env://"
     timeout: int = 1800  # 30 minutes
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -311,7 +311,7 @@ class DistributedTrainer:
         logger.info(f"Model wrapped with Accelerate on rank {self.config.rank}")
         return self.model
 
-    def _create_deepspeed_config(self) -> Dict[str | Any]:
+    def _create_deepspeed_config(self) -> Dict[str, Any]:
         """Create default DeepSpeed configuration."""
         config = {
             "train_batch_size": self.training_args.per_device_train_batch_size
@@ -661,7 +661,7 @@ class DistributedTrainer:
 # Utility functions
 def estimate_memory_usage(
     model: nn.Module, batch_size: int, sequence_length: int, precision: str = "fp16"
-) -> Dict[str | float]:
+) -> Dict[str, float]:
     """Estimate memory usage for distributed training.
 
     Args:

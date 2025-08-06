@@ -4,7 +4,7 @@ import asyncio
 from pathlib import Path
 from typing import Any, Dict
 
-from providers import OpenAIProvider
+from src.providers import OpenAIProvider
 from use_cases.alignment.constitutional import (
     ConstitutionalAIEngine,
     ConstitutionalContext,

@@ -14,7 +14,7 @@ import pytest
 # Import providers directly to avoid base_test issues
 try:
     from llm_providers import AnthropicProvider, GoogleProvider, OpenAIProvider
-    from llm_providers.exceptions import (
+    from src.providers.exceptions import (
         InvalidCredentialsError,
         ModelNotSupportedError,
         ProviderError,

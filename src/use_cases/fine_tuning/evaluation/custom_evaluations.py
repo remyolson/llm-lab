@@ -52,7 +52,7 @@ class CustomEvaluationRegistry:
 @CustomEvaluationRegistry.register("instruction_following")
 def evaluate_instruction_following(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, config: Optional[Dict[str, Any]] = None
-) -> List[Dict[str | Any]]:
+) -> List[Dict[str, Any]]:
     """
     Evaluate model's ability to follow instructions.
 
@@ -118,7 +118,7 @@ def evaluate_instruction_following(
 @CustomEvaluationRegistry.register("code_generation")
 def evaluate_code_generation(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, config: Optional[Dict[str, Any]] = None
-) -> List[Dict[str | Any]]:
+) -> List[Dict[str, Any]]:
     """
     Evaluate model's code generation capabilities.
 
@@ -193,7 +193,7 @@ def evaluate_code_generation(
 @CustomEvaluationRegistry.register("domain_specific_medical")
 def evaluate_medical_domain(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, config: Optional[Dict[str, Any]] = None
-) -> List[Dict[str | Any]]:
+) -> List[Dict[str, Any]]:
     """
     Evaluate model on medical domain knowledge.
 
@@ -262,7 +262,7 @@ def evaluate_medical_domain(
 @CustomEvaluationRegistry.register("chat_coherence")
 def evaluate_chat_coherence(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, config: Optional[Dict[str, Any]] = None
-) -> List[Dict[str | Any]]:
+) -> List[Dict[str, Any]]:
     """
     Evaluate model's ability to maintain coherent conversations.
 
@@ -332,7 +332,7 @@ def evaluate_chat_coherence(
 @CustomEvaluationRegistry.register("summarization_quality")
 def evaluate_summarization(
     model: PreTrainedModel, tokenizer: PreTrainedTokenizer, config: Optional[Dict[str, Any]] = None
-) -> List[Dict[str | Any]]:
+) -> List[Dict[str, Any]]:
     """
     Evaluate model's summarization capabilities.
 

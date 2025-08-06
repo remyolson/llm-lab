@@ -17,7 +17,7 @@ from config.provider_config import (
     get_config_manager,
     reset_config_manager,
 )
-from providers.exceptions import ProviderConfigurationError
+from src.providers.exceptions import ProviderConfigurationError
 
 
 class TestProviderConfigManager:
@@ -428,7 +428,7 @@ class TestIntegrationWithProviders:
 
     def test_provider_uses_config_manager(self, mock_registry):
         """Test that providers use configuration from config manager."""
-        from llm_providers.base import LLMProvider
+        from src.providers.base import LLMProvider
 
         # Create a test provider class
         class TestProvider(LLMProvider):
@@ -467,7 +467,7 @@ class TestIntegrationWithProviders:
             mock_manager.get_provider_for_model.return_value = "openai"
             mock_manager_class.return_value = mock_manager
 
-            from llm_providers.registry import get_provider_for_model
+            from src.providers.registry import get_provider_for_model
 
             # Mock registry get_provider
             mock_registry.get_provider.return_value = MagicMock()

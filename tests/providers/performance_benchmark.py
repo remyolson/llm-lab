@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Type
 
-from llm_providers.base import LLMProvider
+from src.providers.base import LLMProvider
 
 from .test_config import TestConfig
 

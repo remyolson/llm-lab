@@ -305,7 +305,7 @@ class BaseTrainer(ABC):
             examples_per_second=examples_per_second,
         )
 
-    def _evaluate(self) -> Dict[str | float]:
+    def _evaluate(self) -> Dict[str, float]:
         """
         Evaluate the model on the evaluation dataset.
 
@@ -329,7 +329,7 @@ class BaseTrainer(ABC):
         avg_loss = total_loss / num_batches
         return {"loss": avg_loss}
 
-    def _move_batch_to_device(self, batch: Dict[str, Any]) -> Dict[str | Any]:
+    def _move_batch_to_device(self, batch: Dict[str, Any]) -> Dict[str, Any]:
         """Move batch tensors to the training device."""
         moved_batch = {}
         for key, value in batch.items():
@@ -542,7 +542,7 @@ class BaseTrainer(ABC):
 
         logger.info(f"Saved training summary: {summary_path}")
 
-    def get_memory_usage(self) -> Dict[str | float]:
+    def get_memory_usage(self) -> Dict[str, float]:
         """
         Get current memory usage statistics.
 

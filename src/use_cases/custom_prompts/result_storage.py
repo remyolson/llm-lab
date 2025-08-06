@@ -93,7 +93,7 @@ class CustomPromptResult:
             aggregated_metrics=aggregated_metrics,
         )
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary with JSON-serializable values."""
         result = asdict(self)
         result["execution_timestamp"] = self.execution_timestamp.isoformat()
@@ -397,7 +397,7 @@ class ResultStorage:
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
         model: Optional[str] = None,
-    ) -> List[Dict[str | Any]]:
+    ) -> List[Dict[str, Any]]:
         """List stored results with optional filtering.
 
         Args:
@@ -454,7 +454,7 @@ class ResultComparator:
     """Compare results across different models or executions."""
 
     @staticmethod
-    def compare_responses(result: CustomPromptResult) -> Dict[str | Any]:
+    def compare_responses(result: CustomPromptResult) -> Dict[str, Any]:
         """Compare responses within a single execution.
 
         Returns:
@@ -502,7 +502,7 @@ class ResultComparator:
         return comparison
 
     @staticmethod
-    def compare_metrics(results: List[CustomPromptResult]) -> Dict[str | Any]:
+    def compare_metrics(results: List[CustomPromptResult]) -> Dict[str, Any]:
         """Compare metrics across multiple executions.
 
         Returns:

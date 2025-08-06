@@ -65,7 +65,7 @@ def save_checkpoint(
 
 def load_checkpoint(
     checkpoint_path: str, map_location: Optional[torch.device] = None
-) -> Dict[str | Any]:
+) -> Dict[str, Any]:
     """
     Load a training checkpoint.
 

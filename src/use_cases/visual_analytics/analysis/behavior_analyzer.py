@@ -77,9 +77,7 @@ class ModelBehaviorAnalyzer:
             timestamp=datetime.now(), embeddings=embeddings, reduced_embeddings=reduced_embeddings
         )
 
-    def analyze_attention(
-        self, attention_weights: np.ndarray, tokens: List[str]
-    ) -> Dict[str | Any]:
+    def analyze_attention(self, attention_weights: np.ndarray, tokens: List[str]) -> Dict[str, Any]:
         """Analyze attention patterns.
 
         Args:
@@ -107,7 +105,7 @@ class ModelBehaviorAnalyzer:
 
     def analyze_activations(
         self, layer_activations: Dict[str, np.ndarray]
-    ) -> Dict[str | np.ndarray]:
+    ) -> Dict[str, np.ndarray]:
         """Analyze neuron activations.
 
         Args:
@@ -131,7 +129,7 @@ class ModelBehaviorAnalyzer:
 
     def test_prompt_sensitivity(
         self, model, base_prompt: str, variations: List[str]
-    ) -> Dict[str | float]:
+    ) -> Dict[str, float]:
         """Test model sensitivity to prompt variations.
 
         Args:

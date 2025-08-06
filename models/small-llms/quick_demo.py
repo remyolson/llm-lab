@@ -136,7 +136,9 @@ def main():
                 size_info = {
                     "smollm-135m": "135M params - Fastest, basic tasks",
                     "smollm-360m": "360M params - Better quality",
-                    "qwen-0.5b": "500M params - Best quality",
+                    "qwen-0.5b": "500M params - Good quality",
+                    "qwen3-4b-instruct": "4B params - Advanced instruction model",
+                    "qwen3-4b-thinking": "4B params - Reasoning-focused model",
                     "pythia-70m": "70M params - Ultra tiny",
                     "pythia-160m": "160M params - Very small",
                     "tinyllama": "1.1B params - Larger but capable",

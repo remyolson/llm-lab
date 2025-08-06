@@ -131,7 +131,7 @@ class PreferenceLearningSystem:
         if self.storage_path.exists():
             self.load_preferences()
 
-    def _initialize_global_preferences(self) -> Dict[str | Any]:
+    def _initialize_global_preferences(self) -> Dict[str, Any]:
         """Initialize global preference defaults."""
         return {
             "default_tone": "balanced",
@@ -201,7 +201,7 @@ class PreferenceLearningSystem:
             response += "\n\nWould you like me to elaborate on any specific aspect?"
         return response
 
-    def get_preference_insights(self, user_id: str) -> Dict[str | Any]:
+    def get_preference_insights(self, user_id: str) -> Dict[str, Any]:
         """Get insights about user preferences."""
         if user_id not in self.preferences:
             return {"status": "no_data"}
@@ -225,7 +225,7 @@ class PreferenceLearningSystem:
             "recommendations": self._get_recommendations(prefs),
         }
 
-    def _analyze_feedback_history(self, user_id: str) -> Dict[str | Any]:
+    def _analyze_feedback_history(self, user_id: str) -> Dict[str, Any]:
         """Analyze user's feedback history."""
         prefs = self.preferences.get(user_id)
         if not prefs:
@@ -268,7 +268,7 @@ class PreferenceLearningSystem:
 
         return recommendations
 
-    def export_preferences(self, user_id: str) -> Dict[str | Any]:
+    def export_preferences(self, user_id: str) -> Dict[str, Any]:
         """Export user preferences for portability."""
         if user_id not in self.preferences:
             return {}

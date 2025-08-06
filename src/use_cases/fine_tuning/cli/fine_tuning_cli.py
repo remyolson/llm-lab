@@ -71,7 +71,7 @@ class JobManager:
         self.jobs_file.parent.mkdir(parents=True, exist_ok=True)
         self.jobs = self._load_jobs()
 
-    def _load_jobs(self) -> Dict[str | Any]:
+    def _load_jobs(self) -> Dict[str, Any]:
         """Load jobs from persistent storage."""
         if self.jobs_file.exists():
             try:
@@ -117,11 +117,11 @@ class JobManager:
             self.jobs[job_id]["updated_at"] = datetime.now().isoformat()
             self._save_jobs()
 
-    def get_job(self, job_id: str) -> Optional[Dict[str | Any]]:
+    def get_job(self, job_id: str) -> Optional[Dict[str, Any]]:
         """Get job information."""
         return self.jobs.get(job_id)
 
-    def list_jobs(self, status: Optional[str] = None) -> List[Dict[str | Any]]:
+    def list_jobs(self, status: Optional[str] = None) -> List[Dict[str, Any]]:
         """List jobs with optional status filter."""
         jobs = list(self.jobs.values())
 
@@ -335,7 +335,7 @@ def _initialize_model_and_tokenizer(recipe_obj: Recipe) -> Tuple[Any | Any]:
     return model_obj, tokenizer
 
 
-def _prepare_training_dataset(recipe_obj: Recipe, tokenizer: Any) -> Dict[str | Any]:
+def _prepare_training_dataset(recipe_obj: Recipe, tokenizer: Any) -> Dict[str, Any]:
     """Prepare training and validation datasets."""
     preprocessor = DataPreprocessor()
     return preprocessor.prepare_dataset(

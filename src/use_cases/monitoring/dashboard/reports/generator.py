@@ -53,7 +53,7 @@ class ReportTemplate:
         """Get the template file path."""
         return self.template_dir / f"{self.name}.html"
 
-    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str | Any]:
+    def get_context(self, data: Dict[str, Any], **kwargs) -> Dict[str, Any]:
         """Get template context from data."""
         return {
             "report_title": self.name.replace("_", " ").title(),
@@ -99,7 +99,7 @@ class ReportGenerator:
         date_range: Optional[tuple] = None,
         filters: Optional[Dict[str, Any]] = None,
         **kwargs,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Generate a report using the specified template.
 
@@ -175,7 +175,7 @@ class ReportGenerator:
 
     def _gather_report_data(
         self, date_range: Optional[tuple] = None, filters: Optional[Dict[str, Any]] = None
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Gather data for report generation."""
         if not self.data_service:
             # Return mock data for testing
@@ -215,7 +215,7 @@ class ReportGenerator:
             self.logger.error(f"Data gathering failed: {e}")
             return self._get_mock_data(date_range)
 
-    def _get_mock_data(self, date_range: Optional[tuple] = None) -> Dict[str | Any]:
+    def _get_mock_data(self, date_range: Optional[tuple] = None) -> Dict[str, Any]:
         """Generate mock data for testing."""
         if date_range:
             start_date, end_date = date_range
@@ -295,7 +295,7 @@ class ReportGenerator:
             "filters": {},
         }
 
-    def _generate_charts(self, data: Dict[str, Any], template_name: str) -> Dict[str | str]:
+    def _generate_charts(self, data: Dict[str, Any], template_name: str) -> Dict[str, str]:
         """Generate charts for the report."""
         if not MATPLOTLIB_AVAILABLE:
             return {}

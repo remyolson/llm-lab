@@ -52,7 +52,7 @@ class CostBreakdown:
     currency: str = "USD"
     breakdown_details: Dict[str, float] = field(default_factory=dict)
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -70,7 +70,7 @@ class ROIAnalysis:
     internal_rate_return: float
     payback_period_months: float
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -85,7 +85,7 @@ class CostProjection:
     cumulative_savings: List[float]
     break_even_point: Optional[int] = None
 
-    def to_dict(self) -> Dict[str | Any]:
+    def to_dict(self) -> Dict[str, Any]:
         """Convert to dictionary."""
         return asdict(self)
 
@@ -164,7 +164,7 @@ class CostBenefitAnalyzer:
         gpu_type: str = "A100",
         data_size_gb: float = 1.0,
         num_experiments: int = 1,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Analyze cost/benefit of fine-tuning.
 
         Args:
@@ -269,7 +269,7 @@ class CostBenefitAnalyzer:
 
     def _calculate_performance_benefits(
         self, comparison_result: ComparisonResult
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Calculate performance benefits from fine-tuning.
 
         Args:
@@ -304,7 +304,7 @@ class CostBenefitAnalyzer:
             "improvements_by_benchmark": comparison_result.improvements,
         }
 
-    def _calculate_efficiency_gains(self, comparison_result: ComparisonResult) -> Dict[str | Any]:
+    def _calculate_efficiency_gains(self, comparison_result: ComparisonResult) -> Dict[str, Any]:
         """Calculate efficiency gains from fine-tuning.
 
         Args:
@@ -574,7 +574,7 @@ class CostBenefitAnalyzer:
         cost_breakdown: CostBreakdown,
         performance_benefits: Dict[str, Any],
         roi_analysis: ROIAnalysis,
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """Create decision matrix for fine-tuning.
 
         Args:
@@ -682,7 +682,7 @@ class CostBenefitAnalyzer:
 
         return key_factors
 
-    def _estimate_business_impact(self, accuracy_improvement: float) -> Dict[str | float]:
+    def _estimate_business_impact(self, accuracy_improvement: float) -> Dict[str, float]:
         """Estimate business impact of accuracy improvements.
 
         Args:
@@ -906,7 +906,7 @@ class CostBenefitAnalyzer:
         else:
             return "Not recommended - Very long payback period"
 
-    def create_visualizations(self, analysis: Dict[str, Any]) -> Dict[str | go.Figure]:
+    def create_visualizations(self, analysis: Dict[str, Any]) -> Dict[str, go.Figure]:
         """Create visualizations for cost/benefit analysis.
 
         Args:

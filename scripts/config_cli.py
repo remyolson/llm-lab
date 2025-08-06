@@ -22,7 +22,7 @@ import yaml
 from tabulate import tabulate
 
 from config import get_config_manager, reset_config_manager
-from providers import get_provider_for_model
+from src.providers import get_provider_for_model
 
 
 @click.group()

@@ -217,7 +217,7 @@ class TransformersBackend(LocalBackend):
         else:
             return "cpu"
 
-    def _get_quantization_config(self, quantization: str) -> Dict[str | Any]:
+    def _get_quantization_config(self, quantization: str) -> Dict[str, Any]:
         """Get quantization configuration."""
         config = {}
 
@@ -369,7 +369,7 @@ class TransformersBackend(LocalBackend):
             response = self._generate_sync(model, tokenizer, inputs, gen_kwargs)
             yield response
 
-    def get_model_memory_usage(self, model_id: str) -> Dict[str | float]:
+    def get_model_memory_usage(self, model_id: str) -> Dict[str, float]:
         """Get memory usage of a loaded model."""
         if model_id not in self._loaded_models:
             return {"ram": 0.0, "vram": 0.0}

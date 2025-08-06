@@ -116,7 +116,7 @@ class DataTransformer:
     """Transform data for export."""
 
     @staticmethod
-    def flatten_dict(d: Dict[str, Any], parent_key: str = "", sep: str = "_") -> Dict[str | Any]:
+    def flatten_dict(d: Dict[str, Any], parent_key: str = "", sep: str = "_") -> Dict[str, Any]:
         """Flatten nested dictionary.
 
         Args:
@@ -766,7 +766,7 @@ Records: {len(df)}
         format: Optional[ExportFormat] = None,
         output_dir: Optional[str] = None,
         **kwargs,
-    ) -> Dict[str | str | bytes | None]:
+    ) -> Dict[str | str | bytes, None]:
         """Export multiple datasets.
 
         Args:

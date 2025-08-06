@@ -17,8 +17,8 @@ from typing import Any, Callable, Dict, List, Optional, Type
 
 import psutil
 
-from llm_providers.base import LLMProvider
-from llm_providers.exceptions import ProviderError, RateLimitError
+from src.providers.base import LLMProvider
+from src.providers.exceptions import ProviderError, RateLimitError
 
 from .benchmark_config import BenchmarkConfig, BenchmarkMode
 

@@ -114,7 +114,7 @@ class IConfigurationService(Protocol):
         """
         ...
 
-    def get_provider_config(self, provider_name: str) -> Dict[str | Any]:
+    def get_provider_config(self, provider_name: str) -> Dict[str, Any]:
         """
         Get configuration for a specific provider.
 
@@ -126,7 +126,7 @@ class IConfigurationService(Protocol):
         """
         ...
 
-    def get_model_parameters(self, model_name: Optional[str] = None) -> Dict[str | Any]:
+    def get_model_parameters(self, model_name: Optional[str] = None) -> Dict[str, Any]:
         """
         Get model parameters configuration.
 
@@ -138,7 +138,7 @@ class IConfigurationService(Protocol):
         """
         ...
 
-    def get_network_config(self) -> Dict[str | Any]:
+    def get_network_config(self) -> Dict[str, Any]:
         """
         Get network-related configuration.
 
@@ -255,7 +255,7 @@ class ILLMProvider(Protocol):
         """
         ...
 
-    def get_model_info(self) -> Dict[str | Any]:
+    def get_model_info(self) -> Dict[str, Any]:
         """
         Get information about the model.
 
@@ -320,7 +320,7 @@ class IEvaluationService(Protocol):
 
     def evaluate_response(
         self, response: str, expected: str, evaluation_type: str = "keyword_match", **kwargs: Any
-    ) -> Dict[str | Any]:
+    ) -> Dict[str, Any]:
         """
         Evaluate a response against expected results.
 
@@ -341,7 +341,7 @@ class IEvaluationService(Protocol):
         expected_list: List[str],
         evaluation_type: str = "keyword_match",
         **kwargs: Any,
-    ) -> List[Dict[str | Any]]:
+    ) -> List[Dict[str, Any]]:
         """
         Evaluate multiple responses in batch.
 
@@ -378,7 +378,7 @@ class IResourceMonitor(Protocol):
         """Stop resource monitoring."""
         ...
 
-    def get_current_usage(self) -> Dict[str | Any]:
+    def get_current_usage(self) -> Dict[str, Any]:
         """
         Get current resource usage.
 
@@ -387,7 +387,7 @@ class IResourceMonitor(Protocol):
         """
         ...
 
-    def get_usage_history(self, duration_minutes: int = 10) -> List[Dict[str | Any]]:
+    def get_usage_history(self, duration_minutes: int = 10) -> List[Dict[str, Any]]:
         """
         Get resource usage history.
 

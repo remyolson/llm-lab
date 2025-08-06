@@ -16,7 +16,7 @@ def get_evaluation_metrics():
     return evaluation_metrics
 
 
-def enhance_response_with_metrics(response_data: Dict[str, Any]) -> Dict[str | Any]:
+def enhance_response_with_metrics(response_data: Dict[str, Any]) -> Dict[str, Any]:
     """Enhance a custom prompt response with comprehensive evaluation metrics.
 
     Args:
@@ -63,7 +63,7 @@ def enhance_response_with_metrics(response_data: Dict[str, Any]) -> Dict[str | A
     return response_data
 
 
-def calculate_diversity_metrics(responses: List[Dict[str, Any]]) -> Dict[str | Any]:
+def calculate_diversity_metrics(responses: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Calculate diversity metrics across multiple responses.
 
     Args:
@@ -124,7 +124,7 @@ def format_metrics_for_cli(metrics: Dict[str, Any]) -> List[str]:
     return lines
 
 
-def create_metrics_summary(responses: List[Dict[str, Any]]) -> Dict[str | Any]:
+def create_metrics_summary(responses: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Create a summary of metrics across multiple responses.
 
     Args:

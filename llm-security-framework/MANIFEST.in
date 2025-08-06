@@ -1,0 +1,14 @@
+include README.md
+include LICENSE
+include requirements.txt
+include requirements-dev.txt
+recursive-include src/llm_security *.yaml *.json *.txt
+recursive-include config *.yaml *.json
+recursive-include docs *.md *.rst
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+recursive-exclude tests *
+prune .git
+prune venv
+prune build
+prune dist
