@@ -107,7 +107,7 @@ jobs:
       continue-on-error: true  # Don't fail if notebooks require API keys
 
     - name: Upload documentation artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: documentation-html
         path: docs/_build/html/
@@ -218,7 +218,7 @@ jobs:
 
     - name: Upload link check results
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: link-check-results
         path: lychee-out.md
