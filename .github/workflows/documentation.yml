@@ -156,7 +156,7 @@ jobs:
 
     steps:
     - name: Download documentation artifacts
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v5
       with:
         name: documentation-html
         path: ./public
@@ -205,7 +205,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Download documentation
-      uses: actions/download-artifact@v3
+      uses: actions/download-artifact@v5
       with:
         name: documentation-html
         path: ./docs_html
