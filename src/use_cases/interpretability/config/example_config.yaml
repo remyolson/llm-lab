@@ -1,0 +1,89 @@
+## Example configuration for Interpretability Suite
+
+# Hook configuration for feature extraction
+hook:
+  enabled: true
+  target_layers: []  # Empty means all layers
+  layer_types:
+    - Linear
+    - Conv2d
+    - MultiheadAttention
+    - LayerNorm
+  collect_gradients: true
+  collect_activations: true
+  collect_attention: true
+  max_stored_batches: 10
+
+# Visualization settings
+visualization:
+  style: default  # Options: default, dark, paper, minimal
+  figure_size: [10, 8]
+  dpi: 150
+  color_scheme: Blues
+  interactive: true
+  save_format: png
+  animation_fps: 10
+  max_tokens_display: 50
+
+# Attribution method settings
+attribution:
+  default_method: integrated_gradients
+  integrated_gradients_steps: 50
+  gradient_shap_samples: 50
+  gradient_shap_stdev: 0.1
+  occlusion_window_size: 3
+  occlusion_stride: 1
+  lime_samples: 1000
+  lime_feature_mask_prob: 0.5
+  use_baseline: true
+  baseline_type: zero  # Options: zero, mean, random, custom
+
+# Explanation generation settings
+explanation:
+  style: technical  # Options: technical, simple, detailed
+  include_confidence: true
+  include_top_features: true
+  top_features_count: 10
+  include_attention_summary: true
+  include_gradient_summary: true
+  include_activation_summary: true
+  contrastive_explanations: false
+  natural_language: true
+
+# Dashboard settings
+dashboard:
+  enabled: true
+  host: 127.0.0.1
+  port: 8050
+  auto_refresh: true
+  refresh_interval: 5000  # milliseconds
+  theme: bootstrap
+  debug: false
+
+# Model-specific settings
+model:
+  model_type: transformer  # Options: transformer, cnn, rnn, custom
+  framework: pytorch  # Options: pytorch, tensorflow, jax
+  device: auto  # Options: auto, cpu, cuda, mps
+  mixed_precision: false
+  batch_size: 32
+  max_sequence_length: 512
+
+# Output settings
+output:
+  output_dir: ./interpretability_outputs
+  save_raw_data: true
+  save_visualizations: true
+  save_explanations: true
+  compression: true
+  timestamp_outputs: true
+  create_report: true
+  report_format: html  # Options: html, pdf, markdown
+
+# Advanced settings
+cache_enabled: true
+cache_size_mb: 500
+parallel_processing: true
+num_workers: 4
+logging_level: INFO
+random_seed: 42
