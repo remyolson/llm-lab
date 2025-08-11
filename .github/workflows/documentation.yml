@@ -211,7 +211,7 @@ jobs:
         path: ./docs_html
 
     - name: Check documentation links
-      uses: lycheeverse/lychee-action@v1
+      uses: lycheeverse/lychee-action@v2
       with:
         args: --verbose --no-progress './docs_html/**/*.html'
         fail: false  # Don't fail the workflow on broken links
