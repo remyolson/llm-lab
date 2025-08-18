@@ -5,7 +5,7 @@ Flask-CORS==4.0.0
 Flask-SocketIO==5.3.6
 
 # Database and ORM
-SQLAlchemy==2.0.25
+SQLAlchemy==2.0.43
 Flask-SQLAlchemy==3.1.1
 
 # Authentication and security
