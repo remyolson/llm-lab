@@ -31,7 +31,7 @@ jobs:
     if: github.event.inputs.test_category == 'unit' || github.event.inputs.test_category == 'all' || github.event.inputs.test_category == ''
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -81,7 +81,7 @@ jobs:
       (github.event_name != 'pull_request' || contains(github.event.pull_request.labels.*.name, 'run-integration'))
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -135,7 +135,7 @@ jobs:
       github.event_name == 'schedule'
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -178,7 +178,7 @@ jobs:
       github.ref == 'refs/heads/main'
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0  # Need history for comparisons
 
