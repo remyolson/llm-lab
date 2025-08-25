@@ -17,7 +17,7 @@ PyJWT==2.8.0
 python-socketio==5.10.0
 
 # HTTP client for API calls
-requests==2.31.0
+requests==2.32.5
 
 # Configuration and environment
 python-dotenv==1.0.0
